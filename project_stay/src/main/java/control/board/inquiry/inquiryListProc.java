@@ -1,41 +1,98 @@
 package control.board.inquiry;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class inquiryListProc
- */
-@WebServlet("/inquiryListProc")
-public class inquiryListProc extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public inquiryListProc() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import model.Handler.pagingHandler.pagingHandlerDAO;
+import model.Handler.pagingHandler.pagingHandlerDTO;
+import model.Inquiry.InquiryDAO;
+import model.Inquiry.InquiryDTO;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+// 1:1 게시판 그리는 서블릿
+@WebServlet("/inquiryListProc.do")
+public class inquiryListProc extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		reqPro(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		reqPro(request, response);
+	}
+	
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 인코딩
+		request.setCharacterEncoding("utf-8");
+		
+		// 1:1게시판 정보 가져오는 DAO (getInquiryAllBoard(startRow, pageSize) 메소드)
+		// 1:1게시판 개수 가져오는 DAO (getInquiryAllCount() 메소드)
+		
+		// 페이징 DTO & 페이징 DAO가져오는 단계 ----------------------------------
+		
+		
+		// 인스턴스화 (페이징 / Inquiry)
+		pagingHandlerDAO pdao = new pagingHandlerDAO();
+		pagingHandlerDTO pdto = new pagingHandlerDTO(); 
+		InquiryDAO idao = new InquiryDAO(); 
+		
+		
+		int count = 0;
+		
+		// 한 화면에 보여질 행의 개수 (10개)
+        pdto.setPageSize(10);
+	     
+        int pageSize = pdto.getPageSize();
+	    
+        
+	     
+		// 한 화면에 페이징하고 싶은 개수 [1][2][3][4][5]
+		int pageBlock=5;
+		
+		String pageNum = request.getParameter("pageNum");
+		
+		count = idao.getInquiryAllCount();
+		pdto = pdao.getPaging(pageNum, count, pageSize, pageBlock);
+		// pageSize = pdto.getPageSize();
+		//count = pdto.getNumber();
+		System.out.println(pageNum);
+		
+		int currentPage = pdto.getCurrentPage();
+		int startRow = pdto.getStartRow();
+		int number = pdto.getNumber();
+		int pageCount = pdto.getPageCount();
+		// pageBlock = pdto.getPageBlock();
+		int startPage = pdto.getStartPage();
+		int endPage = pdto.getEndPage();
+		
+		// 최신글 10개를 가져오는 DAO 메소드를 이용해서 리턴
+		ArrayList<InquiryDTO> ilist = idao.getInquiryAllBoard(startRow, pageSize);
+		number = count - startRow;  // 위와 동일함
+		
+		
+		// --------------------------------------------------------------------
+		// 
+		request.setAttribute("ilist", ilist);
+		//  그릴 변수 넘기기
+		// 페이징을 그림그릴 변수 넘기기
+		request.setAttribute("number", number);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("count", count);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageBlock", pageBlock);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		// InquiryList.jsp 으로 보내기
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/inquiry/inquiryList.jsp");
+		rd.forward(request, response);
+		
 	}
 
 }

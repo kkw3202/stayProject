@@ -24,7 +24,7 @@
 					<a href="#">로그아웃</a> <!-- 로그아웃 기능으로 매핑 필요 -->
 				</c:otherwise>
 			</c:choose>
-					<a href="index.jsp?section=inquirylist.jsp">1:1 문의</a>
+					<a href="inquiryListProc.do">1:1 문의</a>
 
 		</nav>
 
