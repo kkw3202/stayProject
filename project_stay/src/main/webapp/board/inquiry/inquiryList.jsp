@@ -3,7 +3,7 @@
 <%@ page import = "DBPKG.Util" %>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- 1:1게시판 --%>
+<%-- 1:1게시판     --%>
 <div class="boardwrap">
 	<h3>1:1게시판</h3>
 	<%-- 검색기능  --%>
