@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>머물 수 있는 곳이 많은 머물:多</title>
-<link rel="stylesheet" href="style/index_self.css">
+
 </head>
+
 <body>
 	<div class="container">
 		<jsp:include page="header.jsp" />
@@ -24,5 +25,6 @@
 		
 		<jsp:include page="footer.jsp" />
 	</div>
+	
 </body>
 </html>

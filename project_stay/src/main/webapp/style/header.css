@@ -1,0 +1,328 @@
+@charset "UTF-8";
+
+/* ==========================================
+   1. Header
+   ========================================== */
+#header {
+    width: 100%;
+	background: linear-gradient(145deg, #06101F 0%, #0F1C33 35%, #1A3358 70%, #24507A 100%);
+	background-image: url("../image/bana1.jpg");
+  	background-repeat: no-repeat; /* 반복 방지 */
+  	background-position: center;  /* 중앙 정렬 */
+  	background-size: cover;       /* 크기 조절 방식 선택 */
+    color: #fff;
+    padding: 28px 0 48px;
+    position: relative;
+    overflow: visible;
+    height: 400px;
+    min-width: 1280px;
+}
+#header::after {
+    content: '';
+    position: absolute;
+    bottom: -35%;
+    left: -8%;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(0, 84, 236, 0.28) 0%, transparent 70%);
+    pointer-events: none;
+}
+#header .left_top,
+#header .bottom {
+    max-width: var(--content-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    position: relative;
+    z-index: 2;
+}
+#header .left_top img {
+    height: 60px;
+    object-fit: contain;
+}
+/* 우측 메뉴 – 컨텐츠 영역 안 (가독성 개선 반영) */
+#header .right_top {
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: var(--content-width);
+    padding: 0 40px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 3;
+}
+#header .right_top a {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+}
+#header .right_top a:hover {
+    color: #FFFFFF;
+    background: rgba(0, 84, 236, 0.6);
+    transform: translateY(-1px);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+/* 검색바 */
+#header .bottom {
+    margin-top: 120px;
+    width: 1980px;
+	height: 320px;
+}
+#header .search_wrap form {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    padding: 8px 10px 8px 6px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+    max-width: 1290px;
+}
+#header .search_wrap .city,
+#header .search_wrap .type,
+#header .search_wrap .date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+#header .search_wrap .city,
+#header .search_wrap .type {
+    flex: 1;
+    padding: 0 18px;
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+}
+#header .search_wrap .date {
+    flex: 1.2;
+    padding: 0 20px;
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+    cursor: pointer;
+}
+/* 검색바 아이콘 */
+#header .search_wrap .search_bar_img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+#header .search_wrap select {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    outline: none;
+    cursor: pointer;
+}
+#header .search_wrap .date p {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+#header .search_wrap .search_bar {
+    flex: 1.6;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+#header .search_wrap .search_bar input {
+    width: 100%;
+    border: none;
+    font-size: 15px;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+}
+#header .search_wrap .search_bar input::placeholder {
+    color: #94A3B8;
+}
+/* 검색 버튼 */
+#header .search_wrap .btn {
+    width: 52px;
+    height: 52px;
+    background: var(--gradient);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 20px rgba(0, 84, 236, 0.4);
+    flex-shrink: 0;
+}
+#header .search_wrap .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0, 84, 236, 0.5);
+}
+#header .search_wrap .btn img {
+    width: 95px;
+    height: 95px;
+    filter: brightness(0) invert(1);
+}
+
+/* ==========================================
+   Header Select / Option 스타일
+   ========================================== */
+#header .search_wrap select {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 22px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748B' d='M1.4 1.4L6 6l4.6-4.6' stroke='%2364748B' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 2px center;
+    background-size: 12px;
+    transition: color 0.2s ease;
+}
+#header .search_wrap select:hover,
+#header .search_wrap select:focus {
+    color: var(--primary);
+}
+#header .search_wrap select option[disabled] {
+    color: #94A3B8;
+    font-weight: 500;
+}
+#header .search_wrap select option {
+    color: var(--text);
+    font-weight: 500;
+    background: #fff;
+    padding: 10px 14px;
+}
+#header .search_wrap select option:checked {
+    background: #EFF6FF;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ==========================================
+   Calendar Popup (#main)
+   ========================================== */
+#main {
+    margin: 0;
+    width: 350px;
+    background-color: #fff;
+    padding: 28px 22px 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    position: absolute;
+    top: 68px;
+    left: 260px;
+    z-index: 9999;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+}
+
+#main .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 44px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 16px;
+    padding: 0 6px;
+}
+
+#main .head button {
+    border: 1px solid #ddd;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #555;
+    font-size: 15px;
+}
+
+#main .head button:hover {
+    background-color: #f5f5f5;
+    border-color: #bbb;
+}
+
+#main table {
+    border-collapse: collapse;
+    border: none;
+    width: 100%;
+}
+
+#main table span,
+#main table td,
+#main table th {
+    color: #333 !important;
+    font-size: 14px;
+}
+
+#main table .sunday,
+#main table .sunday span {
+    color: #e53935 !important;
+}
+
+#main table .saterday,
+#main table .saterday span {
+    color: #1e88e5 !important;
+}
+
+#main table .beforDay {
+    color: #bdbdbd !important;
+}
+
+#main td {
+    border: none;
+    text-align: center;
+    width: 44px;
+    height: 42px;
+    vertical-align: middle;
+    padding: 1px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+/* 모든 날짜 공통 호버 */
+#main td:hover {
+    background-color: #e8f5e9;
+    border-radius: 50%;
+}
+
+#main td:hover span {
+    background-color: transparent;
+}
+
+#main span {
+    font-weight: 500;
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 50%;
+    transition: background-color 0.15s ease;
+}
+
+.noShow {
+    display: none;
+}

@@ -1,0 +1,372 @@
+@charset "UTF-8";
+
+/* ==========================================
+   0. Reset & Base
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --primary: #0054EC;
+    --cyan: #00B8BD;
+    --gradient: linear-gradient(135deg, #0054EC 0%, #00B8BD 100%);
+    --navy: #0A1628;
+    --navy2: #13233F;
+    --text: #0F172A;
+    --text2: #64748B;
+    --bg: #F1F5F9;
+    --white: #FFFFFF;
+    --radius: 20px;
+    --shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+    --content-width: 1370px;   /* 1330 → 1370 */
+}
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, 'Noto Sans KR', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+ul, ol, li {
+    list-style: none;
+}
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+}
+
+/* ==========================================
+   2. 공통 섹션 타이틀
+   ========================================== */
+.section_top > p,
+.section_middle > p,
+.section_bottom > p {
+    max-width: var(--content-width);
+    margin: 56px auto 24px;
+    padding: 0 40px;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.8px;
+    position: relative;
+}
+.section_top > p::after,
+.section_middle > p::after,
+.section_bottom > p::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 40px;
+    width: 32px;
+    height: 3.5px;
+    background: var(--gradient);
+    border-radius: 4px;
+}
+
+/* ==========================================
+   3. 추천 숙소
+   ========================================== */
+.section_top .group.recommend {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.section_top .rec_row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+.section_top .rec_card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    box-shadow: var(--shadow);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.section_top .rec_card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+}
+.section_top .imgbox {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background: #E2E8F0;
+}
+.section_top .imgbox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.section_top .rec_card:hover .imgbox img {
+    transform: scale(1.06);
+}
+.section_top .badgeLike_box {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(8px);
+    padding: 5px 11px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.section_top .badge_like {
+    color: #FFD700;
+    font-size: 13px;
+    font-weight: 700;
+}
+.section_top .badge_like_cnt {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 12px;
+    font-weight: 500;
+}
+.section_top .acc_cate {
+    font-size: 12px;
+    color: var(--primary);
+    margin: 16px 16px 3px;
+    font-weight: 600;
+}
+.section_top .acc_name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 16px 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.section_top .acc_city {
+    font-size: 13px;
+    color: var(--text2);
+    margin: 0 16px 18px;
+}
+
+/* ==========================================
+   4. 이달의 여행지
+   ========================================== */
+.section_middle .monthRegion {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+}
+.section_middle .month_card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    height: 350px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    position: relative;
+}
+.section_middle .month_card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+}
+.section_middle .month_card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.section_middle .month_card:hover img {
+    transform: scale(1.08);
+}
+
+/* ==========================================
+   5. 리뷰
+   ========================================== */
+.section_bottom {
+    padding-bottom: 90px;
+}
+.section_bottom .rev_row {
+    max-width: var(--content-width);
+    margin: 0 auto 28px;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+.section_bottom .rev_row:last-child {
+    margin-bottom: 0;
+}
+.rev_card {
+    background-color: var(--white);
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    min-height: 220px; /* 카드 높이 증가 */
+}
+.rev_card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+    border-color: rgba(0, 84, 236, 0.2);
+}
+.rev_card a {
+    display: flex;
+    align-items: stretch;
+    gap: 24px;          /* 간격 증가 */
+    padding: 22px;      /* 패딩 증가 */
+    width: 100%;
+    height: 100%;
+}
+/* [왼쪽 영역] */
+.rev_left {
+    width: 168px;
+    flex: 0 0 168px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;          /* 삐져나옴 방지 */
+}
+
+.rev_imgbox {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #E2E8F0;
+    margin-bottom: 10px;
+}
+
+.rev_imgbox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.rev_card:hover .rev_imgbox img {
+    transform: scale(1.06);
+}
+
+.rev_acc_name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* 평점 뱃지 + 숫자 */
+.badgereview_box {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    padding: 4px 10px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 100%;
+    margin-bottom: 6px;
+    box-sizing: border-box;
+}
+
+.badgereview_box .badge_review {
+    font-size: 12px;
+    font-weight: 800;
+    color: #F59E0B;
+    white-space: nowrap;
+}
+
+.badgereview_box .rev_count {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text2);
+    position: relative;
+    padding-left: 7px;
+    white-space: nowrap;
+}
+
+.badgereview_box .rev_count::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 22%;
+    height: 56%;
+    width: 1px;
+    background-color: #CBD5E1;
+}
+
+/* 점수 + 리뷰 수가 뱃지 밖에 있을 경우를 위한 안전장치 */
+.rev_left > div:not(.rev_imgbox):not(.rev_acc_name):not(.badgereview_box) {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+}
+/* [오른쪽 영역] */
+.rev_right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px dashed #E2E8F0;
+    padding: 4px 4px 4px 22px;
+    min-width: 0;
+}
+.rev_title {
+    font-size: 16.5px;      /* 기존 15.5 → 16.5 */
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.45;
+    transition: color 0.2s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  /* 1줄 → 2줄로 늘림 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.rev_title::before {
+    content: "“ ";
+    color: var(--primary);
+    font-weight: 900;
+}
+.rev_title::after {
+    content: " ”";
+    color: var(--primary);
+    font-weight: 900;
+}
+.rev_card:hover .rev_title {
+    color: var(--primary);
+}
+.rev_content {
+    font-size: 14px;        /* 기존 13.5 → 14 */
+    font-weight: 400;
+    color: var(--text2);
+    line-height: 1.7;
+    word-break: keep-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;  /* 4줄 → 5줄로 늘림 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

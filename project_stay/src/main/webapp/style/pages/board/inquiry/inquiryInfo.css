@@ -1,0 +1,26 @@
+@charset "UTF-8";
+/* inquiryInfo.jsp — 목록과 다른 상세보기 형태, :has 로 기존 태그 구분 */
+:root {
+    --primary: #0054EC;
+    --cyan: #00B8BD;
+    --gradient: linear-gradient(135deg, #0054EC 0%, #00B8BD 100%);
+    --navy: #0A1628;
+    --navy2: #13233F;
+    --text: #0F172A;
+    --text2: #64748B;
+    --bg: #F1F5F9;
+    --white: #FFFFFF;
+    --radius: 20px;
+    --shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+    --content-width: 1370px;   /* 1330 → 1370 */
+}
+html body .boardwrap:has(> table input[value="목록보기"]) {max-width:940px;width:calc(100% - 32px);margin:62px auto 84px;padding:32px;border:1px solid var(--mm-border);border-radius:21px;background:white;box-shadow:var(--mm-shadow);}
+html body .boardwrap:has(> table input[value="목록보기"]) > h3 {font-size:26px;font-weight:850;color:var(--mm-primary-dark);margin-bottom:25px;}
+html body .boardwrap:has(> table input[value="목록보기"]) > table {width:100%;max-width:none;border:0;border-collapse:collapse;}
+html body .boardwrap:has(> table input[value="목록보기"]) > table th {width:145px;padding:19px 16px;background:#eff3ff;color:var(--mm-primary-dark);border:0;border-bottom:1px solid #dce4f4;text-align:left;font-size:13px;font-weight:750;}
+html body .boardwrap:has(> table input[value="목록보기"]) > table td {height:auto;min-width:0;padding:18px 17px;text-align:left;border:0;border-bottom:1px solid #e8edf5;cursor:default;color:var(--mm-ink);font-size:14px;line-height:1.7;}
+html body .boardwrap:has(> table input[value="목록보기"]) > table tr:first-child td {background:#f9fbff;padding:18px;}
+html body .boardwrap:has(> table input[value="목록보기"]) input[type=button] {margin:4px 7px 4px 0;padding:10px 15px;border:1px solid #cad5ee;border-radius:9px;background:#fff;color:#224693;font-weight:750;font-size:12px;cursor:pointer;}
+html body .boardwrap:has(> table input[value="목록보기"]) input[value="목록보기"] {background:var(--mm-primary);border-color:var(--mm-primary);color:white;}
+html body .boardwrap:has(> table input[value="목록보기"]) input[type=button]:hover {filter:brightness(.96);}
+@media(max-width:650px){html body .boardwrap:has(> table input[value="목록보기"]){padding:18px 12px;}html body .boardwrap:has(> table input[value="목록보기"]) > table th{width:84px;padding:12px 8px;}html body .boardwrap:has(> table input[value="목록보기"]) > table td{padding:12px 8px;}}

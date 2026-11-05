@@ -1,0 +1,6 @@
+@charset "UTF-8";
+/* index.jsp — 메인 콘텐츠 영역 / 테마의 기본 배경 */
+html body > .container,
+html body .container {background:var(--mm-bg);}
+html body .container > section {width:100%;}
+html body .container > section:empty {min-height:120px;}

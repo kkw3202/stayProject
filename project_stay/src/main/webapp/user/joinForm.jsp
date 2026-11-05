@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 가입하기</title>
+<link rel="stylesheet" href="style/pages/user/joinForm.css">
 </head>
 <body>
 	<div class="container">

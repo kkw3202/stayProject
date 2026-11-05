@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 하기</title>
+<link rel="stylesheet" href="style/pages/user/loginForm.css">
 </head>
 <body>
 

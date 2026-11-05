@@ -2,8 +2,10 @@
     pageEncoding="UTF-8" import = "java.util.*"%>
 <%@ page import = "DBPKG.Util" %>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="style/pages/board/inquiry/inquiryList.css">
 
 <%-- 1:1게시판 --%>
+<section>
 <div class="boardwrap">
 	<h3>1:1게시판</h3>
 	<%-- 검색기능  --%>
@@ -93,6 +95,8 @@
 	</div>	
 
 </div>
+</section>
+
 <script>
 	// 게시판 글쓰기 버튼 관련한 스크립트
 

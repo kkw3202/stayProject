@@ -1,4 +1,18 @@
 @charset "UTF-8";
+@import url("theme_mumulda.css");
+@import url("pages/board/inquiry/inquiryInfo.css");
+@import url("pages/board/inquiry/inquiryList.css");
+@import url("pages/board/inquiry/inquiryUpdateForm.css");
+@import url("pages/board/inquiry/inquiryWriteForm.css");
+@import url("pages/footer.css");
+@import url("pages/header.css");
+@import url("pages/index.css");
+@import url("pages/searching/searchList.css");
+@import url("pages/section.css");
+@import url("pages/user/joinForm.css");
+@import url("pages/user/loginForm.css");
+@import url("pages/user/mypage.css");
+
 
 /* ==========================================
    0. Reset & Base
@@ -55,15 +69,15 @@ ul, ol, li {
    ========================================== */
 #header {
     width: 100%;
-	background: linear-gradient(145deg, #06101F 0%, #0F1C33 35%, #1A3358 70%, #24507A 100%);
-	background-image: url("../image/bana1.jpg");
-  	background-repeat: no-repeat; /* 반복 방지 */
-  	background-position: center;  /* 중앙 정렬 */
-  	background-size: cover;       /* 크기 조절 방식 선택 */
+    
+    background-image: url("../image/bana1.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     color: #fff;
     padding: 28px 0 48px;
     position: relative;
-    overflow: visible;
+    overflow: visible;          /* 두 번째 CSS 반영 (검색바 등 잘림 방지) */
     height: 400px;
 }
 
@@ -94,7 +108,7 @@ ul, ol, li {
     object-fit: contain;
 }
 
-/* 우측 메뉴 – 컨텐츠 영역 안 (가독성 개선 반영) */
+/* 우측 메뉴 – 컨텐츠 영역 안 */
 #header .right_top {
     position: absolute;
     top: 32px;
@@ -134,7 +148,7 @@ ul, ol, li {
 #header .bottom {
     margin-top: 120px;
     width: 1980px;
-	height: 320px;
+    height: 320px;
 }
 
 #header .search_wrap form {
@@ -169,7 +183,7 @@ ul, ol, li {
     cursor: pointer;
 }
 
-/* 검색바 아이콘 */
+/* 검색바 아이콘 – 두 번째 CSS 크기 반영 */
 #header .search_wrap .search_bar_img {
     width: 20px;
     height: 20px;
@@ -287,6 +301,7 @@ ul, ol, li {
     color: var(--primary);
     font-weight: 600;
 }
+
 
 /* ==========================================
    2. 공통 섹션 타이틀
@@ -457,13 +472,11 @@ ul, ol, li {
 
 
 /* ==========================================
-   5. 리뷰
-   ========================================== */
-/* ==========================================
-   5. 리뷰
+   5. 리뷰 (두 번째 CSS 신규 구조 반영)
    ========================================== */
 .section_bottom {
     padding-bottom: 90px;
+    overflow: hidden;
 }
 
 .section_bottom .rev_row {
@@ -584,7 +597,7 @@ ul, ol, li {
     justify-content: center;
     border-left: 1px dashed #E2E8F0;
     padding: 2px 2px 2px 18px;
-    min-width: 0; /* 텍스트 오버플로우 방지 */
+    min-width: 0;
 }
 
 .rev_title {
