@@ -6,16 +6,34 @@
 <%-- 1:1게시판 --%>
 <div class="boardwrap">
 	<h3>1:1게시판</h3>
+	<%-- 검색기능  --%>
+	<form action="inquiryListProc.do" method="get" class="searchbox">
+		<%-- 검색키워드 --%>
+		<select class="inq_search_type" name = "searchType">
+			<option value = "inq_title" ${searchType=='inq_title'?'selected':'' }>제목</option>
+			<option value = "user_name" ${searchType=='user_name'?'selected':'' }>작성자</option>
+			<option value = "inq_created_datetime" ${searchType=='inq_created_datetime'?'selected':'' }>작성시기</option>
+		</select>
+		<%-- 검색창 --%>
+		<input type="text" placeholder="검색" name="keyWord"/>
+		<%-- 아래는 버튼들 --%>
+		<%-- 검색버튼 --%>
+		<input type = "submit" value="검색"/>  
+		<%-- 전체보기 버튼은, 회원/비회원 모두 가능 --%>
+		<input type = "button" value="전체보기" onclick="location.href='inquiryListProc.do'" class="btn_search"/>
+		<%-- 로그인한 사람만 글쓰기/내가 쓴 글보기 버튼 보임 --%>
+		<c:if test="${not empty sessionScope.email }">
+			<input type="button" onclick="location.href='index.jsp?section=board/inquiry/inquiryInfo.jsp'" value = "글쓰기"/>
+			<%-- 관리자가 아니면서 일반회원인 경우에만 내가 쓴 글보기 --%>
+               <c:if test = "${sessionScope.email ne 'admin@naver.com' && not empty sessionScope.email}">
+               <%-- <input type="button" onclick="location.href='inquiryUpdateProc.do?inq_code=${idto.inq_code}'" value="수정하기"/> --%>
+			   <input type="button" class="btn_all" onclick="location.href='inquiryListProc.do'" value = "내가 쓴 글보기"/>
+               </c:if>
+		</c:if>
+	</form>
+	
+	<%-- 게시판 테이블  --%>
 	<table width="700" border="1">
-		<tr colspan="5" align="center">
-			<select class="inq_search">
-				<option value = "">제목</option>
-				<option value = "">작성자</option>
-				<option value = "">답변상태</option>
-			</select>
-			<input type="text" placeholder="검색" />
-			<input type = "button" value="검색"/>
-		</tr>
 		<tr>
 			<th>순번</th>
 			<th>글제목</th>
@@ -28,8 +46,17 @@
 		<c:forEach var="ilist" items="${ilist}">
 			<tr>
 				<td>${number}</td>
-				<%-- 글제목 inq_title --%>
-				<td>${ilist.inq_title}</td>
+				<td>
+					<c:if test = "${ilist.inq_re_step==1 }">
+						<c:forEach var="i" begin="1" end = "5">
+							&nbsp;
+						</c:forEach>
+					</c:if>
+					<a href="inquiryInfoProc.do?inq_code=${ilist.inq_code}">${ilist.inq_title}</a>
+				</td>
+				<%-- <td>
+					<a href="">${ilist.inq_title}</a>
+				</td> --%>
 				<%-- 작성자 user_name --%>
 				<td>${ilist.user_name}</td>
 				<%-- 작성일시 inq_created_datetime --%>
@@ -46,13 +73,6 @@
 			</tr>
 			<c:set var="number" value="${number-1}"/>
 		</c:forEach>
-	
-		<tr colspan="5" align="left">
-			<td colspan="5">
-				<input type="button" onclick="location.href='index.jsp?section=board/inquiry/inquiryInfo.jsp'" value = "글쓰기"/>
-				<input type="button" onclick="" value = "내가 쓴 글보기"/>
-			</td>
-		</tr>
 	</table>
 	
 	<%-- 페이징 부분 --%>

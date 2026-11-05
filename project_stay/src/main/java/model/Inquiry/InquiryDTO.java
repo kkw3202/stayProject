@@ -4,9 +4,45 @@ public class InquiryDTO {
 	
 	private int inq_code;
 	private String inq_title;
-	private String user_name;
+	private String user_name;  // 회원이름
 	private String inq_created_datetime;
-	private int inq_chk_status;
+	private int inq_chk_status;  // 답변상태 체크키
+	private int inq_ref;  // 글 그룹
+	private int inq_re_step;  // 글 스탭
+	private int user_code;  // 회원코드
+	private String inq_content;  // 글 내용
+	private int inq_chk_del;  // 삭제여부체크키 (소프트삭제)
+	
+	public int getInq_chk_del() {
+		return inq_chk_del;
+	}
+	public void setInq_chk_del(int inq_chk_del) {
+		this.inq_chk_del = inq_chk_del;
+	}
+	public String getInq_content() {
+		return inq_content;
+	}
+	public void setInq_content(String inq_content) {
+		this.inq_content = inq_content;
+	}
+	public int getInq_ref() {
+		return inq_ref;
+	}
+	public void setInq_ref(int inq_ref) {
+		this.inq_ref = inq_ref;
+	}
+	public int getInq_re_step() {
+		return inq_re_step;
+	}
+	public void setInq_re_step(int inq_re_step) {
+		this.inq_re_step = inq_re_step;
+	}
+	public int getUser_code() {
+		return user_code;
+	}
+	public void setUser_code(int user_code) {
+		this.user_code = user_code;
+	}
 	
 	public int getInq_code() {
 		return inq_code;
