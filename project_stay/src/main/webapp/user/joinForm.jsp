@@ -39,7 +39,7 @@
 				<tr>
 					<th>전화번호</th>
 					<td>
-						<input type=tel" name="phone" placeholder="예)010-0000-0000">
+						<input type=tel" name="phone" placeholder="숫자만 입력하세요">
 					</td>
 				</tr>
 				<tr>

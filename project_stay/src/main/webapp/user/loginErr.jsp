@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <script type="text/javascript">
-	alert("${msg}"");
-	location.href="index.jsp?section=user/loginErr.jsp";
+	alert("${msg}");
+	location.href="index.jsp?section=user/loginForm.jsp";
 
 </script>

@@ -11,6 +11,7 @@ public class UserDTO {
 	String user_password;
 	int user_chk_del;
 	String user_passkey;
+	
 	public int getUser_code() {
 		return user_code;
 	}

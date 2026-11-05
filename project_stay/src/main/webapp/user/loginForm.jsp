@@ -7,7 +7,7 @@
 <title>로그인 하기</title>
 </head>
 <body>
-<!-- email주소가 admin@naver.com으로 로그인 시 관리자  -->
+
 	<div class="container">
 		<form action="loginProc.do" method="post" name="lfrm">
 			<table border="1">
@@ -23,18 +23,38 @@
 				<tr>
 					<th>비밀번호</th>
 					<td>
-						<input type="text" name="password" placeholder="비밀번호를 입력하세요">
+						<input type="password" name="password" placeholder="비밀번호를 입력하세요">
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="button" value="로그인" onclick="doLogin()">
+						<input type="button" value="로그인" onclick="chkLogin()">
 						<input type="button" value="비밀번호 찾기" onclick="findPassword()">
 					</td>
 				</tr>
-			</table> 		
+			</table> 
 		</form>
 	</div>
+	<script type="text/javascript">
+		function chkLogin(){
+			var form = document.lfrm;
+			if(!form.email.value){
+				alert("이메일을 입력하세요");
+				form.email.focus();
+				return;
+			}
+			if(!form.password.value){
+				alert("비밀번호를 입력하세요");
+				form.password.focus();
+				return;
+			}
+			form.submit();
+		}
+		
+		function findPassword(){
+			location.href="findPasswordProc.do"
+		}
 	
+	</script>	
 </body>
 </html>

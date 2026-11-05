@@ -29,26 +29,45 @@ public class loginProc extends HttpServlet {
 		
 		UserDAO udao = new UserDAO();
 		
-		String user_email = request.getParameter("email");
-		boolean loginchk = udao.loginCheck(user_email, request.getParameter("password"));
-			
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		boolean loginAdminchk = udao.loginAdminCheck(email, password);
+		boolean loginchk = udao.loginCheck(email, password);
+		// admin 로그인시
+		if("admin@naver.com".equals(email)) {
+			if(loginAdminchk) {
+				request.setAttribute("msg", "관리자님, 환영합니다!");
+				HttpSession session = request.getSession();
+				session.setAttribute("user_email", email);
+				session.getAttribute("user_email");
+				session.setMaxInactiveInterval(60*240);
+				RequestDispatcher rd = request.getRequestDispatcher("/user/loginOk.jsp");
+				rd.forward(request, response);
+			}else {
+				request.setAttribute("msg", "로그인 실패.");
+				RequestDispatcher rd = request.getRequestDispatcher("/user/loginErr.jsp");
+				rd.forward(request, response);
+			}
+			return;
+		}
 		if(loginchk) {
 			request.setAttribute("msg", "로그인 되었습니다.");
 			// 로그인에 성공했으므로, 세션에 id 저장해야함.
 			HttpSession session = request.getSession();
 			// session.setAttribute("작명", 값);
 			// session.getAttribute("작명");
-			session.setAttribute("user_email", user_email);
+			session.setAttribute("user_email", email);
 			session.getAttribute("user_email");
 			// session 유지 시간 30분 => ()안의 값 : 초
 			session.setMaxInactiveInterval(60*30);
 			
 			// 이전 페이지 말고, 아예 다른 페이지 이동 시에는 sendRedirect 사용
-			response.sendRedirect("user/loginChk.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/user/loginOk.jsp");
+			rd.forward(request, response);
 			
 		}else {
 			request.setAttribute("msg", "로그인 실패.");
-			RequestDispatcher rd = request.getRequestDispatcher("user/loginErr.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/user/loginErr.jsp");
 			rd.forward(request, response);
 		}
 	}

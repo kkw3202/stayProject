@@ -5,6 +5,7 @@ import java.util.*;
 import DBPKG.*;
 
 
+
 public class UserDAO {
    
 	Connection con = null;
@@ -17,7 +18,7 @@ public class UserDAO {
 //-----------------------------------------
 // 	2026. 11. 4. 
 	// email만 추출하는 메소드 
-	public String getEmail(String user_email) {
+	public String getEmail(String email) {
 		String chkmail="";
 		
 		try {
@@ -25,7 +26,7 @@ public class UserDAO {
 			
 			String sql = "select user_email from user where user_email=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, user_email);
+			pstmt.setString(1, email);
 			
 			rs = pstmt.executeQuery();
 			
@@ -51,14 +52,14 @@ public class UserDAO {
 		try {
 			con = Util.getConnection();
 			
-			String sql = "select user_pass from user where user_email=?";
+			String sql = "select user_password from user where user_email=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_email);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				chkpass = rs.getString("user_pass");
+				chkpass = rs.getString("user_password");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -77,7 +78,7 @@ public class UserDAO {
 		try {
 			con = Util.getConnection();
 			
-			String sql = "insert into user values (null,?,?,?,?,?,?,?)";
+			String sql = "insert into user values (null,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, udto.getUser_name());
 			pstmt.setString(2, udto.getUser_phone());
@@ -126,7 +127,8 @@ public class UserDAO {
 					udto.setUser_birth(rs.getString(5));
 					udto.setUser_gender(rs.getInt(6));
 					udto.setUser_chk_del(rs.getInt(7));
-					udto.setUser_passkey(rs.getString(8));
+					udto.setUser_password(rs.getString(8));
+					udto.setUser_passkey(rs.getString(9));
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -140,8 +142,8 @@ public class UserDAO {
 			return udto;
 		}
 
-	// 회원 로그인 메소드	
-	public boolean loginCheck(String email, String password) {
+	// admin 로그인 메소드	
+	public boolean loginAdminCheck(String email, String password) {
 	//email주소가 admin@naver.com으로 로그인 시 관리자 
 		
 		try {
@@ -153,26 +155,55 @@ public class UserDAO {
 			
 			rs = pstmt.executeQuery();
 			
-//			if(rs.next()){
-//				if(user_email.equals("admin@naver.com") && rs.getString(user_password).equals(password)) {
-				
-//			}else if(rs.getString(user_password))
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rs != null) rs.close();
-				if(pstmt != null) pstmt.close();
-				if(con != null) con.close();
-			}catch(Exception e) {e.printStackTrace();}
-		}
-		
-		
-		
+			if(rs.next()){
+				if(rs.getString(1).equals(password)) {
+					return true;
+				}
+			}	
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+					if(con != null) con.close();
+				}catch(Exception e) {e.printStackTrace();}
+			}
 		
 		return false;
 	}
+	
+		// 회원 로그인 메소드	
+		public boolean loginCheck(String email, String password) {
+			//email주소가 admin@naver.com으로 로그인 시 관리자 
+			
+			try {
+				con = Util.getConnection();
+				
+				String sql = "select user_password from user where user_email=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, email);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()){
+					if(rs.getString(1).equals(password)){
+						return true;
+					}
+				}
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+				}finally {
+					try {
+						if(rs != null) rs.close();
+						if(pstmt != null) pstmt.close();
+						if(con != null) con.close();
+					}catch(Exception e) {e.printStackTrace();}
+				}
+				
+				return false;
+			}
 
 	// 한 명의 정보를 업데이트하는 메소드
 	public void updateUserInfo(UserDTO udto) {
@@ -180,7 +211,7 @@ public class UserDAO {
 		try {
 			con = Util.getConnection();
 			
-			String sql = "update user set user_name=?, user_phone=?, user_birth, user_gender";
+			String sql = "update user set user_name=?, user_phone=?, user_birth=?, user_gender=? where emai=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, udto.getUser_name());
 			pstmt.setString(2, udto.getUser_phone());
@@ -198,7 +229,9 @@ public class UserDAO {
 				if(con != null) con.close();
 			}catch(Exception e) {e.printStackTrace();}
 		}
-	}		
+	}
+
+	
 	
 	
 	

@@ -44,20 +44,18 @@ public class joinProc extends HttpServlet {
 		udto.setUser_passkey(request.getParameter("passkey"));
 		
 		String link ="";
+		// 기존 이메일과 같은 이메일일 경우
 		
-		if(email.equals("admin@naver.com")){
-		request.setAttribute("msgEmail", "관리자님, 오늘도 반갑습니다!");
-		link = "#";
-		}else if(email.equals(emailChk)) {
-			request.setAttribute("msgEmail", "이미 존재하는 이메일 입니다");
-			link = "/user/joinEmailErr.jsp";
-		}else if(pass.equals(passChk)) {
-			udao.insertUser(udto);
-			link = "index.jsp";
+		System.out.println("email:"+email+"emailChk:"+emailChk);
+		if(email.equals(emailChk)) {
+			request.setAttribute("msg", "이미 존재하는 이메일 입니다");
+			link = "user/joinErr.jsp";
 		}else {
-			request.setAttribute("msgPass", "비밀번호를 확인하세요");
-			link = "/user/joinPassErr.jsp";
+			udao.insertUser(udto);
+			request.setAttribute("msg", "회원가입을 축하합니다.");
+			link = "user/joinOk.jsp";
 		}
+		
 		RequestDispatcher rd = request.getRequestDispatcher(link);
 		
 		if(link.equals("index.jsp")) {
