@@ -1,6 +1,7 @@
 package control.searching;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.common.search_accDTO;
 import model.place.placeDAO;
 import model.place.placeDTO;
 
@@ -26,11 +28,14 @@ public class searchingListProc extends HttpServlet {
 		
 		placeDAO pdao = new placeDAO();
 		placeDTO pdto = new placeDTO();
+		search_accDTO sadto = new search_accDTO();
+		
+		ArrayList<search_accDTO> sa_arr = new ArrayList<search_accDTO>();
 		
 		String[] selectedDays = request.getParameterValues("selectedDays");
 		String city_name = request.getParameter("city_name");
 		String acc_type = request.getParameter("acc_type");
-		String room_name = request.getParameter("room_name"); // 일부만 검색해도 받아와야함!
+		String acc_name = request.getParameter("acc_name"); // 일부만 검색해도 받아와야함!
 		String book_checkin_date;
 		String book_checkout_date;
 
@@ -44,8 +49,7 @@ public class searchingListProc extends HttpServlet {
 			book_checkout_date = selectedDays[0];
 		}
 		
-			
-		pdao.do_searching(city_name, acc_type, room_name, book_checkin_date, book_checkout_date);
+		sa_arr = pdao.do_searching(city_name, acc_type, acc_name, book_checkin_date, book_checkout_date);
 		
 		
 		

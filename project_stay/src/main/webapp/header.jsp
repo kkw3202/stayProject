@@ -180,7 +180,7 @@ span {
 					</div>
 					<!-- 숙소명 검색어 입력창 -->
 					<div class="search_bar">
-						<input type="text" name="room_name" placeholder="숙소명 입력(선택)"/>
+						<input type="text" name="acc_name" placeholder="숙소명 입력(선택)"/>
 					</div>
 					<!-- 검색 버튼 -->
 					<div class="btn" onclick="form_submit()">
