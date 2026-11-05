@@ -1,6 +1,7 @@
 package DBPKG;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 public class Util {
 	public static Connection getConnection() throws Exception{
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -10,3 +11,4 @@ public class Util {
 		return con;
 	}
 }
+

@@ -2,6 +2,7 @@ package model.place.Room;
 
 public class RoomDTO {
 
+	// 수정할께
 	private int room_code;
 	private int acc_code;
 	private String room_name;

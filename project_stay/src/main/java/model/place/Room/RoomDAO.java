@@ -1,16 +1,10 @@
 package model.place.Room;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import DBPKG.Util;
 import model.Handler.dateHandler.DateHandlerDAO;

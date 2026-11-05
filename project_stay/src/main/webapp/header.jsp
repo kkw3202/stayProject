@@ -124,8 +124,8 @@ span {
 			<c:choose>
 				<c:when test="${empty sessionScope.user_email}"> <!-- 칼럼 명 변경후 재확인 필요. -->
 					<a href="index.jsp?section=showbook.jsp">비회원 예약조회</a>
-					<a href="index.jsp?section=join.jsp">회원가입</a>
-					<a href="index.jsp?section=login.jsp">로그인</a>
+					<a href="index.jsp?section=user/joinForm.jsp">회원가입</a>
+					<a href="index.jsp?section=user/loginForm.jsp">로그인</a>
 				</c:when>
 				<c:otherwise>
 					<a style="display: none;"></a>
