@@ -1,17 +1,17 @@
 package model.Inquiry;
 
 public class InquiryDTO {
-	
+	// ì£¼ì„ì´ì•¼
 	private int inq_code;
 	private String inq_title;
-	private String user_name;  // È¸¿øÀÌ¸§
+	private String user_name;  // È¸ï¿½ï¿½ï¿½Ì¸ï¿½
 	private String inq_created_datetime;
-	private int inq_chk_status;  // ´äº¯»óÅÂ Ã¼Å©Å°
-	private int inq_ref;  // ±Û ±×·ì
-	private int inq_re_step;  // ±Û ½ºÅÇ
-	private int user_code;  // È¸¿øÄÚµå
-	private String inq_content;  // ±Û ³»¿ë
-	private int inq_chk_del;  // »èÁ¦¿©ºÎÃ¼Å©Å° (¼ÒÇÁÆ®»èÁ¦)
+	private int inq_chk_status;  // ï¿½äº¯ï¿½ï¿½ï¿½ï¿½ Ã¼Å©Å°
+	private int inq_ref;  // ï¿½ï¿½ ï¿½×·ï¿½
+	private int inq_re_step;  // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private int user_code;  // È¸ï¿½ï¿½ï¿½Úµï¿½
+	private String inq_content;  // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private int inq_chk_del;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼Å©Å° (ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½)
 	
 	public int getInq_chk_del() {
 		return inq_chk_del;
