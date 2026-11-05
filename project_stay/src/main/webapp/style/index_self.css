@@ -63,7 +63,7 @@ ul, ol, li {
     color: #fff;
     padding: 28px 0 48px;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     height: 400px;
 }
 
