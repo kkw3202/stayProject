@@ -1,0 +1,35 @@
+@charset "UTF-8";
+/*
+ * 머물:多 | 공통 디자인 토큰 (첨부 발표자료의 코발트 블루·스카이 블루·화이트)
+ * JSP/HTML/JS는 수정하지 않고, 기존 class/id에 스타일만 입힙니다.
+ */
+:root {
+  --mm-primary: #1d3ba4;
+  --mm-primary-dark: #152d85;
+  --mm-secondary: #0798e6;
+  --mm-ink: #1b2945;
+  --mm-muted: #64738b;
+  --mm-border: #dce4f4;
+  --mm-bg: #f5f7fc;
+  --mm-panel: #ffffff;
+  --mm-soft: #eaf0ff;
+  --mm-radius: 18px;
+  --mm-shadow: 0 16px 45px rgba(29,59,164,.095);
+}
+html {scroll-behavior: smooth;}
+html body {color:var(--mm-ink); background:var(--mm-bg); font-family: Pretendard, 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;}
+html body :is(input,select,textarea,button) {font:inherit;}
+html body :is(input,select,textarea):focus-visible {outline:2px solid var(--mm-secondary); outline-offset:2px;}
+html body :is(a,button,input[type=button],input[type=submit]):focus-visible {outline:3px solid rgba(7,152,230,.48); outline-offset:3px;}
+html body a {transition:color .2s ease,background-color .2s ease,border-color .2s ease;}
+html body img {max-width:100%;}
+@media (prefers-reduced-motion:reduce) {
+ html body *,html body *::before,html body *::after {animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
+
+/* header.jsp의 인라인 <style>에 있는 전역 span/table 규칙으로부터 본문 UI 보호 */
+html body :is(.section_top,.section_middle,.section_bottom,footer,.boardwrap,form[name="jfrm"],form[name="lfrm"],form[name="mfrm"]) span {
+  width:auto;height:auto;line-height:inherit;display:inline;
+}
+html body :is(.boardwrap,form[name="jfrm"],form[name="lfrm"],form[name="mfrm"]) table th {color:var(--mm-primary-dark) !important;}
+html body :is(.boardwrap,form[name="jfrm"],form[name="lfrm"],form[name="mfrm"]) table td {color:var(--mm-ink) !important;}

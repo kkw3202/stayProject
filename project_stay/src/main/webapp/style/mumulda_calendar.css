@@ -1,0 +1,108 @@
+/* 머물:多 달력 전용 CSS — 기존 JSP/JS 유지 */
+#main {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  z-index: 9999;
+  box-sizing: border-box;
+  width: 370px;
+  max-width: calc(100vw - 30px);
+  padding: 22px 22px 24px;
+  background: #fff;
+  border: 1px solid #dfe7f1;
+  border-radius: 18px;
+  box-shadow: 0 16px 42px rgba(13, 49, 98, .17);
+  color: #142c51;
+  font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+/* 기존 #main {display:block} 등의 규칙보다 아래에 놓아야 합니다. */
+#main.noShow { display: none !important; }
+#main, #main * { box-sizing: border-box; }
+#main .head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  margin: 0 0 16px;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #103e78;
+  text-align: center;
+}
+#main .head button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid #d5e1ef;
+  border-radius: 50%;
+  background: #f8fbff;
+  color: #154b8e;
+  font-size: 19px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: .18s ease;
+}
+#main .head button:hover { background: #e8f2ff; border-color: #8db5e5; }
+#main table {
+  width: 100%;
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 2px 5px;
+  table-layout: fixed;
+  background: transparent;
+}
+#main table tr { background: transparent; }
+#main table td {
+  width: auto;
+  height: 39px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #263b59 !important;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 39px;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease;
+}
+/* 첫 번째 줄은 요일 표시 */
+#main table tr:first-child td {
+  height: 31px;
+  line-height: 31px;
+  color: #687b94 !important;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: default;
+}
+#main table td span {
+  display: inline;
+  width: auto;
+  height: auto;
+  padding: 0;
+  line-height: inherit;
+  border-radius: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  background: transparent;
+}
+#main table td.sunday, #main table tr:first-child td.sunday { color: #df5760 !important; }
+#main table td.saterday, #main table tr:first-child td.saterday { color: #2877cf !important; }
+#main table td.beforDay { color: #b7c0cb !important; cursor: default; }
+#main table tr:not(:first-child) td:not(.beforDay):hover { background: #e9f2ff; }
+#main table td#today { outline: 1px solid #8bb6ed; outline-offset: -2px; font-weight: 800; }
+#main table td.selected,
+#main table td.selected:hover { background: #124780 !important; color: #fff !important; font-weight: 800; }
+/* 달력 표시 기준: .date 안에 #main 이 있는 현재 구조 */
+.search_wrap .date { position: relative; }
+@media (max-width: 480px) {
+  #main { left: 50%; transform: translateX(-50%); width: min(350px, calc(100vw - 24px)); padding: 16px; }
+  #main table td { height: 36px; line-height: 36px; }
+}

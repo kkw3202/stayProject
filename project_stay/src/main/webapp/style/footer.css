@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+/* ==========================================
+   6. Footer
+   ========================================== */
+footer {
+    width: 100%;
+    background: linear-gradient(180deg, #0A1628 0%, #060E1A 100%);
+    color: #8B9CB3;
+    padding: 52px 0 36px;
+    font-size: 13px;
+    margin-top: auto;
+    position: relative;
+}
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--gradient);
+    border-radius: 0 0 4px 4px;
+}
+footer .company,
+footer .link,
+footer .legal.notice,
+footer > p {
+    max-width: var(--content-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+footer .company {
+    margin-bottom: 28px;
+}
+footer .company P {
+    margin-bottom: 7px;
+    line-height: 1.7;
+}
+footer .company P:first-child {
+    font-weight: 700;
+    color: #E8EEF5;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+footer .link {
+    margin-bottom: 24px;
+}
+footer .link ul {
+    display: flex;
+    gap: 24px;
+}
+footer .link ul li a {
+    color: #C5D0DE;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+footer .link ul li a:hover {
+    color: #00C9FF;
+}
+footer .legal.notice {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+footer .legal.notice span a {
+    color: #7A8BA3;
+    transition: color 0.2s;
+}
+footer .legal.notice span a:hover {
+    color: #E8EEF5;
+}
+footer > p {
+    color: #5A6B82;
+    font-size: 12px;
+}

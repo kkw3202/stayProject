@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="style/section.css"/>
 <section>
      <!-- 섹션(상) : 추천숙소(평점순) -> 클릭하면 "해당숙소" 페이지 이동 -->
     <div class="section_top">
@@ -196,7 +197,7 @@
     <!-- 섹션(하) : 랜덤 리뷰 -> 클릭하면 "해당숙소" 페이지 이동 -->
     <!-- 섹션(하) : 랜덤 리뷰 -> 클릭하면 "해당숙소" 페이지 이동 -->
     <div class="section_bottom">
-        <p>리뷰</p>
+        <p>실시간 <span class="hot">Hot</span> review</p>
         <!-- 리뷰 첫번째 행 -->
         <div class="rev_row">
             <!-- 첫번째 카드 -->
