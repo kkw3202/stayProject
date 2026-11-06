@@ -41,11 +41,11 @@ public class loginProc extends HttpServlet {
 				session.setAttribute("user_email", email);
 				session.getAttribute("user_email");
 				session.setMaxInactiveInterval(60*240);
-				RequestDispatcher rd = request.getRequestDispatcher("/user/loginOk.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/loginOk.jsp");
 				rd.forward(request, response);
 			}else {
 				request.setAttribute("msg", "로그인 실패.");
-				RequestDispatcher rd = request.getRequestDispatcher("/user/loginErr.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/loginErr.jsp");
 				rd.forward(request, response);
 			}
 			return;
@@ -62,12 +62,12 @@ public class loginProc extends HttpServlet {
 			session.setMaxInactiveInterval(60*30);
 			
 			// 이전 페이지 말고, 아예 다른 페이지 이동 시에는 sendRedirect 사용
-			RequestDispatcher rd = request.getRequestDispatcher("/user/loginOk.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/loginOk.jsp");
 			rd.forward(request, response);
 			
 		}else {
 			request.setAttribute("msg", "로그인 실패.");
-			RequestDispatcher rd = request.getRequestDispatcher("/user/loginErr.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/loginErr.jsp");
 			rd.forward(request, response);
 		}
 	}

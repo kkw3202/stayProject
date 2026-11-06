@@ -1,0 +1,34 @@
+/* 머물:多 회원가입 - 두 번째 참고 이미지 기준 */
+.join-page,.join-page *{box-sizing:border-box!important}
+.join-page{width:100%;padding:34px 18px 60px;background:#f6f9fd;color:#102e56;font-family:'Malgun Gothic','Noto Sans KR',sans-serif}
+.join-page .join-layout{width:min(100%,980px);min-height:565px;margin:0 auto;display:grid;grid-template-columns:36% 64%;background:#fff;border:1px solid #e8eef6;border-radius:17px;overflow:hidden;box-shadow:0 10px 32px rgba(23,55,98,.10)}
+.join-page .join-visual{position:relative;min-height:565px;padding:35px 32px;background:linear-gradient(180deg,rgba(238,246,255,.95) 0%,rgba(238,246,255,.85) 23%,rgba(22,70,129,.10) 24%,rgba(8,39,83,.30) 100%),url('../image/bana1.jpg') center/cover no-repeat;display:flex;flex-direction:column;justify-content:space-between}
+.join-page .join-brand{color:#12447f;text-align:center;font-size:29px;font-weight:900;letter-spacing:-1.5px;line-height:1.3}
+.join-page .join-brand small{display:block;font-size:11px;letter-spacing:0;font-weight:600;margin-top:8px}
+.join-page .join-message{color:#fff;font-size:25px;line-height:1.48;font-weight:700;margin:0 0 38px;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+.join-page .join-form-area{min-width:0;padding:28px 52px 28px}
+.join-page .join-form-area h3{margin:0;text-align:center;color:#0d315e;font-size:25px;font-weight:800;line-height:1.35}
+.join-page .join-subtitle{margin:7px 0 23px;text-align:center;font-size:12px;color:#74849a}
+.join-page form{width:100%;margin:0}
+.join-page .join-table{width:100%!important;table-layout:fixed!important;border:0!important;border-collapse:separate!important;border-spacing:0 8px!important;margin:0!important}
+.join-page .join-table tr{height:auto!important}
+.join-page .join-table th,.join-page .join-table td{height:auto!important;min-height:0!important;border:0!important;padding:0!important;background:transparent!important;vertical-align:middle!important;text-align:left!important;cursor:default!important;border-radius:0!important}
+.join-page .join-table th{width:126px!important;padding-right:15px!important;color:#172f52!important;font-size:12px!important;font-weight:700!important;white-space:nowrap!important}
+.join-page .join-table td{width:auto!important;min-width:0!important}
+.join-page .join-table input:not([type=radio]):not([type=button]),.join-page .join-table select{display:block!important;width:100%!important;min-width:0!important;height:37px!important;line-height:normal!important;border:1px solid #d2ddeb!important;border-radius:6px!important;background:#fff!important;padding:0 12px!important;font-size:12px!important;color:#1e385c!important;box-shadow:none!important;outline:none!important}
+.join-page .join-table input::placeholder{color:#9caabe!important;font-size:11px!important}
+.join-page .join-table input:focus,.join-page .join-table select:focus{border-color:#1c5798!important;box-shadow:0 0 0 3px rgba(24,76,140,.08)!important}
+.join-page .join-security{display:grid!important;grid-template-columns:1fr!important;gap:6px!important}
+.join-page .join-gender{display:flex!important;align-items:center!important;gap:20px!important;flex-wrap:wrap!important;min-height:35px}
+.join-page .join-gender label{display:inline-flex!important;align-items:center!important;gap:7px!important;white-space:nowrap!important;font-size:12px!important;color:#1d3658!important;cursor:pointer!important}
+.join-page .join-gender input[type=radio]{appearance:auto!important;width:15px!important;height:15px!important;min-width:15px!important;margin:0!important;accent-color:#164781!important;display:inline-block!important}
+.join-page .join-actions{padding-top:10px!important;text-align:center!important}
+.join-page .join-actions .join-submit,.join-page .join-actions .join-cancel{display:block!important;width:100%!important;height:40px!important;border-radius:7px!important;font-size:13px!important;font-weight:700!important;cursor:pointer!important;margin:0!important}
+.join-page .join-actions .join-submit{background:#12457f!important;color:#fff!important;border:1px solid #12457f!important;margin-bottom:8px!important}
+.join-page .join-actions .join-cancel{background:#fff!important;color:#16477d!important;border:1px solid #cbd8e7!important}
+.join-page .join-actions .join-submit:hover{background:#0b3261!important}
+.join-page .join-actions .join-cancel:hover{background:#f1f6fc!important}
+/* 기존 header.jsp의 span, td, input 전역 규칙과 충돌 방지 */
+.join-page span{display:inline!important;width:auto!important;height:auto!important;line-height:normal!important;border-radius:0!important}
+@media(max-width:760px){.join-page .join-layout{grid-template-columns:1fr}.join-page .join-visual{min-height:240px;padding:25px}.join-page .join-message{font-size:21px;margin:20px 0 0}.join-page .join-form-area{padding:30px 25px}}
+@media(max-width:430px){.join-page{padding:15px 8px 35px}.join-page .join-form-area{padding:25px 15px}.join-page .join-table th{width:90px!important;font-size:11px!important;padding-right:7px!important}.join-page .join-gender{gap:10px!important}}

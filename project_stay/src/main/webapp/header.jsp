@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<link rel="stylesheet" href="style/header.css"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+ <link rel="stylesheet" href="style/mumulda_calendar.css">
 	<header id="header">
 		<!-- 좌측 상단 -->
 		<div class="left_top">

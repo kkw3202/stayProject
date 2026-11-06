@@ -2,10 +2,10 @@
     pageEncoding="UTF-8" import = "java.util.*"%>
 <%@ page import = "DBPKG.Util" %>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="style/pages/board/inquiry/inquiryList.css">
+<link rel="stylesheet" href="style/inquiryList.css"/>
 
-<%-- 1:1게시판 --%>
-<section>
+
+<%-- 1:1게시판     --%>
 <div class="boardwrap">
 	<h3>1:1게시판</h3>
 	<%-- 검색기능  --%>
@@ -23,19 +23,18 @@
 		<input type = "submit" value="검색"/>  
 		<%-- 전체보기 버튼은, 회원/비회원 모두 가능 --%>
 		<input type = "button" value="전체보기" onclick="location.href='inquiryListProc.do'" class="btn_search"/>
-		<%-- 로그인한 사람만 글쓰기/내가 쓴 글보기 버튼 보임 --%>
-		<c:if test="${not empty sessionScope.email }">
-			<input type="button" onclick="location.href='index.jsp?section=board/inquiry/inquiryInfo.jsp'" value = "글쓰기"/>
-			<%-- 관리자가 아니면서 일반회원인 경우에만 내가 쓴 글보기 --%>
-               <c:if test = "${sessionScope.email ne 'admin@naver.com' && not empty sessionScope.email}">
-               <%-- <input type="button" onclick="location.href='inquiryUpdateProc.do?inq_code=${idto.inq_code}'" value="수정하기"/> --%>
-			   <input type="button" class="btn_all" onclick="location.href='inquiryListProc.do'" value = "내가 쓴 글보기"/>
-               </c:if>
+		<%-- 관리자가 아니면서 일반회원인 경우에만 글쓰기/내가 쓴 글보기 버튼 보임 --%>
+		<c:if test = "${sessionScope.user_email ne 'admin@naver.com' && not empty sessionScope.user_email}">
+			<input type="button" onclick="location.href='index.jsp?section=board/inquiry/inquiryWriteForm.jsp'" value = "글쓰기"/>
+			<%--  내가 쓴 글보기 --%>
+            <%-- <input type="button" onclick="location.href='inquiryUpdateProc.do?inq_code=${idto.inq_code}'" value="수정하기"/> --%>
+		    <input type="button" class="btn_all" onclick="location.href='inquiryListProc.do'" value = "내가 쓴 글보기"/>
 		</c:if>
 	</form>
 	
 	<%-- 게시판 테이블  --%>
-	<table width="700" border="1">
+	<div class="table-scroll">
+	<table class="inquiry-table">
 		<tr>
 			<th>순번</th>
 			<th>글제목</th>
@@ -66,16 +65,21 @@
 				<%-- 답변상태 inq_chk_status --%>
 				<c:choose>	
 					<c:when test="${ilist.inq_chk_status == 0}">
-						<td>답변대기중</td>
+						<td>
+           					 <span class="status wait">답변대기중</span>
+        				</td>
 					</c:when>
 					<c:otherwise>
-						<td>답변완료</td>
+						<td>
+           					 <span class="status done">답변완료</span>
+        				</td>
 					</c:otherwise>
 				</c:choose>
 			</tr>
 			<c:set var="number" value="${number-1}"/>
 		</c:forEach>
 	</table>
+	</div>
 	
 	<%-- 페이징 부분 --%>
 	<div class="paging">
@@ -95,12 +99,17 @@
 	</div>	
 
 </div>
+<<<<<<< HEAD
 </section>
+=======
+
+>>>>>>> cfe108a81794e298bd6e8f59f45f74686d0b9bb0
 
 <script>
 	// 게시판 글쓰기 버튼 관련한 스크립트
 
 </script>
 
+    
     
     
