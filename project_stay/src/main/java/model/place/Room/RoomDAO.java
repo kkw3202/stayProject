@@ -1,16 +1,10 @@
 package model.place.Room;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import DBPKG.Util;
 import model.Handler.dateHandler.DateHandlerDAO;
@@ -95,7 +89,8 @@ public class RoomDAO {
 		return result;
 	}
 
-	// 특정 날짜에 예매 가능한 room_code 와 해당 객실을 가진 숙소인 acc_code를 찾아 담는 메소드
+	// 특정 날짜에 예매 가능한 객실 중, 최저가인 객실을 찾고, 
+	// 해당 방의 room_code, room_price 와 해당 객실을 가진 숙소인 acc_code를 찾아 담는 메소드
 	public ArrayList<RoomDTO> get_booking_date_room(String book_checkin_date, String book_checkout_date)
 			throws ParseException {
 
@@ -112,20 +107,29 @@ public class RoomDAO {
 			con = Util.getConnection();
 
 			// 객실 특정
-			String sql = "select room_code ,acc_code" 
-						+ "from room " 
+			String sql = "select room_code ,acc_code, room_price" 
+						+ "from room r " 
 						+ "where ";	
 			for (int i = 0; i < dates.size(); i++) {
-				sql += "room_count > (select count(*) from booking where book_checkin_date <= ? and book_checkout_date > ?)";
+				sql += "room_count > (select count(*) from booking b where b.room_code = r.room_code and book_checkin_date <= ? and book_checkout_date > ?)";
 				if(i+1 !=  dates.size()) sql += "and ";
+				else sql += " ";
 			}
-				// ============================== 제작중!===========================
+			sql += "order by room_price asc limit 1";
 			pstmt = con.prepareStatement(sql);
+			
+			for (int i = 0; i < dates.size(); i++) {
+				pstmt.setString((i*2)+1, book_checkin_date);
+				pstmt.setString((i*2)+2, book_checkout_date);
+			}
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				
+				RoomDTO rdto = new RoomDTO();
+				rdto.setRoom_code(1);
+				rdto.setAcc_code(2);
+				rdto.setRoom_price(3);
 			}
 			
 		} catch (Exception e) {

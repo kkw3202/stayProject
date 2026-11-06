@@ -10,7 +10,7 @@ public class DateHandlerDAO {
 	// 입실일 - 퇴실일 사이 날짜 담은 리스트 만드는 매소드
 	public ArrayList<String> getAllDay(String book_checkin_date, String book_checkout_date) throws ParseException {
 		
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");
 		
 		Date checkin = sd.parse(book_checkin_date);
 		Date checkout = sd.parse(book_checkout_date);

@@ -119,7 +119,7 @@
             saveSelWrap.innerHTML+="<input type='hidden' value='"+ year + month + num +"' name='selectedDays' class='saveSel'/>";
         }
         console.log(selday);  
-        console.log(saveSel.length);  
+        console.log(saveSel.length); 
     }
 
     display();
