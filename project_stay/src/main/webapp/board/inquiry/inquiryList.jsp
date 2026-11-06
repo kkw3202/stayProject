@@ -2,6 +2,9 @@
     pageEncoding="UTF-8" import = "java.util.*"%>
 <%@ page import = "DBPKG.Util" %>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <link rel="stylesheet" href="style/inquiryList.css"/>
 
 
@@ -28,7 +31,7 @@
 			<input type="button" onclick="location.href='index.jsp?section=board/inquiry/inquiryWriteForm.jsp'" value = "글쓰기"/>
 			<%--  내가 쓴 글보기 --%>
             <%-- <input type="button" onclick="location.href='inquiryUpdateProc.do?inq_code=${idto.inq_code}'" value="수정하기"/> --%>
-		    <input type="button" class="btn_all" onclick="location.href='inquiryListProc.do'" value = "내가 쓴 글보기"/>
+		    <input type="button" class="btn_all" onclick="location.href='inquiryListProc.do?searchType=${'user_name'}'" value = "내가 쓴 글보기"/>
 		</c:if>
 	</form>
 	
@@ -53,15 +56,15 @@
 							&nbsp;
 						</c:forEach>
 					</c:if>
-					<a href="inquiryInfoProc.do?inq_code=${ilist.inq_code}">${ilist.inq_title}</a>
+					<a href="inquiryInfoProc.do?inq_code=${ilist.inq_code}" name = "inq_code">${ilist.inq_title}</a>
 				</td>
-				<%-- <td>
-					<a href="">${ilist.inq_title}</a>
-				</td> --%>
-				<%-- 작성자 user_name --%>
-				<td>${ilist.user_name}</td>
-				<%-- 작성일시 inq_created_datetime --%>
-				<td>${ilist.inq_created_datetime}</td>
+				<td>
+					${fn:substring(ilist.user_name, 0, 1)}**
+				</td>
+				<td>
+					<%-- <fmt:formatNumber value="${ilist.inq_created_datetime}" pattern="yyyyMMdd"/> --%>
+					${ilist.inq_created_datetime}
+				</td>
 				<%-- 답변상태 inq_chk_status --%>
 				<c:choose>	
 					<c:when test="${ilist.inq_chk_status == 0}">
@@ -89,7 +92,7 @@
 		
 		<%-- 페이징 번호 --%>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<a href="inquiryListProc.do?pageNum=${i}">[${i}]</a>
+			<a href="inquiryListProc.do?pageNum=${i}">${i}</a>
 		</c:forEach>
 		
 		<%-- 페이징 번호 --%>

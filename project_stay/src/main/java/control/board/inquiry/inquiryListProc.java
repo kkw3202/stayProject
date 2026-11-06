@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Handler.pagingHandler.pagingHandlerDAO;
 import model.Handler.pagingHandler.pagingHandlerDTO;
@@ -36,6 +37,8 @@ public class inquiryListProc extends HttpServlet {
 		pagingHandlerDAO pdao = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO(); 
 		InquiryDAO idao = new InquiryDAO(); 
+		HttpSession session = request.getSession();
+		String user_email = (String)session.getAttribute("user_email");
 		
 		int count = 0;
 		
@@ -50,15 +53,25 @@ public class inquiryListProc extends HttpServlet {
 		String keyWord = request.getParameter("keyWord");
 		String searchType = request.getParameter("searchType");
 		
+		String user_name = "";
+		
+		System.out.println(searchType);
+		System.out.println(user_email);
 		System.out.println(keyWord);
 		// 검색어가 없는 경우(전체목록보기) / 검색어가 있는 경우 
-		if(keyWord=="" || keyWord==null) {
+		if(searchType!=null && keyWord == null) {
+			// user_name 가져오는 메소드 실행하여, keyWord에 대입하기
+			keyWord = idao.getInquiryUserName(user_email);
+			count = idao.getInquirySearchCount(searchType, keyWord);
+			System.out.println(count);
+		}else if(searchType != null && keyWord != null) {
 			// count에 전체 게시글 수 대입하기 (idao에서 메소드 실행)
-			count = idao.getInquiryAllCount();
+			count = idao.getInquirySearchCount(searchType, keyWord);
+			System.out.println(count);
 		}else {
 			// count에 전체 게시글 수 대입하기 (idao에서 메소드 실행)
-			count = idao.getInquirySearchCount();
-			System.out.println("검색결과1");
+			count = idao.getInquiryAllCount();
+			System.out.println(count);
 		}
 		
 		pdto = pdao.getPaging(pageNum, count, pageSize, pageBlock);
@@ -70,20 +83,23 @@ public class inquiryListProc extends HttpServlet {
 		int startPage = pdto.getStartPage();
 		int endPage = pdto.getEndPage();
 		
+		
+		
 		ArrayList<InquiryDTO> ilist;
 		// 검색어가 없는 경우(전체목록보기) / 검색어가 있는 경우 
 		if(keyWord=="" || keyWord==null) {
 			ilist = idao.getInquiryAllBoard(startRow, pageSize);
 		}else {
 			ilist = idao.getInquirySearchBoard(startRow, pageSize, searchType, keyWord);
-			System.out.println("검색결과2");
 		}
+		
 		
 		// 최신글 10개를 가져오는 DAO 메소드를 이용해서 리턴
 		number = count - startRow;  // 위와 동일함
 		
 		System.out.println(number);
 		System.out.println(count);
+		
 		
 		// --------------------------------------------------------------------
 		request.setAttribute("ilist", ilist);
