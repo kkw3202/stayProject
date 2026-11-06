@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="style/inquiryInfo.css"/>
 <%-- 1:1게시판 상세보기 --%>
 <div class="boardwrap">
 	<h3>1:1게시글 상세보기</h3>
-	<table width="700" border = "1">
+	<table>
 		<tr>
 			<td colspan="2">
 				<%-- 관리자로 접속시 : 답글쓰기만 보여야함. --%>

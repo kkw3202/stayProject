@@ -1,115 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
- <style>
-   #main {
-    margin: 0;
-    width: 350px;
-    background-color: #fff;
-    padding: 28px 22px 30px;
-    border-radius: 18px;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
-    position: absolute;
-    top: 68px;
-    left: 260px;
-    z-index: 9999;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
-}
-
-#main .head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 44px;
-    font-size: 17px;
-    font-weight: 600;
-    color: #222;
-    margin-bottom: 16px;
-    padding: 0 6px;
-}
-
-#main .head button {
-    border: 1px solid #ddd;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    color: #555;
-    font-size: 15px;
-}
-
-#main .head button:hover {
-    background-color: #f5f5f5;
-    border-color: #bbb;
-}
-
-table {
-    border-collapse: collapse;
-    border: none;
-    width: 100%;
-}
-
-table span,
-table td,
-table th {
-    color: #333 !important;
-    font-size: 14px;
-}
-
-table .sunday,
-table .sunday span {
-    color: #e53935 !important;
-}
-
-table .saterday,
-table .saterday span {
-    color: #1e88e5 !important;
-}
-
-table .beforDay {
-    color: #bdbdbd !important;
-}
-
-td {
-    border: none;
-    text-align: center;
-    width: 44px;
-    height: 42px;
-    vertical-align: middle;
-    padding: 1px;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
-}
-
-/* 모든 날짜 공통 호버 */
-td:hover {
-    background-color: #e8f5e9;
-    border-radius: 50%;
-}
-
-td:hover span {
-    background-color: transparent;
-}
-
-span {
-    font-weight: 500;
-    display: inline-block;
-    width: 34px;
-    height: 34px;
-    line-height: 34px;
-    border-radius: 50%;
-    transition: background-color 0.15s ease;
-}
-
-.noShow{
-	display: none;
-}
-</style>
+ <link rel="stylesheet" href="style/mumulda_calendar.css">
 	<header id="header">
 		<!-- 좌측 상단 -->
 		<div class="left_top">
@@ -124,8 +16,8 @@ span {
 			<c:choose>
 				<c:when test="${empty sessionScope.user_email}"> <!-- 칼럼 명 변경후 재확인 필요. -->
 					<a href="index.jsp?section=showbook.jsp">비회원 예약조회</a>
-					<a href="index.jsp?section=join.jsp">회원가입</a>
-					<a href="index.jsp?section=login.jsp">로그인</a>
+					<a href="index.jsp?section=user/joinForm.jsp">회원가입</a>
+					<a href="index.jsp?section=user/loginForm.jsp">로그인</a>
 				</c:when>
 				<c:otherwise>
 					<a style="display: none;"></a>
