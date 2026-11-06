@@ -58,7 +58,7 @@ public class joinProc extends HttpServlet {
 		
 		RequestDispatcher rd = request.getRequestDispatcher(link);
 		
-		if(link.equals("index.jsp")) {
+		if(link.equals("/index.jsp")) {
 			rd.forward(request, response);
 		}else {
 			response.sendRedirect(link);

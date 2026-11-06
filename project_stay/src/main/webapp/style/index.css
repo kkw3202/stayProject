@@ -1,0 +1,656 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+	margin : 0;
+	padding: 0;
+}
+
+html {
+	scroll-behavior: smooth
+}
+
+body {
+	margin: 0;
+	background: #f7f9fc;
+	color: #142a4a;
+	font-family: 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif
+}
+
+a {
+	text-decoration: none;
+	color: inherit
+}
+
+button, input, select {
+	font: inherit
+}
+
+.container {
+	width: 100%;
+	min-height: 100vh;
+	overflow: hidden
+}
+
+#header {
+	position: relative;
+	background: #fff;
+	min-height: 525px;
+	padding-top: 76px
+}
+
+#header .left_top {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 76px;
+	display: flex;
+	align-items: center;
+	padding: 0 max(5%, calc(( 100% - 1180px)/2));
+	border-bottom: 1px solid #e9eef5;
+	background: white;
+	z-index: 5
+}
+
+#header .left_top img {
+	display: block;
+	width: 155px;
+	max-height: 60px;
+	object-fit: contain
+}
+
+#header .right_top {
+	position: absolute;
+	top: 0;
+	right: max(5%, calc(( 100% - 1180px)/2));
+	height: 76px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	z-index: 6
+}
+
+#header .right_top a {
+	font-size: 13px;
+	font-weight: 700;
+	color: #203b62;
+	padding: 10px 14px;
+	border-radius: 8px;
+	transition: .2s
+}
+
+#header .right_top a:hover {
+	background: #eaf1fb;
+	color: #0e4788
+}
+
+#header .right_top a[href*="loginForm"] {
+	background: #154782;
+	color: white
+}
+
+#header .right_top a[href*="joinForm"] {
+	border: 1px solid #b9cce3
+}
+
+#header .bottom {
+	height: 448px;
+	position: relative;
+	background: linear-gradient(90deg, rgba(5, 34, 75, .82),
+		rgba(9, 45, 90, .30) 52%, rgba(10, 30, 55, .05)),
+		url('../image/bana1.jpg') center 55%/cover no-repeat
+}
+
+#header .bottom:before {
+	content: '머물 수 있는 곳이 많은 우리들의 여행';
+	position: absolute;
+	top: 82px;
+	left: max(7%, calc(( 100% - 1120px)/2));
+	font-size: 19px;
+	color: #fff;
+	font-weight: 400;
+	letter-spacing: -.5px
+}
+
+#header .bottom:after {
+	content: '머물:多\A전국의 특별한 숙소를 만나보세요';
+	white-space: pre;
+	position: absolute;
+	top: 123px;
+	left: max(7%, calc(( 100% - 1120px)/2));
+	font-size: 36px;
+	line-height: 1.55;
+	font-weight: 800;
+	color: white;
+	letter-spacing: -1.5px;
+	text-shadow: 0 2px 15px #1235
+}
+
+#header .search_wrap {
+	position: absolute;
+	left: 50%;
+	bottom: -34px;
+	transform: translateX(-50%);
+	width: min(1120px, 92%);
+	z-index: 7;
+	background: #fff;
+	padding: 12px 16px;
+	border-radius: 18px;
+	box-shadow: 0 12px 35px #193b642b
+}
+
+#header .search_wrap form {
+	display: flex;
+	align-items: center;
+	min-height: 55px;
+	gap: 0
+}
+
+#header .search_wrap .city, #header .search_wrap .date, #header .search_wrap .type,
+	#header .search_wrap .search_bar {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+	padding: 8px 16px;
+	min-width: 0;
+	flex: 1;
+	border-right: 1px solid #e1e8f1
+}
+
+#header .search_wrap .city {
+	flex: 1.1
+}
+
+#header .search_wrap .date {
+	flex: 1.1;
+	cursor: pointer
+}
+
+#header .search_wrap .type {
+	flex: 1.1
+}
+
+#header .search_wrap .search_bar {
+	flex: 1.25;
+	border-right: 0
+}
+
+#header .search_bar_img {
+	width: 22px;
+	height: 22px;
+	object-fit: contain
+}
+
+#header .search_wrap select, #header .search_wrap input {
+	width: 100%;
+	border: 0;
+	outline: 0;
+	background: transparent;
+	color: #243b59;
+	font-size: 17px;
+	min-width: 0;
+}
+
+#header .search_wrap .date p {
+	margin: 0;
+	font-size: 17px;
+	color: #4a5870;
+	white-space: nowrap
+}
+
+#header .search_wrap .btn {
+	width: 105px;
+	height: 49px;
+	flex-shrink: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	background: #154782;
+	border-radius: 12px;
+	transition: .2s
+}
+
+#header .search_wrap .btn:hover {
+	background: #0b3264
+}
+
+#header .search_wrap .btn img {
+	width: 100px;
+	height: 100px;
+	color: white;
+	font-weight: bold;
+	filter: brightness(0) invert(1)
+}
+
+#header .saveSelWrap {
+	font-size: 12px
+}
+
+#header #main {
+	position: absolute;
+	top: calc(100%);
+	left: 20%;
+	z-index: 100
+}
+
+#header #main.noShow {
+	display: none
+}
+
+#header #main table {
+	width: 100%
+}
+
+#header #main td {
+	cursor: pointer
+}
+
+#header #main .head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center
+}
+/* 蹂몃Ц */
+.container>section {
+	max-width: 1180px;
+	margin: 95px auto 90px;
+	padding: 0 20px
+}
+
+.section_top, .section_middle, .section_bottom {
+	margin-bottom: 70px
+}
+
+.section_top>p, .section_middle>p, .section_bottom>p {
+	font-size: 25px;
+	font-weight: 800;
+	letter-spacing: -1px;
+	margin: 0 0 24px;
+	display: flex;
+	align-items: center;
+	gap: 10px
+}
+
+.section_top>p:before, .section_middle>p:before, .section_bottom>p:before
+	{
+	content: '';
+	display: block;
+	width: 5px;
+	height: 23px;
+	background: #154782;
+	border-radius: 5px
+}
+
+span.hot{
+		/* color: #FFB347;
+		color: #FFEFD5;
+		color: #FFEAD8; */
+		color: #F47C47;
+}
+.rec_row {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 22px;
+	margin-bottom: 25px
+}
+
+.rec_card {
+	min-width: 0;
+	background: #fff;
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 4px 18px #21395712;
+	border: 1px solid #edf0f5;
+	transition: transform .2s, box-shadow .2s
+}
+
+.rec_card:hover, .month_card:hover, .rev_card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 28px #21395722
+}
+
+.rec_card>a {
+	display: block;
+	padding-bottom: 18px
+}
+
+.rec_card .imgbox {
+	height: 180px;
+	position: relative;
+	overflow: hidden
+}
+
+.rec_card .imgbox img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transition: transform .3s
+}
+
+.rec_card:hover .imgbox img {
+	transform: scale(1.05)
+}
+
+.badgeLike_box {
+	position: absolute;
+	top: 12px;
+	right: 12px
+}
+
+.badge_like {
+	display: inline-block;
+	background: #fff;
+	color: #174c85;
+	border-radius: 7px;
+	padding: 6px 9px;
+	font-size: 13px;
+	font-weight: 800;
+	box-shadow: 0 2px 9px #0002
+}
+
+.rec_card .acc_cate {
+	margin: 17px 16px 6px;
+	color: #4676aa;
+	font-size: 12px;
+	font-weight: 700
+}
+
+.rec_card .acc_name {
+	margin: 0 16px 5px;
+	color: #142b4a;
+	font-size: 17px;
+	font-weight: 800;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis
+}
+
+.rec_card .acc_city {
+	margin: 0 16px;
+	color: #7b889a;
+	font-size: 13px
+}
+
+.monthRegion {
+	display: grid;
+	grid-template-columns: repeat(6, minmax(0, 1fr));
+	gap: 15px
+}
+
+.month_card {
+	border-radius: 14px;
+	overflow: hidden;
+	height: 155px;
+	box-shadow: 0 3px 12px #21395718;
+	transition: .2s
+}
+
+.month_card a, .month_card img {
+	display: block;
+	width: 100%;
+	height: 100%
+}
+
+.month_card img {
+	object-fit: cover;
+	transition: transform .3s
+}
+
+.month_card:hover img {
+	transform: scale(1.07)
+}
+
+.rev_row {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 22px;
+	margin-bottom: 22px
+}
+
+.rev_card {
+	background: #fff;
+	border: 1px solid #e9eef5;
+	border-radius: 16px;
+	padding: 17px;
+	box-shadow: 0 4px 18px #21395710;
+	transition: .2s;
+	min-width: 0
+}
+
+.rev_card>a {
+	display: flex;
+	gap: 18px;
+	align-items: flex-start
+}
+
+.rev_left {
+	width: 38%;
+	min-width: 0;
+	flex-shrink: 0
+}
+
+.rev_imgbox {
+	height: 135px;
+	border-radius: 11px;
+	overflow: hidden
+}
+
+.rev_imgbox img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover
+}
+
+.rev_acc_name {
+	font-weight: 800;
+	font-size: 14px;
+	margin: 11px 0 7px
+}
+
+.badgereview_box {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap
+}
+
+.badge_review {
+	color: #15539a;
+	font-size: 13px;
+	font-weight: 800
+}
+
+.rev_count {
+	color: #8792a0;
+	font-size: 12px
+}
+
+.rev_right {
+	flex: 1;
+	min-width: 0
+}
+
+.rev_title {
+	font-size: 16px;
+	font-weight: 800;
+	margin: 4px 0 13px;
+	line-height: 1.5
+}
+
+.rev_content {
+	font-size: 13px;
+	line-height: 1.9;
+	color: #617087;
+	margin: 0;
+	display: -webkit-box;
+	-webkit-line-clamp: 6;
+	-webkit-box-orient: vertical;
+	overflow: hidden
+}
+/* �뫖�꽣 */
+footer {
+	background: #112b4d;
+	color: #d8e1ed;
+	padding: 45px max(5%, calc(( 100% - 1140px)/2)) 30px;
+	font-size: 12px;
+	line-height: 1.9
+}
+
+footer .company p {
+	margin: 3px 0;
+	color: #b9c8d9
+}
+
+footer .company p:first-child {
+	font-size: 19px;
+	color: #fff;
+	font-weight: 800;
+	margin-bottom: 12px
+}
+
+footer .link ul {
+	display: flex;
+	gap: 18px;
+	list-style: none;
+	padding: 0;
+	margin: 22px 0 12px
+}
+
+footer a {
+	color: #dce6f1
+}
+
+footer a:hover {
+	text-decoration: underline
+}
+
+footer .legal.notice {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	border-top: 1px solid #ffffff25;
+	padding-top: 15px
+}
+
+footer>p:last-child {
+	color: #8da4bd;
+	margin-top: 18px
+}
+
+@media ( max-width :900px) {
+	#header .bottom:before, #header .bottom:after {
+		left: 6%
+	}
+	.rec_row {
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+	}
+	.monthRegion {
+		grid-template-columns: repeat(3, minmax(0, 1fr))
+	}
+	.rev_row {
+		grid-template-columns: 1fr
+	}
+	#header .search_wrap form {
+		flex-wrap: wrap;
+		gap: 8px
+	}
+	#header .search_wrap .city, #header .search_wrap .date, #header .search_wrap .type,
+		#header .search_wrap .search_bar {
+		flex: 1 1 42%;
+		border: 1px solid #e5ebf3;
+		border-radius: 9px
+	}
+	#header .search_wrap .btn {
+		flex: 1 1 100%;
+		width: 100%
+	}
+	#header .search_wrap {
+		bottom: -90px
+	}
+	.container>section {
+		margin-top: 150px
+	}
+}
+
+@media ( max-width :600px) {
+	#header {
+		padding-top: 105px
+	}
+	#header .left_top {
+		height: 60px;
+		justify-content: center
+	}
+	#header .right_top {
+		top: 60px;
+		left: 0;
+		right: 0;
+		height: 45px;
+		justify-content: center;
+		gap: 2px
+	}
+	#header .right_top a {
+		font-size: 11px;
+		padding: 7px
+	}
+	#header .bottom {
+		height: 400px
+	}
+	#header .bottom:before {
+		top: 50px;
+		font-size: 15px
+	}
+	#header .bottom:after {
+		top: 87px;
+		font-size: 25px
+	}
+	#header .search_wrap {
+		width: 94%;
+		padding: 10px;
+		bottom: -120px
+	}
+	.container>section {
+		margin-top: 185px;
+		padding: 0 14px
+	}
+	.rec_row {
+		gap: 12px
+	}
+	.rec_card .imgbox {
+		height: 125px
+	}
+	.rec_card .acc_name {
+		font-size: 14px
+	}
+	.monthRegion {
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+	}
+	.month_card {
+		height: 135px
+	}
+	.rev_card>a {
+		gap: 11px
+	}
+	.rev_left {
+		width: 40%
+	}
+	.rev_imgbox {
+		height: 110px
+	}
+	.rev_title {
+		font-size: 14px
+	}
+	.rev_content {
+		-webkit-line-clamp: 4;
+		font-size: 12px
+	}
+	.section_top>p, .section_middle>p, .section_bottom>p {
+		font-size: 21px
+	}
+	footer {
+		padding: 35px 20px
+	}
+	
+}

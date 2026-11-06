@@ -3,6 +3,6 @@
 
 <script type="text/javascript">
 	alert("${msg}");
-	location.href="index.jsp?section=user/joinForm.jsp";
+	location.href="/index.jsp?section=user/joinForm.jsp";
 
 </script>

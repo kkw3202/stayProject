@@ -3,6 +3,5 @@
 
 <script type="text/javascript">
 	alert("${msg}");
-	location.href="index.jsp";
-
+	location.href="/index.jsp";
 </script>
