@@ -1,4 +1,4 @@
-/* 머물:多 - 1:1 문의 상세보기 전용 CSS */
+@charset "UTF-8";
 .boardwrap, .boardwrap * { box-sizing: border-box; }
 .boardwrap {
   width: min(100% - 32px, 960px);
@@ -70,7 +70,7 @@
   font-weight: 700;
   white-space: nowrap;
 }
-/* 첫 행: 기능 버튼을 오른쪽으로 정렬 */
+/* 泥� �뻾: 湲곕뒫 踰꾪듉�쓣 �삤瑜몄そ�쑝濡� �젙�젹 */
 .boardwrap table tr:first-child td[colspan] {
   padding: 13px 16px !important;
   background: #f8fafd !important;
@@ -94,13 +94,13 @@
   transition: background .15s, border-color .15s;
 }
 .boardwrap input[type='button']:hover { background: #eaf2fc; border-color: #174a8b; }
-.boardwrap input[type='button'][value='답글쓰기'],
-.boardwrap input[type='button'][value='수정하기'] { background: #12447f; border-color: #12447f; color: #fff; }
-.boardwrap input[type='button'][value='답글쓰기']:hover,
-.boardwrap input[type='button'][value='수정하기']:hover { background: #0c3260; }
-.boardwrap input[type='button'][value='삭제하기'] { color: #b33c43; border-color: #ecc7c9; }
-.boardwrap input[type='button'][value='삭제하기']:hover { background: #fff2f2; }
-/* 글내용 행: 긴 문단과 줄바꿈 지원 */
+.boardwrap input[type='button'][value='�떟湲��벐湲�'],
+.boardwrap input[type='button'][value='�닔�젙�븯湲�'] { background: #12447f; border-color: #12447f; color: #fff; }
+.boardwrap input[type='button'][value='�떟湲��벐湲�']:hover,
+.boardwrap input[type='button'][value='�닔�젙�븯湲�']:hover { background: #0c3260; }
+.boardwrap input[type='button'][value='�궘�젣�븯湲�'] { color: #b33c43; border-color: #ecc7c9; }
+.boardwrap input[type='button'][value='�궘�젣�븯湲�']:hover { background: #fff2f2; }
+/* 湲��궡�슜 �뻾: 湲� 臾몃떒怨� 以꾨컮轅� 吏��썝 */
 .boardwrap table tr:nth-child(5) td {
   min-height: 190px;
   padding-top: 24px !important;
@@ -109,7 +109,7 @@
   white-space: pre-wrap;
   line-height: 1.9;
 }
-/* 답변 상태 배지: JSP에 class=status-wait/status-done 추가 시 적용 */
+/* �떟蹂� �긽�깭 諛곗�: JSP�뿉 class=status-wait/status-done 異붽� �떆 �쟻�슜 */
 .boardwrap .status-wait,
 .boardwrap .status-done {
   display: inline-block !important;

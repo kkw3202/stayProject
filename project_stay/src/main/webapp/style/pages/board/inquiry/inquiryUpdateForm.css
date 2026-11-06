@@ -1,3 +1,0 @@
-@charset "UTF-8";
-/* inquiryUpdateForm.jsp — 현재 원본은 텍스트 한 줄만 있음; 있는 요소만 정리 */
-html body .boardwrap:not(:has(table)):not(:has(form)) {max-width:940px;width:calc(100% - 32px);min-height:160px;margin:65px auto 85px;padding:35px;background:#fff;border:1px solid var(--mm-border);border-top:4px solid var(--mm-primary);border-radius:18px;box-shadow:var(--mm-shadow);color:var(--mm-primary-dark);font-size:24px;font-weight:750;}

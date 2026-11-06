@@ -4,7 +4,7 @@
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="style/inquiryList.css"/>
 
-
+<section>
 <%-- 1:1게시판     --%>
 <div class="boardwrap">
 	<h3>1:1게시판</h3>
@@ -99,11 +99,7 @@
 	</div>	
 
 </div>
-<<<<<<< HEAD
 </section>
-=======
-
->>>>>>> cfe108a81794e298bd6e8f59f45f74686d0b9bb0
 
 <script>
 	// 게시판 글쓰기 버튼 관련한 스크립트

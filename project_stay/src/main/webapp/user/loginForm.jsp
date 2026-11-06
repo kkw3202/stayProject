@@ -1,15 +1,4 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>로그인 하기</title>
-<link rel="stylesheet" href="style/pages/user/loginForm.css">
-</head>
-<body>
-=======
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- index.jsp에서 include하는 화면이므로 html/head/body 태그를 중복 작성하지 않습니다. --%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/login_style.css">
@@ -23,7 +12,6 @@
             </div>
             <div class="visual-copy">다시,<br>머물:多에서<br>여행을 이어가세요.</div>
         </div>
->>>>>>> cfe108a81794e298bd6e8f59f45f74686d0b9bb0
 
         <div class="login-content">
             <h2>로그인</h2>

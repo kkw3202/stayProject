@@ -1,4 +1,4 @@
-/* 머물:多 1:1 문의 게시판 - 기존 메인 CSS와 충돌하지 않도록 범위 제한 */
+@charset "UTF-8";
 .boardwrap, .boardwrap * { box-sizing: border-box; }
 .boardwrap { width: min(1100px, calc(100% - 40px)); margin: 54px auto 80px; padding: 42px 44px 48px; background: #fff; border: 1px solid #e6ebf3; border-radius: 18px; box-shadow: 0 12px 38px rgba(14,49,93,.07); font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif; color:#182b47; }
 .boardwrap h3 { margin:0 0 9px; font-size:28px; font-weight:800; color:#103b74; text-align:center; }

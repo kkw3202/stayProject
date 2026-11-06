@@ -1,78 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원 가입하기</title>
-<link rel="stylesheet" href="style/pages/user/joinForm.css">
-</head>
-<body>
-	<div class="container">
-		<h3>회원가입</h3>
-		<form action="joinProc.do" method="post" name="jfrm">
-			<table border="1">
-				<tr>
-					<th>이름</th>
-					<td>
-						<input type="text" name="name" placeholder="이름을 입력하세요">
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td>
-						<input type="password" name="password" placeholder="영문과 숫자로 20자 이내의 비밀번호를 입력하세요">
-					</td>
-				</tr>
-				<tr>
-					<th>보안질문</th>
-					<td>
-						<select>
-							<option value="">선택</option>
-							<option value="1">가장 기억에 남는 여행지는?</option>
-							<option value="2">다시 태어나면 되고 싶은 것은?</option>
-							<option value="3">가장 좋아하는 음식은?</option>
-							<option value="4">태어난 도시는?</option>
-						</select>
-						<input type="text" name="passkey">
-					</td>
-				</tr>
-				<tr>
-					<th>전화번호</th>
-					<td>
-						<input type=tel" name="phone" placeholder="숫자만 입력하세요">
-					</td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td>
-						<input type="email" name="email" placeholder="이메일을 입력하세요">
-					</td>
-				</tr>
-				<tr>
-					<th>생년월일</th>
-					<td>
-						<input type="text" name="birth" placeholder="예)2026-01-01">
-					</td>
-				</tr>
-				<tr>
-					<th>성별</th>
-					<td>
-						<input type="radio" name="gender" value="1">남성
-						<input type="radio" name="gender" value="2">여성
-						<input type="radio" name="gender" value="3">기타
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="button" value="회원가입" onclick="checkForm()">
-						<input type="button" value="취소"  onclick="checkCancel()">
-				</tr>
-			</table>
-		</form>
-=======
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="style/join_style_v2.css">
 <section>
 <div class="join-page">
@@ -141,7 +67,7 @@
 				</table>
 			</form>
 		</div>
->>>>>>> cfe108a81794e298bd6e8f59f45f74686d0b9bb0
+
 	</div>
 </div>
 </section>

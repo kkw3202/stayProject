@@ -1,3 +1,0 @@
-@charset "UTF-8";
-/* searchList.jsp — 원본에는 빈 <section>만 존재합니다. 콘텐츠를 만들어내지 않습니다. */
-html body .container > section:empty {max-width:1200px;margin:0 auto;min-height:150px;}

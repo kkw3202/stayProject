@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import com.mysql.cj.protocol.Resultset;
 
 import DBPKG.Util;
+import model.Handler.User_change;
 import model.Handler.dateHandler.DateHandlerDAO;
 import model.common.search_accDTO;
 import model.common.search_roomDTO;
 import model.place.Room.RoomDAO;
 
 public class placeDAO {
-	// 도시, 숙소 타입, 숙소명 필터링 메소드
+	// 검색결과에 필요한 기본적인 결과를 가져오는 메소드
 	public ArrayList<search_accDTO> do_searching(String city_name, String acc_type, String acc_name, String book_checkin_date, String book_checkout_date) throws ParseException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -116,4 +117,6 @@ public class placeDAO {
 		return result;
 		
 	}
+	
+
 }

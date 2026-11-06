@@ -57,7 +57,9 @@
 						<img alt="달력이미지" src="image/cal.svg" class="search_bar_img">
 						<!-- 나중에 달력 붙이기 -->
 						<p>일정 선택</p> <!-- 달력에서 선택한 날 띄우기 -->
-						<div class="saveSelWrap"></div>
+						<div class="saveSelWrap">
+							<c:if test="${sessionScope.book_checkin_date  }"></c:if>
+						</div>
 					</div>
 					<div id="main" class="noShow"></div>
 					<!-- 숙소 유형 -->

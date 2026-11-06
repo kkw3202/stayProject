@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 
+import model.Handler.User_change;
+import model.WishList.WishListDAO;
 import model.common.search_accDTO;
 import model.place.placeDAO;
 import model.place.placeDTO;
@@ -34,6 +36,7 @@ public class searchingListProc extends HttpServlet {
 		placeDTO pdto = new placeDTO();
 		search_accDTO sadto = new search_accDTO();
 		
+		
 		ArrayList<search_accDTO> sa_arr = new ArrayList<search_accDTO>();
 		
 		String[] selectedDays = request.getParameterValues("selectedDays");
@@ -45,13 +48,42 @@ public class searchingListProc extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		
-		session.setAttribute("city_name", city_name);
+		/*session.setAttribute("city_name", city_name);
 		session.setAttribute("acc_type", acc_type);
 		session.setAttribute("acc_name", acc_name);
 		session.setAttribute("book_checkin_date", book_checkin_date);
-		session.setAttribute("book_checkout_date", book_checkout_date);
+		session.setAttribute("book_checkout_date", book_checkout_date);*/
 		
+		// 세션 대신 hidden으로 넘겨서 header에서 받자!
 		
+		try {
+			sa_arr = pdao.do_searching(city_name, acc_type, acc_name, book_checkin_date, book_checkout_date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		if(session != null) {
+			String user_email = (String) session.getAttribute("user_email");
+			if(user_email != null) {
+				WishListDAO wdao = new WishListDAO();
+				ArrayList<Integer> wishes = wdao.getWishList(user_email);
+				ArrayList<Integer> send_wishes = new ArrayList<Integer>();
+				
+			
+
+				for(int i = 0; i<wishes.size(); i++) {
+					for(search_accDTO sa_a_code : sa_arr) {
+						if(sa_a_code.getAcc_code() == wishes.get(i)) {
+							send_wishes.add(wishes.get(i));
+							break;
+						}
+					}
+				}
+				
+				request.setAttribute("wishes", send_wishes);
+			}
+		}
+
 		if(request.getParameterValues("selectedDays") != null) {
 			if(selectedDays.length != 0) {
 				boolean is_day_right = Integer.parseInt(selectedDays[0]) < Integer.parseInt(selectedDays[1]) ? true : false;
@@ -67,11 +99,10 @@ public class searchingListProc extends HttpServlet {
 			}
 		}
 		
-		try {
-			sa_arr = pdao.do_searching(city_name, acc_type, acc_name, book_checkin_date, book_checkout_date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		
+		
+	
+		
 		
 		request.setAttribute("sa_arr", sa_arr);
 		
