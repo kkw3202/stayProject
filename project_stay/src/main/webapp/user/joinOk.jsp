@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <script type="text/javascript">
-	alert("${msg}");
-	location.href="index.jsp";
+	alert("${sessionScope.msg}");
+	location.href="${pageContext.request.contextPath}/index.jsp";
 
 </script>
+
+<%
+    session.removeAttribute("msg");
+%>

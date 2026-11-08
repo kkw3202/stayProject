@@ -46,7 +46,7 @@ public class UserDAO {
 	}
 
 	// password만 추출하는 메소드 
-	public String getPass(String user_email) {
+	public String getPass(String email) {
 		String chkpass="";
 		
 		try {
@@ -54,7 +54,7 @@ public class UserDAO {
 			
 			String sql = "select user_password from user where user_email=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, user_email);
+			pstmt.setString(1, email);
 			
 			rs = pstmt.executeQuery();
 			
@@ -74,7 +74,8 @@ public class UserDAO {
 	}
 	
 	// 한 사람의 데이터를 DB에 저장하는 메소드
-	public void insertUser(UserDTO udto) {
+	public boolean insertUser(UserDTO udto) {
+		boolean insertUser = false;
 		try {
 			con = Util.getConnection();
 			
@@ -93,6 +94,7 @@ public class UserDAO {
 			
 			if(result > 0) {
 				System.out.println("업데이트 성공");
+				insertUser = true;
 			}
 					
 		}catch(Exception e) {
@@ -104,6 +106,7 @@ public class UserDAO {
 				if(con != null) con.close();
 			}catch(Exception e) { e.printStackTrace();}
 		}
+		return insertUser;
 	}
 	
 	// 한 사람의 데이터를 추출하는 메소드 
@@ -231,7 +234,35 @@ public class UserDAO {
 		}
 	}
 
-	
+	//-----------------------------------------
+// 	2026. 11. 7. 
+	// passkey만 추출하는 메소드 
+	public String getPasskey(String email) {
+		String chkpasskey="";
+		
+		try {
+			con = Util.getConnection();
+			
+			String sql = "select user_passkey from user where user_email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				chkpasskey = rs.getString("user_passkey");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return chkpasskey;
+	}	
 	
 	
 	

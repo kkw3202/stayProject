@@ -32,7 +32,7 @@ public class joinProc extends HttpServlet {
 		String email = request.getParameter("email");
 		String emailChk = udao.getEmail(email);
 		String pass = request.getParameter("password");
-		String passChk = udao.getPass(pass);
+		String passchk = request.getParameter("passchk");
 		
 		udto.setUser_email(email);
 		udto.setUser_password(pass);
@@ -40,28 +40,29 @@ public class joinProc extends HttpServlet {
 		udto.setUser_phone(request.getParameter("phone"));
 		udto.setUser_birth(request.getParameter("birth"));
 		udto.setUser_gender(Integer.parseInt(request.getParameter("gender")));
-		udto.setUser_chk_del(Integer.parseInt(request.getParameter("gender")));
 		udto.setUser_passkey(request.getParameter("passkey"));
-		
+
 		String link ="";
 		// 기존 이메일과 같은 이메일일 경우
-		
-		System.out.println("email:"+email+"emailChk:"+emailChk);
-		if(email.equals(emailChk)) {
+		if(emailChk != null && emailChk.equals(email)) {
 			request.setAttribute("msg", "이미 존재하는 이메일 입니다");
-			link = "user/joinErr.jsp";
-		}else {
+			link = "/user/joinErr.jsp";
+		// 비밀번호와 비밀번호 확인이 다른 경우
+		}else if(pass.equals(passchk)){
 			udao.insertUser(udto);
-			request.setAttribute("msg", "회원가입을 축하합니다.");
-			link = "user/joinOk.jsp";
+			request.getSession().setAttribute("msg", "회원가입을 축하합니다~!");
+			response.sendRedirect(request.getContextPath() + "/user/joinOk.jsp"	);
+			return;
+		}else {
+			request.setAttribute("msg", "비밀번호를 확인하세요");
+			link = "/user/joinErr.jsp";
+				
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(link);
+		rd.forward(request, response);
 		
-		if(link.equals("index.jsp")) {
-			rd.forward(request, response);
-		}else {
-			response.sendRedirect(link);
-		}
 	}
+		
+		
 }

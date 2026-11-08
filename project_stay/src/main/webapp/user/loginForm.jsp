@@ -1,15 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>로그인 하기</title>
-</head>
-<body>
 
 	<div class="container">
-		<form action="loginProc.do" method="post" name="lfrm">
+		<form action="../user/loginProc.do" method="post" name="lfrm">
 			<table border="1">
 				<tr>
 					<td colspan="2"><h3>로그인</h3></td>
@@ -56,5 +49,3 @@
 		}
 	
 	</script>	
-</body>
-</html>
