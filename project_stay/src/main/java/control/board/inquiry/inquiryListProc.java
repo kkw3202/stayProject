@@ -48,26 +48,33 @@ public class inquiryListProc extends HttpServlet {
 		// 한 화면에 페이징하고 싶은 개수 [1][2][3][4][5]
 		int pageBlock=5;
 		
-		// inquiryList에서 입력한 정보 가져오기
+		// 정보 가져오기
 		String pageNum = request.getParameter("pageNum");
 		String keyWord = request.getParameter("keyWord");
 		String searchType = request.getParameter("searchType");
 		
 		String user_name = "";
 		
-		System.out.println(searchType);
-		System.out.println(user_email);
-		System.out.println(keyWord);
-		// 검색어가 없는 경우(전체목록보기) / 검색어가 있는 경우 
-		if(searchType!=null && keyWord == null) {
+		// 검색창에 공백만 치거나 그냥 검색 눌렀을 때 null로 처리
+		if(keyWord != null) {
+		    keyWord = keyWord.trim();
+		    if(keyWord.equals("")) {
+		        keyWord = null;
+		    }
+		}
+		
+		// 내가쓴 글보기 버튼 누른 경우 (검색어가 입력없음)
+		if(searchType!=null && keyWord == null && searchType.equals("user_name")) {
 			// user_name 가져오는 메소드 실행하여, keyWord에 대입하기
 			keyWord = idao.getInquiryUserName(user_email);
 			count = idao.getInquirySearchCount(searchType, keyWord);
 			System.out.println(count);
+		// 검색창에 검색어를 입력하고 검색버튼을 누른경우
 		}else if(searchType != null && keyWord != null) {
 			// count에 전체 게시글 수 대입하기 (idao에서 메소드 실행)
 			count = idao.getInquirySearchCount(searchType, keyWord);
 			System.out.println(count);
+		// 처음에 진입하거나, 전체보기 버튼 누른경우
 		}else {
 			// count에 전체 게시글 수 대입하기 (idao에서 메소드 실행)
 			count = idao.getInquiryAllCount();
@@ -97,8 +104,8 @@ public class inquiryListProc extends HttpServlet {
 		// 최신글 10개를 가져오는 DAO 메소드를 이용해서 리턴
 		number = count - startRow;  // 위와 동일함
 		
-		System.out.println(number);
-		System.out.println(count);
+		// 만약 회원이 로그인 한 경우에, 
+		
 		
 		
 		// --------------------------------------------------------------------
@@ -113,6 +120,10 @@ public class inquiryListProc extends HttpServlet {
 		request.setAttribute("pageBlock", pageBlock);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
+		request.setAttribute("searchType", searchType);
+		request.setAttribute("keyWord", keyWord);
+		System.out.println(searchType);
+		System.out.println(keyWord);
 		// InquiryList.jsp 으로 보내기
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/inquiry/inquiryList.jsp");
 		rd.forward(request, response);

@@ -21,7 +21,7 @@ public class InquiryDAO {
 			con = Util.getConnection();
 			// 쿼리문
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
-					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del "
+					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del, u.user_email "
 					+ "from Inquiry i "
 					+ "inner join User u "
 					+ "on i.user_code = u.user_code "
@@ -43,6 +43,7 @@ public class InquiryDAO {
 				idto.setInq_re_step(rs.getInt(7));
 				idto.setInq_content(rs.getString(8));
 				idto.setInq_chk_del(rs.getInt(9));
+				idto.setUser_email(rs.getString(10));
 				
 				// ArrayList에 데이터 추가
 				i.add(idto);
@@ -91,7 +92,7 @@ public class InquiryDAO {
 			con = Util.getConnection();
 			// 쿼리문
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
-					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del "
+					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del, i.user_code "
 					+ "from Inquiry i "
 					+ "inner join User u "
 					+ "on i.user_code = u.user_code "
@@ -111,6 +112,7 @@ public class InquiryDAO {
 				idto.setInq_re_step(rs.getInt(7));
 				idto.setInq_content(rs.getString(8));
 				idto.setInq_chk_del(rs.getInt(9));
+				idto.setUser_code(rs.getInt(10));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -130,14 +132,16 @@ public class InquiryDAO {
 		ArrayList<InquiryDTO> i = new ArrayList<>();
 		try {
 			con = Util.getConnection();
+			// searchType이 user_name이면 u.user_name으로, 나머지는 i.컬럼명으로 지정
+			String sType = searchType.equals("user_name") ? "u." + searchType : "i." + searchType;
 			// 쿼리문
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
-					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del "
+					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del, u.user_email "
 					+ "from Inquiry i "
 					+ "inner join User u "
 					+ "on i.user_code = u.user_code "
 					+ "where inq_chk_del=0  "
-					+ "and " + searchType + " LIKE '%" + keyWord + "%'"
+					+ "and " + sType + " LIKE '%" + keyWord + "%'"
 					+ "order by inq_ref desc limit ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -155,6 +159,7 @@ public class InquiryDAO {
 				idto.setInq_re_step(rs.getInt(7));
 				idto.setInq_content(rs.getString(8));
 				idto.setInq_chk_del(rs.getInt(9));
+				idto.setUser_email(rs.getString(10));
 				
 				// ArrayList에 데이터 추가
 				i.add(idto);
@@ -176,13 +181,15 @@ public class InquiryDAO {
 		int count = 0;
 		try {
 			con = Util.getConnection();
+			// searchType이 user_name이면 u.user_name으로, 나머지는 i.컬럼명으로 지정
+			String sType = searchType.equals("user_name") ? "u." + searchType : "i." + searchType;
 			// 쿼리문
 			String sql = "select count(*) "
 					+ "from Inquiry i "
 					+ "inner join User u "
 					+ "on i.user_code = u.user_code "
 					+ "where inq_chk_del=0  "
-					+ "and " + searchType + " LIKE '%" + keyWord + "%'";
+					+ "and " + sType + " LIKE '%" + keyWord + "%'";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -379,4 +386,104 @@ public class InquiryDAO {
 		
 		return writerEmail;
 	}
+	
+	// 11. 작성한 글, 수정하는 함수
+	public void updateInquiry(int inq_code, String inq_title, String inq_content) {
+		try {
+			// DB연결
+			con = Util.getConnection();
+			// 조회수 증가하는 쿼리문 작성 업데이트
+			String sql = "update Inquiry set inq_title=?, inq_content=? where inq_code=?";
+			// 실행할 쿼리 객체 선언
+			pstmt = con.prepareStatement(sql);
+			// ? 대입
+			pstmt.setString(1, inq_title);
+			pstmt.setString(2, inq_content);
+			pstmt.setInt(3, inq_code);
+			// 쿼리 실행
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
+	// 12. 1:1문의글 삭제하기 (소프트삭제)
+	public void deleteBoard(int inq_code) {
+		try {
+			// DB연결
+			con = Util.getConnection();
+			// 데이터를 지우지 않고, chkDel을 1로 업데이트
+			String sql = "update Inquiry set inq_chk_del=1 where inq_code=?";
+			// 쿼리 선언
+			pstmt = con.prepareStatement(sql);
+			// ? 에 넣기
+			pstmt.setInt(1, inq_code);
+			// 쿼리 실행
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
+	// 13. 관리자 답변달기 메소드
+	public void rewriteInquiry(InquiryDTO idto, int inq_code) {
+			
+		// 원글 ref 꺼내기
+		int inq_ref = idto.getInq_ref();
+		// 1:1 문의 이므로 답변의 re_step은 무조건 1로 고정한다.
+		int inq_re_step = 1;
+		// 콘솔에서 원글의 번호를 확인하는 코드
+		System.out.println("inq_ref -> DB :" + inq_ref);
+		System.out.println("inq_re_step -> DB :" + inq_re_step);
+		
+		try {
+			con = Util.getConnection();
+			// 답변상태도 1(답변완료) 처리 (끝에서 두번째, chk_status = 1)
+			String sql = "insert into Inquiry values (null, ?, current_date(), ?, ?, ?, ?, 1, 0)";
+			// 실행객체 만들기
+			pstmt = con.prepareStatement(sql);
+			// ?에 대입
+			pstmt.setString(1, idto.getInq_title());
+			pstmt.setInt(2, idto.getUser_code());
+			pstmt.setString(3, idto.getInq_content());
+			pstmt.setInt(4, inq_ref);
+			pstmt.setInt(5, inq_re_step);
+			// 쿼리실행
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			
+			// 원글의 상태도 답변완료로 처리
+			String sql02 = "update Inquiry set inq_chk_status = 1 where inq_code = ?";
+			pstmt = con.prepareStatement(sql02);
+			// ?에 대입
+			pstmt.setInt(1, inq_code);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
+	// 14. 
+	
 }

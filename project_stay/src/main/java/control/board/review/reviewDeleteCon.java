@@ -7,35 +7,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class reviewDeleteCon
- */
-@WebServlet("/reviewDeleteCon")
+import model.Review.ReviewDAO;
+
+@WebServlet("/reviewDeleteCon.do")
 public class reviewDeleteCon extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public reviewDeleteCon() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		reqPro(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		reqPro(request, response);
 	}
 
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 인코딩
+		request.setCharacterEncoding("utf-8");
+		// 정보가져오기
+		int rev_code = Integer.parseInt(request.getParameter("rev_code"));
+		
+		// rdao 인스턴스 및 삭제처리하기 실행 (소프트삭제)
+		ReviewDAO rdao = new ReviewDAO();
+		rdao.deleteReview(rev_code);
+		
+		// 소프트삭제후, 바로 이동
+		response.sendRedirect("reviewListProc.do");
+	}
 }
