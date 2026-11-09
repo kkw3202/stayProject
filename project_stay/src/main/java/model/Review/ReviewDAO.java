@@ -247,9 +247,7 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			
-			String sql = "select u.user_name from User u inner join Reviews r "
-					+ "on u.user_code = r.user_code "
-					+ "where u.user_email = ?";
+			String sql = "select user_name from User u where user_email = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_email);
 			rs = pstmt.executeQuery();
@@ -370,7 +368,7 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "select count(*), u.user_name from Reviews r inner join User u "
+			String sql = "select count(*) from Reviews r inner join User u "
 					+ "on r.user_code = u.user_code where rev_chk_del=0 and user_name= ?";
 			pstmt = con.prepareStatement(sql);
 			// ?에 대입
@@ -472,5 +470,31 @@ public class ReviewDAO {
 			}catch(Exception e) {e.printStackTrace();}
 		}
 		return rdto;
+	}
+	
+	// 리뷰작성하는 메소드
+	public void insertReview(ReviewDTO rdto) {
+		
+		try {
+			con = Util.getConnection();
+			String sql = "insert into reviews values(null,?,?,?,?,now(),0,0)";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, rdto.getAcc_code());
+			pstmt.setInt(2, rdto.getUser_code());
+			pstmt.setInt(3, rdto.getRev_rating());
+			pstmt.setString(4, rdto.getRev_content());
+			
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		
 	}
 }

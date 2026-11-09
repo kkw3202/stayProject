@@ -26,13 +26,21 @@ public class reviewLikeCon extends HttpServlet {
 		
 		// 정보가져오기
 		int rev_code = Integer.parseInt(request.getParameter("rev_code"));
+		String tmp= request.getParameter("acc_code");
+		int acc_code=0;
+		if(tmp == null || tmp.equals("0")||tmp.isEmpty()) {
+			acc_code= 0;
+		}else {
+			acc_code=Integer.parseInt(tmp);
+		}
+		
 		System.out.println("rev_code"+rev_code);
 		// rdao 인스턴스 및 실행
 		ReviewDAO rdao = new ReviewDAO();
 		rdao.updateReviewLike(rev_code);
 		//System.out.println("rev_code"+rev_code);
 		// 업데이트 후 복귀
-		response.sendRedirect("reviewListProc.do");
+		response.sendRedirect("reviewListProc.do?searchType="+acc_code);
 	}
 
 }

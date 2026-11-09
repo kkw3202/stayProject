@@ -27,7 +27,7 @@
 			<c:if test="${not empty sessionScope.user_email and sessionScope.user_email ne 'admin@naver.com'}">
 				<td class="btn" colspan="2">
 					<input type="button" onclick="goWriteForm()" value="리뷰작성"/>
-					<input type = "button" onclick = "getMyreview()" value = "내가쓴리뷰"/>
+					<input type = "button" onclick = "getMyReview()" value = "내가쓴리뷰"/>
 				</td>
 			</c:if>
 		</tr>
@@ -48,7 +48,23 @@
 			<tr>
 				<th class="label">평점</th>
 				<td class="data">
-					${arr.rev_rating }
+					<c:choose>
+						<c:when test="${arr.rev_rating==5}">
+							<span class="star">★★★★★</span>
+						</c:when>
+						<c:when test="${arr.rev_rating==4}">
+							<span class="star">★★★★☆</span>
+						</c:when>
+						<c:when test="${arr.rev_rating==3}">
+							<span class="star">★★★☆☆</span>
+						</c:when>
+						<c:when test="${arr.rev_rating==2}">
+							<span class="star">★★☆☆☆</span>
+						</c:when>
+						<c:otherwise>
+							<span class="star">★☆☆☆☆</span>
+						</c:otherwise>
+					</c:choose>
 				</td>
 			</tr>
 			<tr>
@@ -63,13 +79,13 @@
 						<span class="like_badge">👍</span>좋아요 ${arr.rev_like }
 						<%-- 로그인되어 있고, 내가 쓴 글이 아닌 경우에만 추천하기 버튼 가능 --%>
 						<c:if test="${not empty sessionScope.user_email and sessionScope.user_email ne arr.user_email }">
-							<input type="button" class="btns" onclick="chkLike(${arr.rev_code})" value="추천하기"/>
+							<input type="button" class="btns" onclick="chkLike(${arr.rev_code},${arr.acc_code })" value="추천하기"/>
 						</c:if>
 					</div>
 					
 					<%-- 리뷰수정하기/삭제하기 : 작성자에게만 수정하기삭제하기 버튼 보여야함 --%>
 					<c:if test="${not empty sessionScope.user_email and sessionScope.user_email eq arr.user_email }">
-						<input type="button" class="btns" onclick="deleteReview(${arr.rev_code})" value="삭제하기"/>
+						<input type="button" class="btns" onclick="deleteReview(${arr.rev_code}, ${arr.acc_code })" value="삭제하기"/>
 						<input type="button" class="btns" onclick="updateReview(${arr.rev_code})" value="수정하기"/>
 					</c:if>
 				</td>
@@ -99,17 +115,17 @@
 
 <script>
 	// 좋아요 수량증가
-	function chkLike(rev_code){
+	function chkLike(rev_code, acc_code){
 		alert("해당 리뷰 추천하겠습니다!");
 		// 해당 리뷰번호와 함께, 좋아요 계산하는 서블릿으로 넘기기
-		location.href="reviewLikeCon.do?rev_code="+rev_code;
+		location.href="reviewLikeCon.do?rev_code="+rev_code+"&acc_code="+acc_code;
 	}
 	
 	// 삭제하기 함수(본인 글만 삭제 가능) (소프트삭제)
-	function deleteReview(rev_code){
+	function deleteReview(rev_code, acc_code){
 		alert("해당 리뷰 삭제하겠습니다!");
 		// 해당 리뷰번호와 함께, 삭제하는 서블릿으로 넘기기
-		location.href="reviewDeleteCon.do?rev_code="+rev_code;
+		location.href="reviewDeleteCon.do?rev_code="+rev_code+"&acc_code="+acc_code;
 	}
 	// 숙소명 onchange() 함수 제출하기
 	function search(f){
@@ -122,12 +138,12 @@
 		location.href="reviewWriteProc.do?searchType="+acc_code;
 	}
 	// 내가쓴 리뷰 보는 함수
-	function getMyreview(){
-		location.href="reviewListProc.do";
+	function getMyReview(){
+		location.href="reviewMyListProc.do";
 	}
 	// 내가 쓴 리뷰 수정하는 함수
 	//function updateReview(rev_code){
 		//alert("테스트");
-		//location.href="reviewUpdateProc.do?rev_code="+rev_code";
+	//	location.href="reviewUpdateProc.do?rev_code="+rev_code;
 	//}
 </script>
