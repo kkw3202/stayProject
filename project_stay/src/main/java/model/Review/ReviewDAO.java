@@ -292,4 +292,185 @@ public class ReviewDAO {
 		}
 		return acc_name;
 	}
+	
+	// 리뷰게시판 글 수정하는 함수
+	public void updateReview(int rev_code, String rev_title, String rev_content) {
+		try {
+			con = Util.getConnection();
+			String sql = "update Reviews set rev_title=?, rev_content=? where rev_code=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, rev_title);
+			pstmt.setString(2, rev_content);
+			pstmt.setInt(3, rev_code);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
+	// 내가쓴 리뷰만 보기
+	// 8. 내가쓴 글 게시글만 보기
+	public ArrayList<ReviewDTO> getMyreviewBoard(int startRow, int pageSize, String user_name){
+		ArrayList<ReviewDTO> r = new ArrayList<>();
+		try {
+			con = Util.getConnection();
+			// 쿼리문
+			String sql = "select r.rev_code, a.acc_code, u.user_code, r.rev_rating, r.rev_content, "
+					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name from Reviews r "
+					+ "inner join User u "
+					+ "on r.user_code = u.user_code "
+					+ "inner join Accommodation a "
+					+ "	on r.acc_code = a.acc_code "
+					+ "where rev_chk_del=0 and u.user_name = ? "
+					+ "order by rev_code desc limit ?,?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_name);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, pageSize);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ReviewDTO rdto = new ReviewDTO();
+				rdto.setRev_code(rs.getInt(1));
+				rdto.setAcc_code(rs.getInt(2));
+				rdto.setUser_code(rs.getInt(3));
+				rdto.setRev_rating(rs.getInt(4));
+				rdto.setRev_content(rs.getString(5));
+				rdto.setRev_created_datetime(rs.getString(6));
+				rdto.setRev_chk_del(rs.getInt(7));
+				rdto.setRev_like(rs.getInt(8));
+				rdto.setUser_name(rs.getString(9));
+				rdto.setUser_email(rs.getString(10));
+				rdto.setAcc_name(rs.getString(11));
+				
+				// ArrayList에 데이터 추가
+				r.add(rdto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return r;
+	}
+	
+	// 내가쓴 게시글의 숫자 계산하는 메소드
+	public int getMyreviewCount(String user_name) {
+		int count = 0;
+		try {
+			con = Util.getConnection();
+			// 쿼리문
+			String sql = "select count(*), u.user_name from Reviews r inner join User u "
+					+ "on r.user_code = u.user_code where rev_chk_del=0 and user_name= ?";
+			pstmt = con.prepareStatement(sql);
+			// ?에 대입
+			pstmt.setString(1, user_name);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return count;
+	}
+	// 유저코드 가져오는 메소드
+	public int getUserCode(String user_email) {
+		int user_code = 0;
+		try {
+			con = Util.getConnection();
+			// 쿼리문
+			String sql = "select user_code from User where user_email =?";
+			pstmt = con.prepareStatement(sql);
+			// ?에 대입
+			pstmt.setString(1, user_email);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				user_code = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return user_code;
+	}
+	
+	// 리뷰 수정하는 메소드
+	public void updateReview(int rev_code, int rev_rating, String rev_content) {
+		try {
+			con = Util.getConnection();
+			// 쿼리문
+			String sql = "update Reviews set rev_rating=?, rev_content =?  where rev_code = ?";
+			pstmt = con.prepareStatement(sql);
+			// ?에 대입
+			pstmt.setInt(1, rev_code);
+			pstmt.setInt(2, rev_rating);
+			pstmt.setString(3, rev_content);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
+	// 해당 글만 가져오는 메소드
+	public ReviewDTO getReviewOneBoard(int rev_code) {
+		ReviewDTO rdto = new ReviewDTO();
+		try {
+			con = Util.getConnection();
+			// 쿼리문
+			String sql = "select * from reviews where rev_code=?";
+			pstmt = con.prepareStatement(sql);
+			// ?에 대입
+			pstmt.setInt(1, rev_code);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				rdto.setRev_code(rs.getInt(1));
+				rdto.setAcc_code(rs.getInt(2));
+				rdto.setUser_code(rs.getInt(3));
+				rdto.setRev_rating(rs.getInt(4));
+				rdto.setRev_content(rs.getString(5));
+				rdto.setRev_created_datetime(rs.getString(6));
+				rdto.setRev_chk_del(rs.getInt(7));
+				rdto.setRev_like(rs.getInt(8));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return rdto;
+	}
 }

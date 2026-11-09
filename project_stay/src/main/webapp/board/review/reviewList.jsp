@@ -20,8 +20,6 @@
 		</div>
 	</form>
 	
-	<%--  --%>
-	
 	<table class="review_table">
 		<tr>
 			<%-- 로그인 하지 않거나, 관리자인 경우에는 내가쓴리뷰 안보이게 처리 --%>
@@ -29,7 +27,7 @@
 			<c:if test="${not empty sessionScope.user_email and sessionScope.user_email ne 'admin@naver.com'}">
 				<td class="btn" colspan="2">
 					<input type="button" onclick="goWriteForm()" value="리뷰작성"/>
-					<input type = "button" onclick = "" value = "내가쓴리뷰"/>
+					<input type = "button" onclick = "getMyreview()" value = "내가쓴리뷰"/>
 				</td>
 			</c:if>
 		</tr>
@@ -49,7 +47,9 @@
 			</tr>
 			<tr>
 				<th class="label">평점</th>
-				<td class="data">${arr.rev_rating }</td>
+				<td class="data">
+					${arr.rev_rating }
+				</td>
 			</tr>
 			<tr>
 				<th class="label">리뷰내용</th>
@@ -63,13 +63,14 @@
 						<span class="like_badge">👍</span>좋아요 ${arr.rev_like }
 						<%-- 로그인되어 있고, 내가 쓴 글이 아닌 경우에만 추천하기 버튼 가능 --%>
 						<c:if test="${not empty sessionScope.user_email and sessionScope.user_email ne arr.user_email }">
-							<input type="button" class="btn_delete_like" onclick="chkLike(${arr.rev_code})" value="추천하기"/>
+							<input type="button" class="btns" onclick="chkLike(${arr.rev_code})" value="추천하기"/>
 						</c:if>
 					</div>
 					
-					<%-- 리뷰삭제하기 : 작성자에게만 삭제하기 버튼 보여야함 --%>
+					<%-- 리뷰수정하기/삭제하기 : 작성자에게만 수정하기삭제하기 버튼 보여야함 --%>
 					<c:if test="${not empty sessionScope.user_email and sessionScope.user_email eq arr.user_email }">
-						<input type="button" class="btn_delete_like" onclick="deleteReview(${arr.rev_code})" value="삭제하기"/>
+						<input type="button" class="btns" onclick="deleteReview(${arr.rev_code})" value="삭제하기"/>
+						<input type="button" class="btns" onclick="updateReview(${arr.rev_code})" value="수정하기"/>
 					</c:if>
 				</td>
 			</tr>
@@ -120,5 +121,13 @@
 		let acc_code = document.acc_choice.searchType.value;
 		location.href="reviewWriteProc.do?searchType="+acc_code;
 	}
-	
+	// 내가쓴 리뷰 보는 함수
+	function getMyreview(){
+		location.href="reviewListProc.do";
+	}
+	// 내가 쓴 리뷰 수정하는 함수
+	//function updateReview(rev_code){
+		//alert("테스트");
+		//location.href="reviewUpdateProc.do?rev_code="+rev_code";
+	//}
 </script>

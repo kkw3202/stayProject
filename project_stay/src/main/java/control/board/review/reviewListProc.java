@@ -52,10 +52,19 @@ public class reviewListProc extends HttpServlet {
 		int acc_code = 0; 
 		// 리뷰 개수 변수 설정
 		int count = 0;
+		
+		String user_name = rdao.getUser_name(user_email);
+		System.out.println("user_name"+user_name);
+		System.out.println("searchType"+searchType);
+		
+		//int user_code = rdao.getUserCode(user_email);
+		// int user_code = Integer.parseInt(request.getParameter("searchType"));
+		// System.out.println("user_code"+user_code);
+		
 		// count 개수 설정
 		if(searchType==null || searchType.equals("none")|| searchType.equals("0")) {  // 콤보박스에서 선택이 안된 경우
 			count = rdao.countTotalReview();  // 전체 리뷰개수 
-		}else {  // 콤보박스에서 숙소 하나 선택한 경우
+		}else { // 콤보박스에서 숙소 하나 선택한 경우
 			acc_code = Integer.parseInt(searchType);
 			count = rdao.countAccReview(acc_code);  // 해당 숙소의 리뷰개수
 		}
@@ -71,9 +80,10 @@ public class reviewListProc extends HttpServlet {
 		int endPage = pdto.getEndPage();
 		
 		ArrayList<ReviewDTO> rlist;
+		// 내 리뷰만 선택한 경우
 		if(searchType==null || searchType.equals("none")|| searchType.equals("0")) {
 			rlist = rdao.getReviewAllBoard(startRow, pageSize);
-		}else {
+		}else { // 전체 목록 
 			rlist = rdao.getReviewAccBoard(startRow, pageSize, acc_code);
 		}
 		
@@ -96,8 +106,8 @@ public class reviewListProc extends HttpServlet {
 		request.setAttribute("searchType", acc_code);
 		System.out.println(searchType);
 		
-		System.out.println("acc_code: " + acc_code);
-		System.out.println("count: " + count);
+		// System.out.println("acc_code: " + acc_code);
+		// System.out.println("count: " + count);
 		
 		// 넘기기
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/review/reviewList.jsp");
