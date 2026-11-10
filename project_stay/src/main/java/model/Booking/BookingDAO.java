@@ -4,11 +4,13 @@ import java.sql.*;
 import java.util.Random;
 
 import DBPKG.Util;
+import model.common.BookResultDTO;
 
 
 public class BookingDAO {
-	// 예약 집어넣기 
-	public void doBooking(int user_code, String book_checkin_date, String book_checkout_date, int room_code, String book_name) {
+	// 예약번호 중복 체크 코드 삽입하기
+	// 예약 집어넣기 리턴 하는 값은 예약번호.
+	public String doBooking(int user_code, String book_checkin_date, String book_checkout_date, int room_code, String book_name) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -34,7 +36,7 @@ public class BookingDAO {
 		try {
 			con = Util.getConnection();
 
-			String sql = "insert into booking values(null, ?, "+ isUser + isGuest +"?,?,null,?,?,null,?,3)";
+			String sql = "insert into booking values(null, ?, "+ isUser + isGuest +"?,?,current_timestamp(),?,?,null,?,3)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, book_name);
 			pstmt.setInt(2, customer_code);
@@ -43,6 +45,8 @@ public class BookingDAO {
 			pstmt.setInt(5, room_code);
 			pstmt.setString(6, book_number);
 			pstmt.setInt(7, isUserChk);
+
+			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,5 +63,54 @@ public class BookingDAO {
 				e.printStackTrace();
 			}
 		}
+		return book_number;
+	}
+	
+	// 예약번호로 예약을 조회하는 메소드
+	public BookResultDTO get_one_BookResult(String book_number) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		BookResultDTO result = new BookResultDTO();
+		
+		try {
+			con = Util.getConnection();
+
+			String sql = "select b.book_name, b.book_checkin_date, b.book_checkout_date, "
+					+ "a.acc_name, r.room_name, r.room_price "
+					+ "from booking b "
+					+ "inner join room r on b.room_code = r.room_code "
+					+ "inner join accommodation a on r.acc_code = a.acc_code "
+					+ "where b.book_number=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, book_number);
+			
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				result.setBook_name(rs.getString(1));
+				result.setBook_checkin_date(rs.getString(2));
+				result.setBook_checkout_date(rs.getString(3));
+				result.setAcc_name(rs.getString(4));
+				result.setRoom_name(rs.getString(5));
+				result.setRoom_price(rs.getInt(6));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (con != null)
+					con.close();
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;		
 	}
 }

@@ -40,7 +40,7 @@
 			<h5>객실선택</h5>
 			<%-- <c:if test="${rdto_arr[0].room_code =! 0}"> --%>
 				<c:forEach var="rdto" items="${rdto_arr }">
-					<form class="room_card" action="bookingProc.java" method="get"> <!-- 결재 화면으로 이동하게 해야함. -->
+					<form class="room_card" action="bookingProc.do" method="get"> <!-- 결재 화면으로 이동하게 해야함. -->
 						<div class="room_img1">
 							<img alt="방 대표 이미지" src="${rdto.room_img1 }">
 						</div>

@@ -88,6 +88,7 @@ public class accInfoProc extends HttpServlet {
 		
 		request.setAttribute("pdto", pdto);
 		request.setAttribute("rdto_arr", rdto_arr);
+		
 
 		
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=searching/accInfo.jsp");

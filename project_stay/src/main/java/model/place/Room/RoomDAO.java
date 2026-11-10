@@ -53,10 +53,8 @@ public class RoomDAO {
 				if (i + 1 != dates.size()) sql += "or ";
 				else sql += " ";
 			}
-			sql += ")and room_code = ?"; // 3 => 내가 검색할 방
+			sql += ")and room_code="+room_code; // 3 => 내가 검색할 방
 			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setInt(1, room_code);
 
 			rs = pstmt.executeQuery();
 
@@ -66,7 +64,7 @@ public class RoomDAO {
 					if (can_room_cnt > search_room_count)
 						return -1;
 					if (can_room_cnt < result)
-						result = can_room_cnt;
+						result = search_room_count-can_room_cnt;
 				}
 			}
 

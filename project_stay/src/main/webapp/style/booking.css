@@ -1,0 +1,406 @@
+@charset "utf-8";
+/* 머물:多 예약 및 결제 - Eclipse 구버전 호환 CSS (:has, nesting, :is 미사용) */
+/* 기존 JSP의 contaier 철자 그대로 사용 */
+section>.contaier {
+	max-width: 1220px;
+	margin: 35px auto 70px;
+	padding: 0 22px;
+	font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+	color: #10234a;
+	box-sizing: border-box;
+}
+
+section>.contaier *, section>.contaier *:before, section>.contaier *:after
+	{
+	box-sizing: border-box;
+}
+
+section>.contaier>form {
+	display: flex;
+	align-items: flex-start;
+	gap: 22px;
+}
+
+section>.contaier>form>.left {
+	width: 39%;
+	min-width: 0;
+	padding: 30px;
+	background: #fff;
+	border: 1px solid #e2eaf6;
+	border-radius: 20px;
+	box-shadow: 0 9px 28px rgba(29, 65, 118, .08);
+}
+
+section>.contaier>form>.right {
+	width: 61%;
+	min-width: 0;
+	padding: 24px;
+	background: #fff;
+	border: 1px solid #e2eaf6;
+	border-radius: 20px;
+	box-shadow: 0 9px 28px rgba(29, 65, 118, .08);
+}
+
+section>.contaier .reserved:before {
+	content: '♙  예약자 정보';
+	display: block;
+	margin-bottom: 24px;
+	font-size: 23px;
+	font-weight: 800;
+	color: #10234a;
+}
+
+section>.contaier .nameWrap, section>.contaier .phoneWrap {
+	margin-bottom: 24px;
+}
+
+section>.contaier .nameWrap label, section>.contaier .phoneWrap label {
+	display: block;
+	margin-bottom: 11px;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+section>.contaier .nameWrap input, section>.contaier .phoneWrap input {
+	display: block;
+	width: 100%;
+	height: 51px;
+	padding: 0 16px;
+	border: 1px solid #bdcde4;
+	border-radius: 11px;
+	background: #fff;
+	font-size: 14px;
+	color: #10234a;
+	outline: none;
+}
+
+section>.contaier input:focus {
+	border-color: #175db3;
+	box-shadow: 0 0 0 3px rgba(23, 93, 179, .1);
+}
+
+section>.contaier input::placeholder {
+	color: #8b9ab1;
+}
+
+section>.contaier .pay_btn_wrap {
+	margin-top: 36px;
+	padding-top: 28px;
+	border-top: 1px solid #dbe5f1;
+}
+
+section>.contaier .pay_btn_wrap:before {
+	content: '▣  결제 방법';
+	display: block;
+	margin-bottom: 20px;
+	font-size: 21px;
+	font-weight: 800;
+}
+/* 아래 payment-option 요소는 JSP에 추가해야 보입니다. */
+section>.contaier .payment-option {
+	display: block;
+	position: relative;
+	margin-bottom: 12px;
+	padding: 15px 14px 15px 58px;
+	min-height: 76px;
+	border: 1px solid #c3d1e5;
+	border-radius: 12px;
+	background: #fff;
+	cursor: pointer;
+}
+
+section>.contaier .payment-option:hover {
+	border-color: #2b67b3;
+	background: #f8fbff;
+}
+
+section>.contaier .payment-option input[type='radio'] {
+	position: absolute;
+	top: 25px;
+	left: 15px;
+	width: 19px;
+	height: 19px;
+	accent-color: #1554a0;
+}
+
+section>.contaier .payment-option .payment-icon {
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	width: 38px;
+	height: 27px;
+	margin-right: 10px;
+	border: 2px solid #163a74;
+	border-radius: 5px;
+	background: linear-gradient(145deg, #f4f9ff, #c5d9f2);
+}
+/* CSS로 직접 그린 신용카드 그림: 별도 이미지 파일 불필요 */
+section>.contaier .payment-option .payment-icon:before {
+	content: '';
+	position: absolute;
+	top: 6px;
+	left: 0;
+	width: 100%;
+	height: 6px;
+	background: #163a74;
+}
+
+section>.contaier .payment-option .payment-icon:after {
+	content: '';
+	position: absolute;
+	bottom: 4px;
+	left: 5px;
+	width: 12px;
+	height: 3px;
+	border-radius: 2px;
+	background: #7696be;
+}
+
+section>.contaier .payment-option .payment-label {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+section>.contaier .payment-option .payment-desc {
+	display: block;
+	margin: 6px 0 0 49px;
+	font-size: 12px;
+	color: #61738e;
+}
+
+section>.contaier .payment-option .payment-icon.bank {
+	border-radius: 2px;
+	background: #fff;
+}
+
+section>.contaier .payment-option .payment-icon.bank:before {
+	top: 4px;
+	height: 3px;
+}
+
+section>.contaier .payment-option .payment-icon.bank:after {
+	width: 26px;
+	height: 3px;
+	left: 4px;
+	bottom: 4px;
+}
+
+section>.contaier .payment-option .payment-icon.mobile {
+	width: 24px;
+	height: 32px;
+	margin-left: 7px;
+	margin-right: 17px;
+	border-radius: 5px;
+	background: #fff;
+}
+
+section>.contaier .payment-option .payment-icon.mobile:before {
+	width: 8px;
+	height: 2px;
+	top: 3px;
+	left: 6px;
+}
+
+section>.contaier .payment-option .payment-icon.mobile:after {
+	width: 5px;
+	height: 5px;
+	bottom: 2px;
+	left: 8px;
+	border-radius: 50%;
+}
+
+section>.contaier .room_info {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0;
+	padding-bottom: 24px;
+	border-bottom: 1px solid #dfe7f2;
+}
+
+section>.contaier .room_img1 {
+	width: 42%;
+	padding-right: 20px;
+}
+
+section>.contaier .room_img1 img {
+	display: block;
+	width: 100%;
+	height: 220px;
+	object-fit: cover;
+	border-radius: 13px;
+}
+
+section>.contaier .info_name_wrap {
+	width: 17%;
+}
+
+section>.contaier .info_wrap {
+	width: 41%;
+	min-width: 0;
+}
+
+section>.contaier .info_name_wrap p, section>.contaier .info_wrap p {
+	margin: 0;
+	min-height: 54px;
+	padding: 12px 3px;
+	border-bottom: 1px solid #e7edf5;
+	font-size: 13px;
+	line-height: 1.65;
+	overflow-wrap: anywhere;
+}
+
+section>.contaier .info_name_wrap p {
+	font-weight: 700;
+	color: #425879;
+}
+
+section>.contaier .info_wrap p {
+	font-weight: 600;
+	color: #13264a;
+}
+
+section>.contaier .pay_wrap {
+	margin-top: 24px;
+	padding: 21px 24px;
+	border: 1px solid #cbdcf0;
+	border-radius: 14px;
+	overflow: hidden;
+}
+
+section>.contaier .pay_wrap h6 {
+	margin: 0 0 20px;
+	font-size: 21px;
+	font-weight: 800;
+}
+
+section>.contaier .pay_wrap p {
+	margin: 0;
+}
+
+section>.contaier .pay_wrap .info_name {
+	float: left;
+	clear: both;
+	width: 55%;
+	padding: 12px 0;
+	font-size: 14px;
+}
+
+section>.contaier .pay_wrap .info {
+	float: right;
+	width: 45%;
+	padding: 12px 0;
+	text-align: right;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+section>.contaier .pay_wrap .info_name:nth-last-of-type(2), section>.contaier .pay_wrap .info:last-child
+	{
+	margin-top: 12px;
+	padding: 15px 8px;
+	background: #e8f1ff;
+	font-size: 19px;
+	color: #0e326b;
+}
+
+section>.contaier .pay_wrap:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+section>.contaier .agreement_wrap {
+	margin-top: 20px;
+	padding: 19px 21px;
+	border: 1px solid #d2e0f2;
+	border-radius: 13px;
+	background: #fafcff;
+}
+
+section>.contaier .agreement_wrap input {
+	width: 18px;
+	height: 18px;
+	vertical-align: middle;
+	accent-color: #164b91;
+}
+
+section>.contaier .agreement_wrap label {
+	margin-left: 7px;
+	font-size: 15px;
+	font-weight: 700;
+	vertical-align: middle;
+}
+
+section>.contaier .agreement_wrap:after {
+	content: '예약 및 결제 진행 전 이용약관과 취소·환불 규정을 확인해주세요.';
+	display: block;
+	margin: 10px 0 0 29px;
+	font-size: 12px;
+	color: #64758e;
+}
+
+section>.contaier .submit_btn_wrap {
+	margin-top: 20px;
+}
+
+section>.contaier .submit_btn_wrap button {
+	display: block;
+	width: 100%;
+	min-height: 61px;
+	border: 0;
+	border-radius: 12px;
+	background: linear-gradient(180deg, #2d578a, #092c62);
+	color: #fff;
+	font-size: 21px;
+	font-weight: 800;
+	cursor: pointer;
+	box-shadow: 0 6px 14px rgba(18, 55, 105, .17);
+}
+
+section>.contaier .submit_btn_wrap button:hover {
+	background: #103f80;
+}
+
+section>.contaier .hidden_wrap {
+	display: none;
+}
+
+@media screen and (max-width: 980px) {
+	section>.contaier>form {
+		display: block;
+	}
+	section>.contaier>form>.left, section>.contaier>form>.right {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+}
+
+@media screen and (max-width: 620px) {
+	section>.contaier {
+		padding: 0 12px;
+		margin: 18px auto;
+	}
+	section>.contaier>form>.left, section>.contaier>form>.right {
+		padding: 18px;
+		border-radius: 14px;
+	}
+	section>.contaier .room_img1 {
+		width: 100%;
+		padding-right: 0;
+		margin-bottom: 15px;
+	}
+	section>.contaier .room_img1 img {
+		height: 200px;
+	}
+	section>.contaier .info_name_wrap {
+		width: 30%;
+	}
+	section>.contaier .info_wrap {
+		width: 70%;
+	}
+	section>.contaier .submit_btn_wrap button {
+		font-size: 17px;
+	}
+}
