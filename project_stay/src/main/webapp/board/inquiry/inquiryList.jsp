@@ -2,11 +2,10 @@
     pageEncoding="UTF-8" import = "java.util.*"%>
 <%@ page import = "DBPKG.Util" %>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 <link rel="stylesheet" href="style/inquiryList.css"/>
-
-
+<section>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet" href="style/inquiryList.css"/>
 <%-- 1:1게시판     --%>
 <div class="boardwrap">
 	<h3>1:1게시판</h3>
@@ -31,7 +30,9 @@
 		<c:if test = "${sessionScope.user_email ne 'admin@naver.com' && not empty sessionScope.user_email}">
 			<input type="button" onclick="location.href='index.jsp?section=board/inquiry/inquiryWriteForm.jsp'" value = "글쓰기"/>
 			<%--  내가 쓴 글보기 --%>
+            <%-- <input type="button" onclick="location.href='inquiryUpdateProc.do?inq_code=${idto.inq_code}'" value="수정하기"/> --%>
 		    <input type="button" class="btn_all" onclick="location.href='inquiryListProc.do?searchType=${'user_name'}'" value = "내가 쓴 글보기"/>
+
 		</c:if>
 	</form>
 	
@@ -123,5 +124,12 @@
 	</div>	
 
 </div>
+</section>
+
+<script>
+	// 게시판 글쓰기 버튼 관련한 스크립트
+
+</script>
+    
     
     

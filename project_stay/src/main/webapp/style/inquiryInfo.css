@@ -1,3 +1,4 @@
+
 @charset "utf-8";
 
 /* 머물:多 | 1:1 문의 상세보기 */
@@ -163,3 +164,4 @@
     .boardwrap .infoTable tr:first-child > td[colspan="2"] { text-align: center; }
     .boardwrap .infoTable .btn { min-width: 84px; padding: 0 9px; }
 }
+

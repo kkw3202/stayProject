@@ -1,3 +1,4 @@
+/* 머물:多 달력 전용 CSS — 기존 JSP/JS 유지 */
 @charset "utf-8";
 
 #main {
@@ -16,6 +17,7 @@
   color: #142c51;
   font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
 }
+/* 기존 #main {display:block} 등의 규칙보다 아래에 놓아야 합니다. */
 /* 湲곗〈 #main {display:block} �벑�쓽 洹쒖튃蹂대떎 �븘�옒�뿉 �넃�븘�빞 �빀�땲�떎. */
 #main.noShow { display: none !important; }
 #main, #main * { box-sizing: border-box; }
@@ -74,7 +76,7 @@
   cursor: pointer;
   transition: background .15s ease, color .15s ease;
 }
-/* 泥� 踰덉㎏ 以꾩� �슂�씪 �몴�떆 */
+/* 첫 번째 줄은 요일 표시 */
 #main table tr:first-child td {
   height: 31px;
   line-height: 31px;
@@ -101,7 +103,7 @@
 #main table td#today { outline: 1px solid #8bb6ed; outline-offset: -2px; font-weight: 800; }
 #main table td.selected,
 #main table td.selected:hover { background: #124780 !important; color: #fff !important; font-weight: 800; }
-/* �떖�젰 �몴�떆 湲곗�: .date �븞�뿉 #main �씠 �엳�뒗 �쁽�옱 援ъ“ */
+/* 달력 표시 기준: .date 안에 #main 이 있는 현재 구조 */
 .search_wrap .date { position: relative; }
 @media (max-width: 480px) {
   #main { left: 50%; transform: translateX(-50%); width: min(350px, calc(100vw - 24px)); padding: 16px; }

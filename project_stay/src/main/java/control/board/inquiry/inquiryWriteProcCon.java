@@ -25,10 +25,10 @@ public class inquiryWriteProcCon extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ï¿½ï¿½ï¿½Úµï¿½
 		request.setCharacterEncoding("utf-8");
 		
-		// HttpSession ÀÎ½ºÅÏ½ºÈ­
+		// HttpSession ï¿½Î½ï¿½ï¿½Ï½ï¿½È­
 		HttpSession session = request.getSession(false);
 		
 //		String user_name = (String)session.getAttribute("user_name");
@@ -37,31 +37,31 @@ public class inquiryWriteProcCon extends HttpServlet {
 //		System.out.println(user_name);
 		System.out.println(user_email);
 		
-		// InquiryDAO ÀÎ½ºÅÏ½º
+		// InquiryDAO ï¿½Î½ï¿½ï¿½Ï½ï¿½
 		InquiryDAO idao = new InquiryDAO();
-		// user_code °¡Á®¿À´Â ¸Þ¼Òµå »ç¿ë 
+		// user_code ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ 
 		int user_code = idao.getInquiryUserCode(user_email);
 		System.out.println(user_code);
 		
-		// ·Î±×ÀÎÀÌ ¾ÈµÈ »óÅÂÀÎ °æ¿ì : ¾Ë¸²Ã¢À» ¶ç¿ì°í, ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
-		// »ðÀÔ, »èÁ¦, ¼öÁ¤ => Ã³¸®ÇÏ´Â ¼­ºí¸´¿¡¼­ ³Ñ±æ¶§, sendRedirect()·Î ³Ñ±è
+		// ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ : ï¿½Ë¸ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+		// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ => Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±æ¶§, sendRedirect()ï¿½ï¿½ ï¿½Ñ±ï¿½
 		if(user_email==null) {
 			response.setContentType("text/html: charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.')");
+			out.println("alert('ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Õ´Ï´ï¿½.')");
 			out.println("location.href='index.jsp?section=user/loginForm.jsp'");
 			out.println("</script>");
 		}
 		
-		// InquiryDTO ÀÎ½ºÅÏ½º ¹× ·Î±×ÀÎµÈ »óÅÂÀÎ°æ¿ì=> inquiryDTO¿¡ ÀÚ·á ÀÎ¼­Æ® ÇÏ±â
+		// InquiryDTO ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½=> inquiryDTOï¿½ï¿½ ï¿½Ú·ï¿½ ï¿½Î¼ï¿½Æ® ï¿½Ï±ï¿½
 		InquiryDTO idto = new InquiryDTO();
 		idto.setInq_title(request.getParameter("inq_title"));
 		idto.setInq_content(request.getParameter("inq_content"));
 		
 		idao.insertInquiryBoard(idto, user_code);
 		
-		// ÆäÀÌÁö ³Ñ±è
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½
 		response.sendRedirect("inquiryListProc.do");
 	}
 	

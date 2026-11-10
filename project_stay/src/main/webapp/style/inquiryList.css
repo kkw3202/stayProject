@@ -1,4 +1,6 @@
+
 @charset "utf-8";
+
 .boardwrap, .boardwrap * {
 	box-sizing: border-box;
 }
@@ -63,14 +65,12 @@
 	min-width: 120px;
 }
 
-.boardwrap .searchbox select:focus, .boardwrap .searchbox input[type='text']:focus
-	{
+.boardwrap .searchbox select:focus, .boardwrap .searchbox input[type='text']:focus {
 	border-color: #164d90;
 	box-shadow: 0 0 0 3px rgba(22, 77, 144, .09);
 }
 
-.boardwrap .searchbox input[type='submit'], .boardwrap .searchbox input[type='button']
-	{
+.boardwrap .searchbox input[type='submit'], .boardwrap .searchbox input[type='button'] {
 	width: auto !important;
 	min-width: 76px;
 	height: 40px !important;
@@ -86,15 +86,13 @@
 	white-space: nowrap;
 }
 
-.boardwrap .searchbox input[type='submit'], .boardwrap .searchbox .btn-write
-	{
+.boardwrap .searchbox input[type='submit'], .boardwrap .searchbox .btn-write {
 	background: #123f7d !important;
 	color: #fff !important;
 	border-color: #123f7d !important;
 }
 
-.boardwrap .searchbox input[type='submit']:hover, .boardwrap .searchbox .btn-write:hover
-	{
+.boardwrap .searchbox input[type='submit']:hover, .boardwrap .searchbox .btn-write:hover {
 	background: #0a2d5e !important;
 }
 
@@ -138,29 +136,24 @@
 	background: #f9fbff;
 }
 
-.boardwrap .inquiry-table th:nth-child(1), .boardwrap .inquiry-table td:nth-child(1)
-	{
+.boardwrap .inquiry-table th:nth-child(1), .boardwrap .inquiry-table td:nth-child(1) {
 	width: 9%;
 }
 
-.boardwrap .inquiry-table th:nth-child(2), .boardwrap .inquiry-table td:nth-child(2)
-	{
+.boardwrap .inquiry-table th:nth-child(2), .boardwrap .inquiry-table td:nth-child(2) {
 	width: 42%;
 	text-align: left;
 }
 
-.boardwrap .inquiry-table th:nth-child(3), .boardwrap .inquiry-table td:nth-child(3)
-	{
+.boardwrap .inquiry-table th:nth-child(3), .boardwrap .inquiry-table td:nth-child(3) {
 	width: 15%;
 }
 
-.boardwrap .inquiry-table th:nth-child(4), .boardwrap .inquiry-table td:nth-child(4)
-	{
+.boardwrap .inquiry-table th:nth-child(4), .boardwrap .inquiry-table td:nth-child(4) {
 	width: 20%;
 }
 
-.boardwrap .inquiry-table th:nth-child(5), .boardwrap .inquiry-table td:nth-child(5)
-	{
+.boardwrap .inquiry-table th:nth-child(5), .boardwrap .inquiry-table td:nth-child(5) {
 	width: 14%;
 }
 
@@ -197,6 +190,56 @@
 	color: #14569c;
 }
 
+/* 부대시설 태그 리스트 영역 (둥근 테두리로 시인성 강화) */
+.boardwrap .acc_facility {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	align-items: center;
+}
+
+.boardwrap .acc_facility > div,
+.boardwrap .acc_facility span,
+.boardwrap .acc_facility .facility-tag {
+	display: inline-flex;
+	align-items: center;
+	height: 28px;
+	padding: 0 12px;
+	background: #f4f8fe;
+	border: 1px solid #cce0f5;
+	border-radius: 20px; /* 둥근 테두리 */
+	font-size: 12px;
+	font-weight: 600;
+	color: #123f7d;
+	white-space: nowrap;
+}
+
+.boardwrap .acc_facility > div:hover,
+.boardwrap .acc_facility span:hover,
+.boardwrap .acc_facility .facility-tag:hover {
+	background: #e6f0fc;
+	border-color: #adcdee;
+}
+
+/* 평점(avg_rating)과 리뷰 수(cnt_reviews) 한 줄 정렬 */
+.boardwrap .rating-area,
+.boardwrap .review-info {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	white-space: nowrap;
+}
+
+.boardwrap .avg_rating {
+	font-weight: 700;
+	color: #123f7d;
+}
+
+.boardwrap .cnt_reviews {
+	font-size: 12px;
+	color: #7c899b;
+}
+
 .boardwrap .paging {
 	display: flex;
 	justify-content: center;
@@ -228,7 +271,7 @@
 	border-color: #123f7d;
 }
 
-@media ( max-width :700px) {
+@media (max-width: 700px) {
 	.boardwrap {
 		width: calc(100% - 24px);
 		margin: 24px auto 45px;
@@ -247,8 +290,7 @@
 	.boardwrap .searchbox input[type='text'] {
 		flex: 2 1 170px;
 	}
-	.boardwrap .searchbox input[type='submit'], .boardwrap .searchbox input[type='button']
-		{
+	.boardwrap .searchbox input[type='submit'], .boardwrap .searchbox input[type='button'] {
 		flex: 1 1 auto;
 	}
 }

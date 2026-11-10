@@ -28,6 +28,8 @@ public class placeDTO {
 	private String room_img3;
 	private String room_img4;
 	
+	private double avg_rating;
+	
 	
 	public int getCity_code() {
 		return city_code;
@@ -173,7 +175,14 @@ public class placeDTO {
 	public void setRoom_img4(String room_img4) {
 		this.room_img4 = room_img4;
 	}
+	public double getAvg_rating() {
+		return avg_rating;
+	}
+	public void setAvg_rating(double avg_rating) {
+		this.avg_rating = avg_rating;
+	}
+	
 
-
+	
 
 }

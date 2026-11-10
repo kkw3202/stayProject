@@ -1,3 +1,4 @@
+/* 머물:多 로그인 전용 CSS - 메인 페이지 스타일과 충돌 방지 */
 @charset "utf-8";
 .login-page, .login-page * { box-sizing: border-box; }
 .login-page { width:100%; padding:45px 18px 65px; background:#f5f8fc; font-family:'Malgun Gothic','Noto Sans KR',sans-serif; color:#102b50; }

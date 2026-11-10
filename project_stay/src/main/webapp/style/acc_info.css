@@ -1,0 +1,169 @@
+@charset "utf-8";
+
+/* 머물:多 숙소 상세페이지 — 기존 JSP 클래스 이름 유지 */
+section > .contaier {
+  --detail-navy: #102b59;
+  --detail-blue: #15549a;
+  --detail-line: #d6e3f3;
+  --detail-muted: #63748d;
+  color: var(--detail-navy);
+}
+section > .contaier *,
+section > .contaier *::before,
+section > .contaier *::after { box-sizing: border-box; }
+section > .contaier {
+  width: min(1180px,calc(100% - 44px)); margin: 42px auto 70px; padding: 30px;
+  background: #fff; border-top: 5px solid #1453a0; border-radius: 20px;
+  box-shadow: 0 12px 34px rgba(23,65,116,.12);
+}
+/* 대표 사진 1장 + 객실 사진 4장 */
+section > .contaier .top_image_wrap {
+  display: grid; grid-template-columns: 1.1fr .9fr; gap: 12px;
+  height: 355px; overflow: hidden; border-radius: 15px; cursor: pointer;
+}
+section > .contaier .acc_img,
+section > .contaier .room_img { min-width: 0; min-height: 0; overflow: hidden; }
+section > .contaier .room_img {
+  display: grid; grid-template-columns: repeat(2,minmax(0,1fr));
+  grid-template-rows: repeat(2,minmax(0,1fr)); gap: 12px;
+}
+section > .contaier .top_image_wrap img,
+section > .contaier .room_img1 img {
+  width: 100%; height: 100%; display: block; object-fit: cover;
+  transition: transform .25s ease;
+}
+section > .contaier .top_image_wrap img:hover { transform: scale(1.035); }
+section > .contaier .room_img img { border-radius: 10px; }
+/* 숙소 개요 */
+section > .contaier .about_acc {
+  display: flex; justify-content: space-between; align-items: center; gap: 22px;
+  margin: 25px 0 30px; padding: 23px 25px;
+  border: 1px solid var(--detail-line); border-radius: 15px; background: #fff;
+}
+section > .contaier .about_acc .left { min-width: 0; flex: 1; }
+section > .contaier .about_acc p { margin: 0; }
+section > .contaier .acc_type {
+  display: inline-block; padding: 5px 15px; border-radius: 20px;
+  background: #d6e8ff; color: #15477e; font-size: 13px; font-weight: 700;
+}
+section > .contaier .acc_name {
+  margin-top: 10px !important; font-size: clamp(23px,3vw,33px);
+  font-weight: 800; line-height: 1.3; overflow-wrap: anywhere;
+}
+section > .contaier .acc_address {
+  margin-top: 9px !important; color: #4b5d77; font-size: 15px; overflow-wrap: anywhere;
+}
+section > .contaier .acc_address::before { content: '⌖'; color: #1d5b9f; font-size: 20px; margin-right: 8px; }
+section > .contaier .avg_rating { margin-top: 9px !important; font-size: 17px; font-weight: 750; }
+section > .contaier .avg_rating::before { content: '★'; color: #ffb400; margin-right: 8px; font-size: 23px; }
+section > .contaier .about_acc > .right {
+  flex: 0 0 275px; min-width: 0; display: flex; align-items: center;
+  justify-content: flex-end; gap: 18px; padding-left: 22px;
+  border-left: 1px solid var(--detail-line);
+}
+section > .contaier .about_acc > .right > button {
+  width: 51px; height: 51px; flex-shrink: 0; border-radius: 13px;
+  border: 1px solid #b9cee8; background: #fff; cursor: pointer;
+  color: var(--detail-navy); font-size: 30px;
+}
+section > .contaier .about_acc > .right > button::before { content: '♡'; }
+section > .contaier .about_acc > .right > button:hover { background: #edf5ff; }
+section > .contaier .low_price {
+  font-size: clamp(19px,2.5vw,27px); font-weight: 800; white-space: nowrap;
+}
+section > .contaier .per_oneday {
+  display: block; margin-bottom: 4px; font-size: 13px; font-weight: 500; color: var(--detail-muted);
+}
+/* 객실 선택 */
+section > .contaier .room_list > h5 {
+  position: relative; margin: 0 0 19px; padding-left: 15px;
+  color: var(--detail-navy); font-size: 24px; font-weight: 800;
+}
+section > .contaier .room_list > h5::before {
+  content: ''; position: absolute; left: 0; top: 4px; bottom: 4px;
+  width: 5px; border-radius: 6px; background: #1260b6;
+}
+section > .contaier .room_card {
+  display: grid; grid-template-columns: 280px minmax(0,1fr) 220px;
+  grid-template-rows: auto auto 1fr; column-gap: 22px; row-gap: 9px;
+  min-height: 215px; padding: 16px; margin-bottom: 15px;
+  border: 1px solid #cbdcf0; border-radius: 15px; background: #fff;
+  box-shadow: 0 4px 12px rgba(24,70,128,.04);
+}
+section > .contaier .room_img1 {
+  grid-column: 1; grid-row: 1 / 4; height: 185px; overflow: hidden; border-radius: 12px;
+}
+section > .contaier .room_card > h6 {
+  grid-column: 2; grid-row: 1; margin: 5px 0 0;
+  font-size: 21px; font-weight: 800; line-height: 1.35; overflow-wrap: anywhere;
+}
+section > .contaier .room_modal {
+  grid-column: 2; grid-row: 2; margin: 0; color: #1760aa;
+  font-size: 14px; font-weight: 650; cursor: pointer;
+}
+section > .contaier .room_modal:hover { text-decoration: underline; }
+/* display: contents를 통해 기존 JSP의 detail 내부 요소를 그리드에 배치 */
+section > .contaier .room_card > .detail { display: contents; }
+section > .contaier .room_card > .detail > .left {
+  grid-column: 2; grid-row: 3; align-self: start;
+  padding: 11px 13px; border-radius: 9px; background: #edf4fc;
+  color: #2a4468; font-size: 13px;
+}
+section > .contaier .room_card > .detail > .left p { margin: 0; }
+section > .contaier .room_card > .detail > .right {
+  grid-column: 3; grid-row: 1 / 4; display: flex; flex-direction: column;
+  justify-content: center; align-items: stretch; gap: 18px;
+  padding-left: 22px; border-left: 1px solid var(--detail-line);
+}
+section > .contaier .room_card > .detail > .right p {
+  margin: 0; font-size: 24px; font-weight: 800; text-align: right;
+  color: var(--detail-navy); overflow-wrap: anywhere;
+}
+section > .contaier .room_card > .detail > .right button {
+  width: 100%; padding: 13px 8px; border: 0; border-radius: 9px;
+  background: linear-gradient(180deg,#1c5ba5,#0d376e);
+  color: white; font-size: 15px; font-weight: 750; cursor: pointer;
+  box-shadow: 0 3px 8px rgba(15,59,117,.13);
+}
+section > .contaier .room_card > .detail > .right button:hover { filter: brightness(1.1); }
+section > .contaier .room_card > .about {
+  grid-column: 2; grid-row: 3; align-self: end;
+  display: flex; align-items: center; gap: 10px; margin-top: 54px;
+  padding: 10px 13px; background: #edf4fc; border-radius: 9px;
+  font-size: 13px; color: #2a4468;
+}
+section > .contaier .room_card > .about p { margin: 0; }
+section > .contaier .room_card > .about .what {
+  font-weight: 750; padding-right: 11px; border-right: 1px solid #b7c9e1;
+}
+@media(max-width: 900px) {
+  section > .contaier .room_card { grid-template-columns: 220px minmax(0,1fr); }
+  section > .contaier .room_img1 { height: 190px; }
+  section > .contaier .room_card > .detail > .right {
+    grid-column: 1 / -1; grid-row: 4; border-left: 0; border-top: 1px solid var(--detail-line);
+    padding: 13px 0 0; flex-direction: row; align-items: center; justify-content: space-between;
+  }
+  section > .contaier .room_card > .detail > .right button { width: 190px; }
+}
+@media(max-width: 600px) {
+  section > .contaier { margin: 16px auto 35px; width: calc(100% - 20px); }
+  section > .contaier { padding: 15px; border-radius: 14px; }
+  section > .contaier .top_image_wrap { height: auto; grid-template-columns: 1fr; }
+  section > .contaier .acc_img { height: 220px; }
+  section > .contaier .room_img { height: 170px; gap: 7px; }
+  section > .contaier .about_acc { flex-direction: column; align-items: stretch; padding: 18px; }
+  section > .contaier .about_acc > .right {
+    flex: none; justify-content: space-between; border-left: 0;
+    border-top: 1px solid var(--detail-line); padding: 15px 0 0;
+  }
+  section > .contaier .room_card { grid-template-columns: minmax(0,1fr); }
+  section > .contaier .room_img1 { grid-column: 1; grid-row: 1; height: 200px; }
+  section > .contaier .room_card > h6 { grid-column: 1; grid-row: 2; }
+  section > .contaier .room_modal { grid-column: 1; grid-row: 3; }
+  section > .contaier .room_card > .detail > .left { grid-column: 1; grid-row: 4; }
+  section > .contaier .room_card > .about { grid-column: 1; grid-row: 5; margin-top: 0; }
+  section > .contaier .room_card > .detail > .right {
+    grid-column: 1; grid-row: 6; flex-direction: column; align-items: stretch;
+  }
+  section > .contaier .room_card > .detail > .right button { width: 100%; }
+}

@@ -23,17 +23,17 @@ public class inquiryUpdateProcCon extends HttpServlet {
 		reqPro(request, response);
 	}
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ï¿½ï¿½ï¿½Úµï¿½
 		request.setCharacterEncoding("utf-8");
-		// ¼öÁ¤ÇÏ´Â Æû¿¡¼­ Á¤º¸µé °¡Á®¿À±â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int inq_code = Integer.parseInt(request.getParameter("inq_code"));
 		String inq_title = request.getParameter("inq_title");
 		String inq_content = request.getParameter("inq_content");
 		
-		// idao ¼±¾ð + ¾÷µ¥ÀÌÆ® ½ÇÇàÇÏ±â
+		// idao ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 		InquiryDAO idao = new InquiryDAO();
 		idao.updateInquiry(inq_code, inq_title, inq_content);
-		// ÆäÀÌÁö ³Ñ±è
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½
 		// response.sendRedirect("inquiryInfoProc.do");
 		RequestDispatcher rd = request.getRequestDispatcher("inquiryInfoProc.do");
 		rd.forward(request, response);

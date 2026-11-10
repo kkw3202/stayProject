@@ -44,15 +44,15 @@ public class joinProc extends HttpServlet {
 		udto.setUser_passkey(request.getParameter("passkey"));
 		
 		String link ="";
-		// ±âÁ¸ ÀÌ¸ÞÀÏ°ú °°Àº ÀÌ¸ÞÀÏÀÏ °æ¿ì
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		
 		System.out.println("email:"+email+"emailChk:"+emailChk);
 		if(email.equals(emailChk)) {
-			request.setAttribute("msg", "ÀÌ¹Ì Á¸ÀçÇÏ´Â ÀÌ¸ÞÀÏ ÀÔ´Ï´Ù");
+			request.setAttribute("msg", "ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ô´Ï´ï¿½");
 			link = "user/joinErr.jsp";
 		}else {
 			udao.insertUser(udto);
-			request.setAttribute("msg", "È¸¿ø°¡ÀÔÀ» ÃàÇÏÇÕ´Ï´Ù.");
+			request.setAttribute("msg", "È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 			link = "user/joinOk.jsp";
 		}
 		
