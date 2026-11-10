@@ -35,7 +35,7 @@ button, input, select {
 #header {
 	position: relative;
 	background: #fff;
-	min-height: 525px;
+	/* min-height: 525px; */
 	padding-top: 76px
 }
 
@@ -235,7 +235,7 @@ button, input, select {
 	z-index: 100
 }
 
-#header #main.noShow {
+.noShow {
 	display: none
 }
 

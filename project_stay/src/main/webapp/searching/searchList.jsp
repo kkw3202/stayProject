@@ -87,7 +87,7 @@
 						</ul>
 						<ul class="acc_card_right">
 							<li class="room_price">${sa_arr.room_price }</li>
-							<li class="info_link_btn"><button type="button" onclick="#.do?acc_code=${sa_arr.acc_code}">객실 보기</button></li> <!-- 객실 보기 버튼 -->
+							<li class="info_link_btn"><button type="button" onclick="location.href='accInfoProc.do?acc_code=${sa_arr.acc_code}&book_checkin_date=${book_checkin_date }&book_checkout_date=${book_checkout_date }'">객실 보기</button></li> <!-- 객실 보기 버튼 -->
 						</ul>
 					</div>
 				</div>

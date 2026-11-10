@@ -39,7 +39,6 @@ public class loginProc extends HttpServlet {
 				request.setAttribute("msg", "관리자님, 환영합니다!");
 				HttpSession session = request.getSession();
 				session.setAttribute("user_email", email);
-				session.getAttribute("user_email");
 				session.setMaxInactiveInterval(60*240);
 				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/loginOk.jsp");
 				rd.forward(request, response);

@@ -149,4 +149,71 @@ public class RoomDAO {
 
 		return result;
 	}
+	
+	// 1108 추가분
+		// 특정 날짜에 예약 가능한 숙소의 모든 방, 그 정보를 담는 메소드
+			public ArrayList<RoomDTO> getAllRoom_acc(String book_checkin_date, String book_checkout_date, int acc_code) {
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				
+				ArrayList<RoomDTO> result = new ArrayList<RoomDTO>();
+				try {
+					con = Util.getConnection();
+
+					String sql = "select * from room where acc_code=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, acc_code);
+
+					rs = pstmt.executeQuery();
+					
+					RoomDTO img = new RoomDTO(); // 빈 방 없을 때 대비용 변수
+					
+					int roomCnt=0;
+					while(rs.next()) {
+						RoomDTO rdto = new RoomDTO();
+						if(count_booking_oneRoom(book_checkin_date,book_checkout_date,rs.getInt(1)) > 0) {
+							rdto.setRoom_code(rs.getInt(1));
+							rdto.setRoom_name(rs.getString(3));
+							rdto.setRoom_price(rs.getInt(4));
+							rdto.setRoom_capacity(rs.getInt(6));
+							rdto.setRoom_info(rs.getString(7));
+							rdto.setRoom_amenity(rs.getString(8));
+							rdto.setRoom_img1(rs.getString(10));
+							rdto.setRoom_img2(rs.getString(11));
+							rdto.setRoom_img3(rs.getString(12));
+							rdto.setRoom_img4(rs.getString(13));
+							rdto.setRoom_count(count_booking_oneRoom(book_checkin_date,book_checkout_date,rs.getInt(1)));
+							roomCnt++;
+							result.add(rdto);
+						}
+						if(roomCnt==0) {
+							img.setRoom_img1(rs.getString(10));
+							img.setRoom_img2(rs.getString(11));
+							img.setRoom_img3(rs.getString(12));
+							img.setRoom_img4(rs.getString(13));
+						}
+					}
+					// 빈 방이 없어서 배열에 안담기면 첫 방 배열 추가해서 매인 이미지만 띄우는 용도
+					if(result.size()==0) {
+						result.add(img);
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (con != null)
+							con.close();
+						if (rs != null)
+							rs.close();
+						if (pstmt != null)
+							pstmt.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+
+				return result;
+			}
 }

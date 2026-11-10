@@ -43,19 +43,19 @@ public class placeDAO {
 					+ "from Accommodation a "
 					+ "inner join City c on c.city_code = a.city_code "
 					+ "left join (select acc_code, avg(rev_rating) avg_ratings, count(*) as cnt_reviews from reviews group by acc_code) r on r.acc_code = a.acc_code ";
-			if(book_checkin_date != null && book_checkout_date != null) {
+
 				sql += "inner join "
 						+ "(select acc_code, min(room_price) min_price " 
 						+ "from room r " 
 						+ "where ";	
 				for (int i = 0; i < dates.size(); i++) {
-					sql += "room_count > (select count(*) from booking b where b.room_code = r.room_code and book_checkin_date <= ? and book_checkout_date > ?)";
+					sql += "room_count > (select count(*) from booking b where b.room_code = r.room_code and book_checkin_date <= ? and book_checkout_date > ?) ";
 					if(i+1 !=  dates.size()) sql += "and ";
 					else sql += " ";
 					cnt_dayQM += 2;
 				}
-				sql += "group by acc_code) orsq on orsq.acc_code = a.acc_code ";
-			}
+				sql += "group by acc_code) AS orsq ON orsq.acc_code = a.acc_code ";
+			System.out.println(sql);
 			if(cnt_notNull != 0) {
 				sql += "where ";
 				if(city_name != null && !city_name.isEmpty()) {

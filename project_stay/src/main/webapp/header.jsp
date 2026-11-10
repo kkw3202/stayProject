@@ -5,7 +5,7 @@
 	<header id="header">
 		<!-- 좌측 상단 -->
 		<div class="left_top">
-			<a href="#">
+			<a href="index.jsp">
 				<img alt="로고이미지" src="image/logo3.png">
 			</a>
 		</div>
@@ -14,23 +14,36 @@
 		<nav class="right_top">
 
 			<c:choose>
-				<c:when test="${empty sessionScope.user_email}"> <!-- 칼럼 명 변경후 재확인 필요. -->
+				
+				<c:when test="${not empty sessionScope.user_email}">
+					<a href="mypageInfoProc.do">마이페이지</a>
+					<a href="logoutProc.do">로그아웃</a>
+					<a href="inquiryListProc.do">1:1 문의</a>	
+				</c:when>
+				
+				<c:when test="${not empty sessionScope.user_email and sessionScope.user_email eq 'admin@naver.com'}">
+					<a href="customerListProc.do">회원관리</a>
+					<a href="AdminBookListProc.do">예약관리</a>
+					<a href="AdminAccListProc.do">숙소관리</a>
+					<a href="#">1:1문의 관리</a>  <%-- 추후 jsp 파일 만들고 매핑하기 --%>
+					<span>[관리자]</span> <%-- 추후 css 붙이고 태그 바꾸기 --%>
+					<a href="logoutProc.do">로그아웃</a>
+				</c:when>
+				
+				<c:otherwise>
 					<a href="index.jsp?section=showbook.jsp">비회원 예약조회</a>
 					<a href="index.jsp?section=user/joinForm.jsp">회원가입</a>
 					<a href="index.jsp?section=user/loginForm.jsp">로그인</a>
-				</c:when>
-				<c:otherwise>
-					<a style="display: none;"></a>
-					<a href="index.jsp?section=mypage.jsp">마이페이지</a>
-					<a href="#">로그아웃</a> <!-- 로그아웃 기능으로 매핑 필요 -->
+					<a href="inquiryListProc.do">1:1 문의</a>
 				</c:otherwise>
 			</c:choose>
-					<a href="inquiryListProc.do">1:1 문의</a>
+			
+			
 
 		</nav>
 
 		<!-- 하단 -->
-		<div class="bottom">
+		<div class="bottom" id="header_bottom">
 			<!-- <img alt="배너" src="image/bana1.jpg" class="bana"> -->
 			<!-- 검색창 css용 묶음 -->
 			<div class="search_wrap">

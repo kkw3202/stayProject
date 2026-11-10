@@ -15,14 +15,14 @@
 <body>
 	<div class="container">
 		<jsp:include page="header.jsp" />
-		
+		<c:set var="sectionMain" value="index_sectionProc.do"></c:set>
 		<c:set var="section" value="${param.section }"></c:set>
 		<c:choose>
 			<c:when test="${not empty section != ''  }">
 				<jsp:include page="${section }" />
 			</c:when>
 			<c:otherwise>
-				<jsp:include page="section.jsp" />
+				<jsp:include page="${sectionMain}" />
 			</c:otherwise>
 		</c:choose>
 		

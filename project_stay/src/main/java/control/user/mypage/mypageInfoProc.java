@@ -31,8 +31,8 @@ public class mypageInfoProc extends HttpServlet {
 		UserDTO udto = new UserDTO();
 		UserDAO udao = new UserDAO();
 		
-		String loginEmail = (String)session.getAttribute("email");
-		
+		String loginEmail = (String)session.getAttribute("user_email");
+
 		if(session != null) {
 			udto = udao.getUserInfo(loginEmail);
 			
@@ -40,7 +40,7 @@ public class mypageInfoProc extends HttpServlet {
 		
 		request.setAttribute("udto", udto);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?session=/user/mypage.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/mypage.jsp");
 		rd.forward(request, response);
 	
 	}
