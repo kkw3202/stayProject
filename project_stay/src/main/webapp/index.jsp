@@ -8,13 +8,11 @@
 <meta charset="UTF-8">
 <title>머물 수 있는 곳이 많은 머물:多</title>
 <link rel="stylesheet" href="style/index.css">
-
-
 </head>
 
 <body>
 	<div class="container">
-		<jsp:include page="header.jsp" />
+		<jsp:include page="header.jsp" />\
 		<c:set var="sectionMain" value="index_sectionProc.do"></c:set>
 		<c:set var="section" value="${param.section }"></c:set>
 		<c:choose>

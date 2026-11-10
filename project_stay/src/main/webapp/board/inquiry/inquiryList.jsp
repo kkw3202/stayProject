@@ -12,7 +12,7 @@
 	<%-- 리뷰게시판 잠깐 사용할 부분(월요일에 삭제예정) --%>
 	<input type="button" onclick="location.href='reviewListProc.do'" value="리뷰리스트(임시버튼)"/>
 	<%-- 검색기능  --%>
-	<form action="inquiryListProc.do" method="get" class="searchbox">
+	<form action="inquiryListProc.do?searchType=${searchType }, keyWord=${keyWord}" method="get" class="searchbox" name="listForm">
 		<%-- 검색키워드 --%>
 		<select class="inq_search_type" name = "searchType">
 			<option value = "inq_title" ${searchType=='inq_title'?'selected':'' }>제목</option>
@@ -23,7 +23,7 @@
 		<input type="text" placeholder="검색" name="keyWord" value="${keyWord}"/>
 		<%-- 아래는 버튼들 --%>
 		<%-- 검색버튼 --%>
-		<input type = "submit" value="검색"/>  
+		<input type = "submit" value="검색" />  
 		<%-- 전체보기 버튼은, 회원/비회원 모두 가능 --%>
 		<input type = "button" value="전체보기" onclick="location.href='inquiryListProc.do'" class="btn_search"/>
 		<%-- 관리자가 아니면서 일반회원인 경우에만 글쓰기/내가 쓴 글보기 버튼 보임 --%>
@@ -109,17 +109,17 @@
 	<%-- 페이징 부분 --%>
 	<div class="paging">
 		<c:if test = "${startPage > pageBlock }">
-			<a href="inquiryListProc.do?pageNum=${startPage-pageBlock}">[이전]</a>
+			<input type="button" onclick="pageBtn1(${startPage},${pageBlock})" value="이전"/>
 		</c:if>
 		
 		<%-- 페이징 번호 --%>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<a href="inquiryListProc.do?pageNum=${i}">${i}</a>
+			<input type="button" onclick="pageBtn2(${i})" value="${i }"/>
 		</c:forEach>
 		
 		<%-- 페이징 번호 --%>
 		<c:if test = "${endPage < pageCount}">
-			<a href = "inquiryListProc.do?pageNum=${startPage+pageBlock}">[다음]</a>
+			<input type="button" onclick="pageBtn3(${startPage},${pageBlock})" value="[다음]"/>
 		</c:if>
 	</div>	
 
@@ -127,8 +127,31 @@
 </section>
 
 <script>
-	// 게시판 글쓰기 버튼 관련한 스크립트
-
+	function pageBtn1(startPage,pageBlock){
+		let f = document.listForm;
+		let tmp = f.searchType.value;
+		let num = f.keyWord.value;
+		if(tmp != null || !tmp.equals("")){
+			location.href="inquiryListProc.do?pageNum="+ (startPage-pageBlock)+ "&searchType="+ tmp + "&keyWord="+num;
+		}
+	}
+	function pageBtn2(i){
+		let f = document.listForm;
+		let tmp = f.searchType.value;
+		let num = f.keyWord.value;
+		if(tmp != null || !tmp.equals("")){
+			location.href="inquiryListProc.do?pageNum="+ i+ "&searchType="+ tmp + "&keyWord="+num;
+		}
+	}
+	function pageBtn3(startPage,pageBlock){
+		let f = document.listForm;
+		let tmp = f.searchType.value;
+		let num = f.keyWord.value;
+		if(tmp != null || !tmp.equals("")){
+			location.href="inquiryListProc.do?pageNum="+ (startPage+pageBlock)+ "&searchType="+ tmp + "&keyWord="+num;
+		}
+	}
+	
 </script>
     
     

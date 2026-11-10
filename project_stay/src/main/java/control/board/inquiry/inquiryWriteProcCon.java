@@ -25,10 +25,8 @@ public class inquiryWriteProcCon extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ���ڵ�
 		request.setCharacterEncoding("utf-8");
 		
-		// HttpSession �ν��Ͻ�ȭ
 		HttpSession session = request.getSession(false);
 		
 //		String user_name = (String)session.getAttribute("user_name");
@@ -37,14 +35,10 @@ public class inquiryWriteProcCon extends HttpServlet {
 //		System.out.println(user_name);
 		System.out.println(user_email);
 		
-		// InquiryDAO �ν��Ͻ�
 		InquiryDAO idao = new InquiryDAO();
-		// user_code �������� �޼ҵ� ��� 
 		int user_code = idao.getInquiryUserCode(user_email);
 		System.out.println(user_code);
 		
-		// �α����� �ȵ� ������ ��� : �˸�â�� ����, �α��� �������� �̵�
-		// ����, ����, ���� => ó���ϴ� ���������� �ѱ涧, sendRedirect()�� �ѱ�
 		if(user_email==null) {
 			response.setContentType("text/html: charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -54,14 +48,12 @@ public class inquiryWriteProcCon extends HttpServlet {
 			out.println("</script>");
 		}
 		
-		// InquiryDTO �ν��Ͻ� �� �α��ε� �����ΰ��=> inquiryDTO�� �ڷ� �μ�Ʈ �ϱ�
 		InquiryDTO idto = new InquiryDTO();
 		idto.setInq_title(request.getParameter("inq_title"));
 		idto.setInq_content(request.getParameter("inq_content"));
 		
 		idao.insertInquiryBoard(idto, user_code);
 		
-		// ������ �ѱ�
 		response.sendRedirect("inquiryListProc.do");
 	}
 	

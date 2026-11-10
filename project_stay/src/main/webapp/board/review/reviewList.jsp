@@ -8,7 +8,7 @@
 	
 	<%-- 콤보박스 (숙소 선택하면 해당 숙소만 나오기) --%>
 	<%-- form으로 날리는 방식으로 진행 --%>
-	<form action="reviewListProc.do" method="get" name = "acc_choice">
+	<form action="reviewListProc.do?searchType=${acc_code}" method="get" name = "acc_choice">
 		<div class="choice_label">숙소명</div>
 		<div class="choice_data">
 			<select class="searchType" onchange="search(this.form)" name="searchType">
@@ -97,17 +97,17 @@
 	<%-- 페이징 부분 --%>
 	<div class="paging">
 		<c:if test = "${startPage > pageBlock }">
-			<a href="reviewListProc.do?pageNum=${startPage-pageBlock}">[이전]</a>
+			<input type="button" onclick="pageBtn1(${startPage},${pageBlock})" value="이전"/>
 		</c:if>
 		
 		<%-- 페이징 번호 --%>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<a href="reviewListProc.do?pageNum=${i}">${i}</a>
+			<input type="button" onclick="pageBtn2(${i})" value="${i }"/>
 		</c:forEach>
 		
 		<%-- 페이징 번호 --%>
 		<c:if test = "${endPage < pageCount}">
-			<a href = "reviewListProc.do?pageNum=${startPage+pageBlock}">[다음]</a>
+			<input type="button" onclick="pageBtn3(${startPage},${pageBlock})" value="다음"/>
 		</c:if>
 	</div>	
 
@@ -139,11 +139,35 @@
 	}
 	// 내가쓴 리뷰 보는 함수
 	function getMyReview(){
-		location.href="reviewMyListProc.do";
+		let f = document.acc_choice;
+		let tmp = f.searchType.value;
+		location.href="reviewMyListProc.do?searchType="+tmp;
 	}
 	// 내가 쓴 리뷰 수정하는 함수
-	//function updateReview(rev_code){
-		//alert("테스트");
-	//	location.href="reviewUpdateProc.do?rev_code="+rev_code;
-	//}
+	function updateReview(rev_code){
+		location.href="reviewUpdateProc.do?rev_code="+rev_code;
+	}
+	
+	function pageBtn1(startPage,pageBlock){
+		let f = document.acc_choice;
+		let tmp = f.searchType.value;
+		if(tmp != null || !tmp.equals("")){
+			location.href="reviewListProc.do?pageNum="+ (startPage-pageBlock)+ "&searchType="+ tmp;
+		}
+	}
+	function pageBtn2(i){
+		let f = document.acc_choice;
+		let tmp = f.searchType.value;
+		if(tmp != null || !tmp.equals("")){
+			location.href="reviewListProc.do?pageNum="+ i+ "&searchType="+ tmp;
+		}
+	}
+	function pageBtn3(startPage,pageBlock){
+		let f = document.acc_choice;
+		let tmp = f.searchType.value;
+		if(tmp != null || !tmp.equals("")){
+			location.href="reviewListProc.do?pageNum="+ (startPage+pageBlock)+ "&searchType="+ tmp;
+		}
+	}
+	
 </script>

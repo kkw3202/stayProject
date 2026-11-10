@@ -292,12 +292,12 @@ public class ReviewDAO {
 	}
 	
 	// 리뷰게시판 글 수정하는 함수
-	public void updateReview(int rev_code, String rev_title, String rev_content) {
+	public void updateReview(int rev_code, String rev_rating, String rev_content) {
 		try {
 			con = Util.getConnection();
-			String sql = "update Reviews set rev_title=?, rev_content=? where rev_code=?";
+			String sql = "update Reviews set rev_rating=?, rev_content=? where rev_code=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, rev_title);
+			pstmt.setString(1, rev_rating);
 			pstmt.setString(2, rev_content);
 			pstmt.setInt(3, rev_code);
 			pstmt.executeUpdate();
@@ -424,9 +424,9 @@ public class ReviewDAO {
 			String sql = "update Reviews set rev_rating=?, rev_content =?  where rev_code = ?";
 			pstmt = con.prepareStatement(sql);
 			// ?에 대입
-			pstmt.setInt(1, rev_code);
-			pstmt.setInt(2, rev_rating);
-			pstmt.setString(3, rev_content);
+			pstmt.setInt(1, rev_rating);
+			pstmt.setString(2, rev_content);
+			pstmt.setInt(3, rev_code);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -445,20 +445,16 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "select * from reviews where rev_code=?";
+			String sql = "select a.acc_name, r.rev_rating, r.rev_content, r.rev_code from Reviews r inner join Accommodation a "
+					+ "on r.acc_code = a.acc_code where r.rev_code=?";
 			pstmt = con.prepareStatement(sql);
 			// ?에 대입
 			pstmt.setInt(1, rev_code);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				rdto.setRev_code(rs.getInt(1));
-				rdto.setAcc_code(rs.getInt(2));
-				rdto.setUser_code(rs.getInt(3));
-				rdto.setRev_rating(rs.getInt(4));
-				rdto.setRev_content(rs.getString(5));
-				rdto.setRev_created_datetime(rs.getString(6));
-				rdto.setRev_chk_del(rs.getInt(7));
-				rdto.setRev_like(rs.getInt(8));
+				rdto.setAcc_name(rs.getString(1));
+				rdto.setRev_rating(rs.getInt(2));
+				rdto.setRev_content(rs.getString(3));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -495,6 +491,28 @@ public class ReviewDAO {
 				if(con!=null) con.close();
 			}catch(Exception e) {e.printStackTrace();}
 		}
-		
+	}
+	// 숙소명 가져오는 메소드
+	public String getAcc_name(int acc_code) {
+		String acc_name = "";
+		try {
+			con = Util.getConnection();
+			String sql = "select a.acc_name from Accommodation a inner join Reviews r on a.acc_cod = r.acc_code where acc_code = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, acc_code);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				acc_name=rs.getString(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return acc_name;
 	}
 }

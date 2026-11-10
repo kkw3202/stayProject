@@ -23,17 +23,13 @@ public class inquiryUpdateProcCon extends HttpServlet {
 		reqPro(request, response);
 	}
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ���ڵ�
 		request.setCharacterEncoding("utf-8");
-		// �����ϴ� ������ ������ ��������
 		int inq_code = Integer.parseInt(request.getParameter("inq_code"));
 		String inq_title = request.getParameter("inq_title");
 		String inq_content = request.getParameter("inq_content");
 		
-		// idao ���� + ������Ʈ �����ϱ�
 		InquiryDAO idao = new InquiryDAO();
 		idao.updateInquiry(inq_code, inq_title, inq_content);
-		// ������ �ѱ�
 		// response.sendRedirect("inquiryInfoProc.do");
 		RequestDispatcher rd = request.getRequestDispatcher("inquiryInfoProc.do");
 		rd.forward(request, response);
