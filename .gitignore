@@ -1,2 +1,15 @@
 /.metadata/
 /Servers/
+
+# 이클립스 빌드 및 프로젝트 설정 파일 (인코딩 꼬임 방지)
+stayProject/bin/
+stayProject/.settings/
+stayProject/.classpath
+stayProject/.project
+
+# 혹시 모를 빌드 출력 폴더
+build/
+target/
+
+# VS Code 설정 폴더
+.vscode/

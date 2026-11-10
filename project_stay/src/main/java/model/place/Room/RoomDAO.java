@@ -38,32 +38,31 @@ public class RoomDAO {
 			if (rs.next()) {
 				search_room_count = rs.getInt(1);
 			}
-
+			
+			
 			pstmt.close();
 			rs.close();
+			
+			pstmt = null;
+			rs = null;
 
-			sql = "select ";
+			sql = "select count(*) from booking where(";
 
 			for (int i = 0; i < dates.size(); i++) {
-				sql += "(select count(*) from booking where book_checkin_date <= ? and book_checkout_date > ?)"; // 1, 2 => 검색할 날짜
-				if (i + 1 != dates.size()) sql += ", ";
+				sql += "(book_checkin_date <= '"+dates.get(i)+"' and book_checkout_date > '"+dates.get(i)+"')"; // 1, 2 => 검색할 날짜
+				if (i + 1 != dates.size()) sql += "or ";
 				else sql += " ";
 			}
-			sql += "from booking where room_code = ?"; // 3 => 내가 검색할 방
-
-			int index_cnt = 1;
-			for (String oneDay : dates) {
-				pstmt.setString(index_cnt, oneDay);
-				index_cnt++;
-				pstmt.setString(index_cnt, oneDay);
-			}
-			pstmt.setInt(index_cnt, room_code);
+			sql += ")and room_code = ?"; // 3 => 내가 검색할 방
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, room_code);
 
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
-				for (String oneDay : dates) {
-					int can_room_cnt = rs.getInt(oneDay);
+			if (rs.next()) {	
+				for (int i=0; i<dates.size(); i++) {
+					int can_room_cnt = rs.getInt(1);
 					if (can_room_cnt > search_room_count)
 						return -1;
 					if (can_room_cnt < result)

@@ -110,13 +110,14 @@
     function selecting(selday, year, month, num){
         let saveSelWrap = document.querySelector(".saveSelWrap");
         let saveSel = document.querySelectorAll(".saveSel");
+		let show_month = month;
 
         if(saveSel.length >= 2){
             if(selday == saveSel[1] || selday == saveSel[0]) selday.classList.toggle("selected");
             else alert("취소 후 재선택");
         }else{
             selday.classList.toggle("selected");
-            saveSelWrap.innerHTML+="<input type='hidden' value='"+ year + month + num +"' name='selectedDays' class='saveSel'/>";
+            saveSelWrap.innerHTML+="<input type='hidden' value='"+ year + show_month + num +"' name='selectedDays' class='saveSel'/>";
         }
         console.log("1: "+selday);  
         console.log("2: "+saveSel[0].value); 
