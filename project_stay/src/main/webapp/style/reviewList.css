@@ -1,0 +1,238 @@
+@charset "utf-8";
+
+.boardWrap, .boardWrap * {
+	box-sizing: border-box;
+}
+
+/* 전체 감싸는 메인 컨테이너 */
+.boardWrap {
+	width: min(1000px, calc(100% - 40px));
+	margin: 50px auto 80px;
+	padding: 40px 45px;
+	background: #ffffff;
+	border: 1px solid #e6ebf3;
+	border-radius: 18px;
+	box-shadow: 0 12px 38px rgba(14, 49, 93, 0.07);
+	font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+	color: #182b47;
+}
+
+/* 상단 숙소 선택 필터 영역 */
+.boardWrap form[name="acc_choice"] {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-bottom: 25px;
+	padding: 16px 20px;
+	border: 1px solid #e7edf5;
+	border-radius: 12px;
+	background: #f8fafc;
+}
+
+.boardWrap .choice_label {
+	font-size: 14px;
+	font-weight: 700;
+	color: #164d90;
+	letter-spacing: -0.3px;
+}
+
+.boardWrap .choice_data select {
+	height: 38px;
+	min-width: 200px;
+	padding: 0 12px;
+	border: 1px solid #d4deeb;
+	border-radius: 8px;
+	background: #ffffff;
+	color: #273c58;
+	font-size: 14px;
+	outline: none;
+	cursor: pointer;
+	transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.boardWrap .choice_data select:focus {
+	border-color: #164d90;
+	box-shadow: 0 0 0 3px rgba(22, 77, 144, 0.09);
+}
+
+/* 리뷰 개별 카드 테이블 */
+.boardWrap .review_table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 14px;
+	margin-bottom: 26px;
+	overflow: hidden;
+	box-shadow: 0 4px 16px rgba(20, 50, 90, 0.04);
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.boardWrap .review_table:hover {
+	box-shadow: 0 8px 24px rgba(20, 50, 90, 0.08);
+	transform: translateY(-2px);
+}
+
+.boardWrap .review_table tr {
+	border-bottom: 1px solid #f1f5f9;
+}
+
+.boardWrap .review_table tr:last-child {
+	border-bottom: none;
+}
+
+/* 카드 상단 액션바 (리뷰작성 / 내가쓴리뷰 버튼) */
+.boardWrap .review_table tr:first-child td {
+	padding: 14px 20px;
+	background: #f8fafc;
+	text-align: right;
+	border-bottom: 1px solid #edf2f7;
+}
+
+.boardWrap .review_table tr:first-child input[type="button"] {
+	padding: 6px 14px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #1e3a8a;
+	background: #ffffff;
+	border: 1px solid #cbd5e1;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	margin-left: 6px;
+}
+
+.boardWrap .review_table tr:first-child input[type="button"]:hover {
+	background: #1e3a8a;
+	color: #ffffff;
+	border-color: #1e3a8a;
+}
+
+/* 테이블 항목 라벨 (숙소명, 작성자, 시간, 평점 등) */
+.boardWrap .review_table th.label {
+	width: 16%;
+	padding: 13px 20px;
+	background: #f8fafc;
+	color: #64748b;
+	font-size: 13px;
+	font-weight: 700;
+	text-align: left;
+	vertical-align: middle;
+	border-right: 1px solid #f1f5f9;
+	letter-spacing: -0.2px;
+}
+
+/* 테이블 데이터 영역 */
+.boardWrap .review_table td.data {
+	padding: 13px 22px;
+	font-size: 14px;
+	color: #1e293b;
+	vertical-align: middle;
+}
+
+/* 평점 별표 및 포인트 */
+.boardWrap .review_table tr:nth-child(5) td.data {
+	font-weight: 700;
+	color: #f59e0b;
+}
+
+/* 리뷰 내용 셀 스타일 */
+.boardWrap .review_table tr:nth-child(6) td.data {
+	padding: 18px 22px;
+	line-height: 1.65;
+	color: #334155;
+	background: #fafcfd;
+	white-space: pre-line;
+}
+
+/* 카드 하단 액션바 영역 (좋아요/추천 + 삭제 버튼) */
+.boardWrap .review_table tr:last-child td {
+	padding: 14px 22px;
+	background: #ffffff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-top: 1px solid #edf2f7;
+}
+
+/* 좋아요(추천) 묶음 */
+.boardWrap .like {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #2563eb;
+}
+
+.boardWrap .like_badge {
+	font-size: 15px;
+}
+
+/* 하단 버튼 공통 (추천하기 / 삭제하기) */
+.boardWrap .btn_delete_like {
+	padding: 6px 14px;
+	font-size: 12px;
+	font-weight: 700;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+/* 추천하기 버튼 (파란 계열 테두리) */
+.boardWrap .like .btn_delete_like {
+	border: 1px solid #bfdbfe;
+	background: #eff6ff;
+	color: #1d4ed8;
+}
+
+.boardWrap .like .btn_delete_like:hover {
+	background: #1d4ed8;
+	color: #ffffff;
+	border-color: #1d4ed8;
+}
+
+/* 삭제하기 버튼 (붉은 계열 테두리) */
+.boardWrap td > .btn_delete_like {
+	border: 1px solid #fecdd3;
+	background: #fff1f2;
+	color: #e11d48;
+}
+
+.boardWrap td > .btn_delete_like:hover {
+	background: #e11d48;
+	color: #ffffff;
+	border-color: #e11d48;
+}
+
+/* 페이징 */
+.boardWrap .paging {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 7px;
+	margin-top: 40px;
+}
+
+.boardWrap .paging a {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 36px;
+	height: 36px;
+	padding: 0 10px;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	text-decoration: none;
+	font-size: 13px;
+	font-weight: 600;
+	color: #475569;
+	background: #ffffff;
+	transition: all 0.2s ease;
+}
+
+.boardWrap .paging a:hover {
+	color: #ffffff;
+	background: #1e3a8a;
+	border-color: #1e3a8a;
+}

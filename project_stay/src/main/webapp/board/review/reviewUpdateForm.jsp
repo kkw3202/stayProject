@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri= "http://java.sun.com/jsp/jstl/functions"%>
 
-</body>
-</html>
+<div class="boardWrap">
+	<form action="reviewUpdateProcCon.do" method="post" name="reviewUpdateForm">
+		<table>
+			<tr>
+				
+			</tr>
+			
+		
+		</table>
+	</form>
+
+</div>
