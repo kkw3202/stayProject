@@ -15,13 +15,14 @@
 
 			<c:choose>
 				
-				<c:when test="${not empty sessionScope.user_email}">
+				<c:when test="${not empty sessionScope.user_email and sessionScope.user_email != 'admin@naver.com'}">
 					<a href="mypageInfoProc.do">마이페이지</a>
 					<a href="logoutProc.do">로그아웃</a>
 					<a href="inquiryListProc.do">1:1 문의</a>	
 				</c:when>
 				
 				<c:when test="${not empty sessionScope.user_email and sessionScope.user_email eq 'admin@naver.com'}">
+					
 					<a href="customerListProc.do">회원관리</a>
 					<a href="AdminBookListProc.do">예약관리</a>
 					<a href="AdminAccListProc.do">숙소관리</a>
