@@ -1,9 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java/DBPKG/Util.java=UTF-8
-
-encoding//src/main/webapp/style/inquiryList.css=UTF-8
-
+encoding//src/main/java/control/user/join/joinProc.java=UTF-8
 encoding//src/main/java/model/Inquiry/InquiryDTO.java=UTF-8
 encoding//src/main/webapp/style/inquiryList.css=UTF-8
 encoding//src/main/webapp/style/inquiryWrite.css=UTF-8
-
