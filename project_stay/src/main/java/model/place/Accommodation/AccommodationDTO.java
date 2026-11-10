@@ -1,6 +1,6 @@
-package model.place.Accomodation;
+package model.place.Accommodation;
 
-public class AccomodationDTO {
+public class AccommodationDTO {
 	private int acc_code;
 	private int city_code;
 	private String acc_type;

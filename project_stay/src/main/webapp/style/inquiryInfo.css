@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* 머물:多 - 1:1 문의 상세보기 전용 CSS */
 .boardwrap, .boardwrap * { box-sizing: border-box; }
 .boardwrap {
@@ -131,3 +132,170 @@
   .boardwrap table tr:first-child td[colspan] { text-align: left !important; }
   .boardwrap input[type='button'] { margin-left: 0; margin-right: 5px; min-width: 70px; padding: 0 9px !important; }
 }
+=======
+@charset "utf-8";
+
+/* 머물:多 | 1:1 문의 상세보기 */
+.boardwrap {
+    --inq-navy: #103e7e;
+    --inq-deep: #102c58;
+    --inq-line: #dbe5f1;
+    --inq-muted: #60718b;
+    width: min(100% - 32px, 1020px);
+    margin: 100px auto 65px;
+    padding: 34px 36px 38px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #e4ebf4;
+    border-top: 5px solid #13509c;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(24, 55, 98, .10);
+    color: var(--inq-deep);
+    font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+}
+.boardwrap *, .boardwrap *::before, .boardwrap *::after { box-sizing: border-box; }
+.boardwrap > h3 {
+    margin: 0 0 28px;
+    padding: 6px 0 22px 64px;
+    min-height: 57px;
+    border-bottom: 1px solid var(--inq-line);
+    position: relative;
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.35;
+    color: var(--inq-deep);
+    text-align: left;
+}
+.boardwrap > h3::before {
+    content: '✎';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #e4f0fb;
+    color: #13509c;
+    font-size: 29px;
+}
+.boardwrap > h3::after {
+    content: '문의하신 내용과 답변 상태를 확인해 주세요.';
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--inq-muted);
+}
+.boardwrap .infoTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--inq-line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    font-size: 14px;
+}
+.boardwrap .infoTable tr > th.thinfo,
+.boardwrap .infoTable tr > td {
+    border: 0;
+    border-bottom: 1px solid var(--inq-line);
+    padding: 17px 20px;
+    line-height: 1.7;
+    vertical-align: middle;
+    text-align: left;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    height: auto;
+}
+
+.boardwrap .infoTable .thinfo {
+    width: 200px;
+}
+.boardwrap .infoTable tr:last-child > th,
+.boardwrap .infoTable tr:last-child > td { border-bottom: 0; }
+.boardwrap .infoTable th {
+    background: #f0f5fb;
+    font-weight: 700;
+    color: var(--inq-deep);
+    position: relative;
+    padding-left: 30px !important;
+}
+.boardwrap .infoTable th::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 19px;
+    width: 4px;
+    border-radius: 4px;
+    background: #1963b4;
+}
+.boardwrap .infoTable td { color: #34445f; background: #fff; }
+
+/* 5번째 행(글내용) 높이 및 정렬 지정 */
+.boardwrap .infoTable tr:nth-child(5) > th,
+.boardwrap .infoTable tr:nth-child(5) > td { vertical-align: top; }
+.boardwrap .infoTable tr:nth-child(5) > th { padding-top: 30px; }
+.boardwrap .infoTable tr:nth-child(5) > th::before { top: 38px; }
+.boardwrap .infoTable tr:nth-child(5) > td {
+    min-height: 190px;
+    height: 190px;
+    white-space: pre-wrap;
+    line-height: 1.9;
+}
+
+/* 첫 번째 행: 작업 버튼을 테이블 위의 도구 모음처럼 */
+.boardwrap .infoTable tr:first-child > td[colspan="2"] {
+    padding: 15px 18px;
+    background: #f8fbff;
+    text-align: right;
+    border-bottom: 1px solid var(--inq-line);
+}
+.boardwrap .infoTable .btn {
+    appearance: none;
+    display: inline-block;
+    width: auto;
+    min-width: 100px;
+    height: 39px;
+    margin: 3px 3px;
+    padding: 0 16px;
+    border: 1px solid #a8bedb;
+    border-radius: 8px;
+    background: #fff;
+    color: #164478;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 37px;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background .2s, transform .2s, box-shadow .2s;
+}
+.boardwrap .infoTable .btn:first-child {
+    color: #fff;
+    background: linear-gradient(180deg, #1d5aa2, #103d7c);
+    border-color: #103d7c;
+}
+.boardwrap .infoTable .btn:hover {
+    transform: translateY(-1px);
+    background: #eaf2fd;
+    box-shadow: 0 4px 12px rgba(15, 52, 102, .10);
+}
+.boardwrap .infoTable .btn:first-child:hover { background: #0d3268; }
+.boardwrap .infoTable .btn:focus-visible { outline: 3px solid #a9cdf7; outline-offset: 2px; }
+@media (max-width: 650px) {
+    .boardwrap { width: calc(100% - 20px); margin: 20px auto 35px; padding: 22px 14px; border-radius: 14px; }
+    .boardwrap > h3 { font-size: 20px; padding-left: 54px; }
+    .boardwrap > h3::before { width: 42px; height: 42px; }
+    .boardwrap .infoTable th.thinfo { width: 30%; padding: 14px 10px 14px 20px !important; font-size: 12px; }
+    .boardwrap .infoTable th::before { left: 9px; }
+    .boardwrap .infoTable td { padding: 14px 12px !important; font-size: 13px; }
+    .boardwrap .infoTable tr:first-child > td[colspan="2"] { text-align: center; }
+    .boardwrap .infoTable .btn { min-width: 84px; padding: 0 9px; }
+}
+>>>>>>> daf47f24b2c0a0208b710719a854605020e20683

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* 머물:多 회원가입 - 두 번째 참고 이미지 기준 */
+=======
+@charset "utf-8";
+>>>>>>> daf47f24b2c0a0208b710719a854605020e20683
 .join-page,.join-page *{box-sizing:border-box!important}
 .join-page{width:100%;padding:34px 18px 60px;background:#f6f9fd;color:#102e56;font-family:'Malgun Gothic','Noto Sans KR',sans-serif}
 .join-page .join-layout{width:min(100%,980px);min-height:565px;margin:0 auto;display:grid;grid-template-columns:36% 64%;background:#fff;border:1px solid #e8eef6;border-radius:17px;overflow:hidden;box-shadow:0 10px 32px rgba(23,55,98,.10)}
@@ -28,7 +32,11 @@
 .join-page .join-actions .join-cancel{background:#fff!important;color:#16477d!important;border:1px solid #cbd8e7!important}
 .join-page .join-actions .join-submit:hover{background:#0b3261!important}
 .join-page .join-actions .join-cancel:hover{background:#f1f6fc!important}
+<<<<<<< HEAD
 /* 기존 header.jsp의 span, td, input 전역 규칙과 충돌 방지 */
+=======
+/* 湲곗〈 header.jsp�쓽 span, td, input �쟾�뿭 洹쒖튃怨� 異⑸룎 諛⑹� */
+>>>>>>> daf47f24b2c0a0208b710719a854605020e20683
 .join-page span{display:inline!important;width:auto!important;height:auto!important;line-height:normal!important;border-radius:0!important}
 @media(max-width:760px){.join-page .join-layout{grid-template-columns:1fr}.join-page .join-visual{min-height:240px;padding:25px}.join-page .join-message{font-size:21px;margin:20px 0 0}.join-page .join-form-area{padding:30px 25px}}
 @media(max-width:430px){.join-page{padding:15px 8px 35px}.join-page .join-form-area{padding:25px 15px}.join-page .join-table th{width:90px!important;font-size:11px!important;padding-right:7px!important}.join-page .join-gender{gap:10px!important}}

@@ -7,35 +7,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class reviewUpdateProcCon
- */
+import model.Review.ReviewDAO;
+
 @WebServlet("/reviewUpdateProcCon")
 public class reviewUpdateProcCon extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public reviewUpdateProcCon() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		reqPro(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		reqPro(request, response);
 	}
-
+	
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 인코딩하기
+		request.setCharacterEncoding("utf-8");
+		
+		// 정보가져오기
+		
+		// rdao 인스턴스
+		ReviewDAO rdao = new ReviewDAO();
+		
+		
+	}
+	
 }

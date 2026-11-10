@@ -37,6 +37,15 @@ public class inquiryWriteProcCon extends HttpServlet {
 //		System.out.println(user_name);
 		System.out.println(user_email);
 		
+<<<<<<< HEAD
+=======
+		// InquiryDAO 인스턴스
+		InquiryDAO idao = new InquiryDAO();
+		// user_code 가져오는 메소드 사용 
+		int user_code = idao.getInquiryUserCode(user_email);
+		System.out.println(user_code);
+		
+>>>>>>> daf47f24b2c0a0208b710719a854605020e20683
 		// 로그인이 안된 상태인 경우 : 알림창을 띄우고, 로그인 페이지로 이동
 		// 삽입, 삭제, 수정 => 처리하는 서블릿에서 넘길때, sendRedirect()로 넘김
 		if(user_email==null) {
@@ -50,12 +59,22 @@ public class inquiryWriteProcCon extends HttpServlet {
 		
 		// InquiryDTO 인스턴스 및 로그인된 상태인경우=> inquiryDTO에 자료 인서트 하기
 		InquiryDTO idto = new InquiryDTO();
+<<<<<<< HEAD
 		
 		
 		// InquiryDAO 인스턴스
 		InquiryDAO idao = new InquiryDAO();
 		
 		
+=======
+		idto.setInq_title(request.getParameter("inq_title"));
+		idto.setInq_content(request.getParameter("inq_content"));
+		
+		idao.insertInquiryBoard(idto, user_code);
+		
+		// 페이지 넘김
+		response.sendRedirect("inquiryListProc.do");
+>>>>>>> daf47f24b2c0a0208b710719a854605020e20683
 	}
 	
 	

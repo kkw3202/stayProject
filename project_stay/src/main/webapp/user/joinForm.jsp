@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 <<<<<<< HEAD
+<<<<<<< HEAD
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -72,6 +73,8 @@
 			</table>
 		</form>
 =======
+=======
+>>>>>>> daf47f24b2c0a0208b710719a854605020e20683
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="style/join_style_v2.css">
 <section>
@@ -141,7 +144,10 @@
 				</table>
 			</form>
 		</div>
+<<<<<<< HEAD
 >>>>>>> cfe108a81794e298bd6e8f59f45f74686d0b9bb0
+=======
+>>>>>>> daf47f24b2c0a0208b710719a854605020e20683
 	</div>
 </div>
 </section>

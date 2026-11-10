@@ -1,41 +1,39 @@
 package control.board.review;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class reviewUpdateProc
- */
-@WebServlet("/reviewUpdateProc")
+import model.Review.ReviewDAO;
+import model.Review.ReviewDTO;
+
 public class reviewUpdateProc extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public reviewUpdateProc() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		reqPro(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		reqPro(request, response);
 	}
 
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 인코딩
+		request.setCharacterEncoding("utf-8");
+		
+		// 리뷰게시판에서 리뷰 코드 가져오기
+		int rev_code = Integer.parseInt(request.getParameter("rev_code"));
+		
+		// rdao 인스턴스 / rdto 가져오기
+		ReviewDAO rdao = new ReviewDAO();
+		ReviewDTO rdto = rdao.getReviewOneBoard(rev_code);
+		
+		request.setAttribute("rdto", rdto);
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/review/reviewUpdateForm.jsp");
+		rd.forward(request, response);
+	}
 }

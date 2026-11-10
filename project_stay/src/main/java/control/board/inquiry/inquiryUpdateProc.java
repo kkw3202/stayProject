@@ -26,14 +26,17 @@ public class inquiryUpdateProc extends HttpServlet {
 		// 인코딩
 		request.setCharacterEncoding("utf-8");
 		
-		// idao / idto 인스턴스화
-		InquiryDTO idto = new InquiryDTO();
-		InquiryDAO idao = new InquiryDAO();
+		// 1:1게시판에서 글의 번호 inq_code 가져오기
+		int inq_code = Integer.parseInt(request.getParameter("inq_code"));
 		
+		// idao / idto 인스턴스
+		InquiryDAO idao = new InquiryDAO();
+		InquiryDTO idto = idao.getInquiryOneBoard(inq_code);
+		
+		request.setAttribute("idto", idto);
 		// inquiryInfo.jsp 으로 보내기
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/inquiry/inquiryUpdateForm.jsp");
 		rd.forward(request, response);
-		
 	}
 
 }

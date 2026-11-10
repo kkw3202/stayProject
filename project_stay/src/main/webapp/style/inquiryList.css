@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 @charset "UTF-8";
 
 /* =========================================
@@ -280,6 +281,9 @@ section .boardwrap .paging a:hover {
     border-color: #0045EC;
 =======
 
+=======
+@charset "utf-8";
+>>>>>>> daf47f24b2c0a0208b710719a854605020e20683
 .boardwrap, .boardwrap * {
 	box-sizing: border-box;
 }
@@ -532,5 +536,8 @@ section .boardwrap .paging a:hover {
 		{
 		flex: 1 1 auto;
 	}
+<<<<<<< HEAD
 >>>>>>> cfe108a81794e298bd6e8f59f45f74686d0b9bb0
+=======
+>>>>>>> daf47f24b2c0a0208b710719a854605020e20683
 }
