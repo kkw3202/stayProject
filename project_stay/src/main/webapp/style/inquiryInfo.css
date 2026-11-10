@@ -1,133 +1,165 @@
-/* 머물:多 - 1:1 문의 상세보기 전용 CSS */
-.boardwrap, .boardwrap * { box-sizing: border-box; }
+@charset "utf-8";
+
+/* 머물:多 | 1:1 문의 상세보기 */
 .boardwrap {
-  width: min(100% - 32px, 960px);
-  margin: 48px auto 70px;
-  padding: 38px 42px 44px;
-  background: #fff;
-  border: 1px solid #e5ebf4;
-  border-radius: 18px;
-  box-shadow: 0 12px 35px rgba(15, 48, 93, .07);
-  color: #152a47;
-  font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    --inq-navy: #103e7e;
+    --inq-deep: #102c58;
+    --inq-line: #dbe5f1;
+    --inq-muted: #60718b;
+    width: min(100% - 32px, 1020px);
+    margin: 100px auto 65px;
+    padding: 34px 36px 38px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #e4ebf4;
+    border-top: 5px solid #13509c;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(24, 55, 98, .10);
+    color: var(--inq-deep);
+    font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
 }
-.boardwrap h3 {
-  margin: 0 0 26px;
-  padding: 0 0 17px 14px;
-  border-bottom: 1px solid #e4eaf2;
-  position: relative;
-  color: #0e356a;
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -.7px;
-  line-height: 1.4;
+.boardwrap *, .boardwrap *::before, .boardwrap *::after { box-sizing: border-box; }
+.boardwrap > h3 {
+    margin: 0 0 28px;
+    padding: 6px 0 22px 64px;
+    min-height: 57px;
+    border-bottom: 1px solid var(--inq-line);
+    position: relative;
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.35;
+    color: var(--inq-deep);
+    text-align: left;
 }
-.boardwrap h3::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 7px;
-  width: 4px; height: 23px;
-  background: #174a8b;
-  border-radius: 3px;
+.boardwrap > h3::before {
+    content: '✎';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #e4f0fb;
+    color: #13509c;
+    font-size: 29px;
 }
-.boardwrap table {
-  width: 100% !important;
-  table-layout: fixed;
-  border: 1px solid #e0e7f0 !important;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
+.boardwrap > h3::after {
+    content: '문의하신 내용과 답변 상태를 확인해 주세요.';
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--inq-muted);
 }
-.boardwrap table tr { background: #fff; }
-.boardwrap table th,
-.boardwrap table td {
-  box-sizing: border-box;
-  width: auto !important;
-  height: auto !important;
-  border: 0 !important;
-  border-bottom: 1px solid #e8edf4 !important;
-  padding: 17px 20px !important;
-  text-align: left !important;
-  vertical-align: middle;
-  color: #263b57 !important;
-  font-size: 14px !important;
-  line-height: 1.7;
-  overflow-wrap: anywhere;
-  word-break: keep-all;
-  cursor: auto;
-  border-radius: 0 !important;
+.boardwrap .infoTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--inq-line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    font-size: 14px;
 }
-.boardwrap table tr:hover td,
-.boardwrap table tr:hover th { background-color: inherit !important; }
-.boardwrap table tr:last-child th,
-.boardwrap table tr:last-child td { border-bottom: 0 !important; }
-.boardwrap table th {
-  width: 155px !important;
-  background: #f5f8fc !important;
-  color: #153d73 !important;
-  font-weight: 700;
-  white-space: nowrap;
+.boardwrap .infoTable tr > th.thinfo,
+.boardwrap .infoTable tr > td {
+    border: 0;
+    border-bottom: 1px solid var(--inq-line);
+    padding: 17px 20px;
+    line-height: 1.7;
+    vertical-align: middle;
+    text-align: left;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    height: auto;
 }
-/* 첫 행: 기능 버튼을 오른쪽으로 정렬 */
-.boardwrap table tr:first-child td[colspan] {
-  padding: 13px 16px !important;
-  background: #f8fafd !important;
-  text-align: right !important;
-  line-height: 2.8;
+
+.boardwrap .infoTable .thinfo {
+    width: 200px;
 }
-.boardwrap input[type='button'] {
-  display: inline-block;
-  width: auto !important;
-  min-width: 85px;
-  height: 37px !important;
-  margin: 3px 0 3px 6px;
-  padding: 0 14px !important;
-  border: 1px solid #c8d6e9;
-  border-radius: 7px;
-  background: #fff;
-  color: #17447d;
-  font: 600 13px 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-  line-height: normal;
-  cursor: pointer;
-  transition: background .15s, border-color .15s;
+.boardwrap .infoTable tr:last-child > th,
+.boardwrap .infoTable tr:last-child > td { border-bottom: 0; }
+.boardwrap .infoTable th {
+    background: #f0f5fb;
+    font-weight: 700;
+    color: var(--inq-deep);
+    position: relative;
+    padding-left: 30px !important;
 }
-.boardwrap input[type='button']:hover { background: #eaf2fc; border-color: #174a8b; }
-.boardwrap input[type='button'][value='답글쓰기'],
-.boardwrap input[type='button'][value='수정하기'] { background: #12447f; border-color: #12447f; color: #fff; }
-.boardwrap input[type='button'][value='답글쓰기']:hover,
-.boardwrap input[type='button'][value='수정하기']:hover { background: #0c3260; }
-.boardwrap input[type='button'][value='삭제하기'] { color: #b33c43; border-color: #ecc7c9; }
-.boardwrap input[type='button'][value='삭제하기']:hover { background: #fff2f2; }
-/* 글내용 행: 긴 문단과 줄바꿈 지원 */
-.boardwrap table tr:nth-child(5) td {
-  min-height: 190px;
-  padding-top: 24px !important;
-  padding-bottom: 40px !important;
-  vertical-align: top;
-  white-space: pre-wrap;
-  line-height: 1.9;
+.boardwrap .infoTable th::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 19px;
+    width: 4px;
+    border-radius: 4px;
+    background: #1963b4;
 }
-/* 답변 상태 배지: JSP에 class=status-wait/status-done 추가 시 적용 */
-.boardwrap .status-wait,
-.boardwrap .status-done {
-  display: inline-block !important;
-  width: auto !important;
-  height: auto !important;
-  line-height: 1.4 !important;
-  padding: 6px 11px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
+.boardwrap .infoTable td { color: #34445f; background: #fff; }
+
+/* 5번째 행(글내용) 높이 및 정렬 지정 */
+.boardwrap .infoTable tr:nth-child(5) > th,
+.boardwrap .infoTable tr:nth-child(5) > td { vertical-align: top; }
+.boardwrap .infoTable tr:nth-child(5) > th { padding-top: 30px; }
+.boardwrap .infoTable tr:nth-child(5) > th::before { top: 38px; }
+.boardwrap .infoTable tr:nth-child(5) > td {
+    min-height: 190px;
+    height: 190px;
+    white-space: pre-wrap;
+    line-height: 1.9;
 }
-.boardwrap .status-wait { background: #fff5e4; color: #9d6710; }
-.boardwrap .status-done { background: #e8f2ff; color: #17549a; }
+
+/* 첫 번째 행: 작업 버튼을 테이블 위의 도구 모음처럼 */
+.boardwrap .infoTable tr:first-child > td[colspan="2"] {
+    padding: 15px 18px;
+    background: #f8fbff;
+    text-align: right;
+    border-bottom: 1px solid var(--inq-line);
+}
+.boardwrap .infoTable .btn {
+    appearance: none;
+    display: inline-block;
+    width: auto;
+    min-width: 100px;
+    height: 39px;
+    margin: 3px 3px;
+    padding: 0 16px;
+    border: 1px solid #a8bedb;
+    border-radius: 8px;
+    background: #fff;
+    color: #164478;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 37px;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background .2s, transform .2s, box-shadow .2s;
+}
+.boardwrap .infoTable .btn:first-child {
+    color: #fff;
+    background: linear-gradient(180deg, #1d5aa2, #103d7c);
+    border-color: #103d7c;
+}
+.boardwrap .infoTable .btn:hover {
+    transform: translateY(-1px);
+    background: #eaf2fd;
+    box-shadow: 0 4px 12px rgba(15, 52, 102, .10);
+}
+.boardwrap .infoTable .btn:first-child:hover { background: #0d3268; }
+.boardwrap .infoTable .btn:focus-visible { outline: 3px solid #a9cdf7; outline-offset: 2px; }
 @media (max-width: 650px) {
-  .boardwrap { width: calc(100% - 20px); margin: 20px auto 40px; padding: 22px 14px; }
-  .boardwrap h3 { font-size: 20px; }
-  .boardwrap table th { width: 96px !important; white-space: normal; }
-  .boardwrap table th, .boardwrap table td { padding: 12px 10px !important; font-size: 12px !important; }
-  .boardwrap table tr:first-child td[colspan] { text-align: left !important; }
-  .boardwrap input[type='button'] { margin-left: 0; margin-right: 5px; min-width: 70px; padding: 0 9px !important; }
+    .boardwrap { width: calc(100% - 20px); margin: 20px auto 35px; padding: 22px 14px; border-radius: 14px; }
+    .boardwrap > h3 { font-size: 20px; padding-left: 54px; }
+    .boardwrap > h3::before { width: 42px; height: 42px; }
+    .boardwrap .infoTable th.thinfo { width: 30%; padding: 14px 10px 14px 20px !important; font-size: 12px; }
+    .boardwrap .infoTable th::before { left: 9px; }
+    .boardwrap .infoTable td { padding: 14px 12px !important; font-size: 13px; }
+    .boardwrap .infoTable tr:first-child > td[colspan="2"] { text-align: center; }
+    .boardwrap .infoTable .btn { min-width: 84px; padding: 0 9px; }
 }
