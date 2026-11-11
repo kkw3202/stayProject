@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+/* 마이페이지를 감싸는 section: 여백 제거 */
+section {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* 1. 마이페이지 전체 컨테이너: 헤더 밑부터 푸터 위까지 100% 채움 */
+.mypage_container {
+    width: 100%;
+    min-height: calc(100vh - 280px); /* 화면 높이에 맞춰 푸터 직전까지 바가 길게 늘어남 */
+    display: flex;
+    align-items: stretch;           /* 왼쪽 바와 오른쪽 본문 높이를 끝까지 똑같이 연장 */
+    background-color: #f8fafc;      /* 전체 오른쪽 배경 */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    clear: both;
+}
+
+/* 2. 왼쪽 세로 바: 헤더부터 푸터까지 끊김 없이 내려오는 풀사이즈 바 */
+.mypage_container .mypage_menu_wrap {
+    width: 260px;
+    background-color: #1a3158;      /* 짙은 네이비 */
+    padding: 50px 20px 40px 30px;   /* 위아래 넉넉한 여백 */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+/* 왼쪽 메뉴 링크 공통 */
+.mypage_container .mypage_menu_wrap a {
+    display: block;
+    padding: 15px 22px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+/* 마우스 올렸을 때 */
+.mypage_container .mypage_menu_wrap a:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+/* 첫 번째 활성화 탭 (회원정보) */
+.mypage_container .mypage_menu_wrap a:first-child,
+.mypage_container .mypage_menu_wrap a.active {
+    background-color: #2b4c7e;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+
+/* 3. 오른쪽 메인 콘텐츠 영역 (중앙 정렬 배치) */
+.mypage_container .userInfo_wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 50px 0 60px 80px;      /* 왼쪽 바 옆으로 정렬 */
+    box-sizing: border-box;
+}
+
+/* 본문 카드 박스 (시안처럼 깔끔한 라운드 박스) */
+.mypage_container .userInfo_wrap form[name="mfrm"] {
+    width: 680px;
+}
+
+.mypage_container .userInfo_wrap h3 {
+    font-size: 26px;
+    color: #111827;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+
+/* 4. 테이블 레이아웃 및 둥근 입력 영역 */
+.mypage_container .myinfo_table {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 1.5px solid #2b3a4a;   /* 시안의 뚜렷한 외곽선 */
+    padding: 40px;
+    border-collapse: separate;
+    border-spacing: 0 16px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+/* 라벨 (이름, 전화번호, 이메일 등) */
+.mypage_container .myinfo_table .label {
+    width: 110px;
+    text-align: left;
+    font-size: 17px;
+    color: #111827;
+    font-weight: 800;
+    vertical-align: middle;
+}
+
+/* 오른쪽 데이터 칸 (둥근 입력 배경) */
+.mypage_container .myinfo_table .data {
+    height: 48px;
+    background-color: #dbe3f0;      /* 연보라/연회색 둥근 배경 */
+    border-radius: 12px;
+    padding: 0 20px;
+    vertical-align: middle;
+    color: #1e293b;
+    font-size: 16px;
+}
+
+
+/* 5. 하단 버튼 영역 [수정], [탈퇴] */
+.mypage_container .myinfo_table tr:last-child td {
+    padding-top: 25px;
+    background-color: transparent !important;
+    text-align: right;
+}
+
+/* [수정] 버튼 */
+.mypage_container .myinfo_table input[type="button"]:first-child {
+    width: 130px;
+    height: 46px;
+    background-color: #1a4b8c;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 12px;
+    transition: background 0.2s;
+}
+
+.mypage_container .myinfo_table input[type="button"]:first-child:hover {
+    background-color: #123769;
+}
+
+/* [탈퇴] 버튼 */
+.mypage_container .myinfo_table input[type="button"]:last-child {
+    width: 130px;
+    height: 46px;
+    background-color: #ffffff;
+    color: #111827;
+    border: 2px solid #111827;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mypage_container .myinfo_table input[type="button"]:last-child:hover {
+    background-color: #f1f5f9;
+}

@@ -131,25 +131,20 @@
 		let f = document.listForm;
 		let tmp = f.searchType.value;
 		let num = f.keyWord.value;
-		if(tmp != null || !tmp.equals("")){
-			location.href="inquiryListProc.do?pageNum="+ (startPage-pageBlock)+ "&searchType="+ tmp + "&keyWord="+num;
-		}
+		location.href="inquiryListProc.do?pageNum="+ (startPage-pageBlock)+ "&searchType="+ tmp + "&keyWord="+num;
 	}
 	function pageBtn2(i){
 		let f = document.listForm;
 		let tmp = f.searchType.value;
 		let num = f.keyWord.value;
-		if(tmp != null || !tmp.equals("")){
-			location.href="inquiryListProc.do?pageNum="+ i+ "&searchType="+ tmp + "&keyWord="+num;
-		}
+		location.href="inquiryListProc.do?pageNum="+ i+ "&searchType="+ tmp + "&keyWord="+num;
+		
 	}
 	function pageBtn3(startPage,pageBlock){
 		let f = document.listForm;
 		let tmp = f.searchType.value;
 		let num = f.keyWord.value;
-		if(tmp != null || !tmp.equals("")){
-			location.href="inquiryListProc.do?pageNum="+ (startPage+pageBlock)+ "&searchType="+ tmp + "&keyWord="+num;
-		}
+		location.href="inquiryListProc.do?pageNum="+ (startPage+pageBlock)+ "&searchType="+ tmp + "&keyWord="+num;
 	}
 	
 </script>

@@ -8,7 +8,7 @@
 	
 	<%-- 콤보박스 (숙소 선택하면 해당 숙소만 나오기) --%>
 	<%-- form으로 날리는 방식으로 진행 --%>
-	<form action="reviewListProc.do?searchType=${acc_code}" method="get" name = "acc_choice">
+	<form action="reviewListProc.do" method="get" name = "acc_choice">
 		<div class="choice_label">숙소명</div>
 		<div class="choice_data">
 			<select class="searchType" onchange="search(this.form)" name="searchType">
@@ -151,21 +151,38 @@
 	function pageBtn1(startPage,pageBlock){
 		let f = document.acc_choice;
 		let tmp = f.searchType.value;
-		if(tmp != null || !tmp.equals("")){
+		// reviewMyListProc 에서 그려져서, 함께 넘어온 myList 값이 있는 경우, => reveiwMylistProc로 이동
+		// reviewListProc에서 그려질때는, myList 값을 넘겨받지 않아서, => reveiwListProc.do로 이동
+		let type = "${listType}";
+		if(type == "myList"){
+			location.href="reviewMyListProc.do?pageNum="+ (startPage-pageBlock)+ "&searchType="+ tmp;
+		}else{
 			location.href="reviewListProc.do?pageNum="+ (startPage-pageBlock)+ "&searchType="+ tmp;
 		}
+		// 
+		
 	}
 	function pageBtn2(i){
 		let f = document.acc_choice;
 		let tmp = f.searchType.value;
-		if(tmp != null || !tmp.equals("")){
+		// reviewMyListProc 에서 그려져서, 함께 넘어온 myList 값이 있는 경우, => reveiwMylistProc로 이동
+		// reviewListProc에서 그려질때는, myList 값을 넘겨받지 않아서, => reveiwListProc.do로 이동
+		let type = "${listType}";
+		if(type == "myList"){
+			location.href="reviewMyListProc.do?pageNum="+ i+ "&searchType="+ tmp;
+		}else{
 			location.href="reviewListProc.do?pageNum="+ i+ "&searchType="+ tmp;
 		}
 	}
 	function pageBtn3(startPage,pageBlock){
 		let f = document.acc_choice;
 		let tmp = f.searchType.value;
-		if(tmp != null || !tmp.equals("")){
+		// reviewMyListProc 에서 그려져서, 함께 넘어온 myList 값이 있는 경우, => reveiwMylistProc로 이동
+		// reviewListProc에서 그려질때는, myList 값을 넘겨받지 않아서, => reveiwListProc.do로 이동
+		let type = "${listType}";
+		if(type == "myList"){
+			location.href="reviewMyListProc.do?pageNum="+ (startPage+pageBlock)+"&searchType="+ tmp;
+		}else{
 			location.href="reviewListProc.do?pageNum="+ (startPage+pageBlock)+ "&searchType="+ tmp;
 		}
 	}

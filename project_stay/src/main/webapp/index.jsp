@@ -12,7 +12,7 @@
 
 <body>
 	<div class="container">
-		<jsp:include page="header.jsp" />\
+		<jsp:include page="header.jsp" />
 		<c:set var="sectionMain" value="index_sectionProc.do"></c:set>
 		<c:set var="section" value="${param.section }"></c:set>
 		<c:choose>

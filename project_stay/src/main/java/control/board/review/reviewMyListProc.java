@@ -95,6 +95,10 @@ public class reviewMyListProc extends HttpServlet {
 		request.setAttribute("searchType", acc_code);
 		System.out.println(searchType);
 		
+		// MylistProc에서 넘어온 글인지 확인하는 구분명 myList 도 포장하여 넘기기
+		String myList = "myList";
+		request.setAttribute("listType", myList);
+		
 		// 넘기기
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/review/reviewList.jsp");
 		rd.forward(request, response);
