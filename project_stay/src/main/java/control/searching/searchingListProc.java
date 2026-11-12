@@ -61,11 +61,13 @@ public class searchingListProc extends HttpServlet {
 			}
 		}
 		
-		session.setAttribute("city_name", city_name);
-		session.setAttribute("acc_type", acc_type);
-		session.setAttribute("acc_name", acc_name);
-		session.setAttribute("book_checkin_date", book_checkin_date);
-		session.setAttribute("book_checkout_date", book_checkout_date);
+		/*
+		 * session.setAttribute("city_name", city_name);
+		 * session.setAttribute("acc_type", acc_type); 
+		 * session.setAttribute("acc_name",acc_name);
+		 * session.setAttribute("book_checkin_date", book_checkin_date);
+		 * session.setAttribute("book_checkout_date", book_checkout_date);
+		 */
 		
 		// 세션 대신 hidden으로 넘겨서 header에서 받자!
 		
@@ -99,7 +101,8 @@ public class searchingListProc extends HttpServlet {
 
 		request.setAttribute("sa_arr", sa_arr);
 		
-		
+		request.setAttribute("city_name", city_name);
+		request.setAttribute("acc_type", acc_type);
 		request.setAttribute("book_checkin_date", book_checkin_date);
 		request.setAttribute("book_checkout_date", book_checkout_date);
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=searching/searchList.jsp");

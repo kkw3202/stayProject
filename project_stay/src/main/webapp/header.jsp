@@ -53,25 +53,35 @@
 					<div class="city">
 					<img alt="핀 이미지" src="image/ping.svg" class="search_bar_img">
 						<select name="city_name"> <!-- 칼럼 명 변경후 재확인 필요. -->
-							<option selected="selected" disabled="disabled" value="">지역 선택</option>
-							<option value="서울">서울</option>
-							<option value="부산">부산</option>
-							<option value="제주">제주</option>
-							<option value="인천">인천</option>
-							<option value="평창">평창</option>
-							<option value="안동">안동</option>
-							<option value="여수">여수</option>
-							<option value="경주">경주</option>
-							<option value="제천">제천</option>
-							<option value="태안">태안</option>
+							<option ${city_name eq null ? "selected='selected'" : "" } disabled="disabled" value="">지역 선택</option>
+							<option ${city_name eq "서울" ? "selected='selected'" : "" } value="서울">서울</option>
+							<option ${city_name eq "부산" ? "selected='selected'" : "" } value="부산">부산</option>
+							<option ${city_name eq "제주" ? "selected='selected'" : "" } value="제주">제주</option>
+							<option ${city_name eq "인천" ? "selected='selected'" : "" } value="인천">인천</option>
+							<option ${city_name eq "평창" ? "selected='selected'" : "" } value="평창">평창</option>
+							<option ${city_name eq "안동" ? "selected='selected'" : "" } value="안동">안동</option>
+							<option ${city_name eq "여수" ? "selected='selected'" : "" } value="여수">여수</option>
+							<option ${city_name eq "경주" ? "selected='selected'" : "" } value="경주">경주</option>
+							<option ${city_name eq "제천" ? "selected='selected'" : "" } value="제천">제천</option>
+							<option ${city_name eq "태안" ? "selected='selected'" : "" } value="태안">태안</option>
 						</select>
 					</div>
 					<!-- 숙박 기간 -->
 					<div class="date" onclick="show_calendar()">
 						<img alt="달력이미지" src="image/cal.svg" class="search_bar_img">
 						<!-- 나중에 달력 붙이기 -->
-						<p>일정 선택</p> <!-- 달력에서 선택한 날 띄우기 -->
+						<p id="day_show">일정 선택</p> <!-- 달력에서 선택한 날 띄우기 -->
 						<div class="saveSelWrap">
+							<div class="saveSel1 hidden_saveSel">
+								<c:if test="${book_checkin_date != null && is_index != true}">
+									<input type="hidden" value="${book_checkin_date }" name="selectedDays" class="saveSel">
+								</c:if>
+							</div>
+							<div class="saveSel2 hidden_saveSel">
+								<c:if test="${book_checkout_date != null && is_index != true}">
+									<input type="hidden" value="${book_checkout_date }" name="selectedDays" class="saveSel">
+								</c:if>
+							</div>
 							<c:if test="${sessionScope.book_checkin_date  }"></c:if>
 						</div>
 					</div>
@@ -80,10 +90,10 @@
 					<div class="type">
 						<img alt="호텔" src="image/bilding.svg" class="search_bar_img">
 						<select name="acc_type"> <!-- 칼럼 명 변경후 재확인 필요. -->
-							<option selected="selected" disabled="disabled" value="">숙소 유형 선택</option>
-							<option value="호텔">호텔</option>
-							<option value="모텔">모텔</option>
-							<option value="펜션">펜션</option>
+							<option ${acc_type eq null ? "selected='selected'" : "" } disabled="disabled" value="">숙소 유형 선택</option>
+							<option ${acc_type eq "호텔" ? "selected='selected'" : "" } value="호텔">호텔</option>
+							<option ${acc_type eq "모텔" ? "selected='selected'" : "" } value="모텔">모텔</option>
+							<option ${acc_type eq "펜션" ? "selected='selected'" : "" } value="펜션">펜션</option>
 						</select>
 					</div>
 					<!-- 숙소명 검색어 입력창 -->
@@ -100,9 +110,29 @@
 		
 	
 	<script type="text/javascript" src="js/cala.js" defer></script>
+	<script type="text/javascript" defer>
+		let day_show = document.getElementById("day_show");
+		let prt_book_checkin_date = formatDate("${book_checkin_date}");
+		let prt_book_checkout_date = formatDate("${book_checkout_date}");
+		
+		if(${book_checkin_date != null && is_index != true}) day_show.innerText = prt_book_checkin_date + " - " + prt_book_checkout_date;
+		
+		function formatDate(date) {
+	        let year = date.substring(0, 4);
+	        let month = date.substring(4, 6);
+	        let day = date.substring(6, 8);
+	        return year + "." + month + "." + day;
+		}
+	</script>
 	<script type="text/javascript">
 		function form_submit(){
 			let f = document.sform;
+			let saveSel = document.querySelectorAll(".saveSel");
+			
+			if(saveSel.length < 2){
+				alert("날짜를 선택해주세요");
+				return;
+			}
 			f.submit();
 		}
 	</script>

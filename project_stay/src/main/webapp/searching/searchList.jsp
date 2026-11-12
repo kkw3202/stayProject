@@ -73,7 +73,7 @@
 							
 							<li class="wish_btn">
 								<!-- wishList 색칠할지 검사받고 칠하기 -->
-								<button type="button" onclick="location.href='wishListAddcon.do?acc_code=${sa_arr.acc_code}'" ></button> <!-- 찜 추가 버튼 -->
+								<button type="button" onclick="${empty sessionScope.user_email ? 'pleasJoin();' : 'location.href=\'wishListAddcon.do?acc_code=' += sa_arr.acc_code += '\''}"></button> <!-- 찜 추가 버튼 -->
 							</li>
 								<li class="acc_facility">
 									<div>
@@ -102,4 +102,9 @@
 	let search_cnt_prt = document.getElementById("search_cnt_prt");
 	
 	search_cnt_prt.innerText = search_cnt.value + "개";
+	
+	function pleasJoin(){
+		alert("찜 기능은 로그인 후 이용 가능합니다");
+		location.href = "index.jsp?section=user/loginForm.jsp";
+	}
 </script>

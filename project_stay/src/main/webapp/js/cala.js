@@ -73,7 +73,7 @@
                     let daySelOnclick = "";
                     if (span_beforDay != "class='beforDay'"){
                         dayId = "id='"+selday+"'";
-                        daySelOnclick = "onclick='selecting("+selday+", "+year+", " + (month+1) + ", " + num +")'";
+                        daySelOnclick = "onclick='selecting(this, "+year+", " + (month+1) + ", " + num +")'";
                     } 
 
 
@@ -91,6 +91,7 @@
 
         result += "</table>";
         main.innerHTML = result;
+		coloring();
     }
     
     function minus(){
@@ -107,25 +108,60 @@
         main.classList.toggle("noShow");
     }
 
-    function selecting(selday, year, month, num){
-        let saveSelWrap = document.querySelector(".saveSelWrap");
-        let saveSel = document.querySelectorAll(".saveSel");
-		let show_month = month;
-		let show_num = num;
-		
-		if(month<10) show_month= 0 + "" +month;
-		if(num<10) show_num= 0 + "" +num;
+	function selecting(selday, year, month, num){
+	    let saveSel = document.querySelectorAll(".saveSel");
+	    let saveSel1 = document.querySelector(".saveSel1");
+	    let saveSel2 = document.querySelector(".saveSel2");
+	    let saveSelWrap = document.querySelector(".saveSelWrap");
+	    let show_month = month;
+	    let show_num = num;
+	    
+	    if(month < 10) show_month = "0" + month;
+	    if(num < 10) show_num = "0" + num;
 	
-
-        if(saveSel.length >= 2){
-            if(selday == saveSel[1] || selday == saveSel[0]) selday.classList.toggle("selected");
-            else alert("취소 후 재선택");
-        }else{
-            selday.classList.toggle("selected");
-            saveSelWrap.innerHTML+="<input type='hidden' value='"+ year + show_month + show_num +"' name='selectedDays' class='saveSel'/>";
-        }
-        console.log("1: "+selday);  
-        console.log("2: "+saveSel[0].value); 
-    }
+	    let currentDateVal = "" + year + show_month + show_num;
+	    let selElement = selday; 
+	
+	    let val0 = saveSel[0] ? saveSel[0].value : "";
+	    let val1 = saveSel[1] ? saveSel[1].value : "";
+	
+	    if(currentDateVal == val0) {
+	        selElement.classList.remove("selected");
+	        saveSel1.innerHTML = "";
+	    } 
+	    else if(currentDateVal == val1) {
+	        selElement.classList.remove("selected");
+	        saveSel2.innerHTML = "";
+	    } 
+	    else {
+	        if(saveSel.length >= 2){
+	            alert("취소 후 재선택");
+	        } else {
+	            selElement.classList.add("selected");
+	            
+	            let inputHtml = "<input type='hidden' value='" + currentDateVal + "' name='selectedDays' class='saveSel'/>";
+	            
+	            if(saveSel1.innerHTML.trim() === "") {
+	                saveSel1.innerHTML = inputHtml;
+	            } else if(saveSel2.innerHTML.trim() === "") {
+	                saveSel2.innerHTML = inputHtml;
+	            }
+	        }
+	    }
+	}
+	
+	function coloring() {
+	    let saveSel = document.querySelectorAll(".saveSel");
+	
+	    saveSel.forEach(input => {
+	        let val = input.value;
+	        let targetId = "day" + val; 
+	        
+	        let targetTd = document.getElementById(targetId);
+	        if (targetTd) {
+	            targetTd.classList.add("selected");
+	        }
+	    });
+	}
 
     display();

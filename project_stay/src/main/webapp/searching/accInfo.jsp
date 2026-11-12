@@ -26,7 +26,7 @@
 				<p class="avg_rating">${pdto.avg_rating }</p>
 			</div>
 			<div class="right">
-				<button type="button" onclick="location.href='wishListAddcon.do?acc_code=${sa_arr.acc_code}'" ></button> <!-- 찜 추가 버튼 -->
+				<button type="button" onclick="${empty sessionScope.user_email ? 'pleasJoin();' : 'location.href=\'wishListAddcon.do?acc_code=' += pdto.acc_code += '\''}" ></button> <!-- 찜 추가 버튼 -->
 				<c:set var="low" value="999999999999"/>
 				<c:forEach items="${rdto_arr }" var="rdto">
 					<c:if test="${rdto.room_price<low}">

@@ -50,7 +50,6 @@ public class paymentProcCon extends HttpServlet {
 	}	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("여까지는 왔음");
 		
 		String book_number = request.getParameter("book_number");
 		
@@ -58,7 +57,9 @@ public class paymentProcCon extends HttpServlet {
 		BookResultDTO brdto = bdao.get_one_BookResult(book_number);
 		
 		DateHandlerDAO dhdao = new DateHandlerDAO();
+		
 		ArrayList<String> days = dhdao.getAllDay(brdto.getBook_checkin_date(), brdto.getBook_checkout_date());
+		
 		
 		int date_of_stay = days.size();
 		int total_price = date_of_stay * (brdto.getRoom_price());
@@ -66,9 +67,8 @@ public class paymentProcCon extends HttpServlet {
 		brdto.setBook_number(book_number);
 		brdto.setDate_of_stay(date_of_stay);
 		brdto.setTotal_price(total_price);
-		
 		request.setAttribute("brdto", brdto);
-		RequestDispatcher rd = request.getRequestDispatcher("index.jps?section=booking/bookingResult.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=booking/bookingResult.jsp");
 		rd.forward(request, response);
 	}
 

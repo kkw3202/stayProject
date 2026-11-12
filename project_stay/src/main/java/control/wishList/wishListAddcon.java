@@ -18,9 +18,9 @@ public class wishListAddcon extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("utf-8");
 		int acc_code = Integer.parseInt(request.getParameter("acc_code")) ;
 		
-		System.out.println(acc_code);
+		
 	}
 }

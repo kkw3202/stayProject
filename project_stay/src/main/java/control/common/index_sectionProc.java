@@ -28,6 +28,8 @@ public class index_sectionProc extends HttpServlet {
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
+		boolean is_index = true;
+		
 		Date today = new Date();
 		Calendar cal = Calendar.getInstance();
 		
@@ -50,6 +52,7 @@ public class index_sectionProc extends HttpServlet {
 		ArrayList<IndexDTO> indto_arr = indao.getIndex_section();
 		
 		request.setAttribute("indto_arr", indto_arr);
+		request.setAttribute("is_index", is_index);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=section.jsp");
 		rd.forward(request, response);
