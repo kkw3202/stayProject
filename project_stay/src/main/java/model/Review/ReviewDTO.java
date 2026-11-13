@@ -12,8 +12,23 @@ public class ReviewDTO {
 	
 	private String user_name;  // 회원명
 	private String acc_name;  // 숙소명
+	private String acc_img;  // 숙소전경이미지
+	private String acc_type; // 숙소 타입
 	private String user_email;  // 회원 이메일
 	
+	
+	public String getAcc_type() {
+		return acc_type;
+	}
+	public void setAcc_type(String acc_type) {
+		this.acc_type = acc_type;
+	}
+	public String getAcc_img() {
+		return acc_img;
+	}
+	public void setAcc_img(String acc_img) {
+		this.acc_img = acc_img;
+	}
 	public String getUser_email() {
 		return user_email;
 	}

@@ -45,8 +45,11 @@ public class mypageModProc extends HttpServlet {
 		// 포장하기
 		request.setAttribute("udto", udto);
 		
-		// 보내기
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/mypageMod.jsp");
+		// mypage 안쪽에 넣을 jsp 이름 포장
+		request.setAttribute("mypageSection", "mypageMod");
+		
+		// 전달하기
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/mypage.jsp");
 		rd.forward(request, response);
 	}
 	

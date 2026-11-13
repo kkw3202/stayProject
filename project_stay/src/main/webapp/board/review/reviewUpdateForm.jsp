@@ -17,14 +17,12 @@
 				<th class="label">평점</th>
 				<td class="data">
 					<select name = "rev_rating">
-						<option value="5">5점</option>
-						<option value="4">4점</option>
-						<option value="3">3점</option>
-						<option value="2">2점</option>
-						<option value="1">1점</option>
+						<option value="5" ${rdto.rev_rating == 5? 'selected' : '' }>5점</option>
+						<option value="4" ${rdto.rev_rating == 4? 'selected' : '' }>4점</option>
+						<option value="3" ${rdto.rev_rating == 3? 'selected' : '' }>3점</option>
+						<option value="2" ${rdto.rev_rating == 2? 'selected' : '' }>2점</option>
+						<option value="1" ${rdto.rev_rating == 1? 'selected' : '' }>1점</option>
 					</select>
-					
-					
 				</td>
 			</tr>
 			<tr>
@@ -56,12 +54,14 @@
 			f.rev_content.focus();
 			return;
 		}
-		alert("수정완료하였습니다!");
-		f.submit();
+		if(confirm("위 내용대로 수정하시겠습니까?")){
+			f.submit();
+		}
 	} 
 	// 취소하기 버튼
 	function cancelform(){
-		alert("업데이트 취소하겠습니다!");
-		history.go(-1);
+		if(confirm("업데이트 취소하시겠습니까?")){
+			history.go(-1);
+		}
 	}
 </script>

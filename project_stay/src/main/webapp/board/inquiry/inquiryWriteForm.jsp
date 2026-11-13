@@ -23,7 +23,7 @@
 			<tr>
 				<td colspan="2">
 					<input class="btn" type="button" onclick="inquiryBoardWriteException()" value="등록하기"/>
-					<input class="btn" type = "button" onclick="location.href='inquiryListProc.do'" value="취소하기"/>
+					<input class="btn" type = "button" onclick="cancelForm()" value="취소하기"/>
 				</td>
 			</tr>
 		</table>
@@ -43,8 +43,14 @@
             f.inq_content.focus();
             return;
         }
-        alert("1:1문의가 등록되었습니다!");
-        f.submit();
+        if(confirm("1:1문의 등록하시겠습니까?")){
+	        f.submit();
+        }
     }
+	function cancelForm(){
+		if(confirm("작성을 취소하시겠습니까?")){
+			location.href="inquiryListProc.do";
+		}
+	}    
 </script>
 

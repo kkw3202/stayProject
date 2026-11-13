@@ -61,8 +61,9 @@
 <script>
 	// 취소하기 함수
 	function cancelReview(){
-		alert("리뷰 목록으로 이동합니다");
-		history.go(-1);
+		if(confirm("작성을 취소하시겠습니까?")){
+			history.go(-1);
+		}
 	}
 	
 	// 폼 예외처리하기
@@ -82,7 +83,8 @@
 			f.rev_content.focus();
 			return;
 		}
-		alert("리뷰가 등록되었습니다.");
-		f.submit();
+		if(confirm("리뷰 등록하시겠습니까?")){
+			f.submit();
+		}
 	}
 </script>

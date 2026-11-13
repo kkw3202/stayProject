@@ -292,12 +292,12 @@ public class ReviewDAO {
 	}
 	
 	// 리뷰게시판 글 수정하는 함수
-	public void updateReview(int rev_code, String rev_rating, String rev_content) {
+	public void updateReview(int rev_code, int rev_rating, String rev_content) {
 		try {
 			con = Util.getConnection();
 			String sql = "update Reviews set rev_rating=?, rev_content=? where rev_code=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, rev_rating);
+			pstmt.setInt(1, rev_rating);
 			pstmt.setString(2, rev_content);
 			pstmt.setInt(3, rev_code);
 			pstmt.executeUpdate();
@@ -313,14 +313,14 @@ public class ReviewDAO {
 	}
 	
 	// 내가쓴 리뷰만 보기
-	// 8. 내가쓴 글 게시글만 보기
 	public ArrayList<ReviewDTO> getMyreviewBoard(int startRow, int pageSize, String user_name){
 		ArrayList<ReviewDTO> r = new ArrayList<>();
 		try {
 			con = Util.getConnection();
 			// 쿼리문
 			String sql = "select r.rev_code, a.acc_code, u.user_code, r.rev_rating, r.rev_content, "
-					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name from Reviews r "
+					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name, a.acc_img, a.acc_type "
+					+ "from Reviews r "
 					+ "inner join User u "
 					+ "on r.user_code = u.user_code "
 					+ "inner join Accommodation a "
@@ -346,6 +346,8 @@ public class ReviewDAO {
 				rdto.setUser_name(rs.getString(9));
 				rdto.setUser_email(rs.getString(10));
 				rdto.setAcc_name(rs.getString(11));
+				rdto.setAcc_img(rs.getString(12));
+				rdto.setAcc_type(rs.getString(13));
 				
 				// ArrayList에 데이터 추가
 				r.add(rdto);
@@ -416,29 +418,6 @@ public class ReviewDAO {
 		return user_code;
 	}
 	
-	// 리뷰 수정하는 메소드
-	public void updateReview(int rev_code, int rev_rating, String rev_content) {
-		try {
-			con = Util.getConnection();
-			// 쿼리문
-			String sql = "update Reviews set rev_rating=?, rev_content =?  where rev_code = ?";
-			pstmt = con.prepareStatement(sql);
-			// ?에 대입
-			pstmt.setInt(1, rev_rating);
-			pstmt.setString(2, rev_content);
-			pstmt.setInt(3, rev_code);
-			pstmt.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rs!=null) rs.close();
-				if(pstmt!=null) pstmt.close();
-				if(con!=null) con.close();
-			}catch(Exception e) {e.printStackTrace();}
-		}
-	}
-	
 	// 해당 글만 가져오는 메소드
 	public ReviewDTO getReviewOneBoard(int rev_code) {
 		ReviewDTO rdto = new ReviewDTO();
@@ -455,6 +434,7 @@ public class ReviewDAO {
 				rdto.setAcc_name(rs.getString(1));
 				rdto.setRev_rating(rs.getInt(2));
 				rdto.setRev_content(rs.getString(3));
+				rdto.setRev_code(rs.getInt(4));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -515,4 +495,7 @@ public class ReviewDAO {
 		}
 		return acc_name;
 	}
+	
+	
+	
 }

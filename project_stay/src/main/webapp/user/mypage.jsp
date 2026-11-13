@@ -8,10 +8,11 @@
 
 	<div class="mypage_container">
 		<div class="mypage_menu_wrap">
-			<a href="mypageInfoProc.do">회원정보</a>
-			<a href="myBookingProc.do">예약 확인</a>
-			<a href="myWishProc.do">찜목록</a>
-			<a href="#">내 리뷰 보기</a> <%-- jsp 만들고 매핑하기! --%>
+			<%-- 각 버튼들 css위해, 클래스 부여 --%>
+			<a href="mypageInfoProc.do"}">회원정보</a>
+			<a href="myBookingProc.do"}">예약 확인</a>
+			<a href="myWishProc.do" }">찜목록</a>
+			<a href="MyRevListProc.do"}">내 리뷰 보기</a> 
 		</div>
 		<%-- mypageSection 값 없이 마이페이지로 오면 나타남 --%>
 		<c:if test="${empty mypageSection}"> 
@@ -45,8 +46,8 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="button" value="수정" onclick="location.href='mypageModProc.do'"/>
-								<input type="button" value="탈퇴"  onclick="location.href='mypageDeleteCon.do'"/>
+								<input type="button" value="수정하기" onclick="modMember()"/>
+								<input type="button" value="탈퇴하기"  onclick="deleteMember()"/>
 							</td>
 						</tr>
 					</table>
@@ -57,3 +58,16 @@
 		</c:if>
 	</div>
 </section>
+
+<script>
+	function deleteMember(){
+		if(confirm("회원 탈퇴하시겠습니까?")){
+			location.href="mypageDeleteCon.do";
+		}
+	}
+	function modMember(){
+		if(confirm("회원 정보 수정하시겠습니까?")){
+			location.href="mypageModProc.do";
+		}
+	}
+</script>

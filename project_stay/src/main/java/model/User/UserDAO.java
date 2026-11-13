@@ -126,8 +126,8 @@ public class UserDAO {
 					udto.setUser_email(rs.getString(4));
 					udto.setUser_birth(rs.getString(5));
 					udto.setUser_gender(rs.getInt(6));
-					udto.setUser_chk_del(rs.getInt(7));
-					udto.setUser_password(rs.getString(8));
+					udto.setUser_password(rs.getString(7));
+					udto.setUser_chk_del(rs.getInt(8));
 					udto.setUser_passkey(rs.getString(9));
 				}
 			}catch(Exception e) {
@@ -211,12 +211,13 @@ public class UserDAO {
 		try {
 			con = Util.getConnection();
 			
-			String sql = "update user set user_name=?, user_phone=?, user_birth=?, user_gender=? where emai=?";
+			String sql = "update user set user_name=?, user_phone=?, user_birth=?, user_gender=? where email=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, udto.getUser_name());
 			pstmt.setString(2, udto.getUser_phone());
 			pstmt.setString(3, udto.getUser_birth());
 			pstmt.setInt(4, udto.getUser_gender());
+			pstmt.setString(5, udto.getUser_email());
 			
 			pstmt.executeUpdate();
 
@@ -231,7 +232,59 @@ public class UserDAO {
 		}
 	}
 
+	// 한 명의 정보를 업데이트하는 메소드 (내 정보 수정)
+	public void updateUserMod(String user_name, String user_phone, int user_gender, String user_birth, String new_password, String passkey, String user_email) {
+		try {
+			con = Util.getConnection();
+			
+			String sql = "update user set user_name=?, user_phone=?, user_gender=?, user_birth=?, user_password=?, user_passkey=? "
+					+ "where user_email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_name);
+			pstmt.setString(2, user_phone);
+			pstmt.setInt(3, user_gender);
+			pstmt.setString(4, user_birth);
+			pstmt.setString(5, new_password);
+			pstmt.setString(6, passkey);
+			pstmt.setString(7, user_email);
+			
+			pstmt.executeUpdate();
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
 	
+	// 한명의 회원 탈퇴하기 (소프트 삭제)
+	public void deleteMember(String user_email) {
+		try {
+			// DB연결
+			con = Util.getConnection();
+			// 데이터를 지우지 않고, chkDel을 1로 업데이트
+			String sql = "update User set user_chk_del=1 where user_email=?";
+			// 쿼리 선언
+			pstmt = con.prepareStatement(sql);
+			// ? 에 넣기
+			pstmt.setString(1, user_email);
+			// 쿼리 실행
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
 	
 	
 	

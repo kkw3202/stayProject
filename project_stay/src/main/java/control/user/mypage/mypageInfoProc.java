@@ -40,7 +40,7 @@ public class mypageInfoProc extends HttpServlet {
 		
 		// 휴대전화 010-0000-0000 처리하기
 		String phone = udto.getUser_phone();
-		if(phone != null) {
+		if(phone != null && phone.length() == 11) {
 			phone = phone.substring(0,3) + "-" + phone.substring(3,7) + "-" + phone.substring(7,11);
 		}
 		// 포장하기

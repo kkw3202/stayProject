@@ -92,8 +92,9 @@
 <script>
 	// 삭제처리 함수 (소프트 삭제)
 	function deleteChk(inq_code){
-		alert("문의글을 삭제하겠습니다.");
-		location.href="inquiryDeleteCon.do?inq_code="+inq_code;
+		if(confirm("문의글을 삭제하시겠습니까?")){
+			location.href="inquiryDeleteCon.do?inq_code="+inq_code;
+		}
 	}
 
 </script>

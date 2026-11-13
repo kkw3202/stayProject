@@ -19,80 +19,100 @@
 			</select>
 		</div>
 	</form>
-	
-	<table class="review_table">
-		<tr>
-			<%-- 로그인 하지 않거나, 관리자인 경우에는 내가쓴리뷰 안보이게 처리 --%>
-			<%-- 위치이동가능 : 리뷰작성하기 / 내가쓴리뷰  --%>
-			<c:if test="${not empty sessionScope.user_email and sessionScope.user_email ne 'admin@naver.com'}">
-				<td class="btn" colspan="2">
-					<input type="button" onclick="goWriteForm()" value="리뷰작성"/>
+	<div class="upper_btns">
+		<%-- 로그인 하지 않거나, 관리자인 경우에는 내가쓴리뷰 안보이게 처리 --%>
+		<%-- 위치이동가능 : 리뷰작성하기 / 내가쓴리뷰  --%>
+		<c:if test="${not empty sessionScope.user_email and sessionScope.user_email ne 'admin@naver.com'}">
+			<div class="btn">
+				<input type="button" onclick="goWriteForm()" value="리뷰작성"/>
+				<%-- 내가 쓴 리뷰로 변경된 경우에는, 버튼이 전체보기로 바뀌어야 함--%>
+				<c:if test="${listType eq 'myList' }">
+					<input type = "button" onclick = "location.href='reviewListProc.do'" value = "전체보기"/>
+				</c:if>
+				<%-- 전체보기일경우에는, 내가쓴리뷰 버튼 --%>
+				<c:if test="${listType ne 'myList' }">
 					<input type = "button" onclick = "getMyReview()" value = "내가쓴리뷰"/>
-				</td>
-			</c:if>
-		</tr>
-		<c:forEach var="arr" items="${rlist}">
-			<tr>
-				<th class="label">숙소명</th>
-				<td class="data">${arr.acc_name }</td>
-			</tr>
-			<tr>
-				<%-- 첫글자만 나오게 처리 --%>
-				<th class="label">작성자</th>
-				<td class="data">${fn:substring(arr.user_name, 0, 1)}**</td>
-			</tr>
-			<tr>
-				<th class="label">작성시간</th>
-				<td class="data">${arr.rev_created_datetime }</td>
-			</tr>
-			<tr>
-				<th class="label">평점</th>
-				<td class="data">
-					<c:choose>
-						<c:when test="${arr.rev_rating==5}">
-							<span class="star">★★★★★</span>
-						</c:when>
-						<c:when test="${arr.rev_rating==4}">
-							<span class="star">★★★★☆</span>
-						</c:when>
-						<c:when test="${arr.rev_rating==3}">
-							<span class="star">★★★☆☆</span>
-						</c:when>
-						<c:when test="${arr.rev_rating==2}">
-							<span class="star">★★☆☆☆</span>
-						</c:when>
-						<c:otherwise>
-							<span class="star">★☆☆☆☆</span>
-						</c:otherwise>
-					</c:choose>
-				</td>
-			</tr>
-			<tr>
-				<th class="label">리뷰내용</th>
-				<td class="data">${arr.rev_content }</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<%-- 좋아요 부분 --%>
-					<%-- 리뷰를 보고, 다른 사람들이 리뷰에 대해서, 도움이 되는 경우 추천 버튼 --%>
-					<div class="like">
-						<span class="like_badge">👍</span>좋아요 ${arr.rev_like }
-						<%-- 로그인되어 있고, 내가 쓴 글이 아닌 경우에만 추천하기 버튼 가능 --%>
-						<c:if test="${not empty sessionScope.user_email and sessionScope.user_email ne arr.user_email }">
-							<input type="button" class="btns" onclick="chkLike(${arr.rev_code},${arr.acc_code })" value="추천하기"/>
-						</c:if>
-					</div>
-					
-					<%-- 리뷰수정하기/삭제하기 : 작성자에게만 수정하기삭제하기 버튼 보여야함 --%>
-					<c:if test="${not empty sessionScope.user_email and sessionScope.user_email eq arr.user_email }">
-						<input type="button" class="btns" onclick="deleteReview(${arr.rev_code}, ${arr.acc_code })" value="삭제하기"/>
-						<input type="button" class="btns" onclick="updateReview(${arr.rev_code})" value="수정하기"/>
-					</c:if>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-
+				</c:if>
+			</div>
+		</c:if>
+	</div>	
+	
+	<c:forEach var="arr" items="${rlist}">
+		<table class="review_table">
+			
+				<tr>
+					<th class="label">숙소명</th>
+					<td class="data">${arr.acc_name }</td>
+				</tr>
+				<tr>
+					<%-- 첫글자만 나오게 처리 --%>
+					<th class="label">작성자</th>
+					<td class="data">${fn:substring(arr.user_name, 0, 1)}**</td>
+				</tr>
+				<tr>
+					<th class="label">작성시간</th>
+					<td class="data">${arr.rev_created_datetime }</td>
+				</tr>
+				<tr>
+					<th class="label">평점</th>
+					<td class="data">
+						<c:choose>
+							<c:when test="${arr.rev_rating==5}">
+								<span class="star">★★★★★</span>
+							</c:when>
+							<c:when test="${arr.rev_rating==4}">
+								<span class="star">★★★★☆</span>
+							</c:when>
+							<c:when test="${arr.rev_rating==3}">
+								<span class="star">★★★☆☆</span>
+							</c:when>
+							<c:when test="${arr.rev_rating==2}">
+								<span class="star">★★☆☆☆</span>
+							</c:when>
+							<c:otherwise>
+								<span class="star">★☆☆☆☆</span>
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
+				<tr>
+					<th class="label">리뷰내용</th>
+					<td class="data">${arr.rev_content }</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div class="card_footer">
+							<c:choose>
+								<%-- 좋아요 부분 --%>
+								<%-- 리뷰를 보고, 다른 사람들이 리뷰에 대해서, 도움이 되는 경우 추천 버튼 --%>
+								<%-- 다른 사람이 쓴 리뷰인 경우 -> 클릭 가능한 버튼 --%>
+								<c:when test="${not empty sessionScope.user_email and sessionScope.user_email ne arr.user_email}">
+									<button type="button" class="btn_like_pill" onclick="chkLike(${arr.rev_code}, ${arr.acc_code})" title="이 리뷰 추천하기">
+										<span class="like_badge">👍</span>
+										<span>좋아요</span>
+										<span class="like_num">${arr.rev_like}</span>
+									</button>
+								</c:when>
+								<%-- 2) 내가 쓴 글이거나 비로그인인 경우 -> 클릭 불가 / 좋아요 숫자만 보임 --%>
+								<c:otherwise>
+									<div class="like_static">
+										<span class="like_badge">👍</span>
+										<span>좋아요 ${arr.rev_like}</span>
+									</div>
+								</c:otherwise>
+							</c:choose>
+							
+							<div class="right_btns">
+								<c:if test="${not empty sessionScope.user_email and sessionScope.user_email eq arr.user_email}">
+									<input type="button" class="btns btn_update" onclick="updateReview(${arr.rev_code})" value="수정하기"/>
+									<input type="button" class="btns btn_delete" onclick="deleteReview(${arr.rev_code}, ${arr.acc_code})" value="삭제하기"/>
+								</c:if>
+							</div>
+						</div>
+					</td>
+				</tr>
+		</table>
+	</c:forEach>
 
 	<%-- 페이징 부분 --%>
 	<div class="paging">
@@ -102,7 +122,15 @@
 		
 		<%-- 페이징 번호 --%>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<input type="button" onclick="pageBtn2(${i})" value="${i }"/>
+			<%-- 현재 페이지에는 클래스 이름 넣어, 표시하기 --%>
+			<c:choose>
+				<c:when test="${i == currentPage}">
+					<input class="currentPage_btn" type="button" onclick="pageBtn2(${i})" value="${i }"/>
+				</c:when>
+				<c:otherwise>
+					<input type="button" onclick="pageBtn2(${i})" value="${i }"/>
+				</c:otherwise>
+			</c:choose>
 		</c:forEach>
 		
 		<%-- 페이징 번호 --%>
@@ -116,16 +144,17 @@
 <script>
 	// 좋아요 수량증가
 	function chkLike(rev_code, acc_code){
-		alert("해당 리뷰 추천하겠습니다!");
 		// 해당 리뷰번호와 함께, 좋아요 계산하는 서블릿으로 넘기기
+		alert("해당리뷰 추천하였습니다!");
 		location.href="reviewLikeCon.do?rev_code="+rev_code+"&acc_code="+acc_code;
 	}
 	
 	// 삭제하기 함수(본인 글만 삭제 가능) (소프트삭제)
 	function deleteReview(rev_code, acc_code){
-		alert("해당 리뷰 삭제하겠습니다!");
-		// 해당 리뷰번호와 함께, 삭제하는 서블릿으로 넘기기
-		location.href="reviewDeleteCon.do?rev_code="+rev_code+"&acc_code="+acc_code;
+		if(confirm("해당 리뷰 삭제하시겠습니까?")){
+			// 해당 리뷰번호와 함께, 삭제하는 서블릿으로 넘기기
+			location.href="reviewDeleteCon.do?rev_code="+rev_code+"&acc_code="+acc_code;
+		}
 	}
 	// 숙소명 onchange() 함수 제출하기
 	function search(f){
