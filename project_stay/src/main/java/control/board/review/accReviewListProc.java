@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Booking.BookingDAO;
 import model.Handler.pagingHandler.pagingHandlerDAO;
 import model.Handler.pagingHandler.pagingHandlerDTO;
 import model.Review.ReviewDAO;
 import model.Review.ReviewDTO;
+import model.User.MyBookingDAO;
+import model.User.MyBookingDTO;
 
 
 @WebServlet("/accReviewListProc.do")
@@ -39,6 +42,12 @@ public class accReviewListProc extends HttpServlet {
 		pagingHandlerDAO pado = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
 		ReviewDAO rdao = new ReviewDAO();
+		
+		// 예약정보가져오기
+		BookingDAO bdao = new BookingDAO();
+		
+		
+		
 		
 		// 한 화면에 보여질 행의 개수 (10개)
 		pdto.setPageSize(10);

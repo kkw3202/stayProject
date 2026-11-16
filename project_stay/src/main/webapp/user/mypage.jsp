@@ -19,37 +19,56 @@
 			<div class="userInfo_wrap">
 				<h3>내 정보</h3>
 					<table class="myinfo_table">
-						<tr>
-							<th class="label">이름</th>
-							<td class="data">${udto.user_name }</td>
-						</tr>
-						<tr>
-						<tr>
-							<th class="label">전화번호</th>
-							<td class="data">${phone_number}</td>
-						</tr>
-						<tr>
-							<th class="label">이메일</th>
-							<td class="data">${udto.user_email }</td>
-						</tr>
-						<tr>
-							<th class="label">생년월일</th>
-							<td class="data">${udto.user_birth }</td>
-						</tr>
-						<tr>
-							<th class="label">성별</th>
-							<td class="data">	
-								<c:if test="${udto.user_gender == 1}">남성</c:if>
-								<c:if test="${udto.user_gender == 2}">여성</c:if>
-								<c:if test="${udto.user_gender == 3}">기타</c:if>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<input type="button" value="수정하기" onclick="modMember()"/>
-								<input type="button" value="탈퇴하기"  onclick="deleteMember()"/>
-							</td>
-						</tr>
+						<%-- 왼쪽 내 얼굴(가상의 이미지) 및 이름 --%>
+						<tbody class="myInfoBox">
+							<tr>
+								<td>
+									<img src="image/profile.png" alt="profile">
+								</td>
+							</tr>
+							<tr>
+								<tr>
+									<th class="label">이름</th>
+									<td class="data">${udto.user_name }</td>
+								</tr>
+							</tr>
+						</tbody>
+					
+						<%-- 오른쪽 내 정보 --%>
+						<tbody class="myInfoBox">
+							<tr>
+								<th class="label">이름</th>
+								<td class="data">${udto.user_name }</td>
+							</tr>
+							<tr>
+							<tr>
+								<th class="label">전화번호</th>
+								<td class="data">${phone_number}</td>
+							</tr>
+							<tr>
+								<th class="label">이메일</th>
+								<td class="data">${udto.user_email }</td>
+							</tr>
+							<tr>
+								<th class="label">생년월일</th>
+								<td class="data">${udto.user_birth }</td>
+							</tr>
+							<tr>
+								<th class="label">성별</th>
+								<td class="data">	
+									<c:if test="${udto.user_gender == 1}">남성</c:if>
+									<c:if test="${udto.user_gender == 2}">여성</c:if>
+									<c:if test="${udto.user_gender == 3}">기타</c:if>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input type="button" value="수정하기" onclick="modMember()"/>
+									<input type="button" value="탈퇴하기"  onclick="deleteMember()"/>
+								</td>
+							</tr>
+						
+						</tbody>
 					</table>
 			</div>
 		</c:if>

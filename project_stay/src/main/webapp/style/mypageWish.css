@@ -1,199 +1,284 @@
 @charset "utf-8";
 
+/* 머물:多 마이페이지 찜목록 - 레거시 CSS */
+/* 기존 JSP의 table / tbody 구조를 유지하는 스타일 */
 .boardWrap, .boardWrap * {
 	box-sizing: border-box;
 }
 
-/* 마이페이지 우측 컨텐츠 영역 컨테이너 */
 .boardWrap {
 	width: 100%;
-	padding: 36px 40px;
-	background: #ffffff;
-	border: 1px solid #e6ebf3;
+	min-width: 0;
+	padding: 28px 30px 36px;
+	font-family: "Malgun Gothic", "맑은 고딕", Arial, sans-serif;
+	color: #142b50;
+	background: #fff;
+	border: 1px solid #e1e9f5;
 	border-radius: 18px;
-	box-shadow: 0 12px 38px rgba(14, 49, 93, 0.07);
-	font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-	color: #182b47;
+	box-shadow: 0 8px 25px rgba(20, 53, 103, .06);
 }
 
 .boardWrap h3 {
-	margin: 0 0 24px 0;
-	font-size: 22px;
-	font-weight: 800;
-	color: #163663;
-	letter-spacing: -0.5px;
-	padding-bottom: 14px;
-	border-bottom: 2px solid #e7edf5;
-}
-
-/* 찜한 목록이 없을 때 */
-.boardWrap .noList {
-	display: block;
-	padding: 60px 20px;
-	text-align: center;
-	font-size: 15px;
-	font-weight: 600;
-	color: #64748b;
-	background: #f8fafc;
-	border: 1px dashed #cbd5e1;
-	border-radius: 14px;
-}
-
-/* 개별 찜 숙소 카드 (왼쪽 이미지 + 오른쪽 정보표 가로 배치) */
-.boardWrap table.myWishList {
-	display: flex;
-	align-items: stretch;
-	width: 100%;
-	margin-bottom: 22px;
-	background: #ffffff;
-	border: 1.5px solid #cbd5e1;
-	border-radius: 14px;
-	overflow: hidden;
-	box-shadow: 0 4px 16px rgba(20, 50, 90, 0.04);
-	transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.boardWrap table.myWishList:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 8px 24px rgba(20, 50, 90, 0.09);
-}
-
-/* 왼쪽 영역: 숙소 이미지 + 하트 버튼 */
-.boardWrap table.myWishList tbody.left {
+	margin: 0 0 26px;
+	padding: 0 0 18px 18px;
 	position: relative;
-	display: block;
-	width: 280px;
-	min-width: 280px;
-	background: #f1f5f9;
-	border-right: 1px solid #e2e8f0;
+	border-bottom: 1px solid #e5ecf6;
+	color: #102952;
+	font-size: 25px;
+	line-height: 1.4;
+	font-weight: 700;
 }
 
-.boardWrap table.myWishList tbody.left tr,
-.boardWrap table.myWishList tbody.left td {
-	display: block;
-	width: 100%;
-	height: 100%;
-	padding: 0;
-}
-
-.boardWrap table.myWishList tbody.left img {
-	display: block;
-	width: 100%;
-	height: 100%;
-	min-height: 220px;
-	max-height: 260px;
-	object-fit: cover;
-}
-
-/* 하트(찜 해제) 버튼 - 이미지 우측 상단 위에 플로팅 배치 */
-.boardWrap table.myWishList tbody.left td:last-child {
+.boardWrap h3:before {
+	content: "";
 	position: absolute;
-	top: 12px;
-	right: 12px;
-	width: auto;
-	height: auto;
+	left: 0;
+	top: 5px;
+	width: 5px;
+	height: 26px;
+	background: #1b58a4;
+	border-radius: 4px;
+}
+/* 테이블을 카드로 전환: tbody 두 개를 가로 배치 */
+.boardWrap .myWishList {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+	margin: 0 0 18px;
+	padding: 0;
+	border-spacing: 0;
+	border: 1px solid #d9e5f5;
+	border-radius: 15px;
+	background: #fff;
+	box-shadow: 0 5px 15px rgba(17, 52, 100, .07);
+	overflow: hidden;
+}
+
+.boardWrap .myWishList .left {
+	display: table-cell;
+	position: relative;
+	width: 35%;
+	vertical-align: middle;
+	padding: 15px 0 15px 15px;
+}
+
+.boardWrap .myWishList .left tr {
+	display: block;
+	position: relative;
+}
+
+.boardWrap .myWishList .left td {
+	display: block;
+	padding: 0;
+	border: 0;
+}
+
+.boardWrap .myWishList .left td:first-child {
+	width: 100%;
+}
+
+.boardWrap .myWishList .left img {
+	display: block;
+	width: 100%;
+	height: 192px;
+	object-fit: cover;
+	border-radius: 11px;
+	background: #edf3fa;
+}
+
+.boardWrap .myWishList .left td:last-child {
+	position: absolute;
+	top: 11px;
+	right: 11px;
 }
 
 .boardWrap .badge_group {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 38px;
-	height: 38px;
-	border: none;
+	display: block;
+	width: 39px;
+	height: 39px;
+	padding: 0;
+	border: 1px solid #e1e9f3;
 	border-radius: 50%;
-	background: rgba(255, 255, 255, 0.92);
-	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+	background: #fff;
+	box-shadow: 0 2px 9px rgba(0, 0, 0, .13);
 	cursor: pointer;
-	transition: transform 0.15s ease, background-color 0.2s ease;
-}
-
-.boardWrap .badge_group:hover {
-	transform: scale(1.1);
-	background: #ffffff;
+	text-align: center;
 }
 
 .boardWrap .wish_badge {
-	font-size: 19px;
-	line-height: 1;
-	color: #ef4444; /* 빨간 하트 */
+	display: inline-block;
+	font-size: 24px;
+	line-height: 36px;
+	color: #e83b70;
 }
 
-/* 오른쪽 영역: 숙소 상세 정보 테이블 */
-.boardWrap table.myWishList tbody.right {
-	display: table;
-	flex: 1;
-	width: 100%;
-	border-collapse: collapse;
+.boardWrap .badge_group:hover {
+	background: #fff0f5;
 }
 
-.boardWrap table.myWishList tbody.right tr {
-	border-bottom: 1px solid #f1f5f9;
+.boardWrap .badge_group:focus {
+	outline: 2px solid #2b68ba;
 }
 
-.boardWrap table.myWishList tbody.right tr:last-child {
-	border-bottom: none;
+.boardWrap .myWishList .right {
+	display: table-cell;
+	width: 65%;
+	padding: 17px 20px 17px 25px;
+	vertical-align: middle;
 }
 
-.boardWrap table.myWishList tbody.right th.label {
-	width: 110px;
-	padding: 11px 16px;
-	background: #f8fafc;
-	color: #475569;
+.boardWrap .myWishList .right tr {
+	display: table-row;
+}
+
+.boardWrap .myWishList .right th, .boardWrap .myWishList .right td {
+	padding: 7px 5px;
+	border: 0;
+	vertical-align: top;
 	font-size: 13px;
+	line-height: 1.5;
+}
+
+.boardWrap .myWishList .right .label {
+	width: 102px;
+	min-width: 102px;
+	color: #31588e;
 	font-weight: 700;
 	text-align: left;
-	vertical-align: middle;
-	border-right: 1px solid #f1f5f9;
+	white-space: nowrap;
 }
 
-.boardWrap table.myWishList tbody.right td.data {
-	padding: 11px 18px;
-	font-size: 14px;
-	color: #1e293b;
-	vertical-align: middle;
+.boardWrap .myWishList .right .data {
+	color: #283951;
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+/* 숙소명을 카드 제목으로 강조 */
+.boardWrap .myWishList .right tr:first-child .label {
+	color: #67809f;
 }
 
-/* 1번째 줄: 숙소명 강조 */
-.boardWrap table.myWishList tbody.right tr:first-child td.data {
-	font-size: 16px;
-	font-weight: 800;
-	color: #1a3158;
+.boardWrap .myWishList .right tr:first-child .data {
+	color: #102a54;
+	font-size: 19px;
+	font-weight: 700;
+}
+/* 중복 주소 행은 숨김: JSP의 주소와 숙소주소가 같은 값 */
+.boardWrap .myWishList .right tr:nth-child(4) {
+	display: none;
+}
+/* 행 구분은 얇고 절제된 스타일 */
+.boardWrap .myWishList .right tr:last-child th, .boardWrap .myWishList .right tr:last-child td
+	{
+	padding-top: 11px;
+}
+/* 찜한 숙소가 없는 경우 */
+.boardWrap .noList {
+	display: block;
+	min-height: 225px;
+	padding: 100px 18px 50px;
+	border: 1px dashed #c8d8ee;
+	border-radius: 14px;
+	background: #f8fbff;
+	color: #60738f;
+	font-size: 17px;
+	font-weight: 600;
+	text-align: center;
+	position: relative;
 }
 
-/* 페이징 영역 (reviewList.css와 통일) */
+.boardWrap .noList:before {
+	content: "♡";
+	position: absolute;
+	top: 32px;
+	left: 0;
+	width: 100%;
+	color: #477bc2;
+	font-size: 51px;
+	line-height: 1;
+}
+/* 페이지네이션 */
 .boardWrap .paging {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 6px;
-	margin-top: 32px;
+	display: block;
+	margin: 28px auto 0;
+	text-align: center;
 }
 
 .boardWrap .paging input[type="button"] {
-	min-width: 36px;
-	height: 36px;
-	padding: 0 10px;
-	border: 1.5px solid #cbd5e1;
-	border-radius: 8px;
-	font-size: 14px;
-	font-weight: 600;
-	color: #334155;
-	background: #ffffff;
+	min-width: 38px;
+	height: 38px;
+	margin: 0 3px 6px;
+	padding: 0 11px;
+	border: 1px solid #d5e1f3;
+	border-radius: 20px;
+	background: #fff;
+	color: #244575;
+	font-size: 13px;
+	font-family: inherit;
 	cursor: pointer;
-	transition: all 0.2s ease;
 }
 
 .boardWrap .paging input[type="button"]:hover {
-	color: #ffffff;
-	background: #1a4b8c;
-	border-color: #1a4b8c;
+	background: #edf4ff;
+	border-color: #9dbbe6;
 }
 
-.boardWrap .paging input[type="button"].currentPage_btn {
-	background-color: #1a4b8c;
-	color: #ffffff;
+.boardWrap .paging input.currentPage_btn {
+	background: #163f7e;
+	color: #fff;
+	border-color: #163f7e;
 	font-weight: 700;
-	border-color: #1a4b8c;
-	cursor: default;
+	box-shadow: 0 3px 9px rgba(22, 63, 126, .2);
+}
+
+@media screen and (max-width: 1050px) {
+	.boardWrap {
+		padding: 23px 18px;
+	}
+	.boardWrap .myWishList .left {
+		width: 39%;
+	}
+	.boardWrap .myWishList .right {
+		width: 61%;
+		padding: 14px;
+	}
+	.boardWrap .myWishList .left img {
+		height: 185px;
+	}
+	.boardWrap .myWishList .right .label {
+		width: 85px;
+		min-width: 85px;
+	}
+}
+
+@media screen and (max-width: 720px) {
+	.boardWrap {
+		padding: 20px 13px;
+	}
+	.boardWrap h3 {
+		font-size: 21px;
+	}
+	.boardWrap .myWishList {
+		display: block;
+	}
+	.boardWrap .myWishList .left, .boardWrap .myWishList .right {
+		display: block;
+		width: 100%;
+	}
+	.boardWrap .myWishList .left {
+		padding: 12px 12px 0;
+	}
+	.boardWrap .myWishList .left img {
+		height: 210px;
+	}
+	.boardWrap .myWishList .right {
+		padding: 12px 16px 17px;
+	}
+	.boardWrap .myWishList .right .label {
+		width: 82px;
+		min-width: 82px;
+	}
+	.boardWrap .myWishList .right tr:first-child .data {
+		font-size: 17px;
+	}
 }

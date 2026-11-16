@@ -39,8 +39,8 @@ public class MyRevListProc extends HttpServlet {
 		// rdao 가져오기
 		ReviewDAO rdao = new ReviewDAO();
 		
-		// 한 화면에 보여질 행의 개수 (7개)
-		pdto.setPageSize(7);
+		// 한 화면에 보여질 행의 개수 (3개)
+		pdto.setPageSize(3);
 		int pageSize = pdto.getPageSize();
 		// 한 화면에 페이징 하고 싶은 개수 [1][2][3][4][5]
 		int pageBlock=5;

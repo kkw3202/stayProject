@@ -1,157 +1,28 @@
-@charset "UTF-8";
+@charset "utf-8";
 
-/* 바깥 section: 상단/하단 여백 줄이고 좌우 폭은 헤더·푸터(1180px)와 일치 */
-.container > section:has(.mypage_container) {
-	max-width: 1180px;
-	width: 100%;
-	margin: 30px auto 60px;
-	padding: 0 20px;
-	background: transparent;
-}
-
-/* 1. 마이페이지 전체 컨테이너 */
-.mypage_container {
-	width: 100%;
-	display: flex;
-	align-items: flex-start;
-	gap: 32px;
-	box-sizing: border-box;
-}
-
-/* 2. 왼쪽 메뉴 버튼 그룹 (네이비 버튼 + 흰색 글씨) */
-.mypage_container .mypage_menu_wrap {
-	width: 210px;
-	flex-shrink: 0;
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-	padding-top: 8px;
-	box-sizing: border-box;
-}
-
-.mypage_container .mypage_menu_wrap a {
-	display: block;
-	width: 100%;
-	padding: 15px 20px;
-	background-color: #154782;
-	color: #ffffff;
-	text-align: center;
-	text-decoration: none;
-	font-size: 15px;
-	font-weight: 700;
-	border-radius: 12px;
-	box-shadow: 0 4px 12px rgba(21, 71, 130, 0.14);
-	transition: all 0.2s ease;
-	box-sizing: border-box;
-}
-
-.mypage_container .mypage_menu_wrap a:hover {
-	background-color: #0b3264;
-	transform: translateY(-2px);
-	box-shadow: 0 6px 16px rgba(11, 50, 100, 0.22);
-}
-
-/* ==========================================================
-   3. 우측 컨텐츠 영역 공통 (내 정보 & .boardWrap 카드형 통일)
-   ========================================================== */
-.userInfo_wrap,
-.mypage_container .boardWrap {
-	flex: 1;
-	width: auto;
-	margin: 0;
-	padding: 36px 42px;
-	background-color: #ffffff;
-	border: 1px solid #e6ebf3;
-	border-radius: 18px;
-	box-shadow: 0 12px 38px rgba(14, 49, 93, 0.07);
-	box-sizing: border-box;
-}
-
-.userInfo_wrap h3,
-.mypage_container .boardWrap h3 {
-	font-size: 24px;
-	color: #111827;
-	font-weight: 800;
-	margin: 0 0 24px 0;
-	padding-bottom: 14px;
-	border-bottom: 2px solid #e7edf5;
-}
-
-/* 내 정보 테이블 */
-.myinfo_table {
-	width: 100%;
-	max-width: 680px;
-	background-color: transparent;
-	border: none;
-	padding: 0;
-	border-collapse: separate;
-	border-spacing: 0 14px;
-	box-sizing: border-box;
-	box-shadow: none;
-}
-
-.myinfo_table .label {
-	width: 120px;
-	text-align: left;
-	font-size: 15px;
-	color: #111827;
-	font-weight: 700;
-	vertical-align: middle;
-	padding-left: 2px;
-}
-
-.myinfo_table .data {
-	height: 46px;
-	background-color: #f8fafc;
-	border: 1.5px solid #cbd5e1;
-	border-radius: 10px;
-	padding: 0 16px;
-	vertical-align: middle;
-	color: #333333;
-	font-size: 14px;
-	box-sizing: border-box;
-}
-
-.myinfo_table tr:last-child td {
-	padding-top: 22px;
-	background-color: transparent !important;
-	border: none !important;
-	text-align: right;
-}
-
-/* [수정하기] 버튼 (블루) */
-.myinfo_table input[type="button"]:first-child {
-	width: 130px;
-	height: 46px;
-	background-color: #1a4b8c;
-	color: #ffffff;
-	border: none;
-	border-radius: 12px;
-	font-size: 15px;
-	font-weight: 700;
-	cursor: pointer;
-	margin-right: 10px;
-	transition: background-color 0.2s ease;
-}
-
-.myinfo_table input[type="button"]:first-child:hover {
-	background-color: #123769;
-}
-
-/* [탈퇴하기] 버튼 (화이트 / 블랙 아웃라인) */
-.myinfo_table input[type="button"]:last-child {
-	width: 130px;
-	height: 46px;
-	background-color: #ffffff;
-	color: #111827;
-	border: 2px solid #111827;
-	border-radius: 12px;
-	font-size: 15px;
-	font-weight: 700;
-	cursor: pointer;
-	transition: all 0.2s ease;
-}
-
-.myinfo_table input[type="button"]:last-child:hover {
-	background-color: #f1f5f9;
-}
+/* MyPage - legacy-compatible stylesheet */
+.mypage_container, .mypage_container * { box-sizing: border-box; }
+.mypage_container { width: 1100px; max-width: 96%; min-height: 520px; margin: 42px auto; display: flex; align-items: flex-start; gap: 26px; font-family: "Malgun Gothic", "맑은 고딕", Arial, sans-serif; color: #10264b; }
+.mypage_menu_wrap { width: 235px; flex: 0 0 235px; padding: 18px 14px; background: #fff; border: 1px solid #e3eaf4; border-radius: 14px; box-shadow: 0 6px 20px rgba(20,54,96,.06); }
+.mypage_menu_wrap a { position: relative; display: block; height: 62px; line-height: 62px; padding: 0 10px 0 62px; margin-bottom: 5px; border-radius: 11px; font-size: 15px; font-weight: bold; color: #19345d; text-decoration: none; white-space: nowrap; transition: background-color .2s, color .2s; }
+.mypage_menu_wrap a:last-child { margin-bottom: 0; }
+.mypage_menu_wrap a:before { content: ""; position: absolute; left: 19px; top: 18px; width: 26px; height: 26px; background-position: center; background-size: 26px 26px; background-repeat: no-repeat; }
+.mypage_menu_wrap a:nth-child(1):before { background-image: url("../image/icon-user.svg"); }
+.mypage_menu_wrap a:nth-child(2):before { background-image: url("../image/icon-calendar.svg"); }
+.mypage_menu_wrap a:nth-child(3):before { background-image: url("../image/icon-heart.svg"); }
+.mypage_menu_wrap a:nth-child(4):before { background-image: url("../image/icon-edit.svg"); }
+.mypage_menu_wrap a:hover, .mypage_menu_wrap a.active { background: #e9f2ff; color: #104b98; }
+.mypage_menu_wrap a.active { box-shadow: inset 3px 0 0 #1b5ba9; }
+.userInfo_wrap { flex: 1 1 auto; min-width: 0; padding: 34px 38px 38px; background: #fff; border: 1px solid #e3eaf4; border-radius: 14px; box-shadow: 0 6px 20px rgba(20,54,96,.06); }
+.userInfo_wrap h3 { margin: 0 0 26px; padding: 0 0 0 15px; border-left: 4px solid #1856a1; font-size: 24px; line-height: 1.4; color: #10264b; }
+.myinfo_table { width: 100%; border-collapse: collapse; table-layout: fixed; border-top: 2px solid #1d559b; }
+.myinfo_table th, .myinfo_table td { padding: 18px 20px; border-bottom: 1px solid #e3eaf3; font-size: 14px; line-height: 1.6; word-wrap: break-word; }
+.myinfo_table .label { width: 160px; text-align: left; background: #f2f6fc; color: #183663; font-weight: bold; }
+.myinfo_table .data { color: #33445d; background: #fff; }
+.myinfo_table tr:last-child td { padding: 27px 0 0; border-bottom: 0; text-align: center; }
+.myinfo_table input[type="button"] { min-width: 122px; height: 42px; padding: 0 16px; margin: 0 4px; border: 1px solid #174a8e; border-radius: 6px; background: #fff; color: #174a8e; font-size: 14px; font-weight: bold; font-family: inherit; cursor: pointer; }
+.myinfo_table input[type="button"]:first-child { background: #174a8e; color: #fff; }
+.myinfo_table input[type="button"]:hover { background: #eaf2fd; color: #174a8e; }
+.myinfo_table input[type="button"]:focus, .mypage_menu_wrap a:focus { outline: 2px solid #82a9e0; outline-offset: 2px; }
+@media screen and (max-width: 800px) { .mypage_container { display: block; margin: 24px auto; } .mypage_menu_wrap { width: 100%; margin-bottom: 20px; } .mypage_menu_wrap a { height: 52px; line-height: 52px; } .mypage_menu_wrap a:before { top: 13px; } .userInfo_wrap { padding: 25px 18px; } }
+@media screen and (max-width: 480px) { .myinfo_table .label { width: 105px; } .myinfo_table th, .myinfo_table td { padding: 13px 10px; font-size: 13px; } .myinfo_table input[type="button"] { min-width: 95px; margin: 3px; } }
