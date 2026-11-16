@@ -17,10 +17,16 @@
 			<%-- 오른쪽 예매 정보 --%>
 			<tbody>
 				<tr>
+					<th class="label">예약번호</th>
+					<td class="data acc_name">${arr.acc_name }</td>
+				</tr>
+			
+				<tr>
 					<th class="label">숙소명</th>
 					<td class="data acc_name">${arr.acc_name }</td>
 				</tr>
 			</tbody>
+			
 		</table>
 	
 	</c:forEach>
