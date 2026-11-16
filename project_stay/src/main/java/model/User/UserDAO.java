@@ -17,14 +17,15 @@ public class UserDAO {
 	
 //-----------------------------------------
 // 	2026. 11. 4. 
-	// email¸¸ ÃßÃâÇÏ´Â ¸Ş¼Òµå 
+	// emailì„ í™•ì¸í•˜ëŠ” ë©”ì†Œë“œ
 	public String getEmail(String email) {
 		String chkmail="";
 		
 		try {
 			con = Util.getConnection();
-			
-			String sql = "select user_email from user where user_email=?";
+			// íƒˆí‡´íšŒì›ì˜ ì´ë©”ì¼ ì¤‘ë³µ ì˜ˆì™¸ ì¶”ê°€
+			String sql = "SELECT user_email FROM user "
+			           + "WHERE user_email=? AND user_chk_del=0";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			
@@ -45,7 +46,7 @@ public class UserDAO {
 		return chkmail;
 	}
 
-	// password¸¸ ÃßÃâÇÏ´Â ¸Ş¼Òµå 
+	// passwordë¥¼ í™•ì¸í•˜ëŠ” ë©”ì†Œë“œ
 	public String getPass(String user_email) {
 		String chkpass="";
 		
@@ -73,7 +74,7 @@ public class UserDAO {
 		return chkpass;
 	}
 	
-	// ÇÑ »ç¶÷ÀÇ µ¥ÀÌÅÍ¸¦ DB¿¡ ÀúÀåÇÏ´Â ¸Ş¼Òµå
+	// ìƒˆ íšŒì›ì˜ ë°ì´í„°ë¥¼ DBì— ì €ì¥í•˜ëŠ” ë©”ì†Œë“œ
 	public void insertUser(UserDTO udto) {
 		try {
 			con = Util.getConnection();
@@ -92,7 +93,7 @@ public class UserDAO {
 			int result = pstmt.executeUpdate();
 			
 			if(result > 0) {
-				System.out.println("¾÷µ¥ÀÌÆ® ¼º°ø");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½");
 			}
 					
 		}catch(Exception e) {
@@ -106,7 +107,7 @@ public class UserDAO {
 		}
 	}
 	
-	// ÇÑ »ç¶÷ÀÇ µ¥ÀÌÅÍ¸¦ ÃßÃâÇÏ´Â ¸Ş¼Òµå 
+	// ìƒˆ íšŒì›ì˜ ë°ì´í„°ë¥¼ ì¡°íšŒí•˜ëŠ” ë©”ì†Œë“œ
 		public UserDTO getUserInfo(String user_email) {
 			UserDTO udto = new UserDTO();
 
@@ -126,8 +127,8 @@ public class UserDAO {
 					udto.setUser_email(rs.getString(4));
 					udto.setUser_birth(rs.getString(5));
 					udto.setUser_gender(rs.getInt(6));
-					udto.setUser_chk_del(rs.getInt(7));
-					udto.setUser_password(rs.getString(8));
+					udto.setUser_password(rs.getString(7));
+					udto.setUser_chk_del(rs.getInt(8));
 					udto.setUser_passkey(rs.getString(9));
 				}
 			}catch(Exception e) {
@@ -142,14 +143,16 @@ public class UserDAO {
 			return udto;
 		}
 
-	// admin ·Î±×ÀÎ ¸Ş¼Òµå	
+		// ê´€ë¦¬ì ë¡œê·¸ì¸ ë©”ì†Œë“œ
 	public boolean loginAdminCheck(String email, String password) {
-	//emailÁÖ¼Ò°¡ admin@naver.comÀ¸·Î ·Î±×ÀÎ ½Ã °ü¸®ÀÚ 
+		// email ì£¼ì†Œê°€ admin@naver.comì´ë©´ ê´€ë¦¬ì ë¡œê·¸ì¸ìœ¼ë¡œ ì²˜ë¦¬
+		// íƒˆí‡´íšŒì› ë¡œê·¸ì¸ ë°©ì§€ ì¶”ê°€
 		
 		try {
 			con = Util.getConnection();
 			
-			String sql = "select user_password from user where user_email=?";
+			String sql = "SELECT user_password FROM user "
+		               + "WHERE user_email=? AND user_chk_del=0";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			
@@ -173,14 +176,15 @@ public class UserDAO {
 		return false;
 	}
 	
-		// È¸¿ø ·Î±×ÀÎ ¸Ş¼Òµå	
+		// íšŒì› ë¡œê·¸ì¸ ë©”ì†Œë“œ
 		public boolean loginCheck(String email, String password) {
-			//emailÁÖ¼Ò°¡ admin@naver.comÀ¸·Î ·Î±×ÀÎ ½Ã °ü¸®ÀÚ 
+			// íƒˆí‡´íšŒì› ë¡œê·¸ì¸ ë°©ì§€ ì¶”ê°€
 			
 			try {
 				con = Util.getConnection();
 				
-				String sql = "select user_password from user where user_email=?";
+				String sql = "SELECT user_password FROM user "
+			               + "WHERE user_email=? AND user_chk_del=0";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, email);
 				
@@ -205,18 +209,19 @@ public class UserDAO {
 				return false;
 			}
 
-	// ÇÑ ¸íÀÇ Á¤º¸¸¦ ¾÷µ¥ÀÌÆ®ÇÏ´Â ¸Ş¼Òµå
+		// íšŒì› ì •ë³´ë¥¼ ì—…ë°ì´íŠ¸í•˜ëŠ” ë©”ì†Œë“œ
 	public void updateUserInfo(UserDTO udto) {
 		
 		try {
 			con = Util.getConnection();
 			
-			String sql = "update user set user_name=?, user_phone=?, user_birth=?, user_gender=? where emai=?";
+			String sql = "update user set user_name=?, user_phone=?, user_birth=?, user_gender=? where email=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, udto.getUser_name());
 			pstmt.setString(2, udto.getUser_phone());
 			pstmt.setString(3, udto.getUser_birth());
 			pstmt.setInt(4, udto.getUser_gender());
+			pstmt.setString(5, udto.getUser_email());
 			
 			pstmt.executeUpdate();
 
@@ -231,8 +236,105 @@ public class UserDAO {
 		}
 	}
 
+	// íšŒì› ì •ë³´ë¥¼ ì—…ë°ì´íŠ¸í•˜ëŠ” ë©”ì†Œë“œ (ë¹„ë°€ë²ˆí˜¸ í¬í•¨)
+	public void updateUserMod(String user_name, String user_phone, int user_gender, String user_birth, String new_password, String passkey, String user_email) {
+		try {
+			con = Util.getConnection();
+			
+			String sql = "update user set user_name=?, user_phone=?, user_gender=?, user_birth=?, user_password=?, user_passkey=? "
+					+ "where user_email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_name);
+			pstmt.setString(2, user_phone);
+			pstmt.setInt(3, user_gender);
+			pstmt.setString(4, user_birth);
+			pstmt.setString(5, new_password);
+			pstmt.setString(6, passkey);
+			pstmt.setString(7, user_email);
+			
+			pstmt.executeUpdate();
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
 	
+	// ë§ˆì´í˜ì´ì§€ íšŒì› íƒˆí‡´í•˜ê¸° (ì†Œí”„íŠ¸ ì‚­ì œ)
+	public void deleteMember(String user_email) {
+		try {
+			con = Util.getConnection();
+			String sql = "update User set user_chk_del=1 where user_email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_email);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
 	
+	//-----------------------------------------------------------
+	//2026. 11. 12
+	// ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° - íšŒì›ì •ë³´ ì¼ì¹˜ ì—¬ë¶€ í™•ì¸
+	 public int passChangeCheck(String email, String phone, String passkey) {
+
+	        String sql = "SELECT user_code FROM user "
+	                + "WHERE user_email=? AND user_phone=? "
+	                + "AND user_passkey=? AND user_chk_del=0";
+
+	        try (Connection con = Util.getConnection();
+	             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+	            pstmt.setString(1, email);
+	            pstmt.setString(2, phone);
+	            pstmt.setString(3, passkey);
+
+	            try (ResultSet rs = pstmt.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getInt("user_code");
+	                }
+	            }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return 0;
+	    }
+
+
+	    // ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° - ìƒˆë¡œìš´ ë¹„ë°€ë²ˆí˜¸ ì €ì¥
+	    public boolean passChangeUpdate(int userCode, String newPassword) {
+
+	        String sql = "UPDATE user SET user_password=? "
+	                + "WHERE user_code=? AND user_chk_del=0";
+
+	        try (Connection con = Util.getConnection();
+	             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+	            pstmt.setString(1, newPassword);
+	            pstmt.setInt(2, userCode);
+
+	            return pstmt.executeUpdate() == 1;
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return false;
+	    }
 	
 	
 }

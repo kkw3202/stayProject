@@ -19,7 +19,7 @@
 			<h2>숙소 검색 결과</h2>
 			<p>총 <span id="search_cnt_prt"></span>의 숙소가 검색되었습니다.
 		</div>
-		<form class="search_filter">
+		<div class="search_filter" >
 			<p>검색 결과</p>
 			<ul class="filterList">
 				<li class="search_filter_room_price_container">	
@@ -31,16 +31,16 @@
 				<li class="search_filter_room_capacity_container">
 					<h6>적정 인원</h6>
 					<div class="search_filter_room_capacity_wrap">
-						<label for="search_filter_room_capacity2">2인실</label>
-						<input type="checkbox" id="search_filter_room_capacity2" value="2">
+						<label for="search_filter_room_capacity2">~2인</label>
+						<input type="radio" id="search_filter_room_capacity2" value="2" name="filter_room_capacity" onclick="filtering_room_capacity()" class="filter_room_capacity">
 					</div>
 					<div class="search_filter_room_capacity_wrap">
-						<label for="search_filter_room_capacity4">4인실</label>					
-						<input type="checkbox" id="search_filter_room_capacity4" value="4">
+						<label for="search_filter_room_capacity4">~4인</label>					
+						<input type="radio" id="search_filter_room_capacity4" value="4" name="filter_room_capacity" onclick="filtering_room_capacity()" class="filter_room_capacity">
 					</div>
 					<div class="search_filter_room_capacity_wrap">
-						<label for="search_filter_room_capacity2">4인 이상</label>					
-						<input type="checkbox" id="search_filter_room_capacityover4" value="5">
+						<label for="search_filter_room_capacityover4">4인 이상</label>					
+						<input type="radio" id="search_filter_room_capacityover4" value="5" name="filter_room_capacity" onclick="filtering_room_capacity()" class="filter_room_capacity">
 					</div>
 				</li>
 				<li class="search_filter_acc_facility_container">
@@ -50,7 +50,7 @@
 					</div>
 				</li>
 			</ul>
-		</form>
+		</div>
 		<div class="search_btn_wrap">
 			<button class="now_selected" onclick="">인기 많은순</button>
 			<button onclick="">가격 낮은순</button>
@@ -61,6 +61,7 @@
 			<c:set var="wishes" value="${wishes }"></c:set>
 			<c:forEach var="sa_arr" items="${sa_arr }" >
 				<div class="search_acc_card">
+					<input type="hidden" value="${sa_arr.max_room_capacity }" name="max_room_capacity">
 					<div class="acc_card_left">
 						<img alt="${sa_arr.acc_name }전경 이미지" src="${sa_arr.acc_img }">
 					</div>
@@ -106,5 +107,10 @@
 	function pleasJoin(){
 		alert("찜 기능은 로그인 후 이용 가능합니다");
 		location.href = "index.jsp?section=user/loginForm.jsp";
+	}
+	
+	function filtering_room_capacity(){
+		let cards = document.querySelectorAll(".search_acc_card");
+		let targetCapacity = querySelectorAll(".querySelectorAll");
 	}
 </script>

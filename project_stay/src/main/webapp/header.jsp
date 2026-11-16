@@ -23,10 +23,10 @@
 				
 				<c:when test="${not empty sessionScope.user_email and sessionScope.user_email eq 'admin@naver.com'}">
 					
-					<a href="customerListProc.do">회원관리</a>
+					<a href="AdminCustomerListProc.do">회원관리</a>
 					<a href="AdminBookListProc.do">예약관리</a>
 					<a href="AdminAccListProc.do">숙소관리</a>
-					<a href="#">1:1문의 관리</a>  <%-- 추후 jsp 파일 만들고 매핑하기 --%>
+					<a href="AdminInqListProc.do">1:1문의 관리</a>  <%-- 추후 jsp 파일 만들고 매핑하기 --%>
 					<span>[관리자]</span> <%-- 추후 css 붙이고 태그 바꾸기 --%>
 					<a href="logoutProc.do">로그아웃</a>
 				</c:when>
