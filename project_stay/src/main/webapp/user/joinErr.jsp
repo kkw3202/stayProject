@@ -3,6 +3,10 @@
 
 <script type="text/javascript">
 	alert("${msg}");
+<<<<<<< HEAD
 	location.href="${pageContext.request.contextPath}/index.jsp?section=/user/joinForm.jsp";
+=======
+	location.href="/index.jsp?section=user/joinForm.jsp";
+>>>>>>> main
 
 </script>

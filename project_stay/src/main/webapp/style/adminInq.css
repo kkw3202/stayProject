@@ -1,0 +1,545 @@
+@charset "UTF-8";
+
+/* ========================================
+   관리자 1:1 문의관리 공통 CSS
+   파일명 : adminInq.css
+======================================== */
+
+/* 1. 기본 레이아웃 */
+.admin-inq-wrap {
+    width: 100%;
+    max-width: 1180px;
+    margin: 30px auto 60px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    color: #26354a;
+    font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+.admin-inq-wrap * {
+    box-sizing: border-box;
+}
+
+.admin-inq-wrap h2 {
+    margin: 0 0 26px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #2563eb;
+    color: #1e3a5f;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.admin-inq-wrap h3 {
+    margin: 0;
+    font-size: 19px;
+    color: #1e3a5f;
+}
+
+.admin-inq-wrap a {
+    text-decoration: none;
+}
+
+/* 2. 처리 결과 메시지 */
+.inq-message {
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 14px;
+}
+
+/* 3. 문의 현황 */
+.inq-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.inq-summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 22px 24px;
+    border: 1px solid #dbe5f1;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(30, 58, 95, 0.05);
+}
+
+.inq-summary-item span {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.inq-summary-item strong {
+    color: #1d4ed8;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+/* 4. 검색 및 필터 */
+.inq-search-form {
+    margin-bottom: 24px;
+    padding: 20px;
+    border: 1px solid #dbe5f1;
+    border-radius: 12px;
+    background: #f8fbff;
+}
+
+.inq-search-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.inq-search-row select,
+.inq-search-row input {
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: #fff;
+    color: #334155;
+    font-size: 14px;
+}
+
+.inq-search-row input {
+    flex: 1;
+    min-width: 170px;
+}
+
+.inq-search-row select:focus,
+.inq-search-row input:focus,
+.inq-form-field input:focus,
+.inq-form-field textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* 5. 공통 버튼 */
+.inq-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40px;
+    padding: 9px 17px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+}
+
+.inq-btn-primary {
+    background: #2563eb;
+    color: #fff !important;
+}
+
+.inq-btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.inq-btn-reset {
+    border-color: #cbd5e1;
+    background: #fff;
+    color: #475569 !important;
+}
+
+.inq-btn-reset:hover {
+    background: #f1f5f9;
+}
+
+.inq-btn-detail {
+    min-height: 34px;
+    padding: 7px 12px;
+    border-color: #bfdbfe;
+    background: #eff6ff;
+    color: #1d4ed8 !important;
+    font-size: 13px;
+}
+
+.inq-btn-detail:hover {
+    background: #dbeafe;
+}
+
+.inq-btn-danger {
+    background: #dc2626;
+    color: #fff !important;
+}
+
+.inq-btn-danger:hover {
+    background: #b91c1c;
+}
+
+/* 6. 목록 상단 */
+.inq-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 12px;
+}
+
+.inq-list-header strong {
+    font-size: 15px;
+    color: #334155;
+}
+
+/* 7. 문의 목록 테이블 */
+.inq-table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dbe5f1;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.inq-table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: center;
+}
+
+.inq-table th {
+    padding: 15px 12px;
+    border-bottom: 1px solid #dbe5f1;
+    background: #f1f5fb;
+    color: #334155;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.inq-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #edf2f7;
+    color: #475569;
+}
+
+.inq-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.inq-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+.inq-table .inq-title {
+    max-width: 340px;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+.inq-title a {
+    color: #334155;
+    font-weight: 500;
+}
+
+.inq-title a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.inq-empty {
+    padding: 45px 12px !important;
+    color: #94a3b8 !important;
+    text-align: center;
+}
+
+/* 8. 상태 표시 */
+.inq-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.inq-status-waiting {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.inq-status-answered {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.inq-status-active {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.inq-status-deleted {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+/* 9. 페이징 */
+.inq-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 28px;
+}
+
+.inq-pagination a,
+.inq-pagination span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #dbe5f1;
+    border-radius: 6px;
+    background: #fff;
+    color: #475569;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.inq-pagination a:hover {
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+.inq-pagination .active {
+    border-color: #2563eb;
+    background: #2563eb;
+    color: #fff;
+    font-weight: 700;
+}
+
+/* 10. 상세 및 답변 작성 카드 */
+.inq-info-card {
+    margin-bottom: 24px;
+    padding: 24px;
+    border: 1px solid #dbe5f1;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(30, 58, 95, 0.04);
+}
+
+.inq-info-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* 11. 문의 상세 테이블 */
+.inq-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.inq-info-table th,
+.inq-info-table td {
+    padding: 15px 16px;
+    border-bottom: 1px solid #edf2f7;
+    vertical-align: top;
+}
+
+.inq-info-table th {
+    width: 160px;
+    background: #f8fafc;
+    color: #475569;
+    text-align: left;
+    font-weight: 700;
+}
+
+.inq-info-table td {
+    color: #334155;
+    overflow-wrap: anywhere;
+}
+
+.inq-info-table tr:last-child th,
+.inq-info-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* 12. 문의 및 답변 내용 */
+.inq-content {
+    min-height: 100px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* 13. 안내 메시지 */
+.inq-info-notice {
+    margin: 16px 0;
+    padding: 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* 14. 답변 작성 폼 */
+.inq-reply-form {
+    width: 100%;
+}
+
+.inq-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 24px;
+}
+
+.inq-form-field label {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.inq-form-field input,
+.inq-form-field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #fff;
+    color: #334155;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.inq-form-field input {
+    height: 44px;
+}
+
+.inq-form-field textarea {
+    min-height: 240px;
+    line-height: 1.7;
+    resize: vertical;
+}
+
+.inq-field-note {
+    margin: 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* 15. 상세 화면 하단 버튼 */
+.inq-info-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.inq-delete-form {
+    display: inline-flex;
+    margin: 0;
+}
+
+/* 16. 태블릿 화면 */
+@media (max-width: 900px) {
+
+    .inq-summary {
+        gap: 10px;
+    }
+
+    .inq-summary-item {
+        padding: 18px;
+    }
+
+    .inq-search-row input {
+        flex-basis: 100%;
+    }
+
+    .inq-info-card {
+        padding: 18px;
+    }
+}
+
+/* 17. 모바일 화면 */
+@media (max-width: 600px) {
+
+    .admin-inq-wrap {
+        margin-top: 20px;
+        padding: 0 12px;
+    }
+
+    .admin-inq-wrap h2 {
+        font-size: 22px;
+    }
+
+    .inq-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .inq-summary-item {
+        gap: 6px;
+        padding: 15px 18px;
+    }
+
+    .inq-summary-item strong {
+        font-size: 23px;
+    }
+
+    .inq-search-form {
+        padding: 14px;
+    }
+
+    .inq-search-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .inq-search-row select,
+    .inq-search-row input,
+    .inq-search-row .inq-btn {
+        width: 100%;
+    }
+
+    .inq-info-card {
+        padding: 14px;
+    }
+
+    .inq-info-table th {
+        width: 105px;
+    }
+
+    .inq-info-table th,
+    .inq-info-table td {
+        padding: 12px 9px;
+        font-size: 13px;
+    }
+
+    .inq-info-buttons {
+        justify-content: stretch;
+    }
+
+    .inq-info-buttons .inq-btn,
+    .inq-delete-form {
+        flex: 1;
+    }
+
+    .inq-delete-form .inq-btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,582 @@
+@charset "UTF-8";
+/* 머물:多 숙소 검색 결과 - 기존 JSP 클래스명 그대로 사용 */
+/* index_self.css 뒤에 로드하세요. */
+section:has(>.contaier>.search_filter) {
+	background: #f7f9fd;
+	padding: 34px 18px 65px;
+}
+
+section>.contaier:has(>.search_filter) { -
+	-navy: #0b2858; -
+	-blue: #15549a; -
+	-line: #dbe5f2;
+	max-width: 1250px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 285px minmax(0, 1fr);
+	grid-template-areas: 'heading heading' 'filter sort' 'filter results';
+	column-gap: 22px;
+	row-gap: 18px;
+	align-items: start;
+	font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+	color: var(- -navy);
+}
+
+section>.contaier:has(>.search_filter) * {
+	box-sizing: border-box;
+}
+
+section>.contaier:has(>.search_filter) ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+section>.contaier:has(>.search_filter) p, section>.contaier:has(>.search_filter) h6
+	{
+	margin: 0;
+}
+/* 상단 */
+.contaier>.page_top {
+	grid-area: heading;
+	min-width: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+	border-bottom: 1px solid #e4ebf4;
+	padding: 0 4px 22px;
+}
+
+.contaier>.page_top h2 {
+	position: relative;
+	padding-left: 19px;
+	font-size: 27px;
+	line-height: 1.4;
+	font-weight: 800;
+	color: #0a2452;
+	margin: 0;
+}
+
+.contaier>.page_top h2::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 5px;
+	bottom: 5px;
+	width: 5px;
+	background: #1761ad;
+	border-radius: 5px;
+}
+
+.contaier>.page_top p {
+	color: #4d5a70;
+	font-size: 14px;
+	white-space: nowrap;
+}
+
+.contaier>.page_top p span {
+	display: inline;
+	width: auto;
+	height: auto;
+	line-height: inherit;
+	color: #1354a0;
+	font-size: inherit;
+	font-weight: 800;
+	background: none;
+}
+/* 왼쪽 필터 */
+.contaier>.search_filter {
+	grid-area: filter;
+	width: 100%;
+	min-width: 0;
+	margin: 0;
+	border: 1px solid var(- -line);
+	border-radius: 17px;
+	background: #fff;
+	box-shadow: 0 6px 20px rgba(17, 43, 82, .09);
+	overflow: hidden;
+}
+
+.contaier>.search_filter>p {
+	background: linear-gradient(115deg, #245c9f, #0b2c62);
+	color: #fff;
+	padding: 20px 24px;
+	font-size: 19px;
+	font-weight: 800;
+}
+
+.contaier>.search_filter>p::before {
+	content: '▽';
+	display: inline-block;
+	margin-right: 12px;
+	font-size: 20px;
+}
+
+.contaier .filterList {
+	padding: 8px 20px 24px;
+}
+
+.contaier .filterList>li {
+	padding: 23px 3px;
+	border-bottom: 1px solid #dce5f1;
+}
+
+.contaier .filterList>li:last-child {
+	border-bottom: 0;
+}
+
+.contaier .filterList h6 {
+	font-size: 18px;
+	color: #0b2858;
+	font-weight: 800;
+	margin: 0 0 18px;
+}
+
+.contaier .search_filter_room_price_container h6::before {
+	content: '₩';
+	margin-right: 12px;
+	color: #15549a;
+}
+
+.contaier .search_filter_room_capacity_container h6::before {
+	content: '♙';
+	margin-right: 12px;
+	color: #15549a;
+}
+
+.contaier .search_filter_acc_facility_container>h6::before {
+	content: '▤';
+	margin-right: 12px;
+	color: #15549a;
+}
+/* 가격 슬라이더를 넣기 전에는 장식용 가이드만 표시 */
+.contaier .search_filter_room_price_container .search_filter_room_capacity_wrap
+	{
+	height: 74px;
+	position: relative;
+	padding-top: 6px;
+}
+
+.contaier .search_filter_room_price_container .search_filter_room_capacity_wrap::before
+	{
+	content: '₩50,000     ~     ₩500,000';
+	display: block;
+	text-align: center;
+	white-space: pre;
+	font-size: 13px;
+	font-weight: 700;
+	color: #263b5b;
+}
+
+.contaier .search_filter_room_price_container .search_filter_room_capacity_wrap::after
+	{
+	content: '';
+	display: block;
+	height: 5px;
+	border-radius: 5px;
+	background: linear-gradient(90deg, #15549a, #287ac4);
+	margin: 22px 12px 0;
+	box-shadow: -7px 0 0 2px #fff, -7px 0 0 3px #15549a, 7px 0 0 2px #fff,
+		7px 0 0 3px #15549a;
+}
+
+.contaier .search_filter_room_capacity_container .search_filter_room_capacity_wrap
+	{
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 12px;
+	margin: 0 0 13px;
+}
+
+.contaier .search_filter_room_capacity_container label {
+	font-size: 15px;
+	color: #34435b;
+	cursor: pointer;
+}
+
+.contaier .search_filter_room_capacity_container input[type=checkbox] {
+	width: 19px;
+	height: 19px;
+	margin: 0;
+	accent-color: #1456a0;
+	cursor: pointer;
+	flex: none;
+}
+
+.contaier .search_filter_acc_facility_container .search_filter_acc_facility_container
+	{
+	padding: 0;
+	border: 0;
+}
+
+.contaier #search_filter_acc_facility {
+	width: 100%;
+	min-width: 0;
+	height: 43px;
+	padding: 0 12px;
+	border: 1px solid #c7d5e9;
+	border-radius: 9px;
+	font-size: 13px;
+	color: #243b60;
+	background: #fafcff;
+	outline: none;
+}
+
+.contaier #search_filter_acc_facility:focus {
+	border-color: #1761ad;
+	box-shadow: 0 0 0 3px #dbeaff;
+}
+/* 정렬 버튼 */
+.contaier>.search_btn_wrap {
+	grid-area: sort;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 9px;
+	min-width: 0;
+}
+
+.contaier>.search_btn_wrap button {
+	appearance: none;
+	min-height: 40px;
+	padding: 0 18px;
+	border: 1px solid #cad8ea;
+	border-radius: 11px;
+	background: #fff;
+	color: #19375e;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+	box-shadow: none;
+}
+
+.contaier>.search_btn_wrap button:hover {
+	background: #edf4fd;
+}
+
+.contaier>.search_btn_wrap button.now_selected {
+	background: linear-gradient(115deg, #245c9f, #0d316a);
+	border-color: #1b4f8c;
+	color: #fff;
+}
+
+.contaier>.search_btn_wrap button.now_selected::before {
+	content: '✓';
+	margin-right: 10px;
+}
+/* 결과 카드 */
+.contaier>.search_wrap {
+	grid-area: results;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	min-width: 0;
+}
+
+.contaier .search_acc_card {
+	display: flex;
+	align-items: stretch;
+	gap: 19px;
+	width: 100%;
+	min-width: 0;
+	min-height: 192px;
+	padding: 14px;
+	background: #fff;
+	border: 1px solid #e0e8f2;
+	border-radius: 17px;
+	box-shadow: 0 5px 15px rgba(16, 44, 84, .1);
+	transition: transform .2s, box-shadow .2s;
+}
+
+.contaier .search_acc_card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 9px 23px rgba(16, 44, 84, .15);
+}
+
+.contaier .acc_card_left {
+	flex: 0 0 30%;
+	min-width: 0;
+	max-width: 255px;
+}
+
+.contaier .acc_card_left img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 163px;
+	max-height: 210px;
+	object-fit: cover;
+	border-radius: 12px;
+}
+
+.contaier .acc_card_middle {
+	display: flex;
+	align-items: stretch;
+	flex: 1;
+	min-width: 0;
+	gap: 14px;
+}
+
+.contaier .acc_card_right_top {
+	position: relative;
+	flex: 1;
+	min-width: 0;
+	padding: 5px 40px 4px 0 !important;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 5px;
+}
+
+.contaier .acc_card_right_top>li {
+	max-width: 100%;
+}
+
+.contaier .acc_type {
+	display: inline-block;
+	padding: 4px 13px;
+	border-radius: 30px;
+	background: #d6e9ff;
+	color: #164c90;
+	font-size: 12px;
+	font-weight: 800;
+}
+
+.contaier .acc_name {
+	font-size: 21px;
+	line-height: 1.35;
+	font-weight: 800;
+	color: #0b2858;
+	overflow-wrap: anywhere;
+}
+
+.contaier .city_name {
+	font-size: 13px;
+	color: #52627b;
+}
+
+.contaier .city_name::before {
+	content: '⌖';
+	margin-right: 7px;
+	color: #1b5aa2;
+	font-size: 17px;
+}
+
+.contaier .avg_rating {
+	color: #152c56;
+	font-size: 14px;
+	font-weight: 800;
+	display: inline;
+}
+
+.contaier .avg_rating::before {
+	content: '★';
+	color: #ffb300;
+	font-size: 20px;
+	margin-right: 6px;
+	vertical-align: -1px;
+}
+
+.contaier .avg_rating span{
+	font-size: 12px;
+	color: #718097;
+
+}
+
+.contaier .wish_btn {
+	position: absolute;
+	top: 3px;
+	right: 0;
+}
+
+.contaier .wish_btn button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 37px;
+	height: 37px;
+	border: 1px solid #d3e0ef;
+	border-radius: 50%;
+	background: #fff;
+	cursor: pointer;
+	font-size: 27px;
+	position: relative;
+}
+
+/* 평소 상태: 빈 하트 */
+.contaier .wish_btn button::before {
+	position: absolute;
+	content: '♡';
+	color: #222;
+	font-size: 27px;
+	line-height: 1.6;
+	top: -3px; /* 위로 3픽셀 고정 위치 */
+}
+
+/* 마우스 올렸을 때(:hover): 채워진 하트로 변경 */
+.contaier .wish_btn button:hover::before {
+	content: '♥';
+	color: red;
+}
+
+.contaier .acc_facility {
+	margin-top: auto;
+	width: 100%;
+}
+
+.contaier .acc_facility>div {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+
+.contaier .acc_facility span {
+	display: inline-block;
+	width: auto;
+	height: auto;
+	line-height: 1.5;
+	padding: 3px 8px;
+	border: 1px solid #dbe5f2;
+	border-radius: 18px;
+	background: #fbfdff;
+	color: #385578;
+	font-size: 11px;
+	white-space: normal;
+}
+/* 오른쪽 가격 및 객실 버튼 */
+.contaier .acc_card_right {
+	flex: 0 0 185px;
+	min-width: 0;
+	border-left: 1px solid #dce5f0;
+	padding: 19px 0 12px 19px !important;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+	gap: 16px;
+}
+
+.contaier .room_price {
+	font-size: 23px;
+	line-height: 1.4;
+	font-weight: 900;
+	color: #0b2858;
+	overflow-wrap: anywhere;
+}
+
+.contaier .room_price::before {
+	content: '1박 기준 (2인)';
+	display: block;
+	margin-bottom: 7px;
+	font-size: 12px;
+	font-weight: 400;
+	color: #52627b;
+}
+
+.contaier .info_link_btn button {
+	width: 100%;
+	min-height: 43px;
+	padding: 9px 12px;
+	background: linear-gradient(120deg, #245c9f, #0b3068);
+	color: #fff;
+	border: 0;
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 800;
+	cursor: pointer;
+}
+
+.contaier .info_link_btn button::after {
+	content: '  ›';
+	font-size: 20px;
+}
+
+.contaier .info_link_btn button:hover {
+	filter: brightness(1.1);
+}
+
+@media ( max-width :1050px) {
+	section>.contaier:has(.search_filter) {
+		grid-template-columns: 245px minmax(0, 1fr);
+		gap: 14px
+	}
+	.contaier .acc_card_left {
+		flex-basis: 30%
+	}
+	.contaier .acc_card_right {
+		flex-basis: 150px;
+		padding-left: 12px !important
+	}
+	.contaier .room_price {
+		font-size: 19px
+	}
+	.contaier .acc_name {
+		font-size: 18px
+	}
+}
+
+@media ( max-width :760px) {
+	section>.contaier:has(.search_filter) {
+		display: flex;
+		flex-direction: column
+	}
+	.contaier>.page_top, .contaier>.search_filter, .contaier>.search_btn_wrap,
+		.contaier>.search_wrap {
+		width: 100%
+	}
+	.contaier>.page_top {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 10px
+	}
+	.contaier>.search_btn_wrap {
+		justify-content: flex-start
+	}
+	.contaier .filterList {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px
+	}
+	.contaier .filterList>li {
+		border-bottom: 0
+	}
+	.contaier .search_acc_card {
+		gap: 12px
+	}
+}
+
+@media ( max-width :570px) {
+	.contaier .search_acc_card {
+		flex-direction: column
+	}
+	.contaier .acc_card_left {
+		flex-basis: auto;
+		max-width: none;
+		width: 100%
+	}
+	.contaier .acc_card_left img {
+		height: 190px
+	}
+	.contaier .acc_card_middle {
+		flex-direction: column
+	}
+	.contaier .acc_card_right_top {
+		padding-right: 45px !important
+	}
+	.contaier .acc_card_right {
+		flex-basis: auto;
+		border-left: 0;
+		border-top: 1px solid #dce5f0;
+		padding: 12px 0 0 !important
+	}
+	.contaier .filterList {
+		display: block
+	}
+	.contaier .acc_facility {
+		margin-top: 12px
+	}
+}

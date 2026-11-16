@@ -1,0 +1,310 @@
+@charset "utf-8";
+
+.boardWrap, .boardWrap * {
+	box-sizing: border-box;
+}
+
+/* 전체 감싸는 메인 컨테이너 */
+.boardWrap {
+	width: min(1000px, calc(100% - 40px));
+	margin: 50px auto 80px;
+	padding: 40px 45px;
+	background: #ffffff;
+	border: 1px solid #e6ebf3;
+	border-radius: 18px;
+	box-shadow: 0 12px 38px rgba(14, 49, 93, 0.07);
+	font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+	color: #182b47;
+}
+
+/* 상단 숙소 선택 필터 영역 */
+.boardWrap form[name="acc_choice"] {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-bottom: 16px;
+	padding: 16px 20px;
+	border: 1px solid #e7edf5;
+	border-radius: 12px;
+	background: #f8fafc;
+}
+
+.boardWrap .choice_label {
+	font-size: 14px;
+	font-weight: 700;
+	color: #164d90;
+	letter-spacing: -0.3px;
+}
+
+.boardWrap .choice_data select {
+	height: 38px;
+	min-width: 220px;
+	padding: 0 12px;
+	border: 1px solid #d4deeb;
+	border-radius: 8px;
+	background: #ffffff;
+	color: #273c58;
+	font-size: 14px;
+	outline: none;
+	cursor: pointer;
+	transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.boardWrap .choice_data select:focus {
+	border-color: #164d90;
+	box-shadow: 0 0 0 3px rgba(22, 77, 144, 0.09);
+}
+
+/* 상단 우측 버튼 영역 (리뷰작성 / 내가쓴리뷰) */
+.boardWrap .upper_btns {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 20px;
+}
+
+.boardWrap .upper_btns .btn {
+	display: flex;
+	gap: 8px;
+}
+
+.boardWrap .upper_btns input[type="button"] {
+	height: 38px;
+	padding: 0 16px;
+	font-size: 14px;
+	font-weight: 700;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.boardWrap .upper_btns input[type="button"]:first-child {
+	background: #1a4b8c;
+	color: #ffffff;
+	border: none;
+}
+
+.boardWrap .upper_btns input[type="button"]:first-child:hover {
+	background: #123769;
+}
+
+.boardWrap .upper_btns input[type="button"]:last-child {
+	background: #ffffff;
+	color: #1a4b8c;
+	border: 1.5px solid #1a4b8c;
+}
+
+.boardWrap .upper_btns input[type="button"]:last-child:hover {
+	background: #eff6ff;
+}
+
+/* 리뷰 개별 카드 테이블 */
+.boardWrap .review_table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #ffffff;
+	border: 1.5px solid #cbd5e1;
+	border-radius: 14px;
+	margin-bottom: 24px;
+	overflow: hidden;
+	box-shadow: 0 4px 16px rgba(20, 50, 90, 0.04);
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.boardWrap .review_table:hover {
+	box-shadow: 0 8px 24px rgba(20, 50, 90, 0.08);
+	transform: translateY(-2px);
+}
+
+.boardWrap .review_table tr {
+	border-bottom: 1px solid #f1f5f9;
+}
+
+.boardWrap .review_table tr:last-child {
+	border-bottom: none;
+}
+
+/* 테이블 항목 라벨 */
+.boardWrap .review_table th.label {
+	width: 15%;
+	padding: 13px 20px;
+	background: #f8fafc;
+	color: #475569;
+	font-size: 14px;
+	font-weight: 700;
+	text-align: left;
+	vertical-align: middle;
+	border-right: 1px solid #f1f5f9;
+}
+
+/* 테이블 데이터 영역 */
+.boardWrap .review_table td.data {
+	padding: 13px 22px;
+	font-size: 14px;
+	color: #1e293b;
+	vertical-align: middle;
+}
+
+/* 1번째 줄: 숙소명 강조 */
+.boardWrap .review_table tr:nth-child(1) td.data {
+	font-size: 16px;
+	font-weight: 800;
+	color: #1a3158;
+}
+
+/* 4번째 줄: 평점 별표 */
+.boardWrap .review_table tr:nth-child(4) td.data .star {
+	font-size: 16px;
+	color: #f59e0b;
+	letter-spacing: 1px;
+}
+
+/* 5번째 줄: 리뷰 내용 */
+.boardWrap .review_table tr:nth-child(5) td.data {
+	padding: 16px 22px;
+	line-height: 1.65;
+	color: #334155;
+	background: #fafcfd;
+	white-space: pre-line;
+}
+
+/* 6번째(마지막) 줄: 카드 하단 액션바 */
+.boardWrap .review_table tr:last-child td {
+	padding: 14px 22px;
+	background: #ffffff;
+	border-top: 1px solid #edf2f7;
+}
+
+/* ★ td 안쪽 div에 flex를 주어 가로 100% 전체를 사용하도록 설정 */
+.boardWrap .card_footer {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+
+
+.boardWrap .right_btns {
+	display: inline-flex;
+	gap: 8px;
+}
+
+/* 하단 버튼 공통 */
+.boardWrap .btns {
+	height: 34px;
+	padding: 0 14px;
+	font-size: 13px;
+	font-weight: 700;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+/* 클릭 가능한 추천 알약 버튼 (남의 글 + 로그인 상태) */
+.boardWrap .btn_like_pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 36px;
+	padding: 0 16px;
+	border: 1.5px solid #bfdbfe;
+	border-radius: 999px; /* 둥근 알약 모양 */
+	background: #eff6ff;
+	color: #1d4ed8;
+	font-size: 13px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.boardWrap .btn_like_pill:hover {
+	background: #1a4b8c;
+	border-color: #1a4b8c;
+	color: #ffffff;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 10px rgba(26, 75, 140, 0.2);
+}
+
+.boardWrap .btn_like_pill .like_num {
+	font-weight: 800;
+}
+
+/* 클릭 불가 좋아요 표시 (내 글 또는 비로그인 상태) */
+.boardWrap .like_static {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 36px;
+	padding: 0 14px;
+	border-radius: 999px;
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+	color: #64748b;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.boardWrap .btn_like:hover {
+	background: #1d4ed8;
+	color: #ffffff;
+	border-color: #1d4ed8;
+}
+
+/* 수정하기 버튼 */
+.boardWrap .btn_update {
+	background: #1a4b8c;
+	color: #ffffff;
+	border: none;
+}
+
+.boardWrap .btn_update:hover {
+	background: #123769;
+}
+
+/* 삭제하기 버튼 */
+.boardWrap .btn_delete {
+	border: 1.5px solid #dc2626;
+	background: #ffffff;
+	color: #dc2626;
+}
+
+.boardWrap .btn_delete:hover {
+	background: #fef2f2;
+}
+
+/* 페이징 */
+.boardWrap .paging {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 6px;
+	margin-top: 36px;
+}
+
+.boardWrap .paging input[type="button"] {
+	min-width: 36px;
+	height: 36px;
+	padding: 0 10px;
+	border: 1.5px solid #cbd5e1;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #334155;
+	background: #ffffff;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.boardWrap .paging input[type="button"]:hover {
+	color: #ffffff;
+	background: #1a4b8c;
+	border-color: #1a4b8c;
+}
+
+.boardWrap .paging input[type="button"].currentPage_btn {
+    background-color: #1a4b8c;
+    color: #ffffff;
+    font-weight: 700;
+    border-color: #1a4b8c;
+    cursor: default;
+}

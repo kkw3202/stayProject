@@ -1,0 +1,458 @@
+@charset "UTF-8";
+
+/* ========================================
+   관리자 예약관리 공통 스타일
+   ======================================== */
+
+/* 1. 예약관리 전체 영역 */
+.admin-book-container {
+    width: 1180px;
+    max-width: 95%;
+    margin: 40px auto 70px;
+    color: #26354a;
+    font-size: 14px;
+}
+
+.admin-book-container * {
+    box-sizing: border-box;
+}
+
+.admin-book-container h2 {
+    margin: 0 0 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #2563eb;
+    color: #1e3a8a;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+/* ========================================
+   2. 예약 상태별 현황
+   ======================================== */
+
+.admin-book-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.admin-book-summary .summary-item {
+    padding: 25px 20px;
+    border: 1px solid #dbe5f1;
+    border-radius: 10px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(30, 58, 138, 0.05);
+}
+
+.admin-book-summary .summary-item span {
+    display: block;
+    margin-bottom: 12px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.admin-book-summary .summary-item strong {
+    display: block;
+    color: #1d4ed8;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* ========================================
+   3. 예약 검색 및 상태 필터
+   ======================================== */
+
+.admin-book-search {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.admin-book-search select,
+.admin-book-search input {
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #334155;
+    font-size: 14px;
+}
+
+.admin-book-search select {
+    min-width: 120px;
+}
+
+.admin-book-search input {
+    width: 230px;
+}
+
+.admin-book-search input:focus,
+.admin-book-search select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.admin-book-search button,
+.admin-book-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.admin-book-search button {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.admin-book-search button:hover {
+    background: #1d4ed8;
+}
+
+.admin-book-reset {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.admin-book-reset:hover {
+    background: #cbd5e1;
+}
+
+/* ========================================
+   4. 예약 목록 테이블
+   ======================================== */
+
+.admin-book-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dbe5f1;
+    border-radius: 8px;
+}
+
+.admin-book-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    text-align: center;
+}
+
+.admin-book-table th {
+    padding: 16px 10px;
+    background: #eff6ff;
+    border-bottom: 2px solid #bfdbfe;
+    color: #1e40af;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.admin-book-table td {
+    padding: 15px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+    white-space: nowrap;
+}
+
+.admin-book-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+.admin-book-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-book-empty {
+    padding: 60px 10px !important;
+    color: #94a3b8 !important;
+}
+
+/* 상세보기 버튼 */
+.admin-book-detail {
+    display: inline-block;
+    padding: 7px 13px;
+    border: 1px solid #93c5fd;
+    border-radius: 5px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.admin-book-detail:hover {
+    background: #dbeafe;
+}
+
+/* ========================================
+   5. 예약 상태 표시
+   ======================================== */
+
+.book-status {
+    display: inline-block;
+    min-width: 68px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* 예약중 : 파란색 */
+.book-status.reserved {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* 예약만료 : 회색 */
+.book-status.expired {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+/* 예약취소 : 빨간색 */
+.book-status.canceled {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/*
+ * [임시 정책 - 추후 회의 결과에 따라 변경]
+ * book_chk_status = 4 : 관리자 소프트 삭제
+ * 삭제처리 상태는 어두운 회색으로 표시
+ */
+.book-status.deleted {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+/* ========================================
+   6. 페이징
+   ======================================== */
+
+.admin-book-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 30px;
+}
+
+.admin-book-pagination a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #dbe5f1;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #475569;
+    text-decoration: none;
+}
+
+.admin-book-pagination a:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+    color: #1d4ed8;
+}
+
+.admin-book-pagination a.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ========================================
+   7. 예약 상세정보 및 수정 테이블
+   ======================================== */
+
+.admin-book-info {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.admin-book-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 2px solid #2563eb;
+    background: #ffffff;
+}
+
+.admin-book-info-table th,
+.admin-book-info-table td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+    text-align: left;
+}
+
+.admin-book-info-table th {
+    width: 17%;
+    background: #f1f5f9;
+    color: #334155;
+    font-weight: 600;
+}
+
+.admin-book-info-table td {
+    width: 33%;
+    color: #475569;
+}
+
+/* ========================================
+   8. 예약 수정 입력 폼
+   ======================================== */
+
+.admin-book-mod-form {
+    width: 100%;
+}
+
+.admin-book-input {
+    width: 100%;
+    max-width: 300px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #334155;
+    font-size: 14px;
+}
+
+.admin-book-input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.admin-book-input:disabled {
+    background: #f1f5f9;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   9. 예약 관리 버튼
+   ======================================== */
+
+.admin-book-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.admin-book-buttons form {
+    margin: 0;
+}
+
+.admin-book-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 110px;
+    height: 42px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 목록 및 취소 버튼 */
+.admin-book-btn.list-btn {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.admin-book-btn.list-btn:hover {
+    background: #cbd5e1;
+}
+
+/* 수정 버튼 */
+.admin-book-btn.edit-btn {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.admin-book-btn.edit-btn:hover {
+    background: #1d4ed8;
+}
+
+/* 삭제 버튼 */
+.admin-book-btn.delete-btn {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.admin-book-btn.delete-btn:hover {
+    background: #b91c1c;
+}
+
+/* ========================================
+   10. 반응형 화면
+   ======================================== */
+
+@media screen and (max-width: 768px) {
+
+    .admin-book-container {
+        margin: 25px auto 50px;
+    }
+
+    .admin-book-container h2 {
+        font-size: 22px;
+    }
+
+    .admin-book-summary {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .admin-book-summary .summary-item {
+        padding: 18px 10px;
+    }
+
+    .admin-book-summary .summary-item strong {
+        font-size: 24px;
+    }
+
+    .admin-book-search {
+        justify-content: flex-start;
+    }
+
+    .admin-book-search input {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .admin-book-table {
+        min-width: 950px;
+    }
+
+    .admin-book-info-table th,
+    .admin-book-info-table td {
+        padding: 12px 10px;
+        font-size: 12px;
+    }
+
+    .admin-book-input {
+        min-width: 0;
+        font-size: 12px;
+    }
+}

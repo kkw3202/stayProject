@@ -1,6 +1,7 @@
 package control.user.login;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,6 +27,7 @@ public class loginProc extends HttpServlet {
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+       response.setContentType("text/html; charset=UTF-8");
 		
 		UserDAO udao = new UserDAO();
 		
@@ -33,41 +35,46 @@ public class loginProc extends HttpServlet {
 		String password = request.getParameter("password");
 		boolean loginAdminchk = udao.loginAdminCheck(email, password);
 		boolean loginchk = udao.loginCheck(email, password);
-		// admin ·Î±×ÀÎ½Ã
+		
+		PrintWriter out = response.getWriter();
 		if("admin@naver.com".equals(email)) {
 			if(loginAdminchk) {
-				request.setAttribute("msg", "°ü¸®ÀÚ´Ô, È¯¿µÇÕ´Ï´Ù!");
 				HttpSession session = request.getSession();
 				session.setAttribute("user_email", email);
-				session.getAttribute("user_email");
 				session.setMaxInactiveInterval(60*240);
-				RequestDispatcher rd = request.getRequestDispatcher("/user/loginOk.jsp");
+				
+				request.setAttribute("msg", "ê´€ë¦¬ìë‹˜ í™˜ì˜í•©ë‹ˆë‹¤");
+				request.setAttribute("loginSuccess", true);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/loginForm.jsp");
 				rd.forward(request, response);
+				
 			}else {
-				request.setAttribute("msg", "·Î±×ÀÎ ½ÇÆĞ.");
-				RequestDispatcher rd = request.getRequestDispatcher("/user/loginErr.jsp");
+				request.setAttribute("msg", "ë¡œê·¸ì¸ ì‹¤íŒ¨");
+				request.setAttribute("loginSuccess", false);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/loginForm.jsp");
 				rd.forward(request, response);
 			}
 			return;
 		}
 		if(loginchk) {
-			request.setAttribute("msg", "·Î±×ÀÎ µÇ¾ú½À´Ï´Ù.");
-			// ·Î±×ÀÎ¿¡ ¼º°øÇßÀ¸¹Ç·Î, ¼¼¼Ç¿¡ id ÀúÀåÇØ¾ßÇÔ.
 			HttpSession session = request.getSession();
-			// session.setAttribute("ÀÛ¸í", °ª);
-			// session.getAttribute("ÀÛ¸í");
 			session.setAttribute("user_email", email);
 			session.getAttribute("user_email");
-			// session À¯Áö ½Ã°£ 30ºĞ => ()¾ÈÀÇ °ª : ÃÊ
 			session.setMaxInactiveInterval(60*30);
 			
-			// ÀÌÀü ÆäÀÌÁö ¸»°í, ¾Æ¿¹ ´Ù¸¥ ÆäÀÌÁö ÀÌµ¿ ½Ã¿¡´Â sendRedirect »ç¿ë
-			RequestDispatcher rd = request.getRequestDispatcher("/user/loginOk.jsp");
+			request.setAttribute("msg", "ë¡œê·¸ì¸ ì„±ê³µ");
+			request.setAttribute("loginSuccess", true);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/loginForm.jsp");
 			rd.forward(request, response);
 			
 		}else {
-			request.setAttribute("msg", "·Î±×ÀÎ ½ÇÆĞ.");
-			RequestDispatcher rd = request.getRequestDispatcher("/user/loginErr.jsp");
+			request.setAttribute("msg", "ë¡œê·¸ì¸ ì‹¤íŒ¨");
+			request.setAttribute("loginSuccess", false);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/loginForm.jsp");
 			rd.forward(request, response);
 		}
 	}

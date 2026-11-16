@@ -1,18 +1,25 @@
 package model.Inquiry;
 
 public class InquiryDTO {
-	// 주석이야
+	// 二쇱꽍�씠�빞
 	private int inq_code;
 	private String inq_title;
-	private String user_name;  // ȸ���̸�
+	private String user_name;  // 회占쏙옙占싱몌옙
 	private String inq_created_datetime;
-	private int inq_chk_status;  // �亯���� üũŰ
-	private int inq_ref;  // �� �׷�
-	private int inq_re_step;  // �� ����
-	private int user_code;  // ȸ���ڵ�
-	private String inq_content;  // �� ����
-	private int inq_chk_del;  // ��������üũŰ (����Ʈ����)
+	private int inq_chk_status;  // 占썰변占쏙옙占쏙옙 체크키
+	private int inq_ref;  // 占쏙옙 占쌓뤄옙
+	private int inq_re_step;  // 占쏙옙 占쏙옙占쏙옙
+	private int user_code;  // 회占쏙옙占쌘듸옙
+	private String inq_content;  // 占쏙옙 占쏙옙占쏙옙
+	private int inq_chk_del;  // 占쏙옙占쏙옙占쏙옙占쏙옙체크키 (占쏙옙占쏙옙트占쏙옙占쏙옙)
+	private String user_email;
 	
+	public String getUser_email() {
+		return user_email;
+	}
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
 	public int getInq_chk_del() {
 		return inq_chk_del;
 	}

@@ -1,0 +1,199 @@
+@charset "utf-8";
+
+.boardWrap, .boardWrap * {
+	box-sizing: border-box;
+}
+
+/* 마이페이지 우측 컨텐츠 영역 컨테이너 */
+.boardWrap {
+	width: 100%;
+	padding: 36px 40px;
+	background: #ffffff;
+	border: 1px solid #e6ebf3;
+	border-radius: 18px;
+	box-shadow: 0 12px 38px rgba(14, 49, 93, 0.07);
+	font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+	color: #182b47;
+}
+
+.boardWrap h3 {
+	margin: 0 0 24px 0;
+	font-size: 22px;
+	font-weight: 800;
+	color: #163663;
+	letter-spacing: -0.5px;
+	padding-bottom: 14px;
+	border-bottom: 2px solid #e7edf5;
+}
+
+/* 찜한 목록이 없을 때 */
+.boardWrap .noList {
+	display: block;
+	padding: 60px 20px;
+	text-align: center;
+	font-size: 15px;
+	font-weight: 600;
+	color: #64748b;
+	background: #f8fafc;
+	border: 1px dashed #cbd5e1;
+	border-radius: 14px;
+}
+
+/* 개별 찜 숙소 카드 (왼쪽 이미지 + 오른쪽 정보표 가로 배치) */
+.boardWrap table.myWishList {
+	display: flex;
+	align-items: stretch;
+	width: 100%;
+	margin-bottom: 22px;
+	background: #ffffff;
+	border: 1.5px solid #cbd5e1;
+	border-radius: 14px;
+	overflow: hidden;
+	box-shadow: 0 4px 16px rgba(20, 50, 90, 0.04);
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.boardWrap table.myWishList:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 24px rgba(20, 50, 90, 0.09);
+}
+
+/* 왼쪽 영역: 숙소 이미지 + 하트 버튼 */
+.boardWrap table.myWishList tbody.left {
+	position: relative;
+	display: block;
+	width: 280px;
+	min-width: 280px;
+	background: #f1f5f9;
+	border-right: 1px solid #e2e8f0;
+}
+
+.boardWrap table.myWishList tbody.left tr,
+.boardWrap table.myWishList tbody.left td {
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+}
+
+.boardWrap table.myWishList tbody.left img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 220px;
+	max-height: 260px;
+	object-fit: cover;
+}
+
+/* 하트(찜 해제) 버튼 - 이미지 우측 상단 위에 플로팅 배치 */
+.boardWrap table.myWishList tbody.left td:last-child {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	width: auto;
+	height: auto;
+}
+
+.boardWrap .badge_group {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	border: none;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.92);
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+	cursor: pointer;
+	transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.boardWrap .badge_group:hover {
+	transform: scale(1.1);
+	background: #ffffff;
+}
+
+.boardWrap .wish_badge {
+	font-size: 19px;
+	line-height: 1;
+	color: #ef4444; /* 빨간 하트 */
+}
+
+/* 오른쪽 영역: 숙소 상세 정보 테이블 */
+.boardWrap table.myWishList tbody.right {
+	display: table;
+	flex: 1;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.boardWrap table.myWishList tbody.right tr {
+	border-bottom: 1px solid #f1f5f9;
+}
+
+.boardWrap table.myWishList tbody.right tr:last-child {
+	border-bottom: none;
+}
+
+.boardWrap table.myWishList tbody.right th.label {
+	width: 110px;
+	padding: 11px 16px;
+	background: #f8fafc;
+	color: #475569;
+	font-size: 13px;
+	font-weight: 700;
+	text-align: left;
+	vertical-align: middle;
+	border-right: 1px solid #f1f5f9;
+}
+
+.boardWrap table.myWishList tbody.right td.data {
+	padding: 11px 18px;
+	font-size: 14px;
+	color: #1e293b;
+	vertical-align: middle;
+}
+
+/* 1번째 줄: 숙소명 강조 */
+.boardWrap table.myWishList tbody.right tr:first-child td.data {
+	font-size: 16px;
+	font-weight: 800;
+	color: #1a3158;
+}
+
+/* 페이징 영역 (reviewList.css와 통일) */
+.boardWrap .paging {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 6px;
+	margin-top: 32px;
+}
+
+.boardWrap .paging input[type="button"] {
+	min-width: 36px;
+	height: 36px;
+	padding: 0 10px;
+	border: 1.5px solid #cbd5e1;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #334155;
+	background: #ffffff;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.boardWrap .paging input[type="button"]:hover {
+	color: #ffffff;
+	background: #1a4b8c;
+	border-color: #1a4b8c;
+}
+
+.boardWrap .paging input[type="button"].currentPage_btn {
+	background-color: #1a4b8c;
+	color: #ffffff;
+	font-weight: 700;
+	border-color: #1a4b8c;
+	cursor: default;
+}

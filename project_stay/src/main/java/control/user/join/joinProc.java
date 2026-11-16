@@ -43,6 +43,7 @@ public class joinProc extends HttpServlet {
 		udto.setUser_passkey(request.getParameter("passkey"));
 
 		String link ="";
+<<<<<<< HEAD
 		// ���� �̸��ϰ� ���� �̸����� ���
 		if(emailChk != null && emailChk.equals(email)) {
 			request.setAttribute("msg", "�̹� �����ϴ� �̸��� �Դϴ�");
@@ -62,6 +63,25 @@ public class joinProc extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher(link);
 		rd.forward(request, response);
 		
+=======
+		// 기존 이메일과 같은 이메일인 경우
+		System.out.println("email:"+email+"emailChk:"+emailChk);
+		// 기존 정상 회원과 이메일이 중복되는 경우
+		if (email != null && email.equals(emailChk)) {
+		    request.setAttribute("msg", "이미 존재하는 이메일입니다.");
+		    request.setAttribute("joinSuccess", false);
+		} else {
+		    // 신규 회원은 탈퇴 여부를 0으로 설정
+		    udto.setUser_chk_del(0);
+		    udao.insertUser(udto);
+
+		    request.setAttribute("msg", "회원가입에 성공했습니다.");
+		    request.setAttribute("joinSuccess", true);
+		}
+		// 회원가입 화면을 배경으로 표시
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/joinForm.jsp");
+		rd.forward(request, response);
+>>>>>>> main
 	}
 		
 		

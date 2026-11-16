@@ -1,0 +1,144 @@
+@charset "utf-8";
+
+.boardwrap {
+    box-sizing: border-box;
+    width: min(100% - 32px, 1040px);
+    margin: 100px auto 80px;
+    padding: 35px 38px 38px;
+    background: #fff;
+    border: 1px solid #e0e9f4;
+    border-top: 5px solid #15559c;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(20, 56, 100, .10);
+    color: #102b53;
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+}
+.boardwrap, .boardwrap * { box-sizing: border-box; }
+.boardwrap h3 {
+    margin: 0 0 24px;
+    padding: 5px 0 24px 52px;
+    border-bottom: 1px solid #dbe5f0;
+    color: #102b53;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.5;
+    position: relative;
+}
+.boardwrap h3::before {
+    content: '✎';
+    position: absolute;
+    left: 0; top: 0;
+    display: grid;
+    place-items: center;
+    width: 42px; height: 42px;
+    border-radius: 11px;
+    background: #e0eefb;
+    color: #15559c;
+    font-size: 25px;
+}
+.boardwrap h3::after {
+    content: '이용 중 궁금한 점이나 문의사항을 작성해 주세요.';
+    display: block;
+    margin-top: 3px;
+    color: #6d7c91;
+    font-size: 12px;
+    font-weight: 400;
+}
+.boardwrap .inquiryWriteTable {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border: 1px solid #dfe7f0 !important;
+    border-radius: 10px;
+    overflow: hidden;
+    table-layout: fixed;
+    background: white;
+}
+.boardwrap .inquiryWriteTable th,
+.boardwrap .inquiryWriteTable td {
+    padding: 16px !important;
+    border: 0 !important;
+    border-bottom: 1px solid #e3eaf2 !important;
+    vertical-align: middle;
+    height: auto !important;
+}
+.boardwrap .inquiryWriteTable th {
+    width: 22%;
+    min-width: 115px;
+    background: #f0f5fb;
+    color: #102b53;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 700;
+}
+.boardwrap .inquiryWriteTable th::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 17px;
+    margin-right: 10px;
+    vertical-align: -3px;
+    background: #1761b1;
+    border-radius: 5px;
+}
+.boardwrap .inquiryWriteTable .inq_title,
+.boardwrap .inquiryWriteTable .inq_content {
+    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #c7d5e6 !important;
+    border-radius: 7px;
+    background: #fff;
+    color: #172e51;
+    font: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+.boardwrap .inquiryWriteTable .inq_title { height: 44px !important; }
+.boardwrap .inquiryWriteTable .inq_content {
+    height: 180px !important;
+    min-height: 180px;
+    line-height: 1.7;
+    resize: vertical;
+}
+.boardwrap .inquiryWriteTable .inq_title:focus,
+.boardwrap .inquiryWriteTable .inq_content:focus {
+    border-color: #1761b1 !important;
+    box-shadow: 0 0 0 3px rgba(23, 97, 177, .11);
+}
+.boardwrap .inquiryWriteTable tr:last-child td {
+    padding: 25px 16px 4px !important;
+    border: 0 !important;
+    text-align: center;
+    background: #fff;
+}
+.boardwrap .inquiryWriteTable .btn {
+    display: inline-block;
+    width: 155px !important;
+    height: 44px !important;
+    margin: 0 5px 5px;
+    padding: 0 15px !important;
+    border: 1px solid #164b8c !important;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #1c62ad, #103d79);
+    color: white !important;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.boardwrap .inquiryWriteTable .btn:last-child {
+    background: white;
+    color: #123c77 !important;
+}
+.boardwrap .inquiryWriteTable .btn:hover { filter: brightness(1.08); }
+@media (max-width: 650px) {
+    .boardwrap { width: calc(100% - 20px); margin: 20px auto; padding: 22px 14px; }
+    .boardwrap h3 { font-size: 19px; }
+    .boardwrap .inquiryWriteTable th { width: 100px; min-width: 0; font-size: 13px; }
+    .boardwrap .inquiryWriteTable th,
+    .boardwrap .inquiryWriteTable td { padding: 10px !important; }
+    .boardwrap .inquiryWriteTable .btn { width: 125px !important; }
+}

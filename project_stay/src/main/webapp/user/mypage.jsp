@@ -1,51 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원 정보 수정</title>
-</head>
-<body>
-	<div class="container">
-		<h3>내 정보</h3>
-		<form action="mypageInfoProc.do" method="post" name="mfrm">
-			<table border="1">
-				<tr>
-					<th>이름</th>
-					<td>
-					</td>
-				</tr>
-				<tr>
-				<tr>
-					<th>전화번호</th>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<th>생년월일</th>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<th>성별</th>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="button" value="내 정보 수정" onclick="">
-						<input type="button" value="예약정보 조회" onclick="">
-						<input type="button" value="찜 정보 조회"  onclick="">
-				</tr>
-			</table>
-		</form>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="style/mypage.css"/>
+
+<script type="text/javascript" src="js/none_header_bottom.js" defer></script>
+<section>
+
+	<div class="mypage_container">
+		<div class="mypage_menu_wrap">
+			<%-- 각 버튼들 css위해, 클래스 부여 --%>
+			<a href="mypageInfoProc.do"}">회원정보</a>
+			<a href="myBookingProc.do"}">예약 확인</a>
+			<a href="myWishProc.do" }">찜목록</a>
+			<a href="MyRevListProc.do"}">내 리뷰 보기</a> 
+		</div>
+		<%-- mypageSection 값 없이 마이페이지로 오면 나타남 --%>
+		<c:if test="${empty mypageSection}"> 
+			<div class="userInfo_wrap">
+				<h3>내 정보</h3>
+					<table class="myinfo_table">
+						<tr>
+							<th class="label">이름</th>
+							<td class="data">${udto.user_name }</td>
+						</tr>
+						<tr>
+						<tr>
+							<th class="label">전화번호</th>
+							<td class="data">${phone_number}</td>
+						</tr>
+						<tr>
+							<th class="label">이메일</th>
+							<td class="data">${udto.user_email }</td>
+						</tr>
+						<tr>
+							<th class="label">생년월일</th>
+							<td class="data">${udto.user_birth }</td>
+						</tr>
+						<tr>
+							<th class="label">성별</th>
+							<td class="data">	
+								<c:if test="${udto.user_gender == 1}">남성</c:if>
+								<c:if test="${udto.user_gender == 2}">여성</c:if>
+								<c:if test="${udto.user_gender == 3}">기타</c:if>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="button" value="수정하기" onclick="modMember()"/>
+								<input type="button" value="탈퇴하기"  onclick="deleteMember()"/>
+							</td>
+						</tr>
+					</table>
+			</div>
+		</c:if>
+		<c:if test="${not empty mypageSection }">
+			<jsp:include page="${mypageSection }.jsp"></jsp:include>
+		</c:if>
 	</div>
-	
-</body>
-</html>
+</section>
+
+<script>
+	function deleteMember(){
+		if(confirm("회원 탈퇴하시겠습니까?")){
+			location.href="mypageDeleteCon.do";
+		}
+	}
+	function modMember(){
+		if(confirm("회원 정보 수정하시겠습니까?")){
+			location.href="mypageModProc.do";
+		}
+	}
+</script>

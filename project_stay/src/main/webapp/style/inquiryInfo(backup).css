@@ -1,0 +1,133 @@
+@charset "utf-8";
+.boardwrap, .boardwrap * { box-sizing: border-box; }
+.boardwrap {
+  width: min(100% - 32px, 960px);
+  margin: 48px auto 70px;
+  padding: 38px 42px 44px;
+  background: #fff;
+  border: 1px solid #e5ebf4;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(15, 48, 93, .07);
+  color: #152a47;
+  font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+.boardwrap h3 {
+  margin: 0 0 26px;
+  padding: 0 0 17px 14px;
+  border-bottom: 1px solid #e4eaf2;
+  position: relative;
+  color: #0e356a;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -.7px;
+  line-height: 1.4;
+}
+.boardwrap h3::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 7px;
+  width: 4px; height: 23px;
+  background: #174a8b;
+  border-radius: 3px;
+}
+.boardwrap table {
+  width: 100% !important;
+  table-layout: fixed;
+  border: 1px solid #e0e7f0 !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+.boardwrap table tr { background: #fff; }
+.boardwrap table th,
+.boardwrap table td {
+  box-sizing: border-box;
+  width: auto !important;
+  height: auto !important;
+  border: 0 !important;
+  border-bottom: 1px solid #e8edf4 !important;
+  padding: 17px 20px !important;
+  text-align: left !important;
+  vertical-align: middle;
+  color: #263b57 !important;
+  font-size: 14px !important;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  cursor: auto;
+  border-radius: 0 !important;
+}
+.boardwrap table tr:hover td,
+.boardwrap table tr:hover th { background-color: inherit !important; }
+.boardwrap table tr:last-child th,
+.boardwrap table tr:last-child td { border-bottom: 0 !important; }
+.boardwrap table th {
+  width: 155px !important;
+  background: #f5f8fc !important;
+  color: #153d73 !important;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* 泥� �뻾: 湲곕뒫 踰꾪듉�쓣 �삤瑜몄そ�쑝濡� �젙�젹 */
+.boardwrap table tr:first-child td[colspan] {
+  padding: 13px 16px !important;
+  background: #f8fafd !important;
+  text-align: right !important;
+  line-height: 2.8;
+}
+.boardwrap input[type='button'] {
+  display: inline-block;
+  width: auto !important;
+  min-width: 85px;
+  height: 37px !important;
+  margin: 3px 0 3px 6px;
+  padding: 0 14px !important;
+  border: 1px solid #c8d6e9;
+  border-radius: 7px;
+  background: #fff;
+  color: #17447d;
+  font: 600 13px 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  line-height: normal;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.boardwrap input[type='button']:hover { background: #eaf2fc; border-color: #174a8b; }
+.boardwrap input[type='button'][value='�떟湲��벐湲�'],
+.boardwrap input[type='button'][value='�닔�젙�븯湲�'] { background: #12447f; border-color: #12447f; color: #fff; }
+.boardwrap input[type='button'][value='�떟湲��벐湲�']:hover,
+.boardwrap input[type='button'][value='�닔�젙�븯湲�']:hover { background: #0c3260; }
+.boardwrap input[type='button'][value='�궘�젣�븯湲�'] { color: #b33c43; border-color: #ecc7c9; }
+.boardwrap input[type='button'][value='�궘�젣�븯湲�']:hover { background: #fff2f2; }
+/* 湲��궡�슜 �뻾: 湲� 臾몃떒怨� 以꾨컮轅� 吏��썝 */
+.boardwrap table tr:nth-child(5) td {
+  min-height: 190px;
+  padding-top: 24px !important;
+  padding-bottom: 40px !important;
+  vertical-align: top;
+  white-space: pre-wrap;
+  line-height: 1.9;
+}
+/* �떟蹂� �긽�깭 諛곗�: JSP�뿉 class=status-wait/status-done 異붽� �떆 �쟻�슜 */
+.boardwrap .status-wait,
+.boardwrap .status-done {
+  display: inline-block !important;
+  width: auto !important;
+  height: auto !important;
+  line-height: 1.4 !important;
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.boardwrap .status-wait { background: #fff5e4; color: #9d6710; }
+.boardwrap .status-done { background: #e8f2ff; color: #17549a; }
+@media (max-width: 650px) {
+  .boardwrap { width: calc(100% - 20px); margin: 20px auto 40px; padding: 22px 14px; }
+  .boardwrap h3 { font-size: 20px; }
+  .boardwrap table th { width: 96px !important; white-space: normal; }
+  .boardwrap table th, .boardwrap table td { padding: 12px 10px !important; font-size: 12px !important; }
+  .boardwrap table tr:first-child td[colspan] { text-align: left !important; }
+  .boardwrap input[type='button'] { margin-left: 0; margin-right: 5px; min-width: 70px; padding: 0 9px !important; }
+}
