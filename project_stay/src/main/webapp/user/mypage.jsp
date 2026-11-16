@@ -8,10 +8,11 @@
 
 	<div class="mypage_container">
 		<div class="mypage_menu_wrap">
-			<a href="mypageInfoProc.do">회원정보</a>
-			<a href="myBookingProc.do">예약 확인</a>
-			<a href="myWishProc.do">찜목록</a>
-			<a href="MyRevListProc.do">내 리뷰 보기</a> <%-- jsp 만들고 매핑하기! --%>
+			<%-- 각 버튼들 css위해, 클래스 부여 --%>
+			<a href="mypageInfoProc.do"}">회원정보</a>
+			<a href="myBookingProc.do"}">예약 확인</a>
+			<a href="myWishProc.do" }">찜목록</a>
+			<a href="MyRevListProc.do"}">내 리뷰 보기</a> 
 		</div>
 		<%-- mypageSection 값 없이 마이페이지로 오면 나타남 --%>
 		<c:if test="${empty mypageSection}"> 
@@ -60,7 +61,7 @@
 
 <script>
 	function deleteMember(){
-		if(confirm("회원 탈퇴하시겠습니가?")){
+		if(confirm("회원 탈퇴하시겠습니까?")){
 			location.href="mypageDeleteCon.do";
 		}
 	}

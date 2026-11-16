@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+/* 바깥 section: 상단/하단 여백 줄이고 좌우 폭은 헤더·푸터(1180px)와 일치 */
+.container > section:has(.mypage_container) {
+	max-width: 1180px;
+	width: 100%;
+	margin: 30px auto 60px;
+	padding: 0 20px;
+	background: transparent;
+}
+
+/* 1. 마이페이지 전체 컨테이너 */
+.mypage_container {
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+	gap: 32px;
+	box-sizing: border-box;
+}
+
+/* 2. 왼쪽 메뉴 버튼 그룹 (네이비 버튼 + 흰색 글씨) */
+.mypage_container .mypage_menu_wrap {
+	width: 210px;
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding-top: 8px;
+	box-sizing: border-box;
+}
+
+.mypage_container .mypage_menu_wrap a {
+	display: block;
+	width: 100%;
+	padding: 15px 20px;
+	background-color: #154782;
+	color: #ffffff;
+	text-align: center;
+	text-decoration: none;
+	font-size: 15px;
+	font-weight: 700;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(21, 71, 130, 0.14);
+	transition: all 0.2s ease;
+	box-sizing: border-box;
+}
+
+.mypage_container .mypage_menu_wrap a:hover {
+	background-color: #0b3264;
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(11, 50, 100, 0.22);
+}
+
+/* ==========================================================
+   3. 우측 컨텐츠 영역 공통 (내 정보 & .boardWrap 카드형 통일)
+   ========================================================== */
+.userInfo_wrap,
+.mypage_container .boardWrap {
+	flex: 1;
+	width: auto;
+	margin: 0;
+	padding: 36px 42px;
+	background-color: #ffffff;
+	border: 1px solid #e6ebf3;
+	border-radius: 18px;
+	box-shadow: 0 12px 38px rgba(14, 49, 93, 0.07);
+	box-sizing: border-box;
+}
+
+.userInfo_wrap h3,
+.mypage_container .boardWrap h3 {
+	font-size: 24px;
+	color: #111827;
+	font-weight: 800;
+	margin: 0 0 24px 0;
+	padding-bottom: 14px;
+	border-bottom: 2px solid #e7edf5;
+}
+
+/* 내 정보 테이블 */
+.myinfo_table {
+	width: 100%;
+	max-width: 680px;
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	border-collapse: separate;
+	border-spacing: 0 14px;
+	box-sizing: border-box;
+	box-shadow: none;
+}
+
+.myinfo_table .label {
+	width: 120px;
+	text-align: left;
+	font-size: 15px;
+	color: #111827;
+	font-weight: 700;
+	vertical-align: middle;
+	padding-left: 2px;
+}
+
+.myinfo_table .data {
+	height: 46px;
+	background-color: #f8fafc;
+	border: 1.5px solid #cbd5e1;
+	border-radius: 10px;
+	padding: 0 16px;
+	vertical-align: middle;
+	color: #333333;
+	font-size: 14px;
+	box-sizing: border-box;
+}
+
+.myinfo_table tr:last-child td {
+	padding-top: 22px;
+	background-color: transparent !important;
+	border: none !important;
+	text-align: right;
+}
+
+/* [수정하기] 버튼 (블루) */
+.myinfo_table input[type="button"]:first-child {
+	width: 130px;
+	height: 46px;
+	background-color: #1a4b8c;
+	color: #ffffff;
+	border: none;
+	border-radius: 12px;
+	font-size: 15px;
+	font-weight: 700;
+	cursor: pointer;
+	margin-right: 10px;
+	transition: background-color 0.2s ease;
+}
+
+.myinfo_table input[type="button"]:first-child:hover {
+	background-color: #123769;
+}
+
+/* [탈퇴하기] 버튼 (화이트 / 블랙 아웃라인) */
+.myinfo_table input[type="button"]:last-child {
+	width: 130px;
+	height: 46px;
+	background-color: #ffffff;
+	color: #111827;
+	border: 2px solid #111827;
+	border-radius: 12px;
+	font-size: 15px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.myinfo_table input[type="button"]:last-child:hover {
+	background-color: #f1f5f9;
+}

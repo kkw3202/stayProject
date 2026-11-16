@@ -48,8 +48,9 @@
 <script>
 	// 취소하기 함수
 	function cancelRewrite(){
-		history.go(-1);
-				
+		if(confirm("작성을 중단하시겠습니까?")){
+			history.go(-1);
+		}
 	}
 	// formChk 함수 (예외처리)
 	function formChk(){
@@ -59,7 +60,8 @@
 			f.inq_content.focus();
 			return;
 		}
-		
-		f.submit();
+		if(confirm("위내용으로 수정하시겠습니까?")){
+			f.submit();
+		}
 	}
 </script>

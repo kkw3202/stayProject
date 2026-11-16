@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
-<link rel="stylesheet" href="style/inquiryInfo.css"/>
-<%-- 1:1게시판 상세보기    --%>
-<section>
-<div class="boardwrap">
-	<h3>1:1게시글 상세보기</h3>
-	<table>
-=======
+
 <%@ taglib prefix="fn" uri ="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" href="style/inquiryInfo.css"/>
 
@@ -17,7 +10,7 @@
 <div class="boardwrap">
 	<h3>1:1게시글 상세보기</h3>
 	<table class= "infoTable">
->>>>>>> daf47f24b2c0a0208b710719a854605020e20683
+
 		<tr>
 			<td colspan="2">
 				<%-- 관리자로 접속시 : 답글쓰기만 보여야함.(이미 답변이 달린 글은 다시 답변 못함) --%>
@@ -92,16 +85,17 @@
 		
 	</table>
 </div>
-<<<<<<< HEAD
+
 </section>
-=======
+
 
 <script>
 	// 삭제처리 함수 (소프트 삭제)
 	function deleteChk(inq_code){
-		alert("문의글을 삭제하겠습니다.");
-		location.href="inquiryDeleteCon.do?inq_code="+inq_code;
+		if(confirm("문의글을 삭제하시겠습니까?")){
+			location.href="inquiryDeleteCon.do?inq_code="+inq_code;
+		}
 	}
 
 </script>
->>>>>>> daf47f24b2c0a0208b710719a854605020e20683
+

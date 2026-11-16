@@ -103,8 +103,12 @@
 						</div>
 					</div>
 				</c:forEach>
-			<%-- </c:if> --%>
-		</div>		
+
+		</div>
+		<%-- 리뷰 --%>
+		<div class="review_wrap">
+			<jsp:include page="/accReviewListProc.do?acc_code=${pdto.acc_code}"/>
+		</div>
 	</div>
 	
 	<script type="text/javascript" defer="defer">

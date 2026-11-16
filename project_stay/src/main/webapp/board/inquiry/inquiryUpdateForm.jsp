@@ -60,7 +60,9 @@
 <script>
 	// 취소하기 버튼 누르면, 전 페이지 이동
 	function inquiryCancelUpdate(){
-		history.go(-1);
+		if(confirm("1:1 문의 수정을 중단하시겠습니까?")){
+			history.go(-1);
+		}
 	}
 	// 예외처리하기
 	function inquiryBoardUpdateException(){
@@ -75,8 +77,9 @@
 			f.inq_content.focus();
 			return;
 		}
-		alert("1:1문의 수정되었습니다!");
-		f.submit();
+		if(confirm("위 내용대로 1:1문의 수정하시겠습니까?")){
+			f.submit();
+		}
 	}
 
 </script>
