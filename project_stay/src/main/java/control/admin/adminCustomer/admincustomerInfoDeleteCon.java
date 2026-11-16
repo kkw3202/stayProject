@@ -6,36 +6,53 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class admincustomerInfoDeleteCon
- */
-@WebServlet("/admincustomerInfoDeleteCon")
+import model.User.AdminCustomerDAO;
+
+
+@WebServlet("/admincustomerInfoDeleteCon.do")
 public class admincustomerInfoDeleteCon extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public admincustomerInfoDeleteCon() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		reqPro(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		reqPro(request, response);
+	}
+
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
+        if (!AdminCustomerSupport.admin(request, response)) return;
+
+        HttpSession session = request.getSession(false);
+        String token = request.getParameter("csrf");
+
+        if (token == null ||
+            !token.equals(session.getAttribute("adminCustomerCsrf"))) {
+            response.sendError(403);
+            return;
+        }
+
+        int code = AdminCustomerSupport.number(
+        		request.getParameter("user_code"));
+
+        try {
+            boolean ok = new AdminCustomerDAO().delete(code);
+
+            session.setAttribute("adminCustomerFlash",
+                ok ? "회원이 탈퇴 처리되었습니다."
+                   : "삭제할 수 없는 회원입니다.");
+
+            response.sendRedirect(
+                request.getContextPath() + "/customerListProc.do"
+            );
+
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+	
 	}
 
 }

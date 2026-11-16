@@ -27,10 +27,9 @@ public class User_change {
 			con = Util.getConnection();
 			
 			// 조인하고 찾아야함!
-			String sql = "select user_code from wishlist where user_email=?";
+			String sql = "select user_code from user where user_email=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_email);
-			System.out.println("1");
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
