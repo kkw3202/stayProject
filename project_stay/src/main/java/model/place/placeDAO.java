@@ -39,7 +39,7 @@ public class placeDAO {
 			if(acc_type != null && !acc_type.isEmpty()) cnt_notNull++;
 			if(acc_name != null && !acc_name.isEmpty()) cnt_notNull++;
 			
-			String sql = "select a.acc_img, a.acc_type, a.acc_name, c.city_name, r.avg_ratings, orsq.acc_code, orsq.min_price, r.cnt_reviews, orsq.max_room_capacity, orsq.min_room_capacity "
+			String sql = "select a.acc_img, a.acc_type, a.acc_name, c.city_name, r.avg_ratings, orsq.acc_code, orsq.min_price, r.cnt_reviews, orsq.max_room_capacity, orsq.min_room_capacity, a.acc_facility "
 					+ "from Accommodation a "
 					+ "inner join City c on c.city_code = a.city_code "
 					+ "left join (select acc_code, avg(rev_rating) avg_ratings, count(*) as cnt_reviews from reviews group by acc_code) r on r.acc_code = a.acc_code ";
@@ -104,6 +104,8 @@ public class placeDAO {
 				acdto.setCnt_reviews(rs.getInt(8));
 				acdto.setMax_room_capacity(rs.getInt(9));
 				acdto.setMin_room_capacity(rs.getInt(10));
+				acdto.setAcc_facility(rs.getString(11));
+				
 				result.add(acdto);
 			}
 			

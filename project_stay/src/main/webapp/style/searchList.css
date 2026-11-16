@@ -499,6 +499,10 @@ section>.contaier:has(>.search_filter) p, section>.contaier:has(>.search_filter)
 	filter: brightness(1.1);
 }
 
+.search_acc_card.noShow{
+	display: none;
+}
+
 @media ( max-width :1050px) {
 	section>.contaier:has(.search_filter) {
 		grid-template-columns: 245px minmax(0, 1fr);

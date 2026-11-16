@@ -31,22 +31,23 @@
 				<li class="search_filter_room_capacity_container">
 					<h6>적정 인원</h6>
 					<div class="search_filter_room_capacity_wrap">
-						<label for="search_filter_room_capacity2">~2인</label>
+						<label for="search_filter_room_capacity2">2인~</label>
 						<input type="radio" id="search_filter_room_capacity2" value="2" name="filter_room_capacity" onclick="filtering_room_capacity()" class="filter_room_capacity">
 					</div>
 					<div class="search_filter_room_capacity_wrap">
-						<label for="search_filter_room_capacity4">~4인</label>					
+						<label for="search_filter_room_capacity4">4인~</label>					
 						<input type="radio" id="search_filter_room_capacity4" value="4" name="filter_room_capacity" onclick="filtering_room_capacity()" class="filter_room_capacity">
 					</div>
 					<div class="search_filter_room_capacity_wrap">
-						<label for="search_filter_room_capacityover4">4인 이상</label>					
-						<input type="radio" id="search_filter_room_capacityover4" value="5" name="filter_room_capacity" onclick="filtering_room_capacity()" class="filter_room_capacity">
+						<label for="search_filter_room_capacity6">6인~</label>					
+						<input type="radio" id="search_filter_room_capacity6" value="6" name="filter_room_capacity" onclick="filtering_room_capacity()" class="filter_room_capacity">
 					</div>
 				</li>
 				<li class="search_filter_acc_facility_container">
 					<h6>부대시설</h6>
 					<div class="search_filter_acc_facility_container">
 						<input type="text" id="search_filter_acc_facility" placeholder="검색어를 입력하세요.">
+						<button type="button" onclick="filtering_acc_facility()">검색</button>
 					</div>
 				</li>
 			</ul>
@@ -61,7 +62,9 @@
 			<c:set var="wishes" value="${wishes }"></c:set>
 			<c:forEach var="sa_arr" items="${sa_arr }" >
 				<div class="search_acc_card">
+					<input type="hidden" value="${sa_arr.min_room_capacity }" name="min_room_capacity">
 					<input type="hidden" value="${sa_arr.max_room_capacity }" name="max_room_capacity">
+					<input type="hidden" value="${sa_arr.acc_facility }" name="acc_facility">
 					<div class="acc_card_left">
 						<img alt="${sa_arr.acc_name }전경 이미지" src="${sa_arr.acc_img }">
 					</div>
@@ -111,6 +114,32 @@
 	
 	function filtering_room_capacity(){
 		let cards = document.querySelectorAll(".search_acc_card");
-		let targetCapacity = querySelectorAll(".querySelectorAll");
+		let targetCapacitys = document.querySelector("input[name='filter_room_capacity']:checked");
+		let targetCapacity = targetCapacitys ? targetCapacitys.value : "";
+		
+		cards.forEach((item)=> {
+			let max = item.querySelector('input[name="max_room_capacity"]');
+			let min = item.querySelector('input[name="min_room_capacity"]');
+			
+			if(targetCapacity > max.value){
+				item.classList.add("noShow");
+				
+			}
+		});
+	}
+	function filtering_acc_facility(){
+		let filter_acc_facility = document.getElementById("search_filter_acc_facility");
+		let cards = document.querySelectorAll(".search_acc_card");
+		let facility = filter_acc_facility.value;
+		
+		
+		
+		cards.forEach((item)=> {
+			let one_facility = item.querySelector('input[name="acc_facility"]');
+			
+			if(!one_facility.includes(facility)){  //  여기 에러남. 위의 값 못받아오는듯 함!
+				item.classList.add("noShow");
+			}
+		});
 	}
 </script>

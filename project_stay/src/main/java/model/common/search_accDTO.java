@@ -12,6 +12,8 @@ public class search_accDTO {
 	
 	private int min_room_capacity;
 	private int max_room_capacity;
+	
+	private String acc_facility;
 	// 추후 필터링 항목도 추가로 담아야함! => 첫 검색에서 가져올 건 다 가져와서 기존 검색 건드릴 필요 없음
 	public String getAcc_img() {
 		return acc_img;
@@ -72,6 +74,12 @@ public class search_accDTO {
 	}
 	public void setMax_room_capacity(int max_room_capacity) {
 		this.max_room_capacity = max_room_capacity;
+	}
+	public String getAcc_facility() {
+		return acc_facility;
+	}
+	public void setAcc_facility(String acc_facility) {
+		this.acc_facility = acc_facility;
 	}
 	
 
