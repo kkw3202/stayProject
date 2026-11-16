@@ -43,6 +43,7 @@ public class WishListDAO {
 		return result;
 	}
 	
+
 	// mypage에 그릴 내 찜 목록 메소드
 	public ArrayList<WishListDTO> myWishList(String user_email, int startRow, int pageSize){
 		ArrayList<WishListDTO> wlist = new ArrayList<WishListDTO>();
@@ -138,7 +139,38 @@ public class WishListDAO {
 				if(rs!=null) {rs.close();}
 				if(pstmt!=null) {pstmt.close();}
 				if(con!=null) {con.close();}
-			}catch(Exception e) {e.printStackTrace();}
-		}	
+			}catch(Exception e) {e.printStackTrace(); }
+		}
+	}	
+	// 한 숙소를 한 회원의 찜목록에 추가하는 메소드
+	public void addWishList(String user_email, int acc_code){
+			
+			User_change uc = new User_change();
+			int user_code = uc.email_to_code(user_email);
+			
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+	
+			try {
+				con = Util.getConnection();
+	
+				String sql = "insert into wishlist values (null,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, user_code);
+				pstmt.setInt(2, acc_code);
+				
+				pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("찜목록 추가 실패!");
+			}finally {
+				try {
+					if(con != null) con.close();
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();				
+				}catch(Exception e) {e.printStackTrace();}
+			}
 	}
 }

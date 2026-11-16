@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +8,7 @@
 <title>회원 가입하기</title>
 
 <link rel="stylesheet" href="style/join_style_v2.css">
+
 <section>
 <div class="join-page">
 	<div class="join-layout">
@@ -128,3 +129,24 @@
 		}
 	}
 </script>
+<%-- 회원가입 결과 알림 추가 --%>
+<c:if test="${not empty msg}">
+    <script>
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+
+                <c:choose>
+                    <c:when test="${joinSuccess eq true}">
+                        alert("회원가입에 성공했습니다.");
+                        location.href = "index.jsp";
+                    </c:when>
+
+                    <c:otherwise>
+                        alert("이미 존재하는 이메일입니다.");
+                    </c:otherwise>
+                </c:choose>
+
+            }, 100);
+        });
+    </script>
+</c:if>

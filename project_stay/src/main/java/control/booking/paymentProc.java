@@ -14,7 +14,7 @@ import model.Booking.BookingDAO;
 import model.Handler.User_change;
 
 
-@WebServlet("/paymentProc")
+@WebServlet("/paymentProc.do")
 public class paymentProc extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,18 +34,24 @@ public class paymentProc extends HttpServlet {
 		String book_checkout_date = request.getParameter("book_checkout_date");
 		int room_code = Integer.parseInt(request.getParameter("room_code"));
 		String book_name = request.getParameter("book_name");
+		String phone = request.getParameter("phone");
 		
-		if(session!=null) {
+		if(session!=null && (String) session.getAttribute("user_email") != null) {
 			String user_email = (String) session.getAttribute("user_email");
-					
+
 			User_change uc = new User_change();
 			user_code = uc.email_to_code(user_email); 
+		}else {
+			
 		}
 		
 		BookingDAO bdao = new BookingDAO();
-		bdao.doBooking(user_code, book_checkin_date, book_checkout_date, room_code, book_name);
+
+		String book_number = bdao.doBooking(user_code, book_checkin_date, book_checkout_date, room_code, book_name, phone);
 		
-		response.sendRedirect("index.jsp");
+		
+		response.sendRedirect("paymentProcCon.do?book_number="+book_number);
+		//response.sendRedirect("index.jsp");
 		
 	}
 	

@@ -17,14 +17,15 @@ public class UserDAO {
 	
 //-----------------------------------------
 // 	2026. 11. 4. 
-	// email만 추출하는 메소드 
+	// 이메일을 확인하는 메소드
 	public String getEmail(String email) {
 		String chkmail="";
 		
 		try {
 			con = Util.getConnection();
-			
-			String sql = "select user_email from user where user_email=?";
+			// 신규회원의 이메일 중복 예외 추가
+			String sql = "SELECT user_email FROM user "
+			           + "WHERE user_email=? AND user_chk_del=0";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			
@@ -45,7 +46,7 @@ public class UserDAO {
 		return chkmail;
 	}
 
-	// password만 추출하는 메소드 
+	// password를 확인하는 메소드
 	public String getPass(String user_email) {
 		String chkpass="";
 		
@@ -73,7 +74,7 @@ public class UserDAO {
 		return chkpass;
 	}
 	
-	// 한 사람의 데이터를 DB에 저장하는 메소드
+	// 새 회원의 데이터를 DB에 저장하는 메소드
 	public void insertUser(UserDTO udto) {
 		try {
 			con = Util.getConnection();
@@ -106,7 +107,7 @@ public class UserDAO {
 		}
 	}
 	
-	// 한 사람의 데이터를 추출하는 메소드 
+	// 새 회원의 데이터를 조회하는 메소드
 		public UserDTO getUserInfo(String user_email) {
 			UserDTO udto = new UserDTO();
 
@@ -142,14 +143,16 @@ public class UserDAO {
 			return udto;
 		}
 
-	// admin 로그인 메소드	
+		// 관리자 로그인 메소드
 	public boolean loginAdminCheck(String email, String password) {
-	//email주소가 admin@naver.com으로 로그인 시 관리자 
+		// email 주소가 admin@naver.com이면 관리자 로그인으로 처리
+		// 탈퇴회원 로그인 방지 추가
 		
 		try {
 			con = Util.getConnection();
 			
-			String sql = "select user_password from user where user_email=?";
+			String sql = "SELECT user_password FROM user "
+		               + "WHERE user_email=? AND user_chk_del=0";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
 			
@@ -173,14 +176,15 @@ public class UserDAO {
 		return false;
 	}
 	
-		// 회원 로그인 메소드	
+		// 회원 로그인 메소드
 		public boolean loginCheck(String email, String password) {
-			//email주소가 admin@naver.com으로 로그인 시 관리자 
+			// 탈퇴회원 로그인 방지 추가
 			
 			try {
 				con = Util.getConnection();
 				
-				String sql = "select user_password from user where user_email=?";
+				String sql = "SELECT user_password FROM user "
+				           + "WHERE user_email=? AND user_chk_del=0";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, email);
 				
@@ -205,7 +209,7 @@ public class UserDAO {
 				return false;
 			}
 
-	// 한 명의 정보를 업데이트하는 메소드
+		// 회원 정보를 업데이트하는 메소드
 	public void updateUserInfo(UserDTO udto) {
 		
 		try {
@@ -233,6 +237,7 @@ public class UserDAO {
 	}
 
 	// 한 명의 정보를 업데이트하는 메소드 (내 정보 수정)
+	// 회원 정보를 업데이트하는 메소드 (비밀번호 포함)
 	public void updateUserMod(String user_name, String user_phone, int user_gender, String user_birth, String new_password, String passkey, String user_email) {
 		try {
 			con = Util.getConnection();
@@ -261,18 +266,14 @@ public class UserDAO {
 		}
 	}
 	
-	// 한명의 회원 탈퇴하기 (소프트 삭제)
+
+	// 마이페이지 회원 탈퇴하기 (소프트 삭제)
 	public void deleteMember(String user_email) {
 		try {
-			// DB연결
 			con = Util.getConnection();
-			// 데이터를 지우지 않고, chkDel을 1로 업데이트
 			String sql = "update User set user_chk_del=1 where user_email=?";
-			// 쿼리 선언
 			pstmt = con.prepareStatement(sql);
-			// ? 에 넣기
 			pstmt.setString(1, user_email);
-			// 쿼리 실행
 			pstmt.executeUpdate();
 			
 		}catch(Exception e) {
@@ -286,6 +287,56 @@ public class UserDAO {
 		}
 	}
 	
+	//-----------------------------------------------------------
+	//2026. 11. 12
+	// 비밀번호 찾기 - 회원정보 일치 여부 확인
+	 public int passChangeCheck(String email, String phone, String passkey) {
+
+	        String sql = "SELECT user_code FROM user "
+	                + "WHERE user_email=? AND user_phone=? "
+	                + "AND user_passkey=? AND user_chk_del=0";
+
+	        try (Connection con = Util.getConnection();
+	             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+	            pstmt.setString(1, email);
+	            pstmt.setString(2, phone);
+	            pstmt.setString(3, passkey);
+
+	            try (ResultSet rs = pstmt.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getInt("user_code");
+	                }
+	            }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return 0;
+	    }
+
+
+	    // 비밀번호 찾기 - 새로운 비밀번호 저장
+	    public boolean passChangeUpdate(int userCode, String newPassword) {
+
+	        String sql = "UPDATE user SET user_password=? "
+	                + "WHERE user_code=? AND user_chk_del=0";
+
+	        try (Connection con = Util.getConnection();
+	             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+	            pstmt.setString(1, newPassword);
+	            pstmt.setInt(2, userCode);
+
+	            return pstmt.executeUpdate() == 1;
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return false;
+	    }
 	
 	
 }

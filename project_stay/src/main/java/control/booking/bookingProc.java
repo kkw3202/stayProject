@@ -53,7 +53,7 @@ public class bookingProc extends HttpServlet {
 		request.setAttribute("room_info", room_info);
 		
 		
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=booking.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=booking/booking.jsp");
 		rd.forward(request, response);
 	}
 }

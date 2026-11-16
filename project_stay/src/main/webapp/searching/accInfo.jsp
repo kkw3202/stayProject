@@ -26,7 +26,7 @@
 				<p class="avg_rating">${pdto.avg_rating }</p>
 			</div>
 			<div class="right">
-				<button type="button" onclick="location.href='wishListAddcon.do?acc_code=${sa_arr.acc_code}'" ></button> <!-- 찜 추가 버튼 -->
+				<button type="button" onclick="${empty sessionScope.user_email ? 'pleasJoin();' : 'location.href=\'wishListAddcon.do?acc_code=' += pdto.acc_code += '\''}" ></button> <!-- 찜 추가 버튼 -->
 				<c:set var="low" value="999999999999"/>
 				<c:forEach items="${rdto_arr }" var="rdto">
 					<c:if test="${rdto.room_price<low}">
@@ -39,13 +39,13 @@
 		<div class="room_list">
 			<h5>객실선택</h5>
 			<%-- <c:if test="${rdto_arr[0].room_code =! 0}"> --%>
-				<c:forEach var="rdto" items="${rdto_arr }">
-					<form class="room_card" action="bookingProc.java" method="get"> <!-- 결재 화면으로 이동하게 해야함. -->
+				<c:forEach var="rdto" items="${rdto_arr }" varStatus="status">
+					<form class="room_card" action="bookingProc.do" method="get"> <!-- 결재 화면으로 이동하게 해야함. -->
 						<div class="room_img1">
 							<img alt="방 대표 이미지" src="${rdto.room_img1 }">
 						</div>
 						<h6>${rdto.room_name }</h6>
-						<p class="room_modal" onclick="">상세정보 ></p> <!-- 클릭 시 숙소 상세 모달 창 띄워야함! -->
+						<p class="room_modal" onclick="show_modal(${status.count-1})">상세정보 ></p> <!-- 클릭 시 숙소 상세 모달 창 띄워야함! -->
 						<div class="detail">
 							<div class="left">
 								<p>입실 : ${pdto.acc_checkinTime }, 퇴실 : ${pdto.acc_checkoutTime }</p>
@@ -71,13 +71,62 @@
 						<input type="hidden" value="${rdto.room_capacity }" name="room_capacity">
 						<input type="hidden" value="${rdto.room_info }" name="room_info">
 						<input type="hidden" value="${rdto.room_price }" name="room_price">
-						
 					</form>
+					<div class="modal_background" onclick="add_noShow(${status.count-1})">
+						<div class="modal_roomInfo noShow">
+							<button type="button" onclick="add_noShow(${status.count-1})">X</button> 
+							<div class="room_name">
+								<h5>${rdto.room_name }</h5>
+							</div>
+							<div class="room_images">
+								<c:forEach begin="1" end="4" var="i">
+									<c:set var="imgKey" value="room_img${i}"/>
+									<img alt="객실 이미지" src="${rdto[imgKey]}">
+								</c:forEach>
+							</div>
+							<div class="about_room">
+								<h6>객실 정보</h6>
+								<span class="info_title">숙박 </span><span>| 체크인 ${book_checkin_date } - 체크아웃 ${book_checkout_date }</span>
+								<span class="info_title">숙박 인수 </span><span>| ${rdto.room_capacity }</span>
+							</div>
+							
+							<br/>
+							
+							<div class="additionalInfo_room">
+								<h6>편의시설</h6>
+								<span class="info_title">숙박 </span><span>| ${room_amenity }</span>
+	
+								<h6>취소 및 환불 규정</h6>
+								<span class="info_title">무료 취소</span><span>| 체크인 기준 3일 전 18:00까지: 100% 환불</span>
+								<span class="info_title">환불 불가 </span><span>| 체크인 당일 23:59까지 및 노쇼 시: 환불불가</span>
+							</div>
+						</div>
+					</div>
 				</c:forEach>
+
 		</div>
 		<%-- 리뷰 --%>
 		<div class="review_wrap">
 			<jsp:include page="/accReviewListProc.do?acc_code=${pdto.acc_code}"/>
 		</div>
 	</div>
+	
+	<script type="text/javascript" defer="defer">
+		let modal_roomInfo = document.querySelectorAll(".modal_roomInfo");
+		function show_modal(num){
+
+			let show_room = modal_roomInfo[num];
+			show_room.classList.remove("noShow");
+		}
+		
+		function add_noShow(num){
+			let show_room = modal_roomInfo[num];
+			show_room.classList.add("noShow");
+		}
+		
+		function pleasJoin(){
+			alert("로그인 후 이용 가능합니다");
+			location.href="index.jsp?section=user/joinForm.jsp";
+		}
+	</script>
 </section>

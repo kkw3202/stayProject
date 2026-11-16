@@ -1,5 +1,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- index.jsp에서 include하는 화면이므로 html/head/body 태그를 중복 작성하지 않습니다. --%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/login_style.css">
 <section>
@@ -56,6 +57,20 @@ function chkLogin() {
     form.submit();
 }
 function findPassword() {
-    location.href = 'findPasswordProc.do';
+    location.href = 'index.jsp?section=user/passChangeForm.jsp';
 }
 </script>
+
+<c:if test="${not empty msg}">
+    <script>
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                alert("${msg}");
+
+                <c:if test="${loginSuccess}">
+                    location.href = "index.jsp";
+                </c:if>
+            }, 100);
+        });
+    </script>
+</c:if>

@@ -23,7 +23,6 @@
 				<jsp:include page="${sectionMain}" />
 			</c:otherwise>
 		</c:choose>
-		
 		<jsp:include page="footer.jsp" />
 	</div>
 	
