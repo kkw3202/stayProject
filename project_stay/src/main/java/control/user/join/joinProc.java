@@ -32,7 +32,7 @@ public class joinProc extends HttpServlet {
 		String email = request.getParameter("email");
 		String emailChk = udao.getEmail(email);
 		String pass = request.getParameter("password");
-		String passchk = request.getParameter("passchk");
+		String passChk = udao.getPass(pass);
 		
 		udto.setUser_email(email);
 		udto.setUser_password(pass);
@@ -40,30 +40,10 @@ public class joinProc extends HttpServlet {
 		udto.setUser_phone(request.getParameter("phone"));
 		udto.setUser_birth(request.getParameter("birth"));
 		udto.setUser_gender(Integer.parseInt(request.getParameter("gender")));
+		udto.setUser_chk_del(Integer.parseInt(request.getParameter("gender")));
 		udto.setUser_passkey(request.getParameter("passkey"));
-
+		
 		String link ="";
-<<<<<<< HEAD
-		// ±âÁ¸ ÀÌ¸ÞÀÏ°ú °°Àº ÀÌ¸ÞÀÏÀÏ °æ¿ì
-		if(emailChk != null && emailChk.equals(email)) {
-			request.setAttribute("msg", "ÀÌ¹Ì Á¸ÀçÇÏ´Â ÀÌ¸ÞÀÏ ÀÔ´Ï´Ù");
-			link = "/user/joinErr.jsp";
-		// ºñ¹Ð¹øÈ£¿Í ºñ¹Ð¹øÈ£ È®ÀÎÀÌ ´Ù¸¥ °æ¿ì
-		}else if(pass.equals(passchk)){
-			udao.insertUser(udto);
-			request.getSession().setAttribute("msg", "È¸¿ø°¡ÀÔÀ» ÃàÇÏÇÕ´Ï´Ù~!");
-			response.sendRedirect(request.getContextPath() + "/user/joinOk.jsp"	);
-			return;
-		}else {
-			request.setAttribute("msg", "ºñ¹Ð¹øÈ£¸¦ È®ÀÎÇÏ¼¼¿ä");
-			link = "/user/joinErr.jsp";
-				
-		}
-		
-		RequestDispatcher rd = request.getRequestDispatcher(link);
-		rd.forward(request, response);
-		
-=======
 		// ê¸°ì¡´ ì´ë©”ì¼ê³¼ ê°™ì€ ì´ë©”ì¼ì¸ ê²½ìš°
 		System.out.println("email:"+email+"emailChk:"+emailChk);
 		// ê¸°ì¡´ ì •ìƒ íšŒì›ê³¼ ì´ë©”ì¼ì´ ì¤‘ë³µë˜ëŠ” ê²½ìš°
@@ -81,8 +61,5 @@ public class joinProc extends HttpServlet {
 		// íšŒì›ê°€ìž… í™”ë©´ì„ ë°°ê²½ìœ¼ë¡œ í‘œì‹œ
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/joinForm.jsp");
 		rd.forward(request, response);
->>>>>>> main
 	}
-		
-		
 }

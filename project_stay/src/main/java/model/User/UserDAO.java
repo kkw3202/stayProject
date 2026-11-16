@@ -17,13 +17,13 @@ public class UserDAO {
 	
 //-----------------------------------------
 // 	2026. 11. 4. 
-	// ÀÌ¸ÞÀÏÀ» È®ÀÎÇÏ´Â ¸Þ¼Òµå
+	// ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 	public String getEmail(String email) {
 		String chkmail="";
 		
 		try {
 			con = Util.getConnection();
-			// ½Å±ÔÈ¸¿øÀÇ ÀÌ¸ÞÀÏ Áßº¹ ¿¹¿Ü Ãß°¡
+			// ï¿½Å±ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 			String sql = "SELECT user_email FROM user "
 			           + "WHERE user_email=? AND user_chk_del=0";
 			pstmt = con.prepareStatement(sql);
@@ -46,13 +46,8 @@ public class UserDAO {
 		return chkmail;
 	}
 
-<<<<<<< HEAD
-	// password¸¸ ÃßÃâÇÏ´Â ¸Þ¼Òµå 
-	public String getPass(String email) {
-=======
-	// password¸¦ È®ÀÎÇÏ´Â ¸Þ¼Òµå
+	// passwordï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 	public String getPass(String user_email) {
->>>>>>> main
 		String chkpass="";
 		
 		try {
@@ -60,7 +55,7 @@ public class UserDAO {
 			
 			String sql = "select user_password from user where user_email=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, email);
+			pstmt.setString(1, user_email);
 			
 			rs = pstmt.executeQuery();
 			
@@ -79,14 +74,8 @@ public class UserDAO {
 		return chkpass;
 	}
 	
-<<<<<<< HEAD
-	// ÇÑ »ç¶÷ÀÇ µ¥ÀÌÅÍ¸¦ DB¿¡ ÀúÀåÇÏ´Â ¸Þ¼Òµå
-	public boolean insertUser(UserDTO udto) {
-		boolean insertUser = false;
-=======
-	// »õ È¸¿øÀÇ µ¥ÀÌÅÍ¸¦ DB¿¡ ÀúÀåÇÏ´Â ¸Þ¼Òµå
+	// ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 	public void insertUser(UserDTO udto) {
->>>>>>> main
 		try {
 			con = Util.getConnection();
 			
@@ -104,8 +93,7 @@ public class UserDAO {
 			int result = pstmt.executeUpdate();
 			
 			if(result > 0) {
-				System.out.println("¾÷µ¥ÀÌÆ® ¼º°ø");
-				insertUser = true;
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½");
 			}
 					
 		}catch(Exception e) {
@@ -117,10 +105,9 @@ public class UserDAO {
 				if(con != null) con.close();
 			}catch(Exception e) { e.printStackTrace();}
 		}
-		return insertUser;
 	}
 	
-	// »õ È¸¿øÀÇ µ¥ÀÌÅÍ¸¦ Á¶È¸ÇÏ´Â ¸Þ¼Òµå
+	// ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 		public UserDTO getUserInfo(String user_email) {
 			UserDTO udto = new UserDTO();
 
@@ -156,10 +143,10 @@ public class UserDAO {
 			return udto;
 		}
 
-		// °ü¸®ÀÚ ·Î±×ÀÎ ¸Þ¼Òµå
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public boolean loginAdminCheck(String email, String password) {
-		// email ÁÖ¼Ò°¡ admin@naver.comÀÌ¸é °ü¸®ÀÚ ·Î±×ÀÎÀ¸·Î Ã³¸®
-		// Å»ÅðÈ¸¿ø ·Î±×ÀÎ ¹æÁö Ãß°¡
+		// email ï¿½Ö¼Ò°ï¿½ admin@naver.comï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+		// Å»ï¿½ï¿½È¸ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 		
 		try {
 			con = Util.getConnection();
@@ -189,9 +176,9 @@ public class UserDAO {
 		return false;
 	}
 	
-		// È¸¿ø ·Î±×ÀÎ ¸Þ¼Òµå
+		// È¸ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 		public boolean loginCheck(String email, String password) {
-			// Å»ÅðÈ¸¿ø ·Î±×ÀÎ ¹æÁö Ãß°¡
+			// Å»ï¿½ï¿½È¸ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 			
 			try {
 				con = Util.getConnection();
@@ -222,7 +209,7 @@ public class UserDAO {
 				return false;
 			}
 
-		// È¸¿ø Á¤º¸¸¦ ¾÷µ¥ÀÌÆ®ÇÏ´Â ¸Þ¼Òµå
+		// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 	public void updateUserInfo(UserDTO udto) {
 		
 		try {
@@ -249,28 +236,8 @@ public class UserDAO {
 		}
 	}
 
-<<<<<<< HEAD
-	//-----------------------------------------
-// 	2026. 11. 7. 
-	// passkey¸¸ ÃßÃâÇÏ´Â ¸Þ¼Òµå 
-	public String getPasskey(String email) {
-		String chkpasskey="";
-		
-		try {
-			con = Util.getConnection();
-			
-			String sql = "select user_passkey from user where user_email=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, email);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				chkpasskey = rs.getString("user_passkey");
-			}
-=======
-	// ÇÑ ¸íÀÇ Á¤º¸¸¦ ¾÷µ¥ÀÌÆ®ÇÏ´Â ¸Þ¼Òµå (³» Á¤º¸ ¼öÁ¤)
-	// È¸¿ø Á¤º¸¸¦ ¾÷µ¥ÀÌÆ®ÇÏ´Â ¸Þ¼Òµå (ºñ¹Ð¹øÈ£ Æ÷ÇÔ)
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+	// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½ (ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½)
 	public void updateUserMod(String user_name, String user_phone, int user_gender, String user_birth, String new_password, String passkey, String user_email) {
 		try {
 			con = Util.getConnection();
@@ -288,7 +255,6 @@ public class UserDAO {
 			
 			pstmt.executeUpdate();
 
->>>>>>> main
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -298,14 +264,10 @@ public class UserDAO {
 				if(con != null) con.close();
 			}catch(Exception e) {e.printStackTrace();}
 		}
-<<<<<<< HEAD
-		return chkpasskey;
-	}	
-=======
 	}
 	
 
-	// ¸¶ÀÌÆäÀÌÁö È¸¿ø Å»ÅðÇÏ±â (¼ÒÇÁÆ® »èÁ¦)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ Å»ï¿½ï¿½ï¿½Ï±ï¿½ (ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½)
 	public void deleteMember(String user_email) {
 		try {
 			con = Util.getConnection();
@@ -327,7 +289,7 @@ public class UserDAO {
 	
 	//-----------------------------------------------------------
 	//2026. 11. 12
-	// ºñ¹Ð¹øÈ£ Ã£±â - È¸¿øÁ¤º¸ ÀÏÄ¡ ¿©ºÎ È®ÀÎ
+	// ï¿½ï¿½Ð¹ï¿½È£ Ã£ï¿½ï¿½ - È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	 public int passChangeCheck(String email, String phone, String passkey) {
 
 	        String sql = "SELECT user_code FROM user "
@@ -355,7 +317,7 @@ public class UserDAO {
 	    }
 
 
-	    // ºñ¹Ð¹øÈ£ Ã£±â - »õ·Î¿î ºñ¹Ð¹øÈ£ ÀúÀå
+	    // ï¿½ï¿½Ð¹ï¿½È£ Ã£ï¿½ï¿½ - ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	    public boolean passChangeUpdate(int userCode, String newPassword) {
 
 	        String sql = "UPDATE user SET user_password=? "
@@ -376,6 +338,5 @@ public class UserDAO {
 	        return false;
 	    }
 	
->>>>>>> main
 	
 }

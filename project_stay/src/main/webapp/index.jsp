@@ -6,13 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
-<title> 머물 수 있는 곳이 많은 머물:多 </title>
-<link rel="stylesheet" href="style/index_self.css">
-=======
 <title>머물 수 있는 곳이 많은 머물:多</title>
 <link rel="stylesheet" href="style/index.css">
->>>>>>> main
 </head>
 
 <body>
