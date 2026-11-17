@@ -46,7 +46,7 @@ public class admincustomerInfoDeleteCon extends HttpServlet {
                    : "삭제할 수 없는 회원입니다.");
 
             response.sendRedirect(
-                request.getContextPath() + "/customerListProc.do"
+                request.getContextPath() + "/AdminCustomerListProc.do"
             );
 
         } catch (Exception e) {

@@ -22,23 +22,37 @@ public class AdminInqListProc extends HttpServlet {
     // 1. 한 페이지에 표시할 문의 수
     private static final int PAGE_SIZE = 10;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+
         reqPro(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+            throws ServletException, IOException {
+
         reqPro(request, response);
     }
 
-    protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void reqPro(HttpServletRequest request,
+                          HttpServletResponse response)
+            throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
 
         // 2. 관리자 로그인 및 권한 확인
         HttpSession session = request.getSession(false);
 
-        if (session == null || !"admin@naver.com".equals(session.getAttribute("user_email"))) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "관리자만 접근할 수 있습니다.");
+        if (session == null
+                || !"admin@naver.com".equals(
+                        session.getAttribute("user_email"))) {
+
+            response.sendError(
+                    HttpServletResponse.SC_FORBIDDEN,
+                    "관리자만 접근할 수 있습니다."
+            );
             return;
         }
 
@@ -46,9 +60,11 @@ public class AdminInqListProc extends HttpServlet {
         String searchType = request.getParameter("searchType");
         String keyword = request.getParameter("keyword");
 
+        // ★ 수정 : userCode 대신 userName 검색 허용
         if (!"title".equals(searchType)
                 && !"content".equals(searchType)
-                && !"userCode".equals(searchType)) {
+                && !"userName".equals(searchType)) {
+
             searchType = "title";
         }
 
@@ -58,18 +74,19 @@ public class AdminInqListProc extends HttpServlet {
 
         keyword = keyword.trim();
 
-        // 4. 답변 상태 필터
+        // 4. 답변여부 필터
         // null : 전체 / 0 : 미답변 / 1 : 답변완료
         Integer status = null;
         String statusParam = request.getParameter("status");
 
         if ("0".equals(statusParam)) {
             status = AdminInqDAO.STATUS_WAITING;
+
         } else if ("1".equals(statusParam)) {
             status = AdminInqDAO.STATUS_ANSWERED;
         }
 
-        // 5. 삭제 상태 필터
+        // 5. 삭제여부 필터
         // 기본값 0 : 정상 문의만 표시
         // 1 : 삭제처리 문의 / all : 전체
         Integer deleted = AdminInqDAO.STATUS_ACTIVE;
@@ -77,6 +94,7 @@ public class AdminInqListProc extends HttpServlet {
 
         if ("1".equals(deletedParam)) {
             deleted = AdminInqDAO.STATUS_DELETED;
+
         } else if ("all".equals(deletedParam)) {
             deleted = null;
         }
@@ -102,6 +120,8 @@ public class AdminInqListProc extends HttpServlet {
         // 7. DAO 생성 및 전체 건수 조회
         AdminInqDAO dao = new AdminInqDAO();
 
+        // 기존 DAO 메서드 호출 유지
+        // ★ 회원명 검색 조건은 DAO에서 추가 처리 예정
         int total = dao.count(
                 searchType,
                 keyword,
@@ -110,7 +130,9 @@ public class AdminInqListProc extends HttpServlet {
         );
 
         // 8. 전체 페이지 수 계산
-        int pages = (int) Math.ceil((double) total / PAGE_SIZE);
+        int pages = (int) Math.ceil(
+                (double) total / PAGE_SIZE
+        );
 
         // 요청 페이지가 마지막 페이지보다 크면 조정
         if (pages > 0 && pageNo > pages) {
@@ -149,8 +171,11 @@ public class AdminInqListProc extends HttpServlet {
         request.setAttribute("keyword", keyword);
         request.setAttribute("status", status);
         request.setAttribute("deleted", deleted);
-        request.setAttribute("deletedFilter",
-                deleted == null ? "all" : String.valueOf(deleted));
+
+        request.setAttribute(
+                "deletedFilter",
+                deleted == null ? "all" : String.valueOf(deleted)
+        );
 
         request.setAttribute("waitingCount", waitingCount);
         request.setAttribute("answeredCount", answeredCount);

@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 
 .customer-wrap {
@@ -8,15 +9,25 @@
     background: #fff;
     border-radius: 16px;
     font-family: inherit;
+    box-sizing: border-box;
 }
 
-.customer-wrap h2 {
-    text-align: center;
-    color: #113d78;
-    font-size: 28px;
-    margin: 0 0 28px;
+/* 회원관리 제목 스타일 */
+section.customer-wrap > h2 {
+    display: block;
+    width: 100%;
+    margin: 0 0 30px;
+    padding: 0 0 15px;
+
+    text-align: left;
+    border-bottom: 2px solid #2563eb;
+
+    color: #1e3a8a;
+    font-size: 26px;
+    font-weight: 700;
 }
 
+/* 회원 검색 */
 .customer-search {
     display: flex;
     gap: 10px;
@@ -43,6 +54,7 @@
     flex: 1;
 }
 
+/* 공통 버튼 */
 .customer-wrap button,
 .customer-btn {
     display: inline-block;
@@ -72,6 +84,7 @@
     overflow-x: auto;
 }
 
+/* 회원 목록 */
 .customer-table {
     width: 100%;
     border-collapse: collapse;
@@ -112,6 +125,7 @@
     padding: 7px 12px;
 }
 
+/* 회원 상태 */
 .customer-status {
     padding: 5px 10px;
     border-radius: 20px;
@@ -128,6 +142,7 @@
     color: #9d4343;
 }
 
+/* 페이지 번호 */
 .customer-pages {
     display: flex;
     justify-content: center;
@@ -149,31 +164,68 @@
     color: #fff;
 }
 
+/* =========================================
+   ★ 수정 : 회원 상세정보 너비 통일
+   회원정보 수정 화면과 동일한 650px
+========================================= */
+
 .customer-detail {
+    width: 100%;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
     border-top: 2px solid #173f7e;
 }
 
+/* ★ 수정 : 상세정보 각 행 */
 .customer-detail > div {
     display: flex;
+    align-items: center;
     border-bottom: 1px solid #e3e9f2;
     padding: 14px;
+    box-sizing: border-box;
 }
 
+/* ★ 수정 : 항목명 */
 .customer-detail strong {
     width: 160px;
     flex-shrink: 0;
+    text-align: left;
 }
 
+/* ★ 추가 : 항목값 */
+.customer-detail span {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+/* ★ 추가 : 앞서 JSP에 적용한 클래스 지원 */
+.customer-detail.customer-detail-narrow {
+    max-width: 650px;
+}
+
+/* 상세정보 하단 버튼 */
 .customer-bottom {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 12px;
     margin-top: 24px;
 }
 
+/* =========================================
+   회원정보 수정 화면
+========================================= */
+
 .customer-edit {
+    width: 100%;
     max-width: 650px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
 }
 
 .customer-edit label {
@@ -184,7 +236,12 @@
     font-weight: 600;
 }
 
+/* =========================================
+   반응형
+========================================= */
+
 @media (max-width: 650px) {
+
     .customer-wrap {
         padding: 16px;
     }
@@ -198,6 +255,60 @@
     }
 
     .customer-detail strong {
+        width: 110px;
+    }
+
+    .customer-detail,
+    .customer-edit {
+        max-width: 100%;
+    }
+}
+
+/* =========================================
+   ★ 회원 상세정보 화면 전용 스타일
+   index.jsp / index.css 수정 불필요
+========================================= */
+
+/* ★ 상세정보 너비를 수정 화면과 동일하게 설정 */
+section.customer-wrap > .customer-detail.customer-detail-narrow {
+    display: block;
+    width: 100%;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    border-top: 1px solid #e3e9f2;
+}
+
+/* ★ 상세정보 각 행 */
+section.customer-wrap > .customer-detail.customer-detail-narrow > div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 14px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e3e9f2;
+}
+
+/* ★ 항목명 */
+section.customer-wrap > .customer-detail.customer-detail-narrow > div > strong {
+    flex: 0 0 145px;
+    width: 145px;
+    text-align: left;
+}
+
+/* ★ 항목값 */
+section.customer-wrap > .customer-detail.customer-detail-narrow > div > span {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+/* ★ 모바일 대응 */
+@media (max-width: 650px) {
+    section.customer-wrap > .customer-detail.customer-detail-narrow > div > strong {
+        flex-basis: 110px;
         width: 110px;
     }
 }

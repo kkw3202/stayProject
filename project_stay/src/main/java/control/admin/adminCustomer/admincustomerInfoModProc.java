@@ -29,7 +29,7 @@ public class admincustomerInfoModProc extends HttpServlet {
 	            AdminCustomerDAO.Member m = new AdminCustomerDAO().find(AdminCustomerSupport.number(request.getParameter("user_code")));
 
 	            if (m == null || m.getDeleted() != 0) {
-	            	response.sendRedirect(request.getContextPath() + "/customerListProc.do" );
+	            	response.sendRedirect(request.getContextPath() + "/AdminCustomerListProc.do" );
 	                return;
 	            }
 

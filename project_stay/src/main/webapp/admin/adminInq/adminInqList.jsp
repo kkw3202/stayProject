@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/adminInq.css">
 <script type="text/javascript" src="js/none_header_bottom.js" defer></script>
+
 <div class="admin-inq-wrap">
 
     <!-- 1. 페이지 제목 -->
@@ -50,19 +51,21 @@
 
         <div class="inq-search-row">
 
-            <!-- 검색 종류 -->
+            <!-- ★ 수정 : 회원코드 검색을 회원명 검색으로 변경 -->
             <select name="searchType">
                 <option value="title"
                     ${searchType == 'title' ? 'selected' : ''}>
                     제목
                 </option>
+
                 <option value="content"
                     ${searchType == 'content' ? 'selected' : ''}>
                     내용
                 </option>
-                <option value="userCode"
-                    ${searchType == 'userCode' ? 'selected' : ''}>
-                    회원코드
+
+                <option value="userName"
+                    ${searchType == 'userName' ? 'selected' : ''}>
+                    회원명
                 </option>
             </select>
 
@@ -72,35 +75,39 @@
                    value="<c:out value='${keyword}' />"
                    placeholder="검색어를 입력하세요">
 
-            <!-- 답변 상태 -->
+            <!-- ★ 수정 : 답변상태 → 답변여부 -->
             <select name="status">
                 <option value=""
                     ${empty status ? 'selected' : ''}>
-                    답변상태 전체
+                    답변여부 전체
                 </option>
+
                 <option value="0"
                     ${status == 0 ? 'selected' : ''}>
                     미답변
                 </option>
+
                 <option value="1"
                     ${status == 1 ? 'selected' : ''}>
                     답변완료
                 </option>
             </select>
 
-            <!-- 삭제 상태 -->
+            <!-- ★ 수정 : 삭제상태 → 삭제여부 -->
             <select name="deleted">
                 <option value="0"
                     ${deletedFilter == '0' ? 'selected' : ''}>
                     정상 문의
                 </option>
+
                 <option value="1"
                     ${deletedFilter == '1' ? 'selected' : ''}>
                     삭제처리 문의
                 </option>
+
                 <option value="all"
                     ${deletedFilter == 'all' ? 'selected' : ''}>
-                    전체
+                    삭제여부 전체
                 </option>
             </select>
 
@@ -133,10 +140,16 @@
                 <tr>
                     <th>문의번호</th>
                     <th>제목</th>
-                    <th>회원코드</th>
+
+                    <!-- ★ 수정 -->
+                    <th>회원명</th>
+
                     <th>작성일시</th>
-                    <th>답변상태</th>
-                    <th>삭제상태</th>
+
+                    <!-- ★ 수정 -->
+                    <th>답변여부</th>
+                    <th>삭제여부</th>
+
                     <th>상세보기</th>
                 </tr>
             </thead>
@@ -169,8 +182,9 @@
                                     </a>
                                 </td>
 
+                                <!-- ★ 수정 : 회원코드 대신 회원명 표시 -->
                                 <td>
-                                    <c:out value="${inq.userCode}" />
+                                    <c:out value="${inq.userName}" default="-" />
                                 </td>
 
                                 <td>
@@ -179,6 +193,7 @@
                                         pattern="yyyy-MM-dd HH:mm" />
                                 </td>
 
+                                <!-- 답변여부 -->
                                 <td>
                                     <c:choose>
                                         <c:when test="${inq.chkStatus == 0}">
@@ -186,6 +201,7 @@
                                                 미답변
                                             </span>
                                         </c:when>
+
                                         <c:otherwise>
                                             <span class="inq-status inq-status-answered">
                                                 답변완료
@@ -194,6 +210,7 @@
                                     </c:choose>
                                 </td>
 
+                                <!-- 삭제여부 -->
                                 <td>
                                     <c:choose>
                                         <c:when test="${inq.deleted == 0}">
@@ -201,6 +218,7 @@
                                                 정상
                                             </span>
                                         </c:when>
+
                                         <c:otherwise>
                                             <span class="inq-status inq-status-deleted">
                                                 삭제처리
@@ -250,7 +268,7 @@
             <c:set var="endPage" value="${pages}" />
         </c:if>
 
-        <!-- 검색 조건 유지 -->
+        <!-- 기존 검색 조건 유지 -->
         <c:url var="pageUrl" value="/AdminInqListProc.do">
             <c:param name="searchType" value="${searchType}" />
             <c:param name="keyword" value="${keyword}" />

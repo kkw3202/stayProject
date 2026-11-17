@@ -3,20 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="style/adminBook.css">
-<script type="text/javascript" src="js/none_header_bottom.js" defer></script>
+<link rel="stylesheet"
+      href="${pageContext.request.contextPath}/style/adminBook.css">
+
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/none_header_bottom.js"
+        defer></script>
+
 <div class="admin-book-container">
 
     <h2>예약 관리</h2>
 
-    <%-- 1. 수정 및 삭제 처리 결과 메시지 --%>
+    <%-- ★ 수정 : 예약 목록 로딩 완료 후 결과 메시지 표시 --%>
     <c:if test="${not empty bookMsg}">
-        <script>
-            alert("${bookMsg}");
-        </script>
+        <span id="adminBookFlashMessage" hidden><c:out value="${bookMsg}"/></span>
     </c:if>
 
-    <%-- 2. 예약 상태별 현황 --%>
+    <%-- 1. 예약 상태별 현황 --%>
     <div class="admin-book-summary">
 
         <div class="summary-item">
@@ -34,7 +37,7 @@
             <strong>${canceledCount}</strong>
         </div>
 
-        <%-- [임시 정책] 상태값 4 : 관리자 소프트 삭제 --%>
+        <%-- 임시 정책 : 상태값 4 = 관리자 소프트 삭제 --%>
         <div class="summary-item">
             <span>삭제처리</span>
             <strong>${deletedCount}</strong>
@@ -42,9 +45,10 @@
 
     </div>
 
-    <%-- 3. 예약 검색 및 상태 필터 --%>
+    <%-- 2. 예약 검색 및 상태 필터 --%>
     <form action="${pageContext.request.contextPath}/AdminBookListProc.do"
-          method="get" class="admin-book-search">
+          method="get"
+          class="admin-book-search">
 
         <select name="status">
             <option value="" ${empty param.status ? 'selected' : ''}>전체 상태</option>
@@ -54,24 +58,41 @@
             <option value="4" ${param.status eq '4' ? 'selected' : ''}>삭제처리</option>
         </select>
 
+        <select name="memberType">
+            <option value="" ${empty memberType ? 'selected' : ''}>회원구분 전체</option>
+            <option value="1" ${memberType eq '1' ? 'selected' : ''}>회원</option>
+            <option value="0" ${memberType eq '0' ? 'selected' : ''}>비회원</option>
+        </select>
+
         <select name="searchType">
             <option value="name" ${searchType eq 'name' ? 'selected' : ''}>예약자명</option>
             <option value="number" ${searchType eq 'number' ? 'selected' : ''}>예약번호</option>
         </select>
 
-        <input type="text" name="keyword" value="<c:out value='${keyword}'/>"
+        <input type="text"
+               name="keyword"
+               value="<c:out value='${keyword}'/>"
                placeholder="검색어를 입력하세요">
 
         <button type="submit">검색</button>
+
         <a href="${pageContext.request.contextPath}/AdminBookListProc.do"
-           class="admin-book-reset">초기화</a>
+           class="admin-book-reset">
+            초기화
+        </a>
+
     </form>
-    <!-- 검색 결과 건수 -->
-    <p class="admin-book-count" align="right"> 총 ${total }건</p>
+
+    <%-- 3. 검색 결과 건수 --%>
+    <p class="admin-book-count" style="text-align:right;">
+        총 ${total}건
+    </p>
+
     <%-- 4. 예약 목록 --%>
     <div class="admin-book-table-wrap">
 
         <table class="admin-book-table">
+
             <thead>
                 <tr>
                     <th>예약코드</th>
@@ -87,7 +108,9 @@
             </thead>
 
             <tbody>
+
                 <c:choose>
+
                     <c:when test="${empty books}">
                         <tr>
                             <td colspan="9" class="admin-book-empty">
@@ -97,16 +120,28 @@
                     </c:when>
 
                     <c:otherwise>
+
                         <c:forEach var="book" items="${books}">
+
                             <tr>
                                 <td>${book.bookCode}</td>
-                                <td><c:out value="${book.bookNumber}"/></td>
-                                <td><c:out value="${book.bookName}"/></td>
+
+                                <td>
+                                    <c:out value="${book.bookNumber}"/>
+                                </td>
+
+                                <td>
+                                    <c:out value="${book.bookName}"/>
+                                </td>
 
                                 <td>
                                     <c:choose>
-                                        <c:when test="${book.isMember eq 1}">회원</c:when>
-                                        <c:otherwise>비회원</c:otherwise>
+                                        <c:when test="${book.isMember eq 1}">
+                                            회원
+                                        </c:when>
+                                        <c:otherwise>
+                                            비회원
+                                        </c:otherwise>
                                     </c:choose>
                                 </td>
 
@@ -116,19 +151,35 @@
 
                                 <td>
                                     <c:choose>
+
                                         <c:when test="${book.status eq 1}">
-                                            <span class="book-status canceled">예약취소</span>
+                                            <span class="book-status canceled">
+                                                예약취소
+                                            </span>
                                         </c:when>
+
                                         <c:when test="${book.status eq 2}">
-                                            <span class="book-status expired">예약만료</span>
+                                            <span class="book-status expired">
+                                                예약만료
+                                            </span>
                                         </c:when>
+
                                         <c:when test="${book.status eq 3}">
-                                            <span class="book-status reserved">예약중</span>
+                                            <span class="book-status reserved">
+                                                예약중
+                                            </span>
                                         </c:when>
+
                                         <c:when test="${book.status eq 4}">
-                                            <span class="book-status deleted">삭제처리</span>
+                                            <span class="book-status deleted">
+                                                삭제처리
+                                            </span>
                                         </c:when>
-                                        <c:otherwise>상태확인</c:otherwise>
+
+                                        <c:otherwise>
+                                            상태확인
+                                        </c:otherwise>
+
                                     </c:choose>
                                 </td>
 
@@ -138,21 +189,30 @@
                                         상세보기
                                     </a>
                                 </td>
+
                             </tr>
+
                         </c:forEach>
+
                     </c:otherwise>
+
                 </c:choose>
+
             </tbody>
+
         </table>
 
     </div>
 
-    
     <%-- 5. 페이징 처리 : 10페이지 단위 --%>
 
     <c:set var="pageBlock" value="10"/>
-	<c:set var="startPage" value="${pageNo - ((pageNo - 1) mod pageBlock)}"/>
-    <c:set var="endPage" value="${startPage + pageBlock - 1}"/>
+
+    <c:set var="startPage"
+           value="${pageNo - ((pageNo - 1) mod pageBlock)}"/>
+
+    <c:set var="endPage"
+           value="${startPage + pageBlock - 1}"/>
 
     <c:if test="${endPage > pages}">
         <c:set var="endPage" value="${pages}"/>
@@ -167,6 +227,7 @@
                 <c:param name="page" value="1"/>
                 <c:param name="searchType" value="${searchType}"/>
                 <c:param name="keyword" value="${keyword}"/>
+                <c:param name="memberType" value="${memberType}"/>
                 <c:if test="${not empty status}">
                     <c:param name="status" value="${status}"/>
                 </c:if>
@@ -176,31 +237,38 @@
 
             <%-- 이전 10페이지 묶음 --%>
             <c:if test="${startPage > 1}">
+
                 <c:url var="prevUrl" value="/AdminBookListProc.do">
                     <c:param name="page" value="${startPage - 1}"/>
                     <c:param name="searchType" value="${searchType}"/>
                     <c:param name="keyword" value="${keyword}"/>
+                    <c:param name="memberType" value="${memberType}"/>
                     <c:if test="${not empty status}">
                         <c:param name="status" value="${status}"/>
                     </c:if>
                 </c:url>
 
                 <a href="${prevUrl}">이전</a>
+
             </c:if>
 
-            <%-- 현재 묶음의 페이지 번호 --%>
-            <c:forEach var="p" begin="${startPage}" end="${endPage}">
+            <%-- 현재 페이지 묶음 --%>
+            <c:forEach var="p"
+                       begin="${startPage}"
+                       end="${endPage}">
 
                 <c:url var="pageUrl" value="/AdminBookListProc.do">
                     <c:param name="page" value="${p}"/>
                     <c:param name="searchType" value="${searchType}"/>
                     <c:param name="keyword" value="${keyword}"/>
+                    <c:param name="memberType" value="${memberType}"/>
                     <c:if test="${not empty status}">
                         <c:param name="status" value="${status}"/>
                     </c:if>
                 </c:url>
 
-                <a href="${pageUrl}" class="${p eq pageNo ? 'active' : ''}">
+                <a href="${pageUrl}"
+                   class="${p eq pageNo ? 'active' : ''}">
                     ${p}
                 </a>
 
@@ -208,16 +276,19 @@
 
             <%-- 다음 10페이지 묶음 --%>
             <c:if test="${endPage < pages}">
+
                 <c:url var="nextUrl" value="/AdminBookListProc.do">
                     <c:param name="page" value="${endPage + 1}"/>
                     <c:param name="searchType" value="${searchType}"/>
                     <c:param name="keyword" value="${keyword}"/>
+                    <c:param name="memberType" value="${memberType}"/>
                     <c:if test="${not empty status}">
                         <c:param name="status" value="${status}"/>
                     </c:if>
                 </c:url>
 
                 <a href="${nextUrl}">다음</a>
+
             </c:if>
 
             <%-- 마지막 페이지 --%>
@@ -225,6 +296,7 @@
                 <c:param name="page" value="${pages}"/>
                 <c:param name="searchType" value="${searchType}"/>
                 <c:param name="keyword" value="${keyword}"/>
+                <c:param name="memberType" value="${memberType}"/>
                 <c:if test="${not empty status}">
                     <c:param name="status" value="${status}"/>
                 </c:if>
@@ -236,5 +308,20 @@
 
     </div>
 
-
 </div>
+
+<%-- ★ 추가 : 전체 페이지 로딩 후 예약 결과 알림 표시 --%>
+<c:if test="${not empty bookMsg}">
+    <script>
+        window.addEventListener("load", function() {
+
+            const messageElement =
+                document.getElementById("adminBookFlashMessage");
+
+            if (messageElement) {
+                alert(messageElement.textContent);
+            }
+
+        });
+    </script>
+</c:if>

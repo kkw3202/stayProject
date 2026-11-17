@@ -1,7 +1,11 @@
 
 package model.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,26 +13,14 @@ import DBPKG.Util;
 
 public class AdminBookDAO {
 
-    // 실제 DB 테이블명에 맞게 수정
     private static final String TABLE_NAME = "booking";
 
-    /*
-     * 예약 상태값
-     * 1 : 예약취소
-     * 2 : 예약만료
-     * 3 : 예약중 (기본값)
-     *
-     * [임시 정책 - 추후 회의 결과에 따라 변경]
-     * 4 : 관리자 소프트 삭제
-     *
-     * 실제 DELETE문은 사용하지 않음.
-     */
     public static final int STATUS_CANCEL = 1;
     public static final int STATUS_EXPIRED = 2;
     public static final int STATUS_RESERVED = 3;
     public static final int STATUS_ADMIN_DELETED = 4;
 
-    // 예약 정보를 담는 DTO
+    // 1. 예약 정보 DTO
     public static class Book {
 
         private int bookCode;
@@ -43,6 +35,12 @@ public class AdminBookDAO {
         private Date cancelDate;
         private int isMember;
         private int status;
+
+        // ★ 추가 : 예약 상세정보 표시용 필드
+        private String accName;
+        private String accAddress;
+        private String roomName;
+        private long bookPrice;
 
         public int getBookCode() {
             return bookCode;
@@ -91,42 +89,56 @@ public class AdminBookDAO {
         public int getStatus() {
             return status;
         }
+
+        // ★ 추가 : 숙소명
+        public String getAccName() {
+            return accName;
+        }
+
+        // ★ 추가 : 숙소주소
+        public String getAccAddress() {
+            return accAddress;
+        }
+
+        // ★ 추가 : 객실명
+        public String getRoomName() {
+            return roomName;
+        }
+
+        // ★ 추가 : 예약금액
+        public long getBookPrice() {
+            return bookPrice;
+        }
     }
 
-    // ResultSet의 한 행을 Book 객체로 변환
+    // 2. ResultSet → Book 객체 변환
     private Book mapBook(ResultSet rs) throws SQLException {
 
-        Book b = new Book();
+        Book book = new Book();
 
-        b.bookCode = rs.getInt("book_code");
-        b.bookName = rs.getString("book_name");
+        book.bookCode = rs.getInt("book_code");
+        book.bookName = rs.getString("book_name");
 
         int userCode = rs.getInt("user_code");
-        b.userCode = rs.wasNull() ? null : userCode;
+        book.userCode = rs.wasNull() ? null : userCode;
 
         int guestCode = rs.getInt("guest_code");
-        b.guestCode = rs.wasNull() ? null : guestCode;
+        book.guestCode = rs.wasNull() ? null : guestCode;
 
-        b.checkinDate = rs.getDate("book_checkin_date");
-        b.checkoutDate = rs.getDate("book_checkout_date");
-        b.bookDate = rs.getDate("book_date");
+        book.checkinDate = rs.getDate("book_checkin_date");
+        book.checkoutDate = rs.getDate("book_checkout_date");
+        book.bookDate = rs.getDate("book_date");
+        book.roomCode = rs.getInt("room_code");
+        book.bookNumber = rs.getString("book_number");
+        book.cancelDate = rs.getDate("book_cancel_date");
+        book.isMember = rs.getInt("book_is_member");
+        book.status = rs.getInt("book_chk_status");
 
-        b.roomCode = rs.getInt("room_code");
-        b.bookNumber = rs.getString("book_number");
-        b.cancelDate = rs.getDate("book_cancel_date");
-
-        b.isMember = rs.getInt("book_is_member");
-        b.status = rs.getInt("book_chk_status");
-
-        return b;
+        return book;
     }
 
-    // 검색할 컬럼을 안전하게 선택
+    // 3. 검색 컬럼 선택
     private String searchColumn(String type) {
-
-        if ("name".equals(type)) {
-            return "book_name";
-        }
 
         if ("number".equals(type)) {
             return "book_number";
@@ -135,15 +147,17 @@ public class AdminBookDAO {
         return "book_name";
     }
 
-    // 검색 조건 생성
-    private String searchWhere(String type, String keyword,
-                               Integer status) {
+    // 4. 검색 조건 구성
+    // ★ 유지 : 회원/비회원 필터 기능
+    private String searchWhere(
+            String type,
+            String keyword,
+            Integer status,
+            Integer isMember) {
 
         StringBuilder where =
                 new StringBuilder(" WHERE 1=1 ");
 
-        // 관리자 소프트 삭제된 예약은 기본 목록에서 제외
-        // [임시 정책: 상태값 4]
         if (status == null) {
             where.append(" AND book_chk_status <> 4 ");
         } else {
@@ -156,13 +170,19 @@ public class AdminBookDAO {
                  .append(" LIKE ? ");
         }
 
+        if (isMember != null) {
+            where.append(" AND book_is_member = ? ");
+        }
+
         return where.toString();
     }
 
-    // 검색 조건의 ? 값 설정
-    private void bindSearch(PreparedStatement pstmt,
-                            String keyword, Integer status)
-                            throws SQLException {
+    // 5. 검색 조건 바인딩
+    private void bindSearch(
+            PreparedStatement pstmt,
+            String keyword,
+            Integer status,
+            Integer isMember) throws SQLException {
 
         int index = 1;
 
@@ -171,22 +191,37 @@ public class AdminBookDAO {
         }
 
         if (keyword != null && !keyword.trim().isEmpty()) {
-            pstmt.setString(index++, "%" + keyword.trim() + "%");
+            pstmt.setString(
+                    index++,
+                    "%" + keyword.trim() + "%"
+            );
+        }
+
+        if (isMember != null) {
+            pstmt.setInt(index++, isMember);
         }
     }
 
-    // 전체 예약 건수 및 검색 결과 건수
-    public int count(String type, String keyword, Integer status) {
+    // 6. 검색 결과 건수
+    public int count(
+            String type,
+            String keyword,
+            Integer status,
+            Integer isMember) {
 
-        String sql = "SELECT COUNT(*) FROM " + TABLE_NAME
-                   + searchWhere(type, keyword, status);
+        String sql =
+                "SELECT COUNT(*) FROM " + TABLE_NAME
+                + searchWhere(type, keyword, status, isMember);
 
-        try (Connection con = Util.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+        try (
+            Connection con = Util.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
 
-            bindSearch(pstmt, keyword, status);
+            bindSearch(pstmt, keyword, status, isMember);
 
             try (ResultSet rs = pstmt.executeQuery()) {
+
                 if (rs.next()) {
                     return rs.getInt(1);
                 }
@@ -199,24 +234,31 @@ public class AdminBookDAO {
         return 0;
     }
 
-    // 예약 목록 조회 및 페이징
-    public List<Book> list(String type, String keyword,
-                           Integer status, int page, int pageSize) {
+    // 7. 예약 목록 조회
+    public List<Book> list(
+            String type,
+            String keyword,
+            Integer status,
+            Integer isMember,
+            int page,
+            int pageSize) {
 
         List<Book> result = new ArrayList<>();
 
         page = Math.max(page, 1);
         pageSize = Math.max(pageSize, 1);
 
-        String sql = "SELECT * FROM " + TABLE_NAME
-                   + searchWhere(type, keyword, status)
-                   + " ORDER BY book_code DESC "
-                   + " LIMIT ? OFFSET ?";
+        String sql =
+                "SELECT * FROM " + TABLE_NAME
+                + searchWhere(type, keyword, status, isMember)
+                + " ORDER BY book_code DESC LIMIT ? OFFSET ?";
 
-        try (Connection con = Util.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+        try (
+            Connection con = Util.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
 
-            bindSearch(pstmt, keyword, status);
+            bindSearch(pstmt, keyword, status, isMember);
 
             int index = 1;
 
@@ -225,6 +267,10 @@ public class AdminBookDAO {
             }
 
             if (keyword != null && !keyword.trim().isEmpty()) {
+                index++;
+            }
+
+            if (isMember != null) {
                 index++;
             }
 
@@ -245,21 +291,46 @@ public class AdminBookDAO {
         return result;
     }
 
-    // 예약 상세 조회
+    // 8. 예약 상세조회
+    // ★ 수정 : room, accommodation 테이블 JOIN
     public Book find(int bookCode) {
 
-        String sql = "SELECT * FROM " + TABLE_NAME
-                   + " WHERE book_code=?";
+        String sql =
+                "SELECT b.*, "
+                + "a.acc_name, "
+                + "a.acc_address, "
+                + "r.room_name, "
+                + "(DATEDIFF("
+                + "b.book_checkout_date, "
+                + "b.book_checkin_date"
+                + ") * r.room_price) AS book_price "
+                + "FROM booking b "
+                + "LEFT JOIN room r "
+                + "ON b.room_code = r.room_code "
+                + "LEFT JOIN accommodation a "
+                + "ON r.acc_code = a.acc_code "
+                + "WHERE b.book_code = ?";
 
-        try (Connection con = Util.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+        try (
+            Connection con = Util.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
 
             pstmt.setInt(1, bookCode);
 
             try (ResultSet rs = pstmt.executeQuery()) {
 
                 if (rs.next()) {
-                    return mapBook(rs);
+
+                    Book book = mapBook(rs);
+
+                    // ★ 추가 : 숙소 및 객실 정보 저장
+                    book.accName = rs.getString("acc_name");
+                    book.accAddress = rs.getString("acc_address");
+                    book.roomName = rs.getString("room_name");
+                    book.bookPrice = rs.getLong("book_price");
+
+                    return book;
                 }
             }
 
@@ -270,39 +341,41 @@ public class AdminBookDAO {
         return null;
     }
 
-    /*
-     * 예약 정보 수정
-     *
-     * 예약자명, 체크인·체크아웃 날짜를 수정한다.
-     * 예약번호, 회원코드, 비회원코드는 변경하지 않는다.
-     *
-     * 소프트 삭제된 예약은 수정 불가.
-     */
-    public boolean update(int bookCode, String bookName,
-                          Date checkinDate, Date checkoutDate) {
+    // 9. 예약 수정
+    public boolean update(
+            int bookCode,
+            String bookName,
+            Date checkinDate,
+            Date checkoutDate) {
 
-        if (bookName == null || bookName.trim().isEmpty()
-                || checkinDate == null || checkoutDate == null
+        if (bookCode <= 0
+                || bookName == null
+                || bookName.trim().isEmpty()
+                || checkinDate == null
+                || checkoutDate == null
                 || !checkoutDate.after(checkinDate)) {
             return false;
         }
 
-        String sql = "UPDATE " + TABLE_NAME
-                   + " SET book_name=?, "
-                   + " book_checkin_date=?, "
-                   + " book_checkout_date=? "
-                   + " WHERE book_code=? "
-                   + " AND book_chk_status <> 4";
+        String sql =
+                "UPDATE booking "
+                + "SET book_name = ?, "
+                + "book_checkin_date = ?, "
+                + "book_checkout_date = ? "
+                + "WHERE book_code = ? "
+                + "AND book_chk_status <> 4";
 
-        try (Connection con = Util.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+        try (
+            Connection con = Util.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
 
             pstmt.setString(1, bookName.trim());
             pstmt.setDate(2, checkinDate);
             pstmt.setDate(3, checkoutDate);
             pstmt.setInt(4, bookCode);
 
-            return pstmt.executeUpdate() == 1;
+            return pstmt.executeUpdate() > 0;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -311,30 +384,23 @@ public class AdminBookDAO {
         return false;
     }
 
-    /*
-     * 관리자 예약 소프트 삭제
-     *
-     * [임시 정책 - 추후 회의 결과에 따라 변경]
-     * book_chk_status = 4
-     *
-     * 실제 데이터를 삭제하지 않고 상태값만 변경한다.
-     * book_cancel_date는 변경하지 않는다.
-     *
-     * 4번 상태의 예약은 중복 삭제 불가.
-     */
+    // 10. 예약 소프트 삭제
     public boolean softDeleteBook(int bookCode) {
 
-        String sql = "UPDATE " + TABLE_NAME
-                   + " SET book_chk_status=4 "
-                   + " WHERE book_code=? "
-                   + " AND book_chk_status<>4";
+        String sql =
+                "UPDATE booking "
+                + "SET book_chk_status = 4 "
+                + "WHERE book_code = ? "
+                + "AND book_chk_status <> 4";
 
-        try (Connection con = Util.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+        try (
+            Connection con = Util.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
 
             pstmt.setInt(1, bookCode);
 
-            return pstmt.executeUpdate() == 1;
+            return pstmt.executeUpdate() > 0;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -343,18 +409,23 @@ public class AdminBookDAO {
         return false;
     }
 
-    // 예약 상태별 건수
+    // 11. 예약 상태별 건수
     public int countByStatus(int status) {
 
-        String sql = "SELECT COUNT(*) FROM " + TABLE_NAME
-                   + " WHERE book_chk_status=?";
+        String sql =
+                "SELECT COUNT(*) "
+                + "FROM booking "
+                + "WHERE book_chk_status = ?";
 
-        try (Connection con = Util.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+        try (
+            Connection con = Util.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql)
+        ) {
 
             pstmt.setInt(1, status);
 
             try (ResultSet rs = pstmt.executeQuery()) {
+
                 if (rs.next()) {
                     return rs.getInt(1);
                 }

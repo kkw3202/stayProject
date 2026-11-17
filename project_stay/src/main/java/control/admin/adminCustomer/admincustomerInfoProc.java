@@ -28,7 +28,7 @@ public class admincustomerInfoProc extends HttpServlet {
             AdminCustomerDAO.Member m = new AdminCustomerDAO().find(AdminCustomerSupport.number(request.getParameter("user_code")));
 
             if (m == null) {
-            	response.sendRedirect(request.getContextPath() + "/customerListProc.do" );
+            	response.sendRedirect(request.getContextPath() + "/AdminCustomerListProc.do" );
                 return;
             }
 

@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+/* =========================================
+   머물:多 비밀번호 찾기 전용 CSS
+   loginForm.jsp 디자인과 통일
+========================================= */
+
+/* 전체 영역 */
+.pass-change-page,
+.pass-change-page * {
+    box-sizing: border-box;
+}
+
+.pass-change-page {
+    width: 100%;
+    padding: 55px 20px 80px;
+    background: #f5f8fc;
+    font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+    color: #102b50;
+}
+
+/* 중앙 카드 */
+.pass-change-page .pass-change-card {
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 45px 50px;
+    background: #ffffff;
+    border-radius: 17px;
+    box-shadow: 0 12px 35px rgba(15, 43, 82, 0.10);
+}
+
+/* 제목 */
+.pass-change-page h2 {
+    margin: 0 0 12px;
+    color: #092d5b;
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+}
+
+/* 설명 */
+.pass-change-page .pass-description {
+    margin: 0 0 35px;
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+/* 입력 항목 */
+.pass-change-page .pass-field {
+    margin-bottom: 20px;
+}
+
+/* 항목명 */
+.pass-change-page .pass-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #1c3555;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* 입력창 */
+.pass-change-page .pass-field input {
+    display: block;
+    width: 100%;
+    height: 49px;
+    padding: 0 15px;
+    border: 1px solid #cfd9e7;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #183354;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+/* 입력창 선택 */
+.pass-change-page .pass-field input:focus {
+    border-color: #17569e;
+    box-shadow: 0 0 0 3px rgba(23, 86, 158, .10);
+}
+
+.pass-change-page .pass-field input::placeholder {
+    color: #9aa8bb;
+}
+
+/* 버튼 영역 */
+.pass-change-page .pass-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+/* 버튼 공통 */
+.pass-change-page .pass-buttons button,
+.pass-change-page .pass-buttons a,
+.pass-change-page .pass-buttons input[type="submit"],
+.pass-change-page .pass-buttons input[type="button"] {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    height: 49px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 본인 확인 버튼 */
+.pass-change-page .pass-submit {
+    border: 0;
+    background: #114782;
+    color: #ffffff;
+}
+
+.pass-change-page .pass-submit:hover {
+    background: #0a3566;
+}
+
+/* 취소 버튼 */
+.pass-change-page .pass-cancel {
+    border: 1px solid #1a5596;
+    background: #ffffff;
+    color: #153d70;
+}
+
+.pass-change-page .pass-cancel:hover {
+    background: #f0f6ff;
+}
+
+/* 모바일 대응 */
+@media (max-width: 650px) {
+
+    .pass-change-page {
+        padding: 25px 12px 45px;
+    }
+
+    .pass-change-page .pass-change-card {
+        padding: 32px 22px;
+    }
+
+    .pass-change-page h2 {
+        font-size: 24px;
+    }
+
+    .pass-change-page .pass-buttons {
+        gap: 8px;
+    }
+}
