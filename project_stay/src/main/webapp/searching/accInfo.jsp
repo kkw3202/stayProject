@@ -28,12 +28,13 @@
 			<div class="right">
 				<button type="button" onclick="${empty sessionScope.user_email ? 'pleasJoin();' : 'location.href=\'wishListAddcon.do?acc_code=' += pdto.acc_code += '\''}" ></button> <!-- 찜 추가 버튼 -->
 				<c:set var="low" value="999999999999"/>
-				<c:forEach items="${rdto_arr }" var="rdto">
+				<c:forEach items="${rdto_arr }" var="rdto" varStatus="stat">
 					<c:if test="${rdto.room_price<low}">
 						<c:set var="low" value="${rdto.room_price }"/>
+						<c:set var="lowIndex" value="${stat.count-1 }"/>
 					</c:if>
 				</c:forEach>
-				<p class="low_price"><span class="per_oneday">1박</span>${low }원</p>
+				<p class="low_price"><span class="per_oneday">1박</span>${rdto_arr[lowIndex].prt_room_price }원</p>
 			</div>
 		</div>
 		<div class="room_list">
@@ -51,7 +52,7 @@
 								<p>입실 : ${pdto.acc_checkinTime }, 퇴실 : ${pdto.acc_checkoutTime }</p>
 							</div>
 							<div class="right">
-								<p>${diffDays * rdto.room_price }원</p>
+								<p>${rdto.prt_room_price }원</p>
 								<button type="submit">객실 예약하기</button>
 							</div>
 						</div>

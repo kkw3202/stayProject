@@ -1,6 +1,7 @@
 package control.searching;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -87,10 +88,18 @@ public class accInfoProc extends HttpServlet {
 		rdto_arr = rdao.getAllRoom_acc(book_checkin_date,book_checkout_date,acc_code);
 		
 		request.setAttribute("pdto", pdto);
-		request.setAttribute("rdto_arr", rdto_arr);
+		
+		DecimalFormat de = new DecimalFormat("#,##0");
+		
+		for(RoomDTO rp : rdto_arr) {
+			int price = rp.getRoom_price();
+			int total = price * diffDays;
+			rp.setPrt_room_price(de.format(total));
+		}
 		
 
 		
+			request.setAttribute("rdto_arr", rdto_arr);
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=searching/accInfo.jsp");
 		rd.forward(request, response);
 	}

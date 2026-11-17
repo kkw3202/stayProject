@@ -18,6 +18,7 @@ public class placeDTO {
 	private int room_code;
 	private String room_name;
 	private int room_price;
+	private String prt_room_price;
 	private int room_count;
 	private int room_capacity;
 	private String room_info;
@@ -181,6 +182,13 @@ public class placeDTO {
 	public void setAvg_rating(double avg_rating) {
 		this.avg_rating = avg_rating;
 	}
+	public String getPrt_room_price() {
+		return prt_room_price;
+	}
+	public void setPrt_room_price(String prt_room_price) {
+		this.prt_room_price = prt_room_price;
+	}
+	
 	
 
 	

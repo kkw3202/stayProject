@@ -25,7 +25,9 @@
 				<li class="search_filter_room_price_container">	
 					<h6>가격</h6>
 					<div class="search_filter_room_capacity_wrap">
-						<!-- 슬라이드바 넣을 자리 -->
+						<ul>
+							<li>~</li>
+						</ul>
 					</div>
 				</li>			
 				<li class="search_filter_room_capacity_container">
@@ -53,9 +55,9 @@
 			</ul>
 		</div>
 		<div class="search_btn_wrap">
-			<button class="now_selected" onclick="">인기 많은순</button>
-			<button onclick="">가격 낮은순</button>
-			<button onclick="">평점 높은순</button>
+			<button class="search_btn ${orderBy == 'most' || empty orderBy ? 'now_selected' : '' }" onclick="location.href='searchingListProc.do?orderBy=most&selectedDays=${book_checkin_date}&selectedDays=${book_checkout_date }'">인기 많은순</button> <!-- most -->
+			<button class="search_btn ${orderBy == 'LPrice' ? 'now_selected' : '' }" onclick="location.href='searchingListProc.do?orderBy=LPrice&selectedDays=${book_checkin_date}&selectedDays=${book_checkout_date }'">가격 낮은순</button> <!-- LPrice -->
+			<button class="search_btn ${orderBy == 'HRating' ? 'now_selected' : '' }" onclick="location.href='searchingListProc.do?orderBy=HRating&selectedDays=${book_checkin_date}&selectedDays=${book_checkout_date }'">평점 높은순</button> <!-- HRating -->
 		</div>
 		<div class="search_wrap">
 			<c:set var="cnt_item" value="0"></c:set>
@@ -65,6 +67,7 @@
 					<input type="hidden" value="${sa_arr.min_room_capacity }" name="min_room_capacity">
 					<input type="hidden" value="${sa_arr.max_room_capacity }" name="max_room_capacity">
 					<input type="hidden" value="${sa_arr.acc_facility }" name="acc_facility">
+					<input type="hidden" value="${sa_arr.prt_room_price }" name="room_price">	
 					<div class="acc_card_left">
 						<img alt="${sa_arr.acc_name }전경 이미지" src="${sa_arr.acc_img }">
 					</div>
@@ -90,7 +93,7 @@
 								</li>
 						</ul>
 						<ul class="acc_card_right">
-							<li class="room_price">${sa_arr.room_price }</li>
+							<li class="room_price">${sa_arr.prt_room_price }</li>
 							<li class="info_link_btn"><button type="button" onclick="location.href='accInfoProc.do?acc_code=${sa_arr.acc_code}&book_checkin_date=${book_checkin_date }&book_checkout_date=${book_checkout_date }'">객실 보기</button></li> <!-- 객실 보기 버튼 -->
 						</ul>
 					</div>
@@ -137,7 +140,7 @@
 		cards.forEach((item)=> {
 			let one_facility = item.querySelector('input[name="acc_facility"]');
 			
-			if(!one_facility.includes(facility)){  //  여기 에러남. 위의 값 못받아오는듯 함!
+			if(!one_facility.value.includes(facility)){  //  여기 에러남. 위의 값 못받아오는듯 함!
 				item.classList.add("noShow");
 			}
 		});

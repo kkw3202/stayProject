@@ -18,12 +18,15 @@
 				</div>
 				<div class="pay_btn_wrap">
 					<ul>
-						<c:forTokens items="신용카드, 현장결제" delims=", " varStatus="status" var="item">
-							<li></li>
+						<c:forTokens items="통신사결제, 신용카드" delims=", " varStatus="status" var="item">
+							<li class="pay_btn" id="pay_btn_${status.count-1 }"><button type="button" onclick="pay_type_sel(${status.count-1 })">${item }</button></li>
 						</c:forTokens>
 					</ul>
-					<!-- 결제 타입 선택 버튼 추가 -->
 				</div>
+			</div>
+			<div id="pay_modal_back" class="noShow" onclick="add_noShow()">
+				<div id="pay_modal"></div>
+				<input type="hidden" value="none" id="pay_type">
 			</div>
 			<div class="right">
 				<div class="room_info">
@@ -66,7 +69,7 @@
 					</div>
 				</div>
 				<div class="submit_btn_wrap">
-					<button type="button" onclick="submit_form()">${totalPrice }원 결제하기</button>
+					<button type="button" onclick="show_pay_modal()">${totalPrice }원 결제하기</button>
 				</div>
 			</div>
 			<div class="hidden_wrap">
@@ -77,11 +80,17 @@
 		</form>
 	</div>
 	<script type="text/javascript" defer="defer">
+		let how_pay = ["통신사결제", "신용카드"];
+		
 		function submit_form(){
+			let f = document.pform;
+			f.submit();
+		}
+		function show_pay_modal(){
 			let allAgree = document.getElementById("allAgree");
 			let book_name = document.getElementById("book_name");
 			let phone = document.getElementById("phone");
-			let f = document.pform;
+			let pay_type = document.getElementById("pay_type");
 			
 			if(book_name.value.trim()==""){
 				alert("필수 입력사항을 입력해 주세요");
@@ -93,11 +102,47 @@
 				phone.focus();
 				return;
 			}
+			if(pay_type.value=="none"){
+				alert("결제 수단을 선택해 주세요.");
+				return;
+			}
 			if(!allAgree.checked){
 				alert("약관을 읽고, 동의해주세요");
 				return;
 			}
-			f.submit();
+			
+			let num = pay_type.value;
+			let sel_how_pay = how_pay[num];
+			let pay_modal = document.getElementById("pay_modal");
+			pay_modal.innerHTML = "<button type='button' onclick='add_noShow()'>X</button>";
+			console.log(sel_how_pay);
+			pay_modal.innerHTML += sel_how_pay;
+			pay_modal.innerHTML += "<p>결제를 진행합니다.</p>";
+			pay_modal.innerHTML += "<button type='button' onclick='submit_form()'>${totalPrice }원 결제하기</button>";
+			show_modal();
+		}
+		
+		function show_modal(){
+			let pay_modal_back = document.getElementById("pay_modal_back");
+			pay_modal_back.classList.remove("noShow");
+		}
+		
+		function add_noShow(){
+			let pay_modal_back = document.getElementById("pay_modal_back");
+			pay_modal_back.classList.add("noShow");
+		}
+		
+		function pay_type_sel(num){
+			let pay_type = document.getElementById("pay_type");
+			pay_type.value = num;
+		
+			let pay_btns = document.querySelectorAll(".pay_btn");
+			
+			pay_btns.forEach((item) => {
+				item.classList.remove("selected");
+			});
+
+			pay_btns[num].classList.add("selected");
 		}
 	
 		

@@ -1,6 +1,7 @@
 package control.booking;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ public class bookingProc extends HttpServlet {
 		int room_code = Integer.parseInt(request.getParameter("room_code"));
 		String acc_checkinTime = request.getParameter("acc_checkinTime");
 		String book_checkout_date = request.getParameter("book_checkout_date");
-		String totalPrice = request.getParameter("totalPrice");
+		int get_totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
 		String acc_code = request.getParameter("acc_code");
 		String room_img1 = request.getParameter("room_img1");
 		String room_name = request.getParameter("room_name");
@@ -33,8 +34,13 @@ public class bookingProc extends HttpServlet {
 		String acc_checkoutTime = request.getParameter("acc_checkoutTime");
 		String room_capacity = request.getParameter("room_capacity");
 		String room_info = request.getParameter("room_info");
+		int get_room_price = Integer.parseInt(request.getParameter("room_price"));
 	
 		HttpSession session = request.getSession(false);
+		
+		DecimalFormat de = new DecimalFormat("#,##0");
+		String totalPrice = de.format(get_totalPrice);
+		String room_price = de.format(get_room_price);
 		
 		if(session != null) {
 			String user_email = (String) session.getAttribute("user_email");
@@ -51,6 +57,7 @@ public class bookingProc extends HttpServlet {
 		request.setAttribute("book_checkout_date", book_checkout_date);
 		request.setAttribute("room_capacity", room_capacity);
 		request.setAttribute("room_info", room_info);
+		request.setAttribute("room_price", room_price);
 		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=booking/booking.jsp");

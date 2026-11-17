@@ -45,6 +45,9 @@ public class searchingListProc extends HttpServlet {
 		String acc_name = request.getParameter("acc_name"); // 일부만 검색해도 받아와야함!
 		String book_checkin_date=null;
 		String book_checkout_date=null;
+		String orderBy = request.getParameter("orderBy");
+		
+		if (orderBy == null) orderBy = "most";
 		
 		HttpSession session = request.getSession(false);
 		
@@ -72,7 +75,7 @@ public class searchingListProc extends HttpServlet {
 		// 세션 대신 hidden으로 넘겨서 header에서 받자!
 		
 		try {
-			sa_arr = pdao.do_searching(city_name, acc_type, acc_name, book_checkin_date, book_checkout_date);
+			sa_arr = pdao.do_searching(city_name, acc_type, acc_name, book_checkin_date, book_checkout_date, orderBy);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -105,6 +108,7 @@ public class searchingListProc extends HttpServlet {
 		request.setAttribute("acc_type", acc_type);
 		request.setAttribute("book_checkin_date", book_checkin_date);
 		request.setAttribute("book_checkout_date", book_checkout_date);
+		request.setAttribute("orderBy", orderBy);
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=searching/searchList.jsp");
 		rd.forward(request, response);
 		
