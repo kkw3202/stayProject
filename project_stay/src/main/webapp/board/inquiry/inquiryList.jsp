@@ -2,35 +2,33 @@
     pageEncoding="UTF-8" import = "java.util.*"%>
 <%@ page import = "DBPKG.Util" %>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="style/inquiryList.css"/>
-<section>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" href="style/inquiryList.css"/>
-<%-- 1:1게시판     --%>
+<section>
+<%-- 1:1게시판 --%>
 <div class="boardwrap">
 	<h3>1:1게시판</h3>
 	<%-- 검색기능  --%>
-	<form action="inquiryListProc.do?searchType=${searchType }, keyWord=${keyWord}" method="get" class="searchbox" name="listForm">
+	<form action="inquiryListProc.do" method="get" class="searchbox" name="listForm">
 		<%-- 검색키워드 --%>
-		<select class="inq_search_type" name = "searchType">
-			<option value = "inq_title" ${searchType=='inq_title'?'selected':'' }>제목</option>
-			<option value = "user_name" ${searchType=='user_name'?'selected':'' }>작성자</option>
-			<option value = "inq_created_datetime" ${searchType=='inq_created_datetime'?'selected':'' }>작성시기</option>
+		<select class="inq_search_type" name="searchType">
+			<option value="inq_title" ${searchType=='inq_title'?'selected':'' }>제목</option>
+			<option value="user_name" ${searchType=='user_name'?'selected':'' }>작성자</option>
+			<option value="inq_created_datetime" ${searchType=='inq_created_datetime'?'selected':'' }>작성시기</option>
 		</select>
 		<%-- 검색창 --%>
 		<input type="text" placeholder="검색" name="keyWord" value="${keyWord}"/>
-		<%-- 아래는 버튼들 --%>
 		<%-- 검색버튼 --%>
-		<input type = "submit" value="검색" />  
-		<%-- 전체보기 버튼은, 회원/비회원 모두 가능 --%>
-		<input type = "button" value="전체보기" onclick="location.href='inquiryListProc.do'" class="btn_search"/>
-		<%-- 관리자가 아니면서 일반회원인 경우에만 글쓰기/내가 쓴 글보기 버튼 보임 --%>
-		<c:if test = "${sessionScope.user_email ne 'admin@naver.com' && not empty sessionScope.user_email}">
-			<input type="button" onclick="location.href='index.jsp?section=board/inquiry/inquiryWriteForm.jsp'" value = "글쓰기"/>
-			<%--  내가 쓴 글보기 --%>
-            <%-- <input type="button" onclick="location.href='inquiryUpdateProc.do?inq_code=${idto.inq_code}'" value="수정하기"/> --%>
-		    <input type="button" class="btn_all" onclick="location.href='inquiryListProc.do?searchType=${'user_name'}'" value = "내가 쓴 글보기"/>
+		<input type="submit" value="검색"/>
+		<%-- 전체보기 버튼: 검색어나 내가 쓴 글보기 필터가 없을 때 활성화 표시 --%>
+		<input type="button" value="전체보기" onclick="location.href='inquiryListProc.do'" 
+			class="btn_search ${empty keyWord and searchType ne 'user_name' ? 'active' : ''}"/>
 
+		<%-- 관리자가 아니면서 일반회원인 경우에만 글쓰기/내가 쓴 글보기 버튼 보임 --%>
+		<c:if test="${sessionScope.user_email ne 'admin@naver.com' && not empty sessionScope.user_email}">
+			<input type="button" class="btn-write" onclick="location.href='index.jsp?section=board/inquiry/inquiryWriteForm.jsp'" value="글쓰기"/>
+			<input type="button" class="btn_all ${searchType eq 'user_name' ? 'active' : ''}" 
+				onclick="location.href='inquiryListProc.do?searchType=user_name'" value="내가 쓴 글보기"/>
 		</c:if>
 	</form>
 	
@@ -83,7 +81,8 @@
 					</c:if>
 				</td>
 				<td>
-					${fn:substring(ilist.inq_created_datetime, 0, 10)}
+					<span class="inq_date">${fn:substring(ilist.inq_created_datetime, 0, 10)}</span>
+					<span class="inq_time">(${fn:substring(ilist.inq_created_datetime, 11, 16)})</span>
 				</td>
 				<%-- 답변상태 inq_chk_status --%>
 				<c:choose>	
@@ -106,20 +105,26 @@
 	
 	<%-- 페이징 부분 --%>
 	<div class="paging">
-		<c:if test = "${startPage > pageBlock }">
+		<c:if test="${startPage > pageBlock }">
 			<input type="button" onclick="pageBtn1(${startPage},${pageBlock})" value="이전"/>
 		</c:if>
 		
 		<%-- 페이징 번호 --%>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<input type="button" onclick="pageBtn2(${i})" value="${i }"/>
+			<c:choose>
+				<c:when test="${i == pageNum or (empty pageNum and i == 1)}">
+					<input class="currentPage_btn" type="button" onclick="pageBtn2(${i})" value="${i }"/>
+				</c:when>
+				<c:otherwise>
+					<input type="button" onclick="pageBtn2(${i})" value="${i }"/>
+				</c:otherwise>
+			</c:choose>
 		</c:forEach>
 		
-		<%-- 페이징 번호 --%>
-		<c:if test = "${endPage < pageCount}">
-			<input type="button" onclick="pageBtn3(${startPage},${pageBlock})" value="[다음]"/>
+		<c:if test="${endPage < pageCount}">
+			<input type="button" onclick="pageBtn3(${startPage},${pageBlock})" value="다음"/>
 		</c:if>
-	</div>	
+	</div>
 
 </div>
 </section>

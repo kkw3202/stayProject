@@ -75,8 +75,9 @@ public class reviewWriteProcCon extends HttpServlet {
 		rdao.insertReview(rdto);
 		
 		// ³Ñ±â±â
-		RequestDispatcher rd = request.getRequestDispatcher("accInfoProc.do?acc_code="+acc_code +"&book_checkin_date="+defaultCheckinDate+"&book_checkout_date="+defaultCheckoutDate);
-		rd.forward(request, response);
-		
+		response.sendRedirect("accInfoProc.do?acc_code=" + acc_code 
+				+ "&book_checkin_date=" + defaultCheckinDate 
+				+ "&book_checkout_date=" + defaultCheckoutDate 
+				+ "#accReviewSection");
 	}
 }

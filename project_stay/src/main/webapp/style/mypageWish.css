@@ -1,7 +1,6 @@
 @charset "utf-8";
 
-/* 머물:多 마이페이지 찜목록 - 레거시 CSS */
-/* 기존 JSP의 table / tbody 구조를 유지하는 스타일 */
+/* 머물:多 - 마이페이지 내 찜 목록 */
 .boardWrap, .boardWrap * {
 	box-sizing: border-box;
 }
@@ -9,276 +8,267 @@
 .boardWrap {
 	width: 100%;
 	min-width: 0;
-	padding: 28px 30px 36px;
-	font-family: "Malgun Gothic", "맑은 고딕", Arial, sans-serif;
-	color: #142b50;
+	padding: 28px 30px 34px;
 	background: #fff;
-	border: 1px solid #e1e9f5;
-	border-radius: 18px;
-	box-shadow: 0 8px 25px rgba(20, 53, 103, .06);
+	color: #10254e;
+	font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
 }
 
 .boardWrap h3 {
-	margin: 0 0 26px;
-	padding: 0 0 18px 18px;
-	position: relative;
-	border-bottom: 1px solid #e5ecf6;
-	color: #102952;
-	font-size: 25px;
-	line-height: 1.4;
+	margin: 0 0 28px;
+	padding: 0 0 0 16px;
+	border-left: 5px solid #1656a2;
+	font-size: 26px;
+	line-height: 1.35;
 	font-weight: 700;
+	color: #0d2859;
 }
 
-.boardWrap h3:before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 5px;
-	width: 5px;
-	height: 26px;
-	background: #1b58a4;
-	border-radius: 4px;
-}
-/* 테이블을 카드로 전환: tbody 두 개를 가로 배치 */
-.boardWrap .myWishList {
-	display: table;
-	width: 100%;
-	table-layout: fixed;
-	margin: 0 0 18px;
-	padding: 0;
-	border-spacing: 0;
-	border: 1px solid #d9e5f5;
-	border-radius: 15px;
-	background: #fff;
-	box-shadow: 0 5px 15px rgba(17, 52, 100, .07);
-	overflow: hidden;
-}
-
-.boardWrap .myWishList .left {
-	display: table-cell;
-	position: relative;
-	width: 35%;
-	vertical-align: middle;
-	padding: 15px 0 15px 15px;
-}
-
-.boardWrap .myWishList .left tr {
-	display: block;
-	position: relative;
-}
-
-.boardWrap .myWishList .left td {
-	display: block;
-	padding: 0;
-	border: 0;
-}
-
-.boardWrap .myWishList .left td:first-child {
-	width: 100%;
-}
-
-.boardWrap .myWishList .left img {
-	display: block;
-	width: 100%;
-	height: 192px;
-	object-fit: cover;
-	border-radius: 11px;
-	background: #edf3fa;
-}
-
-.boardWrap .myWishList .left td:last-child {
-	position: absolute;
-	top: 11px;
-	right: 11px;
-}
-
-.boardWrap .badge_group {
-	display: block;
-	width: 39px;
-	height: 39px;
-	padding: 0;
-	border: 1px solid #e1e9f3;
-	border-radius: 50%;
-	background: #fff;
-	box-shadow: 0 2px 9px rgba(0, 0, 0, .13);
-	cursor: pointer;
-	text-align: center;
-}
-
-.boardWrap .wish_badge {
-	display: inline-block;
-	font-size: 24px;
-	line-height: 36px;
-	color: #e83b70;
-}
-
-.boardWrap .badge_group:hover {
-	background: #fff0f5;
-}
-
-.boardWrap .badge_group:focus {
-	outline: 2px solid #2b68ba;
-}
-
-.boardWrap .myWishList .right {
-	display: table-cell;
-	width: 65%;
-	padding: 17px 20px 17px 25px;
-	vertical-align: middle;
-}
-
-.boardWrap .myWishList .right tr {
-	display: table-row;
-}
-
-.boardWrap .myWishList .right th, .boardWrap .myWishList .right td {
-	padding: 7px 5px;
-	border: 0;
-	vertical-align: top;
-	font-size: 13px;
-	line-height: 1.5;
-}
-
-.boardWrap .myWishList .right .label {
-	width: 102px;
-	min-width: 102px;
-	color: #31588e;
-	font-weight: 700;
-	text-align: left;
-	white-space: nowrap;
-}
-
-.boardWrap .myWishList .right .data {
-	color: #283951;
-	overflow-wrap: break-word;
-	word-break: break-word;
-}
-/* 숙소명을 카드 제목으로 강조 */
-.boardWrap .myWishList .right tr:first-child .label {
-	color: #67809f;
-}
-
-.boardWrap .myWishList .right tr:first-child .data {
-	color: #102a54;
-	font-size: 19px;
-	font-weight: 700;
-}
-/* 중복 주소 행은 숨김: JSP의 주소와 숙소주소가 같은 값 */
-.boardWrap .myWishList .right tr:nth-child(4) {
-	display: none;
-}
-/* 행 구분은 얇고 절제된 스타일 */
-.boardWrap .myWishList .right tr:last-child th, .boardWrap .myWishList .right tr:last-child td
-	{
-	padding-top: 11px;
-}
-/* 찜한 숙소가 없는 경우 */
+/* 찜 목록 없을 때 */
 .boardWrap .noList {
-	display: block;
-	min-height: 225px;
-	padding: 100px 18px 50px;
-	border: 1px dashed #c8d8ee;
-	border-radius: 14px;
-	background: #f8fbff;
-	color: #60738f;
-	font-size: 17px;
-	font-weight: 600;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 230px;
+	padding: 50px 20px;
 	text-align: center;
-	position: relative;
+	background: #f8fbff;
+	border: 1px solid #dce7f7;
+	border-radius: 15px;
 }
 
 .boardWrap .noList:before {
-	content: "♡";
-	position: absolute;
-	top: 32px;
-	left: 0;
+	content: '♥';
+	display: block;
+	margin-bottom: 12px;
+	font-size: 44px;
+	line-height: 1;
+	color: #e26d82;
+}
+
+.boardWrap .noList p {
+	margin: 0;
+	font-size: 17px;
+	color: #506687;
+}
+
+/* 좌우 2단 찜 카드 (예약확인/리뷰보기와 동일 규격) */
+.boardWrap .wish_card {
+	display: flex;
+	align-items: stretch;
 	width: 100%;
-	color: #477bc2;
-	font-size: 51px;
+	margin: 0 0 20px;
+	border: 1px solid #d5e2f6;
+	border-radius: 16px;
+	background: #fff;
+	box-shadow: 0 3px 12px rgba(21, 61, 116, .06);
+	overflow: hidden;
+}
+
+/* 왼쪽 영역 (38% : 12:8 이미지 + 우측 상단 하트) */
+.boardWrap .wish_card .left_box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 38%;
+	width: 38%;
+	padding: 18px 16px 18px 18px;
+}
+
+.boardWrap .wish_card .imageBox {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 12 / 8;
+	max-height: 215px;
+	overflow: hidden;
+	border-radius: 12px;
+	background: #edf2f9;
+}
+
+.boardWrap .wish_card .imageBox a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.boardWrap .wish_card .imageBox img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border: 0;
+	transition: transform 0.25s ease;
+}
+
+.boardWrap .wish_card .imageBox a:hover img {
+	transform: scale(1.03);
+}
+
+/* 사진 우측 상단 동그란 하트 버튼 */
+.boardWrap .badge_group {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	padding: 0;
+	border: 1px solid rgba(255, 255, 255, 0.9);
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.92);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+	cursor: pointer;
+	transition: transform 0.15s, background-color 0.2s;
+}
+
+.boardWrap .badge_group:hover {
+	transform: scale(1.08);
+	background: #ffffff;
+}
+
+.boardWrap .wish_badge {
+	color: #e64965;
+	font-size: 17px;
 	line-height: 1;
 }
-/* 페이지네이션 */
+
+/* 오른쪽 상세 표 (62% : 가운데 정렬 라벨 + 30px 왼쪽 패딩 데이터) */
+.boardWrap .wish_card .right_box {
+	flex: 1 1 auto;
+	width: 62%;
+	padding: 16px 18px 16px 12px;
+	border-spacing: 0;
+	border-collapse: separate;
+	table-layout: fixed;
+}
+
+.boardWrap .wish_card .right_box th,
+.boardWrap .wish_card .right_box td {
+	padding: 8px 12px;
+	border: 0;
+	border-bottom: 1px solid #e1ebf9;
+	vertical-align: middle;
+	font-size: 13px;
+	line-height: 1.45;
+}
+
+.boardWrap .wish_card .right_box tr:last-child th,
+.boardWrap .wish_card .right_box tr:last-child td {
+	border-bottom: 0;
+}
+
+.boardWrap .wish_card .right_box th.label {
+	width: 26%;
+	background: #edf4ff;
+	color: #193a70;
+	font-weight: 700;
+	text-align: center;
+}
+
+.boardWrap .wish_card .right_box td.data {
+	padding-left: 30px;
+	color: #22324f;
+	overflow-wrap: anywhere;
+}
+
+/* 첫 번째 행(숙소명) 가로 정렬 + 우측 상단 예매하기 버튼 */
+.boardWrap .title_row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	gap: 10px;
+}
+
+.boardWrap .acc_name_text {
+	font-size: 17px;
+	font-weight: 700;
+	color: #0b285d;
+	word-break: keep-all;
+}
+
+.boardWrap .goAcc_btn {
+	height: 30px;
+	padding: 0 14px;
+	border: 1px solid #174b8c;
+	border-radius: 7px;
+	background: #174b8c;
+	color: #fff;
+	font-family: inherit;
+	font-size: 12px;
+	font-weight: 700;
+	cursor: pointer;
+	white-space: nowrap;
+	transition: background-color 0.2s;
+}
+
+.boardWrap .goAcc_btn:hover {
+	background: #0b3265;
+}
+
+.boardWrap .acc_type_badge {
+	display: inline-block;
+	padding: 2px 10px;
+	border-radius: 14px;
+	background: #e3eeff;
+	color: #17498a;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+/* 페이징 영역 */
 .boardWrap .paging {
-	display: block;
-	margin: 28px auto 0;
+	margin-top: 26px;
 	text-align: center;
 }
 
 .boardWrap .paging input[type="button"] {
-	min-width: 38px;
-	height: 38px;
+	min-width: 36px;
+	height: 36px;
 	margin: 0 3px 6px;
 	padding: 0 11px;
-	border: 1px solid #d5e1f3;
-	border-radius: 20px;
+	border: 1px solid #d6e2f3;
+	border-radius: 50%;
 	background: #fff;
-	color: #244575;
+	color: #194277;
 	font-size: 13px;
-	font-family: inherit;
+	font-weight: 700;
 	cursor: pointer;
+	transition: all 0.2s;
 }
 
 .boardWrap .paging input[type="button"]:hover {
-	background: #edf4ff;
-	border-color: #9dbbe6;
+	background: #e8f1ff;
+	border-color: #9bbbe3;
 }
 
 .boardWrap .paging input.currentPage_btn {
-	background: #163f7e;
 	color: #fff;
-	border-color: #163f7e;
-	font-weight: 700;
-	box-shadow: 0 3px 9px rgba(22, 63, 126, .2);
+	background: #174b8c;
+	border-color: #174b8c;
 }
 
-@media screen and (max-width: 1050px) {
+/* 모바일 반응형 */
+@media screen and (max-width: 820px) {
 	.boardWrap {
-		padding: 23px 18px;
+		padding: 18px 12px 26px;
 	}
-	.boardWrap .myWishList .left {
-		width: 39%;
+	.boardWrap .wish_card {
+		flex-direction: column;
 	}
-	.boardWrap .myWishList .right {
-		width: 61%;
-		padding: 14px;
-	}
-	.boardWrap .myWishList .left img {
-		height: 185px;
-	}
-	.boardWrap .myWishList .right .label {
-		width: 85px;
-		min-width: 85px;
-	}
-}
-
-@media screen and (max-width: 720px) {
-	.boardWrap {
-		padding: 20px 13px;
-	}
-	.boardWrap h3 {
-		font-size: 21px;
-	}
-	.boardWrap .myWishList {
-		display: block;
-	}
-	.boardWrap .myWishList .left, .boardWrap .myWishList .right {
-		display: block;
+	.boardWrap .wish_card .left_box,
+	.boardWrap .wish_card .right_box {
 		width: 100%;
+		flex: none;
 	}
-	.boardWrap .myWishList .left {
-		padding: 12px 12px 0;
+	.boardWrap .wish_card .imageBox {
+		max-height: 220px;
 	}
-	.boardWrap .myWishList .left img {
-		height: 210px;
-	}
-	.boardWrap .myWishList .right {
-		padding: 12px 16px 17px;
-	}
-	.boardWrap .myWishList .right .label {
-		width: 82px;
-		min-width: 82px;
-	}
-	.boardWrap .myWishList .right tr:first-child .data {
-		font-size: 17px;
+	.boardWrap .wish_card .right_box td.data {
+		padding-left: 16px;
 	}
 }

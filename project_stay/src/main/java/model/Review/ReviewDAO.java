@@ -551,18 +551,18 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			
-			String sql = "SELECT b.book_number, a.acc_code, a.acc_type, a.acc_img, b.book_checkout_date, a.acc_name "
-					+ "FROM booking b "
-					+ "INNER JOIN User u ON b.user_code = u.user_code "
-					+ "INNER JOIN Room rm ON b.room_code = rm.room_code "
-					+ "INNER JOIN Accommodation a ON rm.acc_code = a.acc_code "
-					+ "LEFT JOIN Reviews r ON b.user_code = r.user_code AND a.acc_code = r.acc_code AND r.rev_chk_del = 0 "
-					+ "WHERE u.user_email = ? "
-					+ "AND r.rev_code IS NULL "
-					+ "AND b.book_chk_status != 1 "
-					+ "AND b.book_checkout_date <= CURDATE() "
-					+ "ORDER BY b.book_checkout_date DESC";
-					
+			String sql = "SELECT b.book_number, a.acc_code, a.acc_type, a.acc_img, b.book_checkin_date, b.book_checkout_date, a.acc_name "
+				   + "FROM booking b "
+				   + "INNER JOIN User u ON b.user_code = u.user_code "
+				   + "INNER JOIN Room rm ON b.room_code = rm.room_code "
+				   + "INNER JOIN Accommodation a ON rm.acc_code = a.acc_code "
+				   + "LEFT JOIN Reviews r ON b.user_code = r.user_code AND a.acc_code = r.acc_code AND r.rev_chk_del = 0 "
+				   + "WHERE u.user_email = ? "
+				   + "AND r.rev_code IS NULL "
+				   + "AND b.book_chk_status != 1 "
+				   + "AND b.book_checkout_date <= CURDATE() "
+				   + "ORDER BY b.book_checkout_date DESC";
+				
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_email);
 			rs = pstmt.executeQuery();
@@ -573,6 +573,7 @@ public class ReviewDAO {
 				rdto.setAcc_name(rs.getString("acc_name"));
 				rdto.setAcc_type(rs.getString("acc_type"));
 				rdto.setAcc_img(rs.getString("acc_img"));
+				rdto.setBook_checkin_date(rs.getString("book_checkin_date"));
 				rdto.setBook_checkout_date(rs.getString("book_checkout_date"));
 				
 				r.add(rdto);
@@ -588,6 +589,46 @@ public class ReviewDAO {
 		}
 		
 		return r;
+	}
+	
+	// 해당 숙소에 대하여, 리뷰 작성 자격(예약완료 + 퇴실일 경과 + 미작성)이 있는지 확인하는 메소드
+	public boolean canWriteReview(String user_email, int acc_code) {
+		boolean canWrite = false;
+		if (user_email == null || user_email.isEmpty()) {
+			return false;
+		}
+		
+		try {
+			con = Util.getConnection();
+			String sql = "SELECT COUNT(*) "
+					   + "FROM booking b "
+					   + "INNER JOIN User u ON b.user_code = u.user_code "
+					   + "INNER JOIN Room rm ON b.room_code = rm.room_code "
+					   + "LEFT JOIN Reviews r ON b.user_code = r.user_code AND rm.acc_code = r.acc_code AND r.rev_chk_del = 0 "
+					   + "WHERE u.user_email = ? "
+					   + "AND rm.acc_code = ? "
+					   + "AND b.book_chk_status != 1 "
+					   + "AND b.book_checkout_date <= CURDATE() "
+					   + "AND r.rev_code IS NULL";
+					   
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_email);
+			pstmt.setInt(2, acc_code);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next() && rs.getInt(1) > 0) {
+				canWrite = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (con != null) con.close();
+			} catch (Exception e) { e.printStackTrace(); }
+		}
+		return canWrite;
 	}
 	
 }

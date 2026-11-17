@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="style/mypageReview.css"/>
 
 <div class="myReviewWrap">
-	<h3>내 리뷰 리스트</h3>
+	<h3>내 리뷰 보기</h3>
 	<%-- 작성한 리뷰가 없는 경우 --%>
 	<c:if test="${empty rlist }">
 		<div class="no_review">
@@ -24,10 +24,15 @@
 			<%-- 처음에는 숨겨져 있는 부분(작성하지 않은 리뷰 리스트) --%>
 			<div id="unwrittenListBox" class="unwritten_list_box noShow">
 				<c:forEach var="arr02" items="${notList }">
+					<c:set var="inDate" value="${fn:replace(fn:substring(arr02.book_checkin_date, 0, 10), '-', '')}" />
+					<c:set var="outDate" value="${fn:replace(fn:substring(arr02.book_checkout_date, 0, 10), '-', '')}" />
+					
 					<div class="unwritten_review_list">
-						<a href="reviewWriteProc.do?acc_code=${arr02.acc_code }&acc_img=${arr02.acc_img}">
+						<a href="accInfoProc.do?acc_code=${arr02.acc_code}&book_checkin_date=${inDate}&book_checkout_date=${outDate}#accReviewSection">
 							<span class="unwritten_acc_name">${arr02.acc_name }</span>
-							<span class="unwritten_date">(퇴실일: ${arr02.book_checkout_date})</span>
+							<span class="unwritten_date">
+								${fn:substring(arr02.book_checkin_date, 0, 10)} ~ ${fn:substring(arr02.book_checkout_date, 0, 10)}
+							</span>
 							<span class="btn_go_write">리뷰 쓰러가기 &gt;</span>
 						</a>
 					</div>
@@ -38,26 +43,38 @@
 	
 	<%-- 작성한 리뷰가 있는 경우 --%>
 	<c:if test="${not empty rlist }">
-		
 		<c:forEach var="arr" items="${rlist}">
-			<table class="review_table">
-				<%-- 왼쪽 : 숙소 이미지  --%>
-				<tbody class="left_box">
-					<tr>
-						<td class="acc_img box">
-							<img src="${arr.acc_img }" alt = "${arr.acc_name }"/> 
-						</td>
-					</tr>
-				</tbody>
-				<%-- 오른쪽 : 숙소명 등 정보들  --%>
-				<tbody class="right_box">
-					<tr>
-						<th class="label">숙소명</th>
-						<td class="acc_title">${arr.acc_name } <span class="acc_type">${arr.acc_type }</span></td>
-					</tr>
+			<div class="review_card">
+				<%-- 왼쪽 : 숙소 이미지 + 숙소명/타입 + 좋아요 --%>
+				<div class="left_box">
+					<div class="imageBox">
+						<a href="javascript:void(0);" onclick="goAccDetail(${arr.acc_code})">
+							<img src="${arr.acc_img }" alt="${arr.acc_name}"/>
+						</a>
+					</div>
+					<div class="acc_info_bottom">
+						<p class="acc_title">${arr.acc_name } <span class="acc_type">${arr.acc_type }</span></p>
+						<div class="rev_like_box">
+							<span class="like_icon">👍</span>
+							<span class="like_label">받은 좋아요</span>
+							<strong class="like_num">${arr.rev_like}</strong>
+						</div>
+					</div>
+				</div>
+
+				<%-- 오른쪽 : 작성자 / 작성시간 / 평점 / 리뷰내용 --%>
+				<table class="right_box">
 					<tr>
 						<th class="label">작성자</th>
-						<td class="data">${arr.user_name }</td>
+						<td class="data">
+							<div class="writer_row">
+								<span>${arr.user_name }</span>
+								<div class="btn_area">
+									<input type="button" class="btn_update" onclick="updateReview(${arr.rev_code})" value="수정하기"/>
+									<input type="button" class="btn_delete" onclick="deleteReview(${arr.rev_code})" value="삭제하기"/>
+								</div>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<th class="label">작성시간</th>
@@ -67,37 +84,22 @@
 						<th class="label">평점</th>
 						<td class="data">
 							<c:choose>
-								<c:when test="${arr.rev_rating==5}">
-									<span class="star">★★★★★</span>
-								</c:when>
-								<c:when test="${arr.rev_rating==4}">
-									<span class="star">★★★★☆</span>
-								</c:when>
-								<c:when test="${arr.rev_rating==3}">
-									<span class="star">★★★☆☆</span>
-								</c:when>
-								<c:when test="${arr.rev_rating==2}">
-									<span class="star">★★☆☆☆</span>
-								</c:when>
-								<c:otherwise>
-									<span class="star">★☆☆☆☆</span>
-								</c:otherwise>
+								<c:when test="${arr.rev_rating==5}"><span class="star">★★★★★</span></c:when>
+								<c:when test="${arr.rev_rating==4}"><span class="star">★★★★☆</span></c:when>
+								<c:when test="${arr.rev_rating==3}"><span class="star">★★★☆☆</span></c:when>
+								<c:when test="${arr.rev_rating==2}"><span class="star">★★☆☆☆</span></c:when>
+								<c:otherwise><span class="star">★☆☆☆☆</span></c:otherwise>
 							</c:choose>
 						</td>
 					</tr>
 					<tr>
 						<th class="label">리뷰내용</th>
-						<td class="content_box">${arr.rev_content }</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="btn_area">
-							<%-- 리뷰수정하기/삭제하기 : 작성자에게만 수정하기삭제하기 버튼 보여야함 --%>
-							<input type="button" class="btn_update" onclick="updateReview(${arr.rev_code})" value="수정하기"/>
-							<input type="button" class="btn_delete" onclick="deleteReview(${arr.rev_code})" value="삭제하기"/>
+						<td class="data">
+							<div class="content_box">${arr.rev_content }</div>
 						</td>
 					</tr>
-				</tbody>
-			</table>
+				</table>
+			</div>
 		</c:forEach>
 	</c:if>
 
@@ -111,7 +113,14 @@
 			
 			<%-- 페이징 번호 --%>
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
-				<input type="button" onclick="pageBtn2(${i})" value="${i }"/>
+				<c:choose>
+					<c:when test="${i == currentPage or (empty currentPage and i == 1)}">
+						<input class="currentPage_btn" type="button" onclick="pageBtn2(${i})" value="${i }"/>
+					</c:when>
+					<c:otherwise>
+						<input type="button" onclick="pageBtn2(${i})" value="${i }"/>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
 			
 			<%-- 페이징 번호 --%>
@@ -161,5 +170,26 @@
 			arrow.textContent = "▲";
 		}
 	}
-	
+	// 숙소 이미지 클릭 시 리뷰 섹션 이동
+	function goAccDetail(acc_code) {
+		let today = new Date();
+		let tomorrow = new Date(today);
+		tomorrow.setDate(today.getDate() + 1);
+
+		function formatDate(d) {
+			let y = d.getFullYear();
+			let m = String(d.getMonth() + 1).padStart(2, '0');
+			let day = String(d.getDate()).padStart(2, '0');
+			return y + m + day;
+		}
+
+		let inDate = formatDate(today);
+		let outDate = formatDate(tomorrow);
+
+		location.href = "accInfoProc.do?acc_code=" + acc_code
+				+ "&book_checkin_date=" + inDate
+				+ "&book_checkout_date=" + outDate
+				+ "#accReviewSection";
+	}
+
 </script>

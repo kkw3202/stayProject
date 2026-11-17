@@ -1,47 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri = "http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="style/mypageWish.css"/>
+
 <div class="boardWrap">
 	<h3>내 찜 목록</h3>
 	<c:choose>
 		<%-- 찜 리스트가 없는 경우 --%>
 		<c:when test="${empty wlist }">
-			<span class="noList">찜한 목록이 없습니다.</span>
+			<div class="noList">
+				<p>찜한 목록이 없습니다.</p>
+			</div>
 		</c:when>
 		<c:otherwise>
-			<%-- 반복문으로 게시판 형식으로 그리기 --%>
-			<c:forEach var = "arr" items="${wlist }">
-				<table class="myWishList">
-					<%-- 왼쪽 : 이미지 / 하트 모양 (누르면 찜목록 해제가능) --%>
-					<tbody class="left">
-						<tr>
-							<td colspan = "2">
+			<c:forEach var="arr" items="${wlist }">
+				<div class="wish_card">
+					<%-- 왼쪽 : 이미지 + 우측 상단 하트(찜 해제) --%>
+					<div class="left_box">
+						<div class="imageBox">
+							<a href="accInfoProc.do?acc_code=${arr.acc_code}&book_checkin_date=${defaultCheckinDate}&book_checkout_date=${defaultCheckoutDate}">
 								<img src="${arr.acc_img }" alt="${arr.acc_name }"/>
-								
-							</td>
-							<td>
-								<button class="badge_group" onclick="cancelWish(${arr.wish_code})">
-									<span class="wish_badge" >♥</span>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-					<%-- 오른쪽 :  숙소명 / 유형 / 숙소주소 / 부대시설 / 입실~퇴실시간  --%>
-					<tbody class="right">
+							</a>
+							<button type="button" class="badge_group" title="찜 해제" onclick="cancelWish(${arr.wish_code})">
+								<span class="wish_badge">♥</span>
+							</button>
+						</div>
+					</div>
+
+					<%-- 오른쪽 : 숙소명 등 정보들 --%>
+					<table class="right_box">
 						<tr>
 							<th class="label">숙소명</th>
-							<td class="data">${arr.acc_name }</td>
+							<td class="data">
+								<div class="title_row">
+									<span class="acc_name_text">${arr.acc_name }</span>
+									<input type="button"
+										onclick="location.href='accInfoProc.do?acc_code=${arr.acc_code}&book_checkin_date=${defaultCheckinDate}&book_checkout_date=${defaultCheckoutDate}'"
+										class="goAcc_btn" value="예매하기"/>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th class="label">유형</th>
-							<td class="data">${arr.acc_type }</td>
-						</tr>
-						<tr>
-							<th class="label">주소</th>
-							<td class="data">${arr.acc_address }</td>
+							<td class="data"><span class="acc_type_badge">${arr.acc_type }</span></td>
 						</tr>
 						<tr>
 							<th class="label">숙소주소</th>
@@ -53,50 +56,37 @@
 						</tr>
 						<tr>
 							<th class="label">입실~퇴실</th>
-							<td class="data">${arr.acc_checkinTime } ~ ${arr.acc_checkoutTime } </td>
+							<td class="data">${arr.acc_checkinTime } ~ ${arr.acc_checkoutTime }</td>
 						</tr>
-						<%-- 숙소 연결 --%>
-						<tr>
-							<td colspan="2">
-								<input type="button" onclick="location.href='accInfoProc.do?acc_code=${arr.acc_code}&book_checkin_date=${defaultCheckinDate}&book_checkout_date=${defaultCheckoutDate}'" class="goAcc_btn" value="예매하기"/>
-							</td>
-						</tr>
-					</tbody>
-					
-				</table>
+					</table>
+				</div>
 			</c:forEach>
-			
 		</c:otherwise>
 	</c:choose>
 	
-	<%-- 페이징 부분 (역시, 찜한 목록이 있는 경우에만 보이기 --%>
-	<c:if test ="${not empty wlist }" >
+	<%-- 페이징 부분 --%>
+	<c:if test="${not empty wlist }">
 		<div class="paging">
-		<c:if test = "${startPage > pageBlock }">
-			<input type="button" onclick="pageBtn1(${startPage},${pageBlock})" value="이전"/>
-		</c:if>
-		
-		<%-- 페이징 번호 --%>
-		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<%-- 현재 페이지에는 클래스 이름 넣어, 표시하기 --%>
-			<c:choose>
-				<c:when test="${i == currentPage}">
-					<input class="currentPage_btn" type="button" onclick="pageBtn2(${i})" value="${i }"/>
-				</c:when>
-				<c:otherwise>
-					<input type="button" onclick="pageBtn2(${i})" value="${i }"/>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		
-		<%-- 페이징 번호 --%>
-		<c:if test = "${endPage < pageCount}">
-			<input type="button" onclick="pageBtn3(${startPage},${pageBlock})" value="다음"/>
-		</c:if>
-	</div>	
-	
+			<c:if test="${startPage > pageBlock }">
+				<input type="button" onclick="pageBtn1(${startPage},${pageBlock})" value="이전"/>
+			</c:if>
+			
+			<c:forEach var="i" begin="${startPage}" end="${endPage}">
+				<c:choose>
+					<c:when test="${i == currentPage or (empty currentPage and i == 1)}">
+						<input class="currentPage_btn" type="button" onclick="pageBtn2(${i})" value="${i }"/>
+					</c:when>
+					<c:otherwise>
+						<input type="button" onclick="pageBtn2(${i})" value="${i }"/>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			
+			<c:if test="${endPage < pageCount}">
+				<input type="button" onclick="pageBtn3(${startPage},${pageBlock})" value="다음"/>
+			</c:if>
+		</div>	
 	</c:if>
-
 </div>
 
 <script>
@@ -106,18 +96,13 @@
 		}
 	}
 	
-	// 페이징 번호 관련 함수
 	function pageBtn1(startPage,pageBlock){
 		location.href="myWishProc.do?pageNum="+ (startPage-pageBlock);
 	}
 	function pageBtn2(i){
 		location.href="myWishProc.do?pageNum="+ i;
-		
 	}
 	function pageBtn3(startPage,pageBlock){
 		location.href="myWishProc.do?pageNum="+ (startPage+pageBlock);
 	}
-	
-
 </script>
-    

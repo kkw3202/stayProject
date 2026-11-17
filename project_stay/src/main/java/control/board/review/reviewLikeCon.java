@@ -38,9 +38,22 @@ public class reviewLikeCon extends HttpServlet {
 		// rdao 인스턴스 및 실행
 		ReviewDAO rdao = new ReviewDAO();
 		rdao.updateReviewLike(rev_code);
-		//System.out.println("rev_code"+rev_code);
-		// 업데이트 후 복귀
-		response.sendRedirect("reviewListProc.do?searchType="+acc_code);
+		// 업데이트 후 복귀 (체크인/체크아웃 날짜 받기 + 없으면 오늘~내일 기본값)
+		String book_checkin_date = request.getParameter("book_checkin_date");
+		String book_checkout_date = request.getParameter("book_checkout_date");
+
+		if (book_checkin_date == null || book_checkin_date.isEmpty()) {
+			java.text.SimpleDateFormat sd = new java.text.SimpleDateFormat("yyyyMMdd");
+			java.util.Calendar cal = java.util.Calendar.getInstance();
+			book_checkin_date = sd.format(cal.getTime());
+			cal.add(java.util.Calendar.DAY_OF_MONTH, 1);
+			book_checkout_date = sd.format(cal.getTime());
+		}
+
+		response.sendRedirect("accInfoProc.do?acc_code=" + acc_code
+				+ "&book_checkin_date=" + book_checkin_date
+				+ "&book_checkout_date=" + book_checkout_date
+				+ "#accReviewSection");
 	}
 
 }

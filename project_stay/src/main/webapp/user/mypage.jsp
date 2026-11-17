@@ -23,7 +23,9 @@
 						<tbody class="myInfoBox">
 							<tr>
 								<td>
-									<img src="image/profile.png" alt="profile" class="profile_img">
+									<a href="mypageModProc.do">
+										<img src="image/profile.png" alt="profile" class="profile_img">
+									</a>
 								</td>
 							</tr>
 							<tr>
@@ -81,8 +83,6 @@
 		}
 	}
 	function modMember(){
-		if(confirm("회원 정보 수정하시겠습니까?")){
-			location.href="mypageModProc.do";
-		}
+		location.href="mypageModProc.do";
 	}
 </script>

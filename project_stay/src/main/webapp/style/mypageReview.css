@@ -23,245 +23,238 @@
 	font-weight: 700;
 	color: #0d2859;
 }
-/* 기존 table + tbody 두 개를 카드의 좌/우 영역으로 배치 */
-.myReviewWrap .review_table {
+
+/* 내 예약확인과 통일된 좌우 2단 리뷰 카드 */
+.myReviewWrap .review_card {
 	display: flex;
 	align-items: stretch;
 	width: 100%;
-	margin: 0 0 18px;
-	padding: 18px;
-	border: 1px solid #d9e5f7;
+	margin: 0 0 20px;
+	border: 1px solid #d5e2f6;
 	border-radius: 16px;
-	border-spacing: 0;
 	background: #fff;
-	box-shadow: 0 5px 15px rgba(22, 59, 112, .08);
-	table-layout: auto;
+	box-shadow: 0 3px 12px rgba(21, 61, 116, .06);
+	overflow: hidden;
 }
 
-.myReviewWrap .review_table .left_box {
-	display: block;
-	flex: 0 0 32%;
-	width: 32%;
-	min-width: 0;
-	margin: 0 20px 0 0;
+/* 왼쪽 영역 (38% : 12:8 이미지 + 숙소명 + 받은 좋아요) */
+.myReviewWrap .review_card .left_box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex: 0 0 38%;
+	width: 38%;
+	padding: 18px 16px 18px 18px;
 }
 
-.myReviewWrap .review_table .left_box tr, .myReviewWrap .review_table .left_box td
-	{
+/* 12:8 비율 가로형 숙소 이미지 박스 (클릭 시 숙소 이동) */
+.myReviewWrap .review_card .imageBox {
+	width: 100%;
+	aspect-ratio: 12 / 8;
+	max-height: 195px;
+	overflow: hidden;
+	border-radius: 12px;
+	background: #edf2f9;
+}
+
+.myReviewWrap .review_card .imageBox a {
 	display: block;
 	width: 100%;
 	height: 100%;
-	padding: 0;
-	border: 0;
 }
 
-.myReviewWrap .review_table .acc_img {
-	overflow: hidden;
-	min-height: 210px;
-	border-radius: 12px;
-	background: #edf3fb;
-}
-
-.myReviewWrap .review_table .acc_img img {
+.myReviewWrap .review_card .imageBox img {
 	display: block;
 	width: 100%;
-	height: 230px;
+	height: 100%;
 	object-fit: cover;
 	border: 0;
+	transition: transform 0.25s ease;
 }
 
-.myReviewWrap .review_table .right_box {
-	display: table;
-	flex: 1 1 auto;
-	width: 68%;
-	min-width: 0;
-	border-collapse: separate;
-	border-spacing: 0 7px;
+.myReviewWrap .review_card .imageBox a:hover img {
+	transform: scale(1.03);
 }
 
-.myReviewWrap .review_table .right_box tr {
-	display: table-row;
+.myReviewWrap .review_card .acc_info_bottom {
+	width: 100%;
+	padding: 12px 2px 0;
 }
 
-.myReviewWrap .review_table .right_box th, .myReviewWrap .review_table .right_box td
-	{
-	vertical-align: middle;
-	border: 0;
-}
-
-.myReviewWrap .review_table .right_box .label {
-	width: 98px;
-	min-width: 98px;
-	padding: 7px 10px;
-	text-align: left;
-	font-size: 13px;
+.myReviewWrap .review_card .acc_title {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 0;
+	font-size: 18px;
 	font-weight: 700;
-	color: #244777;
-	background: #edf4ff;
-	border-radius: 8px;
-	white-space: nowrap;
+	line-height: 1.35;
+	color: #0b285d;
+	word-break: keep-all;
 }
 
-.myReviewWrap .review_table .right_box .data, .myReviewWrap .review_table .right_box .acc_title
-	{
-	padding: 6px 10px 6px 14px;
-	color: #253957;
-	font-size: 14px;
-	line-height: 1.6;
-	overflow-wrap: break-word;
-	word-break: break-word;
-}
-
-.myReviewWrap .review_table .right_box .acc_title {
-	font-size: 19px;
-	font-weight: 700;
-	color: #102c60;
-}
-
-.myReviewWrap .review_table .acc_type {
+.myReviewWrap .review_card .acc_type {
 	display: inline-block;
-	vertical-align: middle;
-	margin-left: 8px;
-	padding: 4px 10px;
+	padding: 2px 9px;
+	border-radius: 14px;
 	background: #e3eeff;
-	border-radius: 16px;
+	color: #17498a;
 	font-size: 12px;
 	font-weight: 600;
-	color: #17498a;
 }
 
-.myReviewWrap .review_table .star {
-	color: #f5a400;
-	font-size: 22px;
-	letter-spacing: 1px;
-	white-space: nowrap;
+/* 예약번호 배지 자리에 들어가는 받은 좋아요 배지 */
+.myReviewWrap .review_card .rev_like_box {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-top: 8px;
+	padding: 6px 12px;
+	border-radius: 8px;
+	background: #f4f8ff;
 }
 
-.myReviewWrap .review_table .content_box {
-	padding: 12px 14px;
-	background: #f3f7ff;
-	border: 1px solid #d7e4f9 !important;
-	border-radius: 9px;
+.myReviewWrap .review_card .like_icon {
 	font-size: 14px;
-	line-height: 1.7;
-	color: #253957;
-	white-space: pre-wrap;
-	overflow-wrap: break-word;
-	word-break: break-word;
+	line-height: 1;
 }
 
-.myReviewWrap .review_table .btn_area {
-	padding: 12px 0 0;
-	text-align: right;
+.myReviewWrap .review_card .like_label {
+	font-size: 12px;
+	font-weight: 600;
+	color: #7a8fa8;
 }
 
-.myReviewWrap .review_table .btn_update, .myReviewWrap .review_table .btn_delete
-	{
-	min-width: 92px;
-	height: 36px;
-	margin-left: 7px;
-	padding: 0 14px;
-	border-radius: 7px;
+.myReviewWrap .review_card .like_num {
+	font-size: 15px;
+	font-weight: 800;
+	color: #0d397a;
+}
+
+/* 오른쪽 상세 표 (62% : 예약확인 표와 동일한 규격) */
+.myReviewWrap .review_card .right_box {
+	flex: 1 1 auto;
+	width: 62%;
+	padding: 16px 18px 16px 12px;
+	border-spacing: 0;
+	border-collapse: separate;
+	table-layout: fixed;
+}
+
+.myReviewWrap .review_card .right_box th,
+.myReviewWrap .review_card .right_box td {
+	padding: 8px 12px;
+	border: 0;
+	border-bottom: 1px solid #e1ebf9;
+	vertical-align: middle;
 	font-size: 13px;
+	line-height: 1.45;
+}
+
+.myReviewWrap .review_card .right_box tr:last-child th,
+.myReviewWrap .review_card .right_box tr:last-child td {
+	border-bottom: 0;
+	vertical-align: top;
+	padding-top: 10px;
+}
+
+.myReviewWrap .review_card .right_box th.label {
+	width: 26%;
+	background: #edf4ff;
+	color: #193a70;
+	font-weight: 700;
+	text-align: center;
+}
+
+.myReviewWrap .review_card .right_box td.data {
+	padding-left: 30px;
+	color: #22324f;
+}
+
+/* 첫 번째 행(작성자) 내부 가로 정렬 + 우측 상단 수정/삭제 버튼 */
+.myReviewWrap .writer_row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	gap: 8px;
+}
+
+.myReviewWrap .btn_area {
+	display: inline-flex;
+	gap: 6px;
+	margin-left: auto;
+}
+
+.myReviewWrap .btn_update,
+.myReviewWrap .btn_delete {
+	height: 26px;
+	padding: 0 11px;
+	border-radius: 6px;
+	font-size: 12px;
 	font-weight: 700;
 	cursor: pointer;
 	font-family: inherit;
-	transition: background-color .2s, border-color .2s;
+	white-space: nowrap;
+	transition: all 0.2s;
 }
 
-.myReviewWrap .review_table .btn_update {
-	color: #fff;
-	background: #174b8c;
-	border: 1px solid #174b8c;
-}
-
-.myReviewWrap .review_table .btn_update:hover {
-	background: #0b3265;
-}
-
-.myReviewWrap .review_table .btn_delete {
-	color: #173d75;
+.myReviewWrap .btn_update {
+	color: #174b8c;
 	background: #fff;
-	border: 1px solid #8ca9d1;
+	border: 1px solid #9cb8df;
 }
 
-.myReviewWrap .review_table .btn_delete:hover {
+.myReviewWrap .btn_update:hover {
 	background: #edf4ff;
-}
-
-.myReviewWrap .no_review {
-	min-height: 230px;
-	padding: 80px 20px 50px;
-	text-align: center;
-	background: #f8fbff;
-	border: 1px solid #dce7f7;
-	border-radius: 15px;
-}
-
-.myReviewWrap .no_review:before {
-	content: '♡';
-	display: block;
-	margin: 0 auto 12px;
-	font-size: 48px;
-	line-height: 1;
-	color: #7c9dca;
-}
-
-.myReviewWrap .no_review p {
-	margin: 0;
-	font-size: 17px;
-	color: #506687;
-}
-
-.myReviewWrap .paging {
-	margin-top: 26px;
-	text-align: center;
-}
-
-.myReviewWrap .paging input[type="button"] {
-	min-width: 38px;
-	height: 38px;
-	margin: 0 3px 6px;
-	padding: 0 11px;
-	border: 1px solid #d6e2f3;
-	border-radius: 22px;
-	background: #fff;
-	color: #194277;
-	font-size: 13px;
-	font-weight: 700;
-	cursor: pointer;
-}
-
-.myReviewWrap .paging input[type="button"]:hover {
-	background: #e8f1ff;
-	border-color: #9bbbe3;
-}
-
-.myReviewWrap .paging input.currentPage_btn {
-	color: #fff;
-	background: #174b8c;
 	border-color: #174b8c;
 }
 
-@media screen and (max-width: 900px) {
+.myReviewWrap .btn_delete {
+	color: #c94a62;
+	background: #fff;
+	border: 1px solid #e099a6;
+}
+
+.myReviewWrap .btn_delete:hover {
+	background: #fff3f5;
+	border-color: #c94a62;
+}
+
+.myReviewWrap .review_card .star {
+	color: #f5a400;
+	font-size: 17px;
+	letter-spacing: 1px;
+}
+
+.myReviewWrap .review_card .content_box {
+	min-height: 92px;
+	padding: 10px 14px;
+	background: #f5f9ff;
+	border-radius: 8px;
+	font-size: 14px;
+	line-height: 1.6;
+	color: #253957;
+	white-space: pre-line;
+	word-break: break-word;
+}
+
+/* 모바일 반응형 */
+@media screen and (max-width: 820px) {
 	.myReviewWrap {
-		padding: 20px 16px;
+		padding: 18px 12px 26px;
 	}
-	.myReviewWrap .review_table {
-		display: block;
-		padding: 14px;
+	.myReviewWrap .review_card {
+		flex-direction: column;
 	}
-	.myReviewWrap .review_table .left_box {
-		display: block;
+	.myReviewWrap .review_card .left_box,
+	.myReviewWrap .review_card .right_box {
 		width: 100%;
-		margin: 0 0 14px;
+		flex: none;
 	}
-	.myReviewWrap .review_table .acc_img img {
-		height: 230px;
-	}
-	.myReviewWrap .review_table .right_box {
-		display: table;
-		width: 100%;
+	.myReviewWrap .review_card .acc_img {
+		max-height: 220px;
 	}
 }
 
@@ -331,9 +324,11 @@
 	color: #1656a2;
 }
 
-/* 펼쳐지는 리스트 영역 */
+/* 펼쳐지는 리스트 영역 (5개 항목이 딱 맞게 들어가는 높이) */
 .myReviewWrap .unwritten_list_box {
 	padding: 12px 16px;
+	max-height: 298px;
+	overflow-y: auto;
 }
 
 .myReviewWrap .unwritten_review_list {
@@ -344,11 +339,13 @@
 	margin-bottom: 0;
 }
 
+/* 왼쪽(1fr) - 정중앙(auto) - 오른쪽(1fr) 비율로 중앙 정렬 */
 .myReviewWrap .unwritten_review_list a {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
-	padding: 12px 16px;
+	gap: 16px;
+	padding: 11px 16px;
 	border: 1px solid #d9e5f7;
 	border-radius: 10px;
 	background: #ffffff;
@@ -366,15 +363,21 @@
 	font-size: 15px;
 	font-weight: 700;
 	color: #0d2859;
-	margin-right: 8px;
+	justify-self: start;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .myReviewWrap .unwritten_date {
 	font-size: 13px;
 	color: #5b7294;
+	text-align: center;
+	white-space: nowrap;
 }
 
 .myReviewWrap .btn_go_write {
+	justify-self: end;
 	padding: 6px 12px;
 	border-radius: 6px;
 	background: #174b8c;
@@ -386,4 +389,36 @@
 
 .myReviewWrap .unwritten_review_list a:hover .btn_go_write {
 	background: #0b3265;
+}
+
+/* 페이징 영역 (전체 사이트 공통 동그라미 스타일) */
+.myReviewWrap .paging {
+	margin-top: 26px;
+	text-align: center;
+}
+
+.myReviewWrap .paging input[type="button"] {
+	min-width: 36px;
+	height: 36px;
+	margin: 0 3px 6px;
+	padding: 0 11px;
+	border: 1px solid #d6e2f3;
+	border-radius: 50%;
+	background: #fff;
+	color: #194277;
+	font-size: 13px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.myReviewWrap .paging input[type="button"]:hover {
+	background: #e8f1ff;
+	border-color: #9bbbe3;
+}
+
+.myReviewWrap .paging input.currentPage_btn {
+	color: #fff;
+	background: #174b8c;
+	border-color: #174b8c;
 }

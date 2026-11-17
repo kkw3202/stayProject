@@ -16,9 +16,15 @@ public class ReviewDTO {
 	private String acc_type; // 숙소 타입
 	private String user_email;  // 회원 이메일
 	
+	private String book_checkin_date; // 예약 입실날짜
 	private String book_checkout_date; // 예약 퇴실날짜 변수 (퇴실날짜부터 리뷰 작성가능)
 	
-	
+	public String getBook_checkin_date() {
+		return book_checkin_date;
+	}
+	public void setBook_checkin_date(String book_checkin_date) {
+		this.book_checkin_date = book_checkin_date;
+	}
 	public String getBook_checkout_date() {
 		return book_checkout_date;
 	}
