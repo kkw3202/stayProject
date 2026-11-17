@@ -69,15 +69,16 @@ public class accReviewListProc extends HttpServlet {
 		int startPage = pdto.getStartPage();
 		int endPage = pdto.getEndPage();
 		
-		// 리뷰 작성 가능한 
-		
-		
+		// 리뷰 작성 가능한 사람만 확인하는 메소드
+		ArrayList<ReviewDTO> notList;
+		notList = rdao.getUnwrittenMyReviewList(user_email);
 		
 		ArrayList<ReviewDTO> rlist;
 		rlist = rdao.getReviewAccBoard(startRow, pageSize, acc_code);
 		
 		// 포장하기
 		request.setAttribute("rlist", rlist);
+		request.setAttribute("notList", notList);
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("count", count);

@@ -5,8 +5,10 @@
 <div class="accReviewList" id="accReviewSection">
 	<h3>리뷰 (${revCount}건 )</h3>
 	<%-- 리뷰작성하기 버튼(로그인 한 사람 중, 예약이 된 사람중에서 퇴실예정일 날부터 리뷰 작성 가능 --%>
-	<c:if test="${not empty sessionScope.user_email and }">
-	
+	<c:if test="${not empty sessionScope.user_email and not empty notList }">
+		<div class="writeBox">
+			<input type="button" class="write_btn" value="리뷰작성" onclick="goWriteForm(${notList[0].acc_code})"/>
+		</div>
 	</c:if>
 	
 	<%-- 리뷰가 없을때 => 등록된 리뷰가 없습니다. --%>
@@ -121,6 +123,11 @@
 	function pageBtn3(startPage, pageBlock){
 		location.href="accInfoProc.do?acc_code=${pdto.acc_code}&book_checkin_date=${book_checkin_date}"
 				+ "&book_checkout_date=${book_checkout_date}&pageNum=" + (startPage + pageBlock) + "#accReviewSection";
+	}
+	
+	// 리뷰 작성하는 폼으로 이동하는 메소드
+	function goWriteForm(acc_code){
+		location.href="reviewWriteProc.do?acc_code="+acc_code;	
 	}
 
 

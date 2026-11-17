@@ -40,7 +40,7 @@ public class reviewWriteProc extends HttpServlet {
 		String acc_name = "";
 		acc_code = Integer.parseInt(request.getParameter("acc_code"));
 		acc_name = rdao.getAccName(acc_code); 
-		String acc_img = request.getParameter("acc_img");
+		//String acc_img = request.getParameter("acc_img");
 		// 회원명 가져오기 (히든으로 정보저장할 예정)
 		String user_name = rdao.getUser_name(user_email);
 		
@@ -48,7 +48,7 @@ public class reviewWriteProc extends HttpServlet {
 		request.setAttribute("acc_code", acc_code);
 		request.setAttribute("acc_name", acc_name);
 		request.setAttribute("user_name", user_name);
-		request.setAttribute("acc_img", acc_img);
+		//request.setAttribute("acc_img", acc_img);
 		System.out.println("---------------------------------------------------------");
 		System.out.println("acc_code"+acc_code);
 		System.out.println("acc_name"+acc_name);
