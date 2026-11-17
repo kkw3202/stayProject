@@ -1,6 +1,11 @@
 package control.board.review;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,11 +52,31 @@ public class reviewWriteProcCon extends HttpServlet {
 		rdto.setRev_rating(rev_rating);
 		rdto.setRev_content(rev_content);
 		
+		// 날짜 데이터 관련
+		Date today = new Date();
+		Calendar cal = Calendar.getInstance();
+		
+		cal.setTime(today);
+		cal.add(Calendar.DAY_OF_MONTH, 1);
+		
+		
+		/* Date nextDay = new Date(); */
+		Date nextDay = cal.getTime();
+		
+		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");
+		String defaultCheckinDate = sd.format(today);
+		String defaultCheckoutDate = sd.format(nextDay);
+		
+		request.setAttribute("defaultCheckinDate", defaultCheckinDate);
+		request.setAttribute("defaultCheckoutDate", defaultCheckoutDate);
+		
+		
 		// 인서트하기
 		rdao.insertReview(rdto);
 		
-		// 페이지 넘기기 (기존에 선택한 숙소로 돌아가기)
-		response.sendRedirect("reviewListProc.do?searchType="+acc_code);
+		// 넘기기
+		RequestDispatcher rd = request.getRequestDispatcher("accInfoProc.do?acc_code="+acc_code +"&book_checkin_date="+defaultCheckinDate+"&book_checkout_date="+defaultCheckoutDate);
+		rd.forward(request, response);
 		
 	}
 }

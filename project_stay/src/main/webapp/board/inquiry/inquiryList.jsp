@@ -9,8 +9,6 @@
 <%-- 1:1게시판     --%>
 <div class="boardwrap">
 	<h3>1:1게시판</h3>
-	<%-- 리뷰게시판 잠깐 사용할 부분(월요일에 삭제예정) --%>
-	<input type="button" onclick="location.href='reviewListProc.do'" value="리뷰리스트(임시버튼)"/>
 	<%-- 검색기능  --%>
 	<form action="inquiryListProc.do?searchType=${searchType }, keyWord=${keyWord}" method="get" class="searchbox" name="listForm">
 		<%-- 검색키워드 --%>

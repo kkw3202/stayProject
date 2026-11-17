@@ -15,6 +15,8 @@ import model.Handler.pagingHandler.pagingHandlerDAO;
 import model.Handler.pagingHandler.pagingHandlerDTO;
 import model.Review.ReviewDAO;
 import model.Review.ReviewDTO;
+import model.User.MyBookingDAO;
+import model.User.MyBookingDTO;
 
 @WebServlet("/MyRevListProc.do")
 public class MyRevListProc extends HttpServlet {
@@ -70,8 +72,12 @@ public class MyRevListProc extends HttpServlet {
 		ArrayList<ReviewDTO> rlist;
 		rlist = rdao.getMyreviewBoard(startRow, pageSize, user_name);
 		
+		ArrayList<ReviewDTO> notList;
+		notList = rdao.getUnwrittenMyReviewList(user_email);
+		
 		// JSP에 넘길 자료 포장하기
 		request.setAttribute("rlist", rlist);
+		request.setAttribute("notList", notList);
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("count", count);

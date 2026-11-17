@@ -39,6 +39,25 @@ public class MyBookingDTO {
 	// 리뷰 작성 가능한지 유무 체크 변수 (퇴실예정체크아웃날짜) 보다 더 뒤에만 리뷰 작성가능
 	private int can_review;  // 리뷰 작성 가능 변수
 
+	
+	
+	
+	public int getDate_of_stay() {
+		return date_of_stay;
+	}
+
+	public void setDate_of_stay(int date_of_stay) {
+		this.date_of_stay = date_of_stay;
+	}
+
+	public int getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(int total_price) {
+		this.total_price = total_price;
+	}
+
 	public int getBook_code() {
 		return book_code;
 	}

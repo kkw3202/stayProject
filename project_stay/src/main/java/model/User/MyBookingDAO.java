@@ -114,4 +114,60 @@ public class MyBookingDAO {
 		}
 		return count;
 	}
+	
+	// 내 예약번호 조회
+	public String getBookNumber(String user_email) {
+		String book_number = "";
+		try{
+			// db 연결
+			con = Util.getConnection();
+			// sql문작성
+			String sql = "select b.book_number from user u inner join booking b on u.user_code = b.user_code "
+					+ "while u.user_email=?";
+			// pstmt 선언
+			pstmt = con.prepareStatement(sql);
+			// ?에 대입
+			pstmt.setString(1, user_email);
+			// rs 선언
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				book_number = rs.getString(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(pstmt!=null) {pstmt.close();}
+				if(con!=null) {con.close();}
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return book_number;
+	}
+	
+	// 내 예약한거 취소하기 (소프트삭제처리)
+	public void deleteMyBooking(String book_number) {
+		try{
+			// db 연결
+			con = Util.getConnection();
+			// sql문작성
+			String sql = "update booking set book_chk_status = 1 where book_number=?";
+			// pstmt 선언
+			pstmt = con.prepareStatement(sql);
+			// ?에 대입
+			pstmt.setString(1, book_number);
+			// 업데이트 실행
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(pstmt!=null) {pstmt.close();}
+				if(con!=null) {con.close();}
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
 }

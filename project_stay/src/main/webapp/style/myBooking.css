@@ -1,67 +1,321 @@
-@charset "UTF-8";
+@charset "utf-8";
 
+/* 마이페이지 > 예약확인 : 기존 JSP 구조를 그대로 사용하는 레거시 스타일 */
 .myBookingList {
-	flex: 1;
-	padding: 36px 42px;
-	background-color: #ffffff;
-	border: 1px solid #e6ebf3;
-	border-radius: 18px;
-	box-shadow: 0 12px 38px rgba(14, 49, 93, 0.07);
+	width: 100%;
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 28px 24px 36px;
+	background: #fff;
+	color: #102653;
+	font-family: "Malgun Gothic", "맑은 고딕", Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.6;
+	box-sizing: border-box;
+}
+
+.myBookingList * {
 	box-sizing: border-box;
 }
 
 .myBookingList h3 {
-	font-size: 24px;
-	color: #111827;
-	font-weight: 800;
-	margin: 0 0 24px 0;
-	padding-bottom: 14px;
-	border-bottom: 2px solid #e7edf5;
+	margin: 0 0 30px;
+	padding: 0 0 12px 22px;
+	border-bottom: 1px solid #e5ebf5;
+	position: relative;
+	color: #092456;
+	font-size: 27px;
+	font-weight: bold;
+}
+
+.myBookingList h3:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 5px;
+	width: 6px;
+	height: 30px;
+	background: #1555a0;
+	border-radius: 4px;
+}
+/* 각 예약은 leftBox와 뒤따르는 table 두 요소로 구성됨 */
+.myBookingList .leftBox {
+	float: left;
+	width: 46%;
+	min-height: 288px;
+	padding: 18px;
+	margin: 0;
+	border: 1px solid #d5e2f6;
+	border-right: 0;
+	border-radius: 16px 0 0 16px;
+	background: #fff;
+	box-shadow: 0 3px 12px rgba(21, 61, 116, .06);
+}
+
+.myBookingList .imageBox {
+	float: left;
+	width: 57%;
+	height: 192px;
+	margin-right: 4%;
+	overflow: hidden;
+	border-radius: 10px;
+	background: #edf2f9;
+}
+
+.myBookingList .imageBox a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.myBookingList .imageBox img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border: 0;
+}
+
+.myBookingList .accName {
+	float: left;
+	width: 39%;
+	padding-top: 12px;
+}
+
+.myBookingList .accName .label {
+	display: inline-block;
+	margin: 0 0 12px;
+	padding: 4px 12px;
+	background: #e7efff;
+	border-radius: 20px;
+	color: #194c94;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.myBookingList .accName .data {
+	margin: 0;
+	color: #0b285d;
+	font-size: 19px;
+	font-weight: bold;
+	line-height: 1.5;
+	overflow-wrap: break-word;
+	word-break: keep-all;
+}
+
+.myBookingList .accType {
+	display: block;
+	margin-top: 8px;
+	color: #6b7e9b;
+	font-size: 13px;
+	font-weight: normal;
+}
+
+.myBookingList .leftBox>div:last-child {
+	clear: both;
+	padding-top: 16px;
+	text-align: right;
+}
+
+.cancel_btn_block{
+	display: flex;
+	justify-content: right;	
+}
+
+.myBookingList .cancel_btn {
+	display: inline-block;
+	min-width: 170px;
+	height: 40px;
+	padding: 0 18px;
+	border: 1px solid #123e81;
+	border-radius: 7px;
+	background: #123e81;
+	color: #fff;
+	font-family: inherit;
+	font-size: 13px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.myBookingList .cancel_btn:hover {
+	background: #092b63;
 }
 
 .myBookingList .myBooking_table {
-	display: flex;
-	align-items: center;
-	width: 100%;
-	border: 1.5px solid #cbd5e1;
-	border-radius: 14px;
-	margin-bottom: 18px;
-	overflow: hidden;
-	background-color: #ffffff;
+	float: left;
+	width: 54%;
+	height: 288px;
+	margin: 0 0 18px;
+	padding: 17px 16px;
+	border: 1px solid #d5e2f6;
+	border-left: 0;
+	border-radius: 0 16px 16px 0;
+	background: #fff;
+	border-spacing: 0;
+	border-collapse: separate;
+	table-layout: fixed;
+	box-shadow: 3px 3px 12px rgba(21, 61, 116, .06);
 }
 
-.myBookingList .myBooking_table tbody:first-child {
-	display: block;
-	width: 180px;
-	min-width: 180px;
-	height: 130px;
-	overflow: hidden;
+.myBookingList .myBooking_table th, .myBookingList .myBooking_table td {
+	padding: 5px 12px;
+	border: 0;
+	border-bottom: 1px solid #d9e4f4;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 12px;
+	line-height: 1.35;
+	overflow-wrap: anywhere;
 }
 
-.myBookingList .myBooking_table tbody:first-child img {
-	display: block !important;
-	width: 180px !important;
-	max-width: 180px !important;
-	height: 130px !important;
-	max-height: 130px !important;
-	object-fit: cover !important;
-}
-
-.myBookingList .myBooking_table tbody:last-child {
-	display: table;
-	flex: 1;
-	padding: 16px 24px;
+.myBookingList .myBooking_table tr:last-child th, .myBookingList .myBooking_table tr:last-child td
+	{
+	border-bottom: 0;
 }
 
 .myBookingList .myBooking_table th.label {
-	width: 80px;
-	text-align: left;
-	font-size: 14px;
-	color: #475569;
+	width: 35%;
+	background: #edf3fd;
+	color: #193a70;
+	font-weight: bold;
 }
 
-.myBookingList .myBooking_table td.acc_name {
-	font-size: 17px;
-	font-weight: 800;
-	color: #1a3158;
+.myBookingList .myBooking_table td.data {
+	color: #22324f;
+}
+
+.myBookingList .myBooking_table .total_price {
+	color: #0d397a;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.myBookingList .book_ing, .myBookingList .book_expire, .myBookingList .book_cancel
+	{
+	display: inline-block;
+	min-width: 76px;
+	padding: 3px 12px;
+	border-radius: 20px;
+	text-align: center;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.myBookingList .book_ing {
+	background: #2587d7;
+}
+
+.myBookingList .book_expire {
+	background: #8c98a8;
+}
+
+.myBookingList .book_cancel {
+	background: #df647b;
+}
+/* 취소 / 만료된 예약 정보는 차분하게 표현 */
+.myBookingList .myBooking_table.cancel_ticket, .myBookingList .myBooking_table.over_ticket
+	{
+	background: #f7f9fc;
+}
+
+.myBookingList .myBooking_table.cancel_ticket td.data, .myBookingList .myBooking_table.over_ticket td.data
+	{
+	color: #65738a;
+}
+
+.myBookingList .myBooking_table.cancel_ticket .total_price,
+	.myBookingList .myBooking_table.over_ticket .total_price {
+	color: #65738a;
+}
+/* float가 다음 예약에 영향을 주지 않도록 각 테이블 뒤에서 해제 */
+.myBookingList .myBooking_table:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.myBookingList:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+@media screen and (max-width: 1000px) {
+	.myBookingList .leftBox {
+		width: 43%;
+	}
+	.myBookingList .myBooking_table {
+		width: 57%;
+	}
+	.myBookingList .imageBox {
+		float: none;
+		width: 100%;
+		height: 150px;
+		margin: 0;
+	}
+	.myBookingList .accName {
+		float: none;
+		width: 100%;
+		padding-top: 8px;
+	}
+	.myBookingList .accName .label {
+		margin-bottom: 4px;
+	}
+	.myBookingList .accName .data {
+		font-size: 16px;
+	}
+	.myBookingList .accType {
+		display: inline;
+	}
+	.myBookingList .leftBox {
+		min-height: 340px;
+	}
+	.myBookingList .myBooking_table {
+		height: 340px;
+	}
+}
+
+@media screen and (max-width: 720px) {
+	.myBookingList {
+		padding: 18px 12px 26px;
+	}
+	.myBookingList h3 {
+		font-size: 23px;
+	}
+	.myBookingList .leftBox, .myBookingList .myBooking_table {
+		float: none;
+		width: 100%;
+		height: auto;
+		min-height: 0;
+		margin: 0;
+		border: 1px solid #d5e2f6;
+		box-shadow: none;
+	}
+	.myBookingList .leftBox {
+		border-bottom: 0;
+		border-radius: 12px 12px 0 0;
+	}
+	.myBookingList .myBooking_table {
+		margin-bottom: 20px;
+		border-top: 0;
+		border-radius: 0 0 12px 12px;
+	}
+	.myBookingList .imageBox {
+		float: left;
+		width: 46%;
+		height: 135px;
+		margin-right: 4%;
+	}
+	.myBookingList .accName {
+		float: left;
+		width: 50%;
+	}
+	.myBookingList .myBooking_table th.label {
+		width: 38%;
+	}
+}
+/* 다음 예약 카드는 반드시 새 줄에서 시작 */
+.myBookingList .myBooking_table+.leftBox {
+	clear: both;
 }

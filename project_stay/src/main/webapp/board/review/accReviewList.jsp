@@ -5,7 +5,7 @@
 <div class="accReviewList" id="accReviewSection">
 	<h3>리뷰 (${revCount}건 )</h3>
 	<%-- 리뷰작성하기 버튼(로그인 한 사람 중, 예약이 된 사람중에서 퇴실예정일 날부터 리뷰 작성 가능 --%>
-	<c:if test="">
+	<c:if test="${not empty sessionScope.user_email and }">
 	
 	</c:if>
 	

@@ -12,8 +12,33 @@
 			<p>작성한 리뷰가 아직 없습니다.</p>
 		</div>
 	</c:if>
+	<%-- 내 예약리스트 중, 아직 리뷰 안달린 리뷰 상단에 먼저 올리기--%>
+	<%-- 단, 퇴실날짜부터만 작성 가능함 --%>
+	<c:if test="${not empty notList }">
+		<div class="unwritten_wrap">
+			<%-- 아래 글자 클릭시, 리뷰 작성하지 않는 리스트 펼침 --%>
+			<p class="notList_title" onclick="toggleUnwrittenList(this)">
+				<span>아직 작성하지 않은 리뷰가 있습니다.</span>
+				<span class="toggle_arrow">▼</span>
+			</p>
+			<%-- 처음에는 숨겨져 있는 부분(작성하지 않은 리뷰 리스트) --%>
+			<div id="unwrittenListBox" class="unwritten_list_box noShow">
+				<c:forEach var="arr02" items="${notList }">
+					<div class="unwritten_review_list">
+						<a href="reviewWriteProc.do?acc_code=${arr02.acc_code }&acc_img=${arr02.acc_img}">
+							<span class="unwritten_acc_name">${arr02.acc_name }</span>
+							<span class="unwritten_date">(퇴실일: ${arr02.book_checkout_date})</span>
+							<span class="btn_go_write">리뷰 쓰러가기 &gt;</span>
+						</a>
+					</div>
+				</c:forEach>	
+			</div>
+		</div>
+	</c:if>
+	
 	<%-- 작성한 리뷰가 있는 경우 --%>
 	<c:if test="${not empty rlist }">
+		
 		<c:forEach var="arr" items="${rlist}">
 			<table class="review_table">
 				<%-- 왼쪽 : 숙소 이미지  --%>
@@ -123,6 +148,18 @@
 	function pageBtn3(startPage,pageBlock){
 		let f = document.acc_choice;
 		location.href="MyRevListProc.do?pageNum="+ (startPage+pageBlock);
+	}
+	// 아직 쓰지 않은 리뷰 펼치는 함수
+	function toggleUnwrittenList(titleEl){
+		let listBox = document.getElementById("unwrittenListBox");
+		let arrow = titleEl.querySelector(".toggle_arrow");
+		
+		listBox.classList.toggle("noShow");
+		if(listBox.classList.contains("noShow")){
+			arrow.textContent = "▼";
+		} else {
+			arrow.textContent = "▲";
+		}
 	}
 	
 </script>

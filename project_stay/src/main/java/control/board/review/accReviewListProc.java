@@ -46,9 +46,6 @@ public class accReviewListProc extends HttpServlet {
 		// 예약정보가져오기
 		BookingDAO bdao = new BookingDAO();
 		
-		
-		
-		
 		// 한 화면에 보여질 행의 개수 (10개)
 		pdto.setPageSize(10);
 		int pageSize = pdto.getPageSize();
@@ -71,6 +68,10 @@ public class accReviewListProc extends HttpServlet {
 		int pageCount = pdto.getPageCount();
 		int startPage = pdto.getStartPage();
 		int endPage = pdto.getEndPage();
+		
+		// 리뷰 작성 가능한 
+		
+		
 		
 		ArrayList<ReviewDTO> rlist;
 		rlist = rdao.getReviewAccBoard(startRow, pageSize, acc_code);

@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="style/mypageWish.css"/>
-
 <div class="boardWrap">
 	<h3>내 찜 목록</h3>
 	<c:choose>
@@ -54,7 +55,12 @@
 							<th class="label">입실~퇴실</th>
 							<td class="data">${arr.acc_checkinTime } ~ ${arr.acc_checkoutTime } </td>
 						</tr>
-					
+						<%-- 숙소 연결 --%>
+						<tr>
+							<td colspan="2">
+								<input type="button" onclick="location.href='accInfoProc.do?acc_code=${arr.acc_code}&book_checkin_date=${defaultCheckinDate}&book_checkout_date=${defaultCheckoutDate}'" class="goAcc_btn" value="예매하기"/>
+							</td>
+						</tr>
 					</tbody>
 					
 				</table>
@@ -111,5 +117,7 @@
 	function pageBtn3(startPage,pageBlock){
 		location.href="myWishProc.do?pageNum="+ (startPage+pageBlock);
 	}
+	
+
 </script>
     

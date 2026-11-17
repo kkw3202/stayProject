@@ -23,19 +23,15 @@
 						<tbody class="myInfoBox">
 							<tr>
 								<td>
-									<img src="image/profile.png" alt="profile">
+									<img src="image/profile.png" alt="profile" class="profile_img">
 								</td>
 							</tr>
 							<tr>
-								<tr>
-									<th class="label">이름</th>
-									<td class="data">${udto.user_name }</td>
-								</tr>
+								<td class="data user_name">${udto.user_name }</td>
 							</tr>
 						</tbody>
-					
 						<%-- 오른쪽 내 정보 --%>
-						<tbody class="myInfoBox">
+						<tbody class="myInfo_status">
 							<tr>
 								<th class="label">이름</th>
 								<td class="data">${udto.user_name }</td>
