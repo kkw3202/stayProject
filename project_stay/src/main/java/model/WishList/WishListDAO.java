@@ -11,7 +11,7 @@ import model.Handler.User_change;
 
 public class WishListDAO {
 	
-	// À¯Àú ÇÑ¸íÀÇ Âò¸ñ·ÏÀ» ÀüºÎ °¡Á®¿À´Â ¸Ş¼Òµå
+	// íšŒì›ì´ ì°œí•œ ìˆ™ì†Œì˜ ì½”ë“œë¥¼ ë¦¬ìŠ¤íŠ¸ë¡œ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
 	public ArrayList<Integer> getWishList(String user_email){
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -46,7 +46,7 @@ public class WishListDAO {
 	}
 	
 
-	// mypage¿¡ ±×¸± ³» Âò ¸ñ·Ï ¸Ş¼Òµå
+	// mypageì— ì°œí•œ ëª©ë¡ ë³¼ ìˆ˜ ìˆëŠ” ë©”ì„œë“œ
 	public ArrayList<WishListDTO> myWishList(String user_email, int startRow, int pageSize){
 		ArrayList<WishListDTO> wlist = new ArrayList<WishListDTO>();
 		
@@ -56,7 +56,7 @@ public class WishListDAO {
 		try {
 			
 			con = Util.getConnection();
-			// sql¹®
+			// sqlë¬¸
 			String sql = "select w.wish_code, w.user_code, w.acc_code, u.user_email, a.acc_name, a.acc_type, "
 					+ "a.acc_address, a.acc_facility, a.acc_checkinTime, a.acc_checkoutTime, a.acc_chk_del, a.acc_img "
 					+ "from wishlist w inner join user u on w.user_code = u.user_code "
@@ -65,7 +65,7 @@ public class WishListDAO {
 					+ "and a.acc_chk_del = 0 "
 					+ "order by w.wish_code desc limit ?,?";
 			pstmt = con.prepareStatement(sql);
-			// ? ¿¡ ´ëÀÔ
+			// ? ì— ê°’ ë§¤í•‘
 			pstmt.setString(1, user_email);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, pageSize);
@@ -99,7 +99,7 @@ public class WishListDAO {
 		return wlist;
 	}
 	
-	// mypage¿¡ ±×¸± ³» Âò ¸ñ·Ï ÀüÃ¼ °³¼ö ¼¼´Â ¸Ş¼Òµå
+	// mypageì— ì°œí•œ ëª©ë¡ ë³¼ ìˆ˜ ìˆëŠ” ì „ì²´ ê°œìˆ˜ êµ¬í•˜ëŠ” ë©”ì„œë“œ
 	public int countMyWishlist(String user_email) {
 		
 		Connection con = null;
@@ -109,13 +109,13 @@ public class WishListDAO {
 		try {
 			
 			con = Util.getConnection();
-			// sql¹®
+			// sqlë¬¸
 			String sql = "select count(*) from wishlist w inner join user u "
 					+ "on w.user_code = u.user_code "
 					+ "inner join accommodation a on w.acc_code = a.acc_code "
 					+ "where u.user_email = ? and a.acc_chk_del = 0 ";
 			pstmt = con.prepareStatement(sql);
-			// ? ¿¡ ´ëÀÔ
+			// ? ì— ê°’ ë§¤í•‘
 			pstmt.setString(1, user_email);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -133,7 +133,7 @@ public class WishListDAO {
 		return count;
 	}
 	
-	// ³» Âò ¸ñ·Ï »èÁ¦ÇÏ±â (¼ÒÇÁÆ® »èÁ¦ ¾Æ´Ô)
+	// ì°œ ë¦¬ìŠ¤íŠ¸ ì‚­ì œí•˜ê¸° (ì—…ë°ì´íŠ¸ ë°©ì‹ ì•„ë‹˜)
 	public void deleteMywish(int wish_code) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -142,12 +142,12 @@ public class WishListDAO {
 		try {
 
 			con = Util.getConnection();
-			// sql¹®
+			// sqlë¬¸
 			String sql = "delete from wishlist where wish_code = ?";
 			pstmt = con.prepareStatement(sql);
-			// ? ¿¡ ´ëÀÔ
+			// ? ì— ê°’ ë§¤í•‘
 			pstmt.setInt(1, wish_code);
-			// »èÁ¦½ÇÇà
+			// ë°ì´í„°ë² ì´ìŠ¤ ì‹¤í–‰
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -159,7 +159,7 @@ public class WishListDAO {
 			}catch(Exception e) {e.printStackTrace(); }
 		}
 	}	
-	// ÇÑ ¼÷¼Ò¸¦ ÇÑ È¸¿øÀÇ Âò¸ñ·Ï¿¡ Ãß°¡ÇÏ´Â ¸Ş¼Òµå
+	// í•œ ìˆ™ì†Œë¥¼ ì°œ íšŒì›ì˜ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•˜ëŠ” ë©”ì„œë“œ
 	public void addWishList(String user_email, int acc_code){
 			
 			User_change uc = new User_change();
@@ -181,7 +181,7 @@ public class WishListDAO {
 				
 			}catch(Exception e) {
 				e.printStackTrace();
-				System.out.println("Âò¸ñ·Ï Ãß°¡ ½ÇÆĞ!");
+				System.out.println("ì°œ ì¶”ê°€ ì‹¤íŒ¨!");
 			}finally {
 				try {
 					if(con != null) con.close();

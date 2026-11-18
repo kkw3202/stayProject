@@ -22,16 +22,16 @@ public class MyRevDeleteCon extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 		int rev_code = Integer.parseInt(request.getParameter("rev_code"));
 		
-		// rdao ÀÎ½ºÅÏ½º ¹× ¸®ºäÄÚµå °¡Á®¿À±â
+		// rdao ì¸ìŠ¤í„´ìŠ¤ ë° ë¦¬ë·°ì½”ë“œ ê°€ì ¸ì˜¤ê¸°
 		ReviewDAO rdao = new ReviewDAO();
 		
-		// ¼ÒÇÁÆ® »èÁ¦ ÈÄ ÆäÀÌÁö ³Ñ±â±â
+		// ì—…ë°ì´íŠ¸ ì‚­ì œ í›„ í˜ì´ì§€ ë„˜ê¸°ê¸°
 		rdao.deleteReview(rev_code);
 		
 		response.sendRedirect("MyRevListProc.do");

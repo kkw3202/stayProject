@@ -1,43 +1,43 @@
 package model.User;
 
 public class MyBookingDTO {
-	// ¿¹¾à°ü·Ã 
-	private int book_code;  // ¿¹¾à¹øÈ£
-	private String book_number;  // ¿¹¾à¹øÈ£
-	private String book_name;  // ¿¹¾àÀÚ¸í
-	private int user_code;  // È¸¿ø¹øÈ£
-	private int room_code;  // °´½Ç¹øÈ£
-	private String book_checkin_date;  // (¿¹Á¤) Ã¼Å©ÀÎ ³¯Â¥
-	private String book_checkout_date;  // (¿¹Á¤) Ã¼Å©¾Æ¿ô ³¯Â¥
-	private String book_date;  // ¿¹¸Å°áÁ¦ÀÏ
-	private String book_cancel_date;  // ¿¹¸ÅÃë¼ÒÀÏ
-	private int book_chk_status;  // ¿¹¾à»óÅÂÃ¼Å©(0:¿¹¾à¿Ï·á / 1: ¿¹¾àÃë¼Ò)
-	private int date_of_stay; // ¸î¹ÚÀÎÁö ±¸ÇØ¼­ ´ãÀ½
-	private int total_price; // ÃÑ ±İ¾× ±¸ÇØ¼­ ´ãÀ½
+	// ì˜ˆì•½ì •ë³´ 
+	private int book_code;  // ì˜ˆì•½ë²ˆí˜¸
+	private String book_number;  // ì˜ˆì•½ë²ˆí˜¸
+	private String book_name;  // ì˜ˆì•½ìëª…
+	private int user_code;  // íšŒì›ë²ˆí˜¸
+	private int room_code;  // ë£¸ë²ˆí˜¸
+	private String book_checkin_date;  // (ì˜ˆì•½) ì²´í¬ì¸ ë‚ ì§œ
+	private String book_checkout_date;  // (ì˜ˆì•½) ì²´í¬ì•„ì›ƒ ë‚ ì§œ
+	private String book_date;  // ì˜ˆì•½í‚¤ì˜¤ìŠ¤í¬ì¼ì‹œ
+	private String book_cancel_date;  // ì·¨ì†Œì¼ì
+	private int book_chk_status;  // ì˜ˆì•½ìƒíƒœì²´í¬(0:ì´ìš©ì™„ë£Œ / 1: ì˜ˆì•½ì·¨ì†Œ)
+	private int date_of_stay; // ìˆ™ë°•ì¼ìˆ˜ ê³„ì‚°í•´ì„œ ì €ì¥
+	private int total_price; // ì´ ê¸ˆì•¡ ê³„ì‚°í•´ì„œ ì €ì¥
 
-	// °´½Ç°ü·Ã
-	private String room_name;  // °´½Ç¸í
-	private int room_price;  // °´½Ç°¡°İ
+	// ë£¸ì •ë³´
+	private String room_name;  // ë£¸ì´ë¦„
+	private int room_price;  // ë£¸ê°€ê²©ë‹¹ì¼
 
-	// ¼÷¼Ò°ü·Ã
-	private int acc_code;  // ¼÷¼ÒÄÚµå
-	private String acc_type;  // ¼÷¼ÒÀ¯Çü
-	private String acc_name;  // ¼÷¼Ò¸í
-	private String acc_address;  // ¼÷¼ÒÁÖ¼Ò
-	private String acc_checkinTime;  // ¼÷¼ÒÀÔ½Ç½Ã°£
-	private String acc_checkoutTime;  // ¼÷¼ÒÅğ½Ç½Ã°£
-	private String acc_img;  // ¼÷¼Ò ÀÌ¹ÌÁö
+	// ìˆ™ì†Œì •ë³´
+	private int acc_code;  // ìˆ™ì†Œì½”ë“œ
+	private String acc_type;  // ìˆ™ì†Œíƒ€ì…
+	private String acc_name;  // ìˆ™ì†Œëª…
+	private String acc_address;  // ìˆ™ì†Œì£¼ì†Œ
+	private String acc_checkinTime;  // ìˆ™ì†Œì…ì‹¤ì‹œê°„
+	private String acc_checkoutTime;  // ìˆ™ì†Œí‡´ì‹¤ì‹œê°„
+	private String acc_img;  // ìˆ™ì†Œ ì´ë¯¸ì§€
 	
-	// ¸®ºä°ü·Ã
-	private int rev_code;  // ¸®ºä ÄÚµå (ÀÛ¼ºÇŞ´ÂÁö À¯¹« ÆÄ¾Ç)
-	private String rev_created_datetime;  // ¸®ºä ÀÛ¼º½Ã°£
-	private int rev_chk_del;  // ¸®ºä »èÁ¦Çß´ÂÁö À¯¹«Ã¼Å©
+	// ë¦¬ë·°ì •ë³´
+	private int rev_code;  // ë¦¬ë·° ì½”ë“œ (ì‘ì„±ì—¬ë¶€ íŒë‹¨ ë° ì‹ë³„)
+	private String rev_created_datetime;  // ë¦¬ë·° ì‘ì„±ì‹œê°„
+	private int rev_chk_del;  // ë¦¬ë·° ì‚­ì œí–ˆëŠ”ì§€ì— ëŒ€í•œ ì²´í¬
 	
-	// È¸¿ø°ü·Ã
-	private String user_email;  // È¸¿ø ÀÌ¸ŞÀÏ
+	// íšŒì›ì •ë³´
+	private String user_email;  // íšŒì› ì´ë©”ì¼
 	
-	// ¸®ºä ÀÛ¼º °¡´ÉÇÑÁö À¯¹« Ã¼Å© º¯¼ö (Åğ½Ç¿¹Á¤Ã¼Å©¾Æ¿ô³¯Â¥) º¸´Ù ´õ µÚ¿¡¸¸ ¸®ºä ÀÛ¼º°¡´É
-	private int can_review;  // ¸®ºä ÀÛ¼º °¡´É º¯¼ö
+	// ë¦¬ë·° ì‘ì„± ê°€ëŠ¥ì—¬ë¶€ í™•ì¸ìš© (ì˜¤ëŠ˜ë‚ ì§œ-ì²´í¬ì•„ì›ƒë‚ ì§œ) ê³„ì‚° í›„ ê°’ ë¹„êµí•´ì„œ ë¦¬ë·° ì‘ì„±ê°€ëŠ¥ì—¬ë¶€
+	private int can_review;  // ë¦¬ë·° ì‘ì„± ê°€ëŠ¥ ì—¬ë¶€
 
 	
 	

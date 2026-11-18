@@ -1,18 +1,18 @@
 package model.WishList;
 
 public class WishListDTO {
-	private int wish_code;  // ÂòÄÚµå
-	private int user_code;  // È¸¿øÄÚµå
-	private int acc_code;  // ¼÷¼ÒÄÚµå
-	private String user_email; // À¯Àú ÀÌ¸ŞÀÏ
-	private String acc_name;  // ¼÷¼Ò¸í
-	private String acc_type;  // ¼÷¼ÒÅ¸ÀÔ
-	private String acc_address;  // ¼÷¼ÒÁÖ¼Ò
-	private String acc_facility;  // ºÎ´ë½Ã¼³
-	private String acc_checkinTime;  // Ã¼Å©ÀÎ ½Ã°£
-	private String acc_checkoutTime;  // Ã¼Å©¾Æ¿ô½Ã°£
-	private int acc_chk_del;  // ¼÷¼Ò ¼ÒÇÁÆ®»èÁ¦ ¿©ºÎÃ¼Å©Å°
-	private String acc_img;  // ¼÷¼ÒÀÌ¹ÌÁö
+	private int wish_code;  // ì°œì½”ë“œ
+	private int user_code;  // íšŒì›ì½”ë“œ
+	private int acc_code;  // ìˆ™ì†Œì½”ë“œ
+	private String user_email; // íšŒì› ì´ë©”ì¼
+	private String acc_name;  // ìˆ™ì†Œëª…
+	private String acc_type;  // ìˆ™ì†Œíƒ€ì…
+	private String acc_address;  // ìˆ™ì†Œì£¼ì†Œ
+	private String acc_facility;  // ë¶€ëŒ€ì‹œì„¤
+	private String acc_checkinTime;  // ì²´í¬ì¸ ì‹œê°„
+	private String acc_checkoutTime;  // ì²´í¬ì•„ì›ƒì‹œê°„
+	private int acc_chk_del;  // ìˆ™ì†Œ ì‚­ì œì²´í¬í‚¤ (ì—…ë°ì´íŠ¸ë°©ì‹)
+	private String acc_img;  // ìˆ™ì†Œì´ë¯¸ì§€
 	
 	
 	public int getAcc_chk_del() {

@@ -1,17 +1,17 @@
 package model.Inquiry;
 
 public class InquiryDTO {
-	// 二쇱꽍�씠�빞
+	// 주석이야
 	private int inq_code;
 	private String inq_title;
-	private String user_name;  // 회占쏙옙占싱몌옙
+	private String user_name;  // 회원이름
 	private String inq_created_datetime;
-	private int inq_chk_status;  // 占썰변占쏙옙占쏙옙 체크키
-	private int inq_ref;  // 占쏙옙 占쌓뤄옙
-	private int inq_re_step;  // 占쏙옙 占쏙옙占쏙옙
-	private int user_code;  // 회占쏙옙占쌘듸옙
-	private String inq_content;  // 占쏙옙 占쏙옙占쏙옙
-	private int inq_chk_del;  // 占쏙옙占쏙옙占쏙옙占쏙옙체크키 (占쏙옙占쏙옙트占쏙옙占쏙옙)
+	private int inq_chk_status;  // 답변상태 체크키
+	private int inq_ref;  // 1:1문의 글 번호(그룹)
+	private int inq_re_step;  // 답변 단계
+	private int user_code;  // 회원코드
+	private String inq_content;  // 글 내용
+	private int inq_chk_del;  // 삭제여부 체크키 (업데이트방식)
 	private String user_email;
 	
 	public String getUser_email() {

@@ -23,11 +23,11 @@ public class reviewUpdateProc extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
 		
-		//  ¸®ºä°Ô½ÃÆÇ¿¡¼­ ¸®ºä ÄÚµå °¡Á®¿À±â 
+		// í•´ë‹¹ ê²Œì‹œíŒì—ì„œ ë¦¬ë·° ì½”ë“œ ë°›ì•„ì˜¤ê¸° 
 		String code = request.getParameter("rev_code"); 
 		int rev_code = 0; 
 		if(code!=null || !code.isEmpty()) {
@@ -35,10 +35,10 @@ public class reviewUpdateProc extends HttpServlet {
 		}
 		request.setAttribute("rev_code", rev_code);
 		
-		// rdao ÀÎ½ºÅÏ½º / rdto °¡Á®¿À±â
+		// rdao ì¸ìŠ¤í„´ìŠ¤ / rdto ìƒì„±í•˜ê¸°
 		ReviewDAO rdao = new ReviewDAO();
 		ReviewDTO rdto = rdao.getReviewOneBoard(rev_code);
-		// ¼÷¼Ò¸í °¡Á®¿À±â
+		// ìˆ™ì†Œëª… ê°€ì ¸ì˜¤ê¸°
 		// String acc_name = rdao.getAcc_name(rev_code);
 		// String acc_name = rdto.getAcc_name();
 		

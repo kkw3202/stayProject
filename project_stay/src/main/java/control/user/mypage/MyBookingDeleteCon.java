@@ -20,17 +20,17 @@ public class MyBookingDeleteCon extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 		MyBookingDAO mbdao = new MyBookingDAO();
 		String book_number = request.getParameter("book_number");
 		
-		// ¾÷µ¥ÀÌÆ® ½ÇÇàÇÏ±â
+		// ì—…ë°ì´íŠ¸ ì‹¤í–‰í•˜ê¸°
 		mbdao.deleteMyBooking(book_number);
 		
-		// ÆäÀÌÁö ¸®ÅÏÇÏ±â
+		// í˜ì´ì§€ ì´ë™í•˜ê¸°
 		response.sendRedirect("myBookingProc.do");
 	}
 }

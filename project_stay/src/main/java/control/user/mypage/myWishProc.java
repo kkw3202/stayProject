@@ -29,14 +29,14 @@ public class myWishProc extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// ÇÚµé·¯ ÀÎ½ºÅÏ½º ¹× user_email °¡Á®¿À±â + wdao ÀÎ½ºÅÏ½º
+		// í•¸ë“¤ëŸ¬ ì¸ìŠ¤í„´ìŠ¤ ë° user_email ê°€ì ¸ì˜¤ê¸° + wdao ì¸ìŠ¤í„´ìŠ¤
 		HttpSession session = request.getSession();
 		String user_email = (String)session.getAttribute("user_email");
 		
-		// ¼¼¼Ç ¸¸·á ¿¹¿ÜÃ³¸®
+		// ì„¸ì…˜ ë§Œë£Œ ì‹œ ì²˜ë¦¬
 		if(user_email == null) {
 			response.sendRedirect("loginProc.do");
 			return;
@@ -46,20 +46,20 @@ public class myWishProc extends HttpServlet {
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
 		WishListDAO wdao = new WishListDAO();
 		
-		// ÇÑ È­¸é¿¡ º¸¿©Áú ÇàÀÇ °³¼ö (3°³)
+		// í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê¸€ì˜ ê°œìˆ˜ (3ê°œ)
 		pdto.setPageSize(3);
 		int pageSize = pdto.getPageSize();
-		// ÇÑ È­¸é¿¡ ÆäÀÌÂ¡ ÇÏ°í ½ÍÀº °³¼ö [1][2][3]
+		// í•œ í™”ë©´ì— í˜ì´ì§• í•  ë¸”ë¡ ê°œìˆ˜ [1][2][3]
 		int pageBlock = 3;
 		
-		// pageNum Á¤º¸°¡Á®¿À±â (Ã³À½È­¸é null °ª)
+		// pageNum íŒŒë¼ë¯¸í„°ê°€ì ¸ì˜¤ê¸° (ì²˜ìŒí™”ë©´ null ì¼ë•Œ)
 		String pageNum = request.getParameter("pageNum");
 		
-		// count(ÀüÃ¼ °³¼ö ¼³Á¤)
+		// count(ì „ì²´ ê¸€ì˜ ê°œìˆ˜)
 		int count = 0;
 		count = wdao.countMyWishlist(user_email);
 		
-		// ÆäÀÌÂ¡ ºÎºĞ
+		// í˜ì´ì§• ë¶€ë¶„
 		pdto = pdao.getPaging(pageNum, count, pageSize, pageBlock);
 		int currentPage = pdto.getCurrentPage();
 		int startRow = pdto.getStartRow();
@@ -68,7 +68,7 @@ public class myWishProc extends HttpServlet {
 		int startPage = pdto.getStartPage();
 		int endPage = pdto.getEndPage();
 		
-		// ³¯Â¥ µ¥ÀÌÅÍ °ü·Ã
+		// ë‚ ì§œ ì„¸íŒ…ì„ ìœ„í•œ ì„¤ì •
 		Date today = new Date();
 		Calendar cal = Calendar.getInstance();
 		
@@ -87,11 +87,11 @@ public class myWishProc extends HttpServlet {
 		request.setAttribute("defaultCheckoutDate", defaultCheckoutDate);
 		
 		
-		// ³» Âò ¸ñ·Ï ±×¸®´Â ÇÔ¼ö ºÒ·¯¿À±â
+		// ìœ„ ì°œ ë¦¬ìŠ¤íŠ¸ ê´€ë¦¬í•˜ëŠ” í•¨ìˆ˜ ë¶ˆëŸ¬ì˜¤ê¸°
 		ArrayList<WishListDTO> wlist;
 		wlist = wdao.myWishList(user_email, startRow, pageSize);
 		
-		// jsp¿¡ ³Ñ±æ ÀÚ·áµé Æ÷ÀåÇÏ±â
+		// jspë¡œ ë„˜ê¸¸ ìë£Œë¡œ ì„¸íŒ…í•˜ê¸°
 		request.setAttribute("wlist", wlist);
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);
@@ -102,10 +102,10 @@ public class myWishProc extends HttpServlet {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		
-		// mypage ¾ÈÂÊ¿¡ ³ÖÀ» ÆäÀÌÁö Æ÷ÀåÇÏ±â
+		// mypage ì•ˆì—ì„œ í•„ìš”í•œ ì„¹ì…˜ëª… ì„¤ì •í•˜ê¸°
 		request.setAttribute("mypageSection", "myWish");
 		
-		// º¸³»±â
+		// í¬ì›Œë”©
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=user/mypage.jsp");
 		rd.forward(request, response);
 	}

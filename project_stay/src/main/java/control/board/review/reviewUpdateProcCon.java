@@ -23,10 +23,10 @@ public class reviewUpdateProcCon extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµùÇÏ±â
+		// ì¸ì½”ë”©í•˜ê¸°
 		request.setCharacterEncoding("utf-8");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 		String tmp = request.getParameter("rev_code");
 		
 		int rev_code = Integer.parseInt(tmp);
@@ -38,11 +38,11 @@ public class reviewUpdateProcCon extends HttpServlet {
 		System.out.println("rev_rating"+rev_rating);
 		System.out.println("rev_content"+rev_content);
 		
-		// rdao ÀÎ½ºÅÏ½º + ¾÷µ¥ÀÌÆ® ½Ç½Ã
+		// rdao ì¸ìŠ¤í„´ìŠ¤ + ì—…ë°ì´íŠ¸ ì‹¤ì‹œ
 		ReviewDAO rdao = new ReviewDAO();
 		rdao.updateReview(rev_code, rev_rating, rev_content);
 		
-		// ¼öÁ¤ ÈÄ ¿ø·¡ º¸°í ÀÖ´ø ¼÷¼Ò »ó¼¼ÆäÀÌÁö ¸®ºä À§Ä¡(#accReviewSection)·Î º¹±Í
+		// ìˆ˜ì • í›„ ì›ë˜ ìˆë˜ ìˆ™ì†Œ ìƒì„¸í˜ì´ì§€ì˜ ë¦¬ë·° ìœ„ì¹˜(#accReviewSection)ë¡œ ì´ë™
 		int acc_code = Integer.parseInt(request.getParameter("acc_code"));
 		String book_checkin_date = request.getParameter("book_checkin_date");
 		String book_checkout_date = request.getParameter("book_checkout_date");

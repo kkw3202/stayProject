@@ -2,6 +2,7 @@ package model.common;
 // 
 public class IndexDTO {
 	private int acc_code;
+	private String linked_acc_code;
 	private String acc_type;
 	private String acc_name;
 	private String acc_img;
@@ -10,14 +11,20 @@ public class IndexDTO {
 	private String city_name;
 	private String city_img;
 	
-	private double avg_rev_rating; // 평균 구한값으로 가져오기!
+	private double avg_rev_rating;
 	private String rev_content; 
-	private int count_rev_rating; // count 구한값으로 가져오기!
+	private int count_rev_rating;
 	
 	private String user_name;
 	private String rev_created_datetime;
 	
 	
+	public String getLinked_acc_code() {
+		return linked_acc_code;
+	}
+	public void setLinked_acc_code(String linked_acc_code) {
+		this.linked_acc_code = linked_acc_code;
+	}
 	public int getAcc_code() {
 		return acc_code;
 	}
