@@ -125,15 +125,11 @@
 	    let val0 = saveSel[0] ? saveSel[0].value : "";
 	    let val1 = saveSel[1] ? saveSel[1].value : "";
 	
-	    if(currentDateVal == val0) {
+	    if(currentDateVal == val0 || currentDateVal == val1) {
 	        selElement.classList.remove("selected");
-	        saveSel1.innerHTML = "";
-	    } 
-	    else if(currentDateVal == val1) {
-	        selElement.classList.remove("selected");
-	        saveSel2.innerHTML = "";
-	    } 
-	    else {
+            if(currentDateVal == val0) saveSel1.innerHTML = "";
+            if(currentDateVal == val1) saveSel2.innerHTML = "";
+        }else {
 	        if(saveSel.length >= 2){
 	            alert("취소 후 재선택");
 	        } else {

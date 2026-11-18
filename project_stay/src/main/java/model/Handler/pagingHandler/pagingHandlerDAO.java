@@ -4,29 +4,29 @@ public class pagingHandlerDAO {
 
 	public pagingHandlerDTO getPaging(String pageNum, int count, int pageSize, int pageBlock) {
 		
-		// pdto ÀÎ½ºÅÏ½º
+		// pdto ì¸ìŠ¤í„´ìŠ¤
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
 		
-		// Proc ¼­ºí¸´¿¡¼­ ¹Ş¾Æ¿Â pageNumÀÌ null ÀÎ °æ¿ì(¸Ç Ã³À½¿¡ °Ô½ÃÆÇ ¿­¶§ È¤Àº ÀüÃ¼º¸±â)
-		// pageNumÀ» ¹®ÀÚ 1·Î Á¤ÇÔ
+		// Proc í˜ì´ì§€ì—ì„œ ë°›ì•„ì˜¨ pageNumì´ null ì¼ ê²½ìš°(ì²« ì²˜ìŒ ê²Œì‹œíŒ ì ‘ì† í˜¹ì€ ì „ì²´ëª©ë¡)
+		// pageNumì´ ì—†ìœ¼ë©´ 1ë¡œ ì„¤ì •
 		if(pageNum == null || pageNum.isEmpty()) {
 			pageNum = "1";
 		}
 		
-		// ÇöÀç ÆäÀÌÁö º¯¼ö ÁöÁ¤
+		// í˜„ì¬ í˜ì´ì§€ì˜ ë²ˆí˜¸ ì„¤ì •
 		int currentPage = Integer.parseInt(pageNum);
-		// Ã¹¹øÂ° Çà º¯¼ö ´ã´Â º¯¼ö °ø½Ä  (1ÆäÀÌÁö: (1-1)*10 = 0ÇàºÎÅÍ / 2ÆäÀÌÁö: (2-1)*10 = 10ÇàºÎÅÍ)
+		// ì²«ë²ˆì§¸ ì¤„ ë²ˆí˜¸ êµ¬í•˜ëŠ” ê³µì‹ ì„¤ì •  (1í˜ì´ì§€: (1-1)*10 = 0ë²ˆì§¸ / 2í˜ì´ì§€: (2-1)*10 = 10ë²ˆì§¸)
 		int startRow = (currentPage-1)*pageSize;
-		// ¼ø¹ø½ÃÀÛ °ª º¯¼ö °ø½Ä
-		int number = count - startRow;  // ÃÑ°Ô½Ã±Û ¼ö - Ã¹¹øÂ°Çà °ª 
-		// ÃÑ 25°³ ±ÛÀÏ ¶§ -> 1ÆäÀÌÁö Ã¹±Û: 25 - 0 = 25¹ø 
-		/// 2ÆäÀÌÁö Ã¹±Û: 25 - 10 = 15¹ø
+		// í˜ì´ì§€ë³„ ê¸€ ë²ˆí˜¸ ì„¤ì •
+		int number = count - startRow;  // ì´ê²Œì‹œê¸€ ìˆ˜ - ì²«ë²ˆì§¸ì¤„ ë²ˆ 
+		// ì´ 25ê°œ ê¸€ì¸ ê²½ìš° -> 1í˜ì´ì§€ ì²«: 25 - 0 = 25ë²ˆ 
+		/// 2í˜ì´ì§€ ì²«: 25 - 10 = 15ë²ˆ
 		
-		// ÃÑ ÆäÀÌÁö °³¼ö º¯¼ö ¼³Á¤
+		// ì´ í˜ì´ì§€ì˜ ê°œìˆ˜ ê³„ì‚° ì„¤ì •
 		int pageCount = 0;
-		// ÆäÀÌÂ¡ ½ÃÀÛ°ª º¯¼ö ¼³Á¤
+		// í˜ì´ì§• ì‹œì‘ë²ˆí˜¸ ì„¤ì •
 		int startPage = 1;
-		// ÆäÀÌÂ¡ ¸¶Áö¸· °ª º¯¼ö ¼³Á¤
+		// í˜ì´ì§• ë§ˆì§€ë§‰ ë²ˆ ë²ˆí˜¸ ì„¤ì •
 		int endPage = 0;
 		
 		if(count>0) {
@@ -36,7 +36,7 @@ public class pagingHandlerDAO {
 			}else {
 				startPage = ((currentPage/pageBlock)-1)*pageBlock + 1;
 			}
-			// Ã¹ È­¸é¿¡ [1],[2],[3],[4],[5]ÀÇ 5¸¦, [6],[7],[8],[9],[10]ÀÇ 10À» ´ã´Â º¯¼ö
+			// ì²« í™”ë©´ì— [1],[2],[3],[4],[5]ëŠ” 5ê°œ, [6],[7],[8],[9],[10]ì€ 10ê°œ ë‚˜ì—´ ì„¤ì •
 			// 5    =     1     +  5      - 1
 			endPage = startPage + pageBlock-1 ;
 			
@@ -45,7 +45,7 @@ public class pagingHandlerDAO {
 			}
 		}
 		
-		// °è»êµÈ °ªµéÀ» DTO¿¡ ¸ğµÎ ´ã±â
+		// êµ¬í•œ ê°’ë“¤ì„ DTOì— ê°’ ë‹´ê¸°
 		pdto.setPageSize(pageSize);
 		pdto.setCount(count);
 		pdto.setCurrentPage(currentPage);

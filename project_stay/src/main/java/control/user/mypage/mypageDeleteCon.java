@@ -21,20 +21,20 @@ public class mypageDeleteCon extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// ì„¸ì…˜ê°’ ê°€ì ¸ì˜¤ê¸°
 		HttpSession session = request.getSession();
 		String user_email = (String)session.getAttribute("user_email");
 		
-		// udao ÀÎ½ºÅÏ½º
+		// udao ì¸ìŠ¤í„´ìŠ¤
 		UserDAO udao = new UserDAO();
 		
-		// ¼ÒÇÁÆ® »èÁ¦ ½ÇÇà
+		// ì—…ë°ì´íŠ¸ ë”œë¦¬íŠ¸ ì‹¤í–‰
 		udao.deleteMember(user_email);
 		
-		// ·Î±×¾Æ¿ô ½ÃÅ°°í, µ¹·Áº¸³»±â
+		// ë¡œê·¸ì•„ì›ƒ ì‹œí‚¤ê¸°, ë©”ì¸í˜ì´ì§€ë¡œ
 		session.invalidate();
 		response.sendRedirect("index.jsp");
 		

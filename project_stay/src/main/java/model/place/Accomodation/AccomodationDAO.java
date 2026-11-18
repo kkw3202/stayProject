@@ -8,8 +8,8 @@ import DBPKG.Util;
 import model.place.placeDTO;
 
 public class AccomodationDAO {
-	// 1108 Ãß°¡ºĞ
-	// ¼÷¼Ò ÇÏ³ªÀÇ »ó¼¼Á¤º¸ ¸Ş¼Òµå
+	// 1108 ì¶”ê°€ë¨
+	// ìˆ™ì†Œ í•˜ë‚˜ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
 	public placeDTO getOne_accInfo(int acc_code) {
 		placeDTO pdto = new placeDTO();
 		pdto.setAcc_code(acc_code);

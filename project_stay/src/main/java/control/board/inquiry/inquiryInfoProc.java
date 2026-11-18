@@ -29,22 +29,21 @@ public class inquiryInfoProc extends HttpServlet {
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ÀÎÄÚµù
-		request.setCharacterEncoding("utf-8");
-		// 1:1 °Ô½ÃÆÇ È¸¿øÀÌ¸§ / ±Û¹øÈ£ / ÀÛ¼ºÀÏÀÚ / ±Û±×·ì / ±Û½ºÅÇ/ ´äº¯»óÅÂÃ¼Å©Å° °¡Á®¿À±â
+		// ì¸ì½”ë”©
+		// 1:1 ê²Œì‹œíŒ íšŒì›ì´ë©”ì¼ / ê¸€ë²ˆí˜¸ / ì‘ì„±ìëª… / ê¸€ê·¸ë£¹ / ê¸€ìˆœì„œ/ ë‹µë³€ìƒíƒœì²´í¬í‚¤ íŒŒë¼ë¯¸í„°ë¡œ
 
-		// °´Ã¼¼±¾ğ
+		// ê°ì²´ ìƒì„±
 		InquiryDAO idao = new InquiryDAO();
 		HttpSession session = request.getSession();
 		String user_email = (String) session.getAttribute("user_email");
 		
 		int inq_code = Integer.parseInt(request.getParameter("inq_code"));
-		// idao¿¡¼­ ÀÛ¼ºÀÚ Ã£¾Æ¿À´Â ¸Ş¼Òµå
+		// idaoì—ì„œ ì‘ì„±ì ì°¾ì•„ì˜¤ëŠ” ë©”ì„œë“œ
 		String writerEmail = idao.getInquiryWriterEmail(inq_code);
 		System.out.println(inq_code);
 		System.out.println(writerEmail);
 
-		// °ü¸®ÀÚÀÌ°Å³ª / ·Î±×ÀÎÇÑ»ç¶÷°ú ÀÛ¼ºÀÚ°¡ ÀÏÄ¡ÇÏ´Â °æ¿ì, »ó¼¼º¸±â inquiryInfo.jsp·Î º¸³¿
+		// ê´€ë¦¬ìì´ê±°ë‚˜ / ë¡œê·¸ì¸í•œ ì‚¬ìš©ìì™€ ì‘ì„±ìê°€ ì¼ì¹˜í•˜ëŠ” ê²½ìš°, ìƒì„¸ë³´ê¸° inquiryInfo.jspë¡œ ì „ì†¡
 		InquiryDTO idto = idao.getInquiryOneBoard(inq_code);
 		request.setAttribute("idto", idto);
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/inquiry/inquiryInfo.jsp");

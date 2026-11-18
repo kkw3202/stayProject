@@ -24,19 +24,19 @@ public class inquiryRewriteProc extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// »ó¼¼º¸±â¿¡¼­ inq_code °¡Á®¿À±â
+		// ìƒì„¸ë³´ê¸°ì—ì„œ inq_code íŒŒë¼ë¯¸í„°ë¡œ ë°›ì•„ì˜¤ê¸°
 		int inq_code = Integer.parseInt(request.getParameter("inq_code"));
 		
-		// idao ÀÎ½ºÅÏ½º / idto ÀÎ½ºÅÏ½º
+		// idao ì¸ìŠ¤í„´ìŠ¤ / idto ì¸ìŠ¤í„´ìŠ¤
 		InquiryDAO idao = new InquiryDAO();
 		InquiryDTO idto = idao.getInquiryOneBoard(inq_code);
 				
 		request.setAttribute("idto", idto);
 		
-		// ÆûÀ¸·Î Á¤º¸º¸³»±â
+		// ë‹µê¸€ ì‘ì„± í¼ìœ¼ë¡œ í¬ì›Œë“œ
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/inquiry/inquiryRewriteForm.jsp");
 		rd.forward(request, response);
 	}

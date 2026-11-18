@@ -17,7 +17,7 @@ import model.Inquiry.InquiryDAO;
 import model.Inquiry.InquiryDTO;
 
 
-// 1:1 °Ô½ÃÆÇ ±×¸®´Â ¼­ºí¸´
+// 1:1 ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸ ì²˜ë¦¬
 @WebServlet("/inquiryListProc.do")
 public class inquiryListProc extends HttpServlet {
 	
@@ -30,15 +30,15 @@ public class inquiryListProc extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		System.out.println("--------------");
-		// Á¤º¸ °¡Á®¿À±â
+		// íŒŒë¼ë¯¸í„° ë°›ì•„ì˜¤ê¸°
 		String pageNum = request.getParameter("pageNum");  
 		String keyWord = request.getParameter("keyWord");
 		String searchType = request.getParameter("searchType");
 		
-		// ÀÎ½ºÅÏ½ºÈ­ (ÆäÀÌÂ¡ / Inquiry)
+		// ì¸ìŠ¤í„´ìŠ¤í™” (í˜ì´ì§• / Inquiry)
 		pagingHandlerDAO pdao = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO(); 
 		InquiryDAO idao = new InquiryDAO(); 
@@ -47,17 +47,17 @@ public class inquiryListProc extends HttpServlet {
 		
 		int count = 0;
 		
-		// ÇÑ È­¸é¿¡ º¸¿©Áú ÇàÀÇ °³¼ö (10°³)
+		// í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê²Œì‹œê¸€ ê°œìˆ˜ (10ê°œ)
         pdto.setPageSize(10);
         int pageSize = pdto.getPageSize();
-		// ÇÑ È­¸é¿¡ ÆäÀÌÂ¡ÇÏ°í ½ÍÀº °³¼ö [1][2][3][4][5]
+		// í•œ í™”ë©´ì— í˜ì´ì§•ì²˜ë¦¬í•  ë¸”ë¡ ê°œìˆ˜ [1][2][3][4][5]
 		int pageBlock=5;
 		
 		
 		
 		String user_name = "";
 		
-		// °Ë»öÃ¢¿¡ °ø¹é¸¸ Ä¡°Å³ª ±×³É °Ë»ö ´­·¶À» ¶§ null·Î Ã³¸®
+		// ê²€ìƒ‰ì°½ì— ê³µë°±ë§Œ ì¹˜ê±°ë‚˜ ê·¸ëƒ¥ ê²€ìƒ‰ ë²„íŠ¼ì„ ëˆ„ë¥¼ ë•Œ nullë¡œ ì²˜ë¦¬
 		if(keyWord != null) {
 		    keyWord = keyWord.trim();
 		    if(keyWord.equals("")) {
@@ -68,37 +68,37 @@ public class inquiryListProc extends HttpServlet {
 		//boolean isSearch;
 		
 		
-		// ³»°¡¾´ ±Ûº¸±â ¹öÆ° ´©¸¥ °æ¿ì (°Ë»ö¾î°¡ ÀÔ·Â¾øÀ½)
+		// ë§ˆì´í˜ì´ì§€ ë‚´ê¸€ë³´ê¸° ë²„íŠ¼ í´ë¦­ ì‹œ (ê²€ìƒ‰ì–´ê°€ ì…ë ¥ì•ˆëìŒ)
 		//if(searchType!=null && keyWord == null && searchType.equals("user_name")) {
 			//isSearch=false;
-		// °Ë»ö¾î¿¡ ÀÔ·ÂÇÑ °æ¿ì
+		// ê²€ìƒ‰ì–´ì— ì…ë ¥í•œ ê²½ìš°
 		//}else if(searchType != null && keyWord != null) {
 			//isSearch=false;
-		// Ã³À½¿¡ ÁøÀÔÇÏ°Å³ª, ÀüÃ¼º¸±â ¹öÆ° ´©¸¥°æ¿ì
+		// ì²˜ìŒì— ì ‘ì†í•˜ê±°ë‚˜, ì „ì²´ëª©ë¡ ë²„íŠ¼ í´ë¦­ì‹œ
 		//}else {
 			//isSeach = true;
 		//}
 		
-		// ÀüÃ¼ °Ô½Ã±Û ¼ö ÆÄ¾Ç¹æ¹ı
-		// ³»°¡¾´ ±Ûº¸±â ¹öÆ° ´©¸¥ °æ¿ì (°Ë»ö¾î°¡ ÀÔ·Â¾øÀ½)
+		// ì „ì²´ ê²Œì‹œê¸€ ìˆ˜ êµ¬í•˜ê¸°ë¬¸
+		// ë§ˆì´í˜ì´ì§€ ë‚´ê¸€ë³´ê¸° ë²„íŠ¼ í´ë¦­ ì‹œ (ê²€ìƒ‰ì–´ê°€ ì…ë ¥ì•ˆëìŒ)
 		if(searchType!=null && keyWord == null && searchType.equals("user_name")) {
-			// user_name °¡Á®¿À´Â ¸Ş¼Òµå ½ÇÇàÇÏ¿©, keyWord¿¡ ´ëÀÔÇÏ±â
+			// user_name íŒŒë¼ë¯¸í„°ë¥¼ ë©”ì„œë“œì— ì „ë‹¬í•˜ì—¬, keyWordë¡œ í™œìš©í•˜ê¸°
 			keyWord = idao.getInquiryUserName(user_email);
 			count = idao.getInquirySearchCount(searchType, keyWord);
 			System.out.println("count" + count);
-			System.out.println("1¹ø °æ¿ì");
-		// °Ë»öÃ¢¿¡ °Ë»ö¾î¸¦ ÀÔ·ÂÇÏ°í °Ë»ö¹öÆ°À» ´©¸¥°æ¿ì
+			System.out.println("1ë²ˆ ê²½ìš°");
+		// ê²€ìƒ‰ì°½ì— ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•˜ê³  ê²€ìƒ‰ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ
 		}else if(searchType != null && keyWord != null) {
-			// count¿¡ ÀüÃ¼ °Ô½Ã±Û ¼ö ´ëÀÔÇÏ±â (idao¿¡¼­ ¸Ş¼Òµå ½ÇÇà)
+			// countì— ì „ì²´ ê²Œì‹œê¸€ ìˆ˜ ê³„ì‚°í•˜ê¸° (idaoì—ì„œ ë©”ì„œë“œ í˜¸ì¶œ)
 			count = idao.getInquirySearchCount(searchType, keyWord);
 			System.out.println("count" + count);
-			System.out.println("2¹ø °æ¿ì");
-		// Ã³À½¿¡ ÁøÀÔÇÏ°Å³ª, ÀüÃ¼º¸±â ¹öÆ° ´©¸¥°æ¿ì
+			System.out.println("2ë²ˆ ê²½ìš°");
+		// ì²˜ìŒì— ì ‘ì†í•˜ê±°ë‚˜, ì „ì²´ëª©ë¡ ë²„íŠ¼ í´ë¦­ì‹œ
 		}else {
-			// count¿¡ ÀüÃ¼ °Ô½Ã±Û ¼ö ´ëÀÔÇÏ±â (idao¿¡¼­ ¸Ş¼Òµå ½ÇÇà)
+			// countì— ì „ì²´ ê²Œì‹œê¸€ ìˆ˜ ê³„ì‚°í•˜ê¸° (idaoì—ì„œ ë©”ì„œë“œ í˜¸ì¶œ)
 			count = idao.getInquiryAllCount();
 			System.out.println("count" + count);
-			System.out.println("3¹ø °æ¿ì");
+			System.out.println("3ë²ˆ ê²½ìš°");
 		}
 		
 		
@@ -114,7 +114,7 @@ public class inquiryListProc extends HttpServlet {
 		
 		
 		ArrayList<InquiryDTO> ilist;
-		// ³»°¡¾´°Í¸¸ º» °æ¿ì / °Ë»ö¾î°¡ ¾ø´Â °æ¿ì(ÀüÃ¼¸ñ·Ïº¸±â) / °Ë»ö¾î°¡ ÀÖ´Â °æ¿ì 
+		// ë§ˆì´í˜ì´ì§€ë¡œ ì˜¬ ê²½ìš° / ê²€ìƒ‰ì–´ê°€ ì—†ì„ ê²½ìš°(ì „ì²´ëª©ë¡ë³´ê¸°) / ê²€ìƒ‰ì–´ê°€ ìˆëŠ” ê²½ìš° 
 		if(searchType!=null && keyWord == null && searchType.equals("user_name")) {
 			ilist= idao.getInquiryMylistBoard(startRow, pageSize, user_name);
 		}else if(keyWord=="" || keyWord==null) {
@@ -123,13 +123,13 @@ public class inquiryListProc extends HttpServlet {
 			ilist = idao.getInquirySearchBoard(startRow, pageSize, searchType, keyWord);
 		}
 		
-		// ÃÖ½Å±Û 10°³¸¦ °¡Á®¿À´Â DAO ¸Ş¼Òµå¸¦ ÀÌ¿ëÇØ¼­ ¸®ÅÏ
-		number = count - startRow;  // À§¿Í µ¿ÀÏÇÔ
+		// ìµœì‹ ê¸€ 10ê°œì”© ì¶œë ¥í•˜ê¸° ìœ„í•´ DAO ë©”ì„œë“œë¥¼ ì´ìš©í•´ì„œ ì¶œë ¥
+		number = count - startRow;  // ì¶œë ¥ ë²ˆí˜¸
 		
 		// --------------------------------------------------------------------
 		request.setAttribute("ilist", ilist);
-		//  ±×¸± º¯¼ö ³Ñ±â±â
-		// ÆäÀÌÂ¡À» ±×¸²±×¸± º¯¼ö ³Ñ±â±â
+		//  íŒŒë¼ë¯¸í„° ê°’ ë„˜ê¹€
+		// í˜ì´ì§•ìš© íŒŒë¼ë¯¸í„° ê°’ ë„˜ê¹€
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("count", count);
@@ -146,7 +146,7 @@ public class inquiryListProc extends HttpServlet {
 		System.out.println("endPage"+endPage);
 		System.out.println("pageNum"+currentPage);
 		
-		// InquiryList.jsp À¸·Î º¸³»±â
+		// InquiryList.jsp ìª½ìœ¼ë¡œ í¬ì›Œë“œ
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/inquiry/inquiryList.jsp");
 		rd.forward(request, response);
 	}

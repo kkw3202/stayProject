@@ -21,19 +21,19 @@ public class MyRevModProcCon extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 		int rev_code = Integer.parseInt(request.getParameter("rev_code"));
 		int rev_rating = Integer.parseInt(request.getParameter("rev_rating"));
 		String rev_content = request.getParameter("rev_content");
 		
-		// rdao ÀÎ½ºÅÏ½º ¹× ¾÷µ¥ÀÌÆ® ½ÇÇà
+		// rdao ì¸ìŠ¤í„´ìŠ¤ ë° ì—…ë°ì´íŠ¸ ì‹¤í–‰
 		ReviewDAO rdao = new ReviewDAO();
 		rdao.updateReview(rev_code, rev_rating, rev_content);
 		
-		// ÆäÀÌÁö ³Ñ±â±â
+		// í˜ì´ì§€ë¡œ ë„˜ê¸°ê¸°
 		response.sendRedirect("MyRevListProc.do");
 	}
 

@@ -10,7 +10,7 @@ import model.common.BookResultDTO;
 
 
 public class BookingDAO {
-	// ¿¹¾à Áı¾î³Ö±â ¸®ÅÏ ÇÏ´Â °ªÀº ¿¹¾à¹øÈ£.
+	// ì˜ˆì•½ ë²ˆí˜¸ë„£ê¸° ìœ„í•´ í•˜ëŠ” ì˜ˆì•½ ì˜ˆì•½ë²ˆí˜¸.
 	public String doBooking(int user_code, String book_checkin_date, String book_checkout_date, int room_code, String book_name, String phone) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -18,14 +18,14 @@ public class BookingDAO {
 		
 		Random ran = new Random();
 		
-		String book_number = ""; // ÇöÀç »óÅÂ¿¡¼­´Â 12ÀÚ¸® ³­¼ö¸¸ ³ª¿È. ¿¹¾à¹øÈ£ ³ª¿À´Â°Ç ¿¬±¸ÇØ ºÁ¾ßÇÒµí..?
+		String book_number = ""; // ì¤‘ë³µ ë°©ì§€í•´ì„œ 12ìë¦¬ ë‚œìˆ˜ë¥¼ ìƒì„±. ì˜ˆì•½ë²ˆí˜¸ ì¤‘ë³µë˜ëŠ”ê±° ê±¸ë¦¬ëŠ” ì—ëŸ¬ë°©ì§€..?
 		
 		String isUser = user_code!=0 ? "?, " : "null, ";
 		String isGuest = user_code==0 ? "?, " : "null, ";
 		int isUserChk = user_code!=0 ? 1 : 0;
 		
-		// if È¸¿øÀÌ¸é ¼¼¼Ç µû¿Í¼­ ÄÚµå.
-		// ºñÈ¸¿øÀÌ¸é °¡Àå ¸¶Áö¸· ¹øÈ£ °¡Á®¿Â ÈÄ +1
+		// if íšŒì›ì´ë©´ íšŒì› ë„£ì–´ì„œ ì½”ë“œ.
+		// ë¹„íšŒì›ì´ë©´ ê²ŒìŠ¤íŠ¸ ìƒì„±í•´ì„œ ë²ˆí˜¸ ê°€ì ¸ì˜¨ ë’¤ +1
 		int customer_code;
 		if(isUserChk == 1) customer_code = user_code;
 		else {
@@ -82,7 +82,7 @@ public class BookingDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.print("¿¹¾à ½ÇÆĞ!");
+			System.out.print("ì˜ˆì•½ ì‹¤íŒ¨!");
 		} finally {
 			try {
 				if (con != null)
@@ -98,7 +98,7 @@ public class BookingDAO {
 		return book_number;
 	}
 	
-	// ¿¹¾à¹øÈ£·Î ¿¹¾àÀ» Á¶È¸ÇÏ´Â ¸Ş¼Òµå
+	// ì˜ˆì•½ë²ˆí˜¸ë¡œ ì •ë³´ë¥¼ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ
 	public BookResultDTO get_one_BookResult(String book_number) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -155,7 +155,7 @@ public class BookingDAO {
 		return result;		
 	}
 	
-	// ¿¹¾à¹øÈ£·Î ¿¹¾àÀ» Á¶È¸ÇÏ´Â ¸Ş¼Òµå(ºñÈ¸¿ø¿ë)
+	// ì˜ˆì•½ë²ˆí˜¸ë¡œ ì •ë³´ë¥¼ ì¡°íšŒí•˜ëŠ” ë©”ì„œë“œ(ë¹„íšŒì›ìš©)
 		public BookResultDTO get_one_BookResult(String book_number, String guest_phone ) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -216,7 +216,7 @@ public class BookingDAO {
 			return result;		
 		}
 		
-		// ºñÈ¸¿øÀÇ ¿¹¸Å¸¦ Ãë¼ÒÇÏ´Â ¸Ş¼Òµå
+		// ë¹„íšŒì›ìš© ìƒíƒœë¥¼ ë³€ê²½í•˜ëŠ” ë©”ì„œë“œ
 		public void delete_book(String book_number) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -235,7 +235,7 @@ public class BookingDAO {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("ºñÈ¸¿ø ¿¹¾à Ãë¼Ò ½ÇÆĞ");
+				System.out.println("ë¹„íšŒì› ì·¨ì†Œ ìƒíƒœ ë³€ê²½");
 			} finally {
 				try {
 					if (con != null)

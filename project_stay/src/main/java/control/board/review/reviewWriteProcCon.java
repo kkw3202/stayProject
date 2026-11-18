@@ -27,10 +27,10 @@ public class reviewWriteProcCon extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// ¸®ºäÀÛ¼ºÇÏ±â Æû¿¡¼­ Á¤º¸°¡Á®¿À±â
+		// ë¦¬ë·°ì‘ì„±í•˜ê¸° ìœ„í•´ì„œ íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 		int acc_code = Integer.parseInt(request.getParameter("acc_code"));
 		String acc_name = request.getParameter("acc_name");
 		int rev_rating = Integer.parseInt(request.getParameter("rev_rating"));
@@ -40,19 +40,19 @@ public class reviewWriteProcCon extends HttpServlet {
 		
 		String user_name = request.getParameter("user_name");
 		
-		// rdao ÀÎ½ºÅÏ½º / rdto ÀÎ½ºÅÏ½º ¹×
+		// rdao ì¸ìŠ¤í„´ìŠ¤ / rdto ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
 		ReviewDAO rdao = new ReviewDAO();
 		ReviewDTO rdto = new ReviewDTO();
 		
 		int user_code = rdao.getUserCode(user_email);
 		
-		// rdto¿¡ Æ÷ÀåÇÏ±â
+		// rdtoì— ì„¸íŒ…í•˜ê¸°
 		rdto.setAcc_code(acc_code);
 		rdto.setUser_code(user_code);
 		rdto.setRev_rating(rev_rating);
 		rdto.setRev_content(rev_content);
 		
-		// ³¯Â¥ µ¥ÀÌÅÍ °ü·Ã
+		// ë‚ ì§œ ì„¸íŒ…ì„ ìœ„í•œ ì„¤ì •
 		Date today = new Date();
 		Calendar cal = Calendar.getInstance();
 		
@@ -71,10 +71,10 @@ public class reviewWriteProcCon extends HttpServlet {
 		request.setAttribute("defaultCheckoutDate", defaultCheckoutDate);
 		
 		
-		// ÀÎ¼­Æ®ÇÏ±â
+		// ì¸ì„œíŠ¸í•˜ê¸°
 		rdao.insertReview(rdto);
 		
-		// ³Ñ±â±â
+		// ë„˜ê¸°ê¸°
 		response.sendRedirect("accInfoProc.do?acc_code=" + acc_code 
 				+ "&book_checkin_date=" + defaultCheckinDate 
 				+ "&book_checkout_date=" + defaultCheckoutDate 

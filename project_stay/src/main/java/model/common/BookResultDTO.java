@@ -11,9 +11,9 @@ public class BookResultDTO {
 	
 	private int room_price;
 	private String prt_room_price;
-	private int date_of_stay; // 몇박인지 구해서 담음
-	private int total_price; // 총 금액 구해서 담음
-	private String prt_total_price; // 총 금액 구해서 담음
+	private int date_of_stay;
+	private int total_price;
+	private String prt_total_price;
 
 
 	public String getBook_name() {

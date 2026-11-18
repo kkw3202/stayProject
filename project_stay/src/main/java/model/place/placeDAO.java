@@ -16,7 +16,7 @@ import model.common.search_roomDTO;
 import model.place.Room.RoomDAO;
 
 public class placeDAO {
-	// °Ë»ö°á°ú¿¡ ÇÊ¿äÇÑ ±âº»ÀûÀÎ °á°ú¸¦ °¡Á®¿À´Â ¸Ş¼Òµå
+	// ê²€ìƒ‰ê²°ê³¼ì— í•„ìš”í•œ ê¸°ë³¸ì •ë³´ ë°ì´í„°ë¥¼ ì¶”ì¶œí•˜ëŠ” ë©”ì„œë“œ
 	public ArrayList<search_accDTO> do_searching(String city_name, String acc_type, String acc_name, String book_checkin_date, String book_checkout_date, String orderBy) throws ParseException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -34,8 +34,8 @@ public class placeDAO {
 			con = Util.getConnection();
 			
 			int cnt_notNull =0; // 
-			int indexNum_chk = 1; // setString ¿¡ ¾µ ? ÀÇ ÀÎµ¦½º ³Ñ¹ö Ä«¿îÆ®
-			int cnt_dayQM = 0; // ³¯ ±¸ÇÏ´Â ¼­ºê¼­ºêÄõ¸®ÀÇ ? °¹¼ö Ä«¿îÆÃ
+			int indexNum_chk = 1; // setString ì— ì“¸ ? ì˜ ì¸ë±ìŠ¤ ë²ˆí˜¸ ì¹´ìš´íŠ¸
+			int cnt_dayQM = 0; // ë‚  ê³„ì‚°í•˜ëŠ” ì¿¼ë¦¬ë¬¸ì—ì„œì˜ ? ê°¯ìˆ˜ ì¹´ìš´íŠ¸
 			
 			if(city_name != null && !city_name.isEmpty()) cnt_notNull++;
 			if(acc_type != null && !acc_type.isEmpty()) cnt_notNull++;

@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateHandlerDAO {
-	// ÀÔ½ÇÀÏ - Åğ½ÇÀÏ »çÀÌ ³¯Â¥ ´ãÀº ¸®½ºÆ® ¸¸µå´Â ¸Å¼Òµå
+	// ì²´í¬ì¸ ì²´í¬ì•„ì›ƒ ë‚ ì§œ ì‚¬ì´ì˜ ë¦¬ìŠ¤íŠ¸ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
 	public ArrayList<String> getAllDay(String book_checkin_date, String book_checkout_date) throws ParseException {
 		
 		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");

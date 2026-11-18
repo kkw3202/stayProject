@@ -14,6 +14,7 @@
 
 <section>
 	<div class="contaier">
+	<c:if test="${not empty sa_arr }">
 		<div class="page_top">
 			<h2>숙소 검색 결과</h2>
 			<p>총 <span id="search_cnt_prt"></span>의 숙소가 검색되었습니다.
@@ -100,6 +101,12 @@
 				<input type="hidden" value="${cnt_item =  cnt_item+1}">
 			</c:forEach>
 		</div>
+		</c:if>
+		<c:if test="${empty sa_arr }">
+			<div class="not_to_search">
+				<p>검색 결과가 없습니다.</p>
+			</div>
+		</c:if>
 		<input type="hidden" value="${cnt_item}" id="search_cnt">
 	</div>
 </section>

@@ -1,4 +1,4 @@
-package control.booking;
+package control.booking; 
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -44,7 +44,7 @@ public class bookingProc extends HttpServlet {
 		
 		if(session != null) {
 			String user_email = (String) session.getAttribute("user_email");
-			// user_email·Î ÄÚµå ºÒ·¯¿À´Â ÇÚµé·¯ ºÒ·¯¿À±â
+			// user_emailì„ ì„¸ì…˜ì—ì„œ ìë™ìœ¼ë¡œ ë¶ˆëŸ¬ì˜¤ê¸° ì²˜ë¦¬
 		}
 		request.setAttribute("room_code", room_code);
 		request.setAttribute("acc_checkinTime", acc_checkinTime);

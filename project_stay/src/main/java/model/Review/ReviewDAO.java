@@ -14,12 +14,12 @@ public class ReviewDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	// 1. ¸®ºä°Ô½ÃÆÇ, ÇØ´ç ¼÷¼Ò¿¡ ÇØ´çÇÏ´Â ÀüÃ¼ ¸®ºä ºÒ·¯¿À´Â ¸Ş¼Òµå
+	// 1. ì „ì²´ê²Œì‹œíŒ, í•´ë‹¹ ìˆ™ì†Œì— í•´ë‹¹í•˜ëŠ” ì „ì²´ ë¦¬ë·° ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
 	public ArrayList<ReviewDTO> getReviewAllBoard(int startRow, int pageSize){
 		ArrayList<ReviewDTO> r = new ArrayList<ReviewDTO>();
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select r.rev_code, a.acc_code, u.user_code, r.rev_rating, r.rev_content, "
 					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name from Reviews r "
 					+ "inner join User u "
@@ -47,7 +47,7 @@ public class ReviewDAO {
 				rdto.setUser_email(rs.getString(10));
 				rdto.setAcc_name(rs.getString(11));
 				
-				// ArrayList¿¡ µ¥ÀÌÅÍ Ãß°¡
+				// ArrayListì— ë°ì´í„° ì¶”ê°€
 				r.add(rdto);
 			}
 		}catch(Exception e) {
@@ -63,12 +63,12 @@ public class ReviewDAO {
 		return r;
 	}
 	
-	// 2. ÄŞº¸¹Ú½º ¼÷¼Ò¸ñ·Ï °¡Á®¿À±â (AccommodationDTO »ç¿ë)
+	// 2. ì…€ë ‰íŠ¸ë°•ìŠ¤ ìˆ™ì†Œì´ë¦„ ê°€ì ¸ì˜¤ê¸° (AccommodationDTO ì‚¬ìš©)
 	public ArrayList<AccommodationDTO> getAccList(){
 		ArrayList<AccommodationDTO> accList = new ArrayList<>();
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select acc_name, acc_code from Accommodation order by acc_code asc";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -78,7 +78,7 @@ public class ReviewDAO {
 				adto.setAcc_name(rs.getString(1));
 				adto.setAcc_code(rs.getInt(2));
 				
-				// ArrayList¿¡ µ¥ÀÌÅÍ Ãß°¡
+				// ArrayListì— ë°ì´í„° ì¶”ê°€
 				accList.add(adto);
 			}
 		}catch(Exception e) {
@@ -93,12 +93,12 @@ public class ReviewDAO {
 		return accList;
 	}
 	
-	// ÀüÃ¼ ¸®ºä°³¼ö ¼¼±â (rev_chk_del=1ÀÎ°Å Á¦¿Ü)
+	// ì „ì²´ ë¦¬ë·°ê°œìˆ˜ êµ¬í•˜ê¸° (rev_chk_del=1ì¸ê²ƒ ì œì™¸)
 	public int countTotalReview() {
 		int totalCount = 0;
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select count(*) acc_code from Reviews where rev_chk_del=0";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -119,15 +119,15 @@ public class ReviewDAO {
 		return totalCount;
 	}
 	
-	// ÇØ´ç ¼÷¼ÒÀÇ ÀüÃ¼ ¸®ºä°³¼ö ¼¼±â (rev_chk_del =1 ÀÎ°Å (»èÁ¦µÈ°Å) »©°í)
+	// í•´ë‹¹ ìˆ™ì†Œì˜ ì „ì²´ ë¦¬ë·°ê°œìˆ˜ êµ¬í•˜ê¸° (rev_chk_del =1 ì¸ê²ƒ (ì‚­ì œëœê±°) ì œì™¸)
 	public int countAccReview(int acc_code) {
 		int count = 0;
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select count(*), acc_code from Reviews where rev_chk_del=0 and acc_code= ?";
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ì— ë§¤í•‘
 			pstmt.setInt(1, acc_code);
 			rs = pstmt.executeQuery();
 			
@@ -147,13 +147,13 @@ public class ReviewDAO {
 		return count;
 	}
 	
-	// ÄŞº¸¹Ú½º¿¡¼­ ¼±ÅÃÇÑ ¼÷¼Ò¿¡ ÇØ´çÇÏ´Â ¸®ºä¸¸ °¡Á®¿À´Â ¸Ş¼Òµå
+	// ì…€ë ‰íŠ¸ë°•ìŠ¤ì—ì„œ ì„ íƒëœ ìˆ™ì†Œì— í•´ë‹¹í•˜ëŠ” ë¦¬ìŠ¤íŠ¸ ë¶ˆëŸ¬ì˜¤ëŠ” ë©”ì„œë“œ
 	public ArrayList<ReviewDTO> getReviewAccBoard(int startRow, int pageSize, int acc_code){
 		ArrayList<ReviewDTO> r = new ArrayList<>();
 		
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select r.rev_code, a.acc_code, u.user_code, r.rev_rating, r.rev_content, "
 					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name from Reviews r "
 					+ "inner join User u "
@@ -182,7 +182,7 @@ public class ReviewDAO {
 				rdto.setUser_email(rs.getString(10));
 				rdto.setAcc_name(rs.getString(11));
 				
-				// ArrayList¿¡ µ¥ÀÌÅÍ Ãß°¡
+				// ArrayListì— ë°ì´í„° ì¶”ê°€
 				r.add(rdto);
 			}
 			
@@ -199,14 +199,14 @@ public class ReviewDAO {
 		return r;
 	}
 	
-	// ÁÁ¾Æ¿ä °è»êÇÏ´Â ¸Ş¼Òµå
+	// ì¢‹ì•„ìš” ì¦ê°€í•˜ëŠ” ë©”ì„œë“œ
 	public void updateReviewLike(int rev_code) {
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "update Reviews set rev_like = rev_like+1 where rev_code = ?";
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ì— ë§¤í•‘
 			pstmt.setInt(1, rev_code);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -220,14 +220,14 @@ public class ReviewDAO {
 		}
 	}
 	
-	// ¸®ºä »èÁ¦Ã³¸®ÇÏ´Â ¸Ş¼Òµå (¼ÒÇÁÆ®»èÁ¦)
+	// ë¦¬ë·° ì‚­ì œì²˜ë¦¬í•˜ëŠ” ë©”ì„œë“œ (ì—…ë°ì´íŠ¸ë°©ì‹)
 	public void deleteReview(int rev_code) {
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "update Reviews set rev_chk_del = 1 where rev_code = ?";
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ì— ë§¤í•‘
 			pstmt.setInt(1, rev_code);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -241,7 +241,7 @@ public class ReviewDAO {
 		}
 	}
 	
-	// È¸¿ø¸íÀ» Ã£´Â ¸Ş¼Òµå
+	// íšŒì›ì´ë¦„ ì°¾ëŠ” ë©”ì„œë“œ
 	public String getUser_name(String user_email) {
 		String user_name = "";
 		try {
@@ -267,7 +267,7 @@ public class ReviewDAO {
 		return user_name;
 	}
 	
-	// ÇØ´ç ¼÷¼Ò ÀÌ¸§ °¡Á®¿À´Â ¸Ş¼Òµå
+	// í•´ë‹¹ ìˆ™ì†Œ ì´ë¦„ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
 	public String getAccName(int acc_code) {
 		String acc_name = "";
 		try {
@@ -291,7 +291,7 @@ public class ReviewDAO {
 		return acc_name;
 	}
 	
-	// ¸®ºä°Ô½ÃÆÇ ±Û ¼öÁ¤ÇÏ´Â ÇÔ¼ö
+	// ë¦¬ë·°ê²Œì‹œíŒ ê¸€ ìˆ˜ì •í•˜ëŠ” í•¨ìˆ˜
 	public void updateReview(int rev_code, int rev_rating, String rev_content) {
 		try {
 			con = Util.getConnection();
@@ -312,12 +312,12 @@ public class ReviewDAO {
 		}
 	}
 	
-	// ³»°¡¾´ ¸®ºä¸¸ º¸±â
+	// ë‚´ ë¦¬ë·° ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
 	public ArrayList<ReviewDTO> getMyreviewBoard(int startRow, int pageSize, String user_name){
 		ArrayList<ReviewDTO> r = new ArrayList<>();
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select r.rev_code, a.acc_code, u.user_code, r.rev_rating, r.rev_content, "
 					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name, a.acc_img, a.acc_type "
 					+ "from Reviews r "
@@ -349,7 +349,7 @@ public class ReviewDAO {
 				rdto.setAcc_img(rs.getString(12));
 				rdto.setAcc_type(rs.getString(13));
 				
-				// ArrayList¿¡ µ¥ÀÌÅÍ Ãß°¡
+				// ArrayListì— ë°ì´í„° ì¶”ê°€
 				r.add(rdto);
 			}
 		}catch(Exception e) {
@@ -364,16 +364,16 @@ public class ReviewDAO {
 		return r;
 	}
 	
-	// ³»°¡¾´ °Ô½Ã±ÛÀÇ ¼ıÀÚ °è»êÇÏ´Â ¸Ş¼Òµå
+	// ë‚˜ì˜ ê²Œì‹œê¸€ì˜ ì´ ê°œìˆ˜ë¥¼ êµ¬í•˜ëŠ” ë©”ì„œë“œ
 	public int getMyreviewCount(String user_name) {
 		int count = 0;
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select count(*) from Reviews r inner join User u "
 					+ "on r.user_code = u.user_code where rev_chk_del=0 and user_name= ?";
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ì— ë§¤í•‘
 			pstmt.setString(1, user_name);
 			rs = pstmt.executeQuery();
 			
@@ -391,15 +391,15 @@ public class ReviewDAO {
 		}
 		return count;
 	}
-	// À¯ÀúÄÚµå °¡Á®¿À´Â ¸Ş¼Òµå
+	// ìœ ì €ì½”ë“œ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
 	public int getUserCode(String user_email) {
 		int user_code = 0;
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select user_code from User where user_email =?";
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ì— ë§¤í•‘
 			pstmt.setString(1, user_email);
 			rs = pstmt.executeQuery();
 			
@@ -418,16 +418,16 @@ public class ReviewDAO {
 		return user_code;
 	}
 	
-	// ÇØ´ç ±Û¸¸ °¡Á®¿À´Â ¸Ş¼Òµå
+	// í•´ë‹¹ ë¦¬ë·° ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
 	public ReviewDTO getReviewOneBoard(int rev_code) {
 		ReviewDTO rdto = new ReviewDTO();
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select a.acc_name, r.rev_rating, r.rev_content, r.rev_code from Reviews r inner join Accommodation a "
 					+ "on r.acc_code = a.acc_code where r.rev_code=?";
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ì— ë§¤í•‘
 			pstmt.setInt(1, rev_code);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -448,7 +448,7 @@ public class ReviewDAO {
 		return rdto;
 	}
 	
-	// ¸®ºäÀÛ¼ºÇÏ´Â ¸Ş¼Òµå
+	// ë¦¬ë·°ì‘ì„±í•˜ëŠ” ë©”ì„œë“œ
 	public void insertReview(ReviewDTO rdto) {
 		
 		try {
@@ -472,7 +472,7 @@ public class ReviewDAO {
 			}catch(Exception e) {e.printStackTrace();}
 		}
 	}
-	// ¼÷¼Ò¸í °¡Á®¿À´Â ¸Ş¼Òµå
+	// ìˆ™ì†Œëª… ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
 	public String getAcc_name(int acc_code) {
 		String acc_name = "";
 		try {
@@ -496,7 +496,7 @@ public class ReviewDAO {
 		return acc_name;
 	}
 	
-	// ¸®ºäÀÛ¼ºÇÏ´Â ¸Ş¼Òµå
+	// ë¦¬ë·°ì‘ì„±í•˜ëŠ” ë©”ì„œë“œ
 	public void insertMyReview(ReviewDTO rdto) {
 		
 		try {
@@ -521,7 +521,7 @@ public class ReviewDAO {
 		}
 	}
 	
-	// Åğ½Ç³¯Â¥ È®ÀÎÇÏ´Â ¸Ş¼Òµå
+	// ì²´í¬ë‚ ì§œ í™•ì¸í•˜ëŠ” ë©”ì„œë“œ
 	public String getBook_checkout_date(String book_number) {
 		String book_checkout_date = "";
 		try {
@@ -545,7 +545,7 @@ public class ReviewDAO {
 		return book_checkout_date;
 	}
 	
-	// ³» ¿¹¾à ¸®½ºÆ® Áß¿¡¼­, ¾ÆÁ÷ ¸®ºä ´Ş¸®Áö ¾ÊÀº ¸®ºäµé ±×¸®´Â ¸Ş¼Òµå
+	// ë‚´ ì˜ˆì•½ ë¦¬ìŠ¤íŠ¸ ì¤‘ì—ì„œ, ë¦¬ë·° ì‘ì„± ê°€ëŠ¥í•œ ë¦¬ë·°ê°€ ì—†ëŠ” í•­ëª©ì„ ì°¾ëŠ” ë©”ì„œë“œ
 	public ArrayList<ReviewDTO> getUnwrittenMyReviewList(String user_email){
 		ArrayList<ReviewDTO> r = new ArrayList<ReviewDTO>();
 		try {
@@ -591,7 +591,7 @@ public class ReviewDAO {
 		return r;
 	}
 	
-	// ÇØ´ç ¼÷¼Ò¿¡ ´ëÇÏ¿©, ¸®ºä ÀÛ¼º ÀÚ°İ(¿¹¾à¿Ï·á + Åğ½ÇÀÏ °æ°ú + ¹ÌÀÛ¼º)ÀÌ ÀÖ´ÂÁö È®ÀÎÇÏ´Â ¸Ş¼Òµå
+	// í•´ë‹¹ ìˆ™ì†Œì— ëŒ€í•˜ì—¬, ë¦¬ë·° ì‘ì„± ìê²©(ì´ìš©ì™„ë£Œ + ì·¨ì†Œì•ˆëœ ìƒíƒœ + ë¯¸ì‘ì„±)ì´ ìˆëŠ”ì§€ í™•ì¸í•˜ëŠ” ë©”ì„œë“œ
 	public boolean canWriteReview(String user_email, int acc_code) {
 		boolean canWrite = false;
 		if (user_email == null || user_email.isEmpty()) {
@@ -631,12 +631,12 @@ public class ReviewDAO {
 		return canWrite;
 	}
 	
-	// ÀÛ¼º¾ÈµÈ ¸®ºä°³¼ö ¼¼±â 
+	// ì‘ì„±ì•ˆëœ ë¦¬ë·°ê°œìˆ˜ êµ¬í•˜ê¸° 
 	public int countUnwrittenTotalReview(String user_email) {
 		int totalCount = 0;
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "SELECT COUNT(*) "
 					   + "FROM booking b "
 					   + "INNER JOIN User u ON b.user_code = u.user_code "
