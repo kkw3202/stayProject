@@ -154,4 +154,99 @@ public class BookingDAO {
 		}
 		return result;		
 	}
+	
+	// 예약번호로 예약을 조회하는 메소드(비회원용)
+		public BookResultDTO get_one_BookResult(String book_number, String guest_phone ) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			BookResultDTO result = new BookResultDTO();
+			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sd2 = new SimpleDateFormat("yyyyMMdd");
+			
+			
+			try {
+				con = Util.getConnection();
+
+				String sql = "select b.book_name, b.book_checkin_date, b.book_checkout_date, "
+						+ "a.acc_name, r.room_name, r.room_price, b.book_number "
+						+ "from booking b "
+						+ "inner join room r on b.room_code = r.room_code "
+						+ "inner join accommodation a on r.acc_code = a.acc_code "
+						+ "inner join guest g on g.guest_code = b.guest_code "
+						+ "where b.book_number=? and g.guest_phone=? and b.book_chk_status=3 ";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, book_number);
+				pstmt.setString(2, guest_phone);
+				
+				rs = pstmt.executeQuery();
+
+				if(rs.next()) {
+					result.setBook_name(rs.getString(1));
+					
+					String rs_in_date =  sd2.format(sd.parse(rs.getString(2)));
+					String rs_out_date = sd2.format(sd.parse(rs.getString(3)));
+					
+					result.setBook_checkin_date(rs_in_date);
+					result.setBook_checkout_date(rs_out_date);
+					
+					result.setAcc_name(rs.getString(4));
+					result.setRoom_name(rs.getString(5));
+					result.setRoom_price(rs.getInt(6));
+					
+					result.setBook_number(rs.getString(7));
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (con != null)
+						con.close();
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return result;		
+		}
+		
+		// 비회원의 예매를 취소하는 메소드
+		public void delete_book(String book_number) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				con = Util.getConnection();
+
+				String sql = "UPDATE booking SET book_chk_status=1, book_cancel_date=current_date() where book_number=?";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, book_number);
+				
+				pstmt.executeUpdate();
+
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("비회원 예약 취소 실패");
+			} finally {
+				try {
+					if (con != null)
+						con.close();
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 }

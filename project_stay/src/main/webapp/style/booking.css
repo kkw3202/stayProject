@@ -1,406 +1,480 @@
 @charset "utf-8";
-/* 머물:多 예약 및 결제 - Eclipse 구버전 호환 CSS (:has, nesting, :is 미사용) */
-/* 기존 JSP의 contaier 철자 그대로 사용 */
-section>.contaier {
-	max-width: 1220px;
-	margin: 35px auto 70px;
-	padding: 0 22px;
+
+/* 예약 결제 화면: 기존 JSP 클래스명 유지 / 레거시 CSS */
+.contaier, .contaier * {
+	box-sizing: border-box;
+}
+
+section .contaier {
+	width: 1120px;
+	max-width: 96%;
+	margin: 35px auto 65px;
 	font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
-	color: #10234a;
-	box-sizing: border-box;
+	color: #102653;
 }
 
-section>.contaier *, section>.contaier *:before, section>.contaier *:after
-	{
-	box-sizing: border-box;
-}
-
-section>.contaier>form {
-	display: flex;
-	align-items: flex-start;
-	gap: 22px;
-}
-
-section>.contaier>form>.left {
-	width: 39%;
-	min-width: 0;
-	padding: 30px;
-	background: #fff;
-	border: 1px solid #e2eaf6;
-	border-radius: 20px;
-	box-shadow: 0 9px 28px rgba(29, 65, 118, .08);
-}
-
-section>.contaier>form>.right {
-	width: 61%;
-	min-width: 0;
-	padding: 24px;
-	background: #fff;
-	border: 1px solid #e2eaf6;
-	border-radius: 20px;
-	box-shadow: 0 9px 28px rgba(29, 65, 118, .08);
-}
-
-section>.contaier .reserved:before {
-	content: '♙  예약자 정보';
-	display: block;
-	margin-bottom: 24px;
-	font-size: 23px;
-	font-weight: 800;
-	color: #10234a;
-}
-
-section>.contaier .nameWrap, section>.contaier .phoneWrap {
-	margin-bottom: 24px;
-}
-
-section>.contaier .nameWrap label, section>.contaier .phoneWrap label {
-	display: block;
-	margin-bottom: 11px;
-	font-size: 15px;
-	font-weight: 700;
-}
-
-section>.contaier .nameWrap input, section>.contaier .phoneWrap input {
-	display: block;
-	width: 100%;
-	height: 51px;
-	padding: 0 16px;
-	border: 1px solid #bdcde4;
-	border-radius: 11px;
-	background: #fff;
-	font-size: 14px;
-	color: #10234a;
-	outline: none;
-}
-
-section>.contaier input:focus {
-	border-color: #175db3;
-	box-shadow: 0 0 0 3px rgba(23, 93, 179, .1);
-}
-
-section>.contaier input::placeholder {
-	color: #8b9ab1;
-}
-
-section>.contaier .pay_btn_wrap {
-	margin-top: 36px;
-	padding-top: 28px;
-	border-top: 1px solid #dbe5f1;
-}
-
-section>.contaier .pay_btn_wrap:before {
-	content: '▣  결제 방법';
-	display: block;
-	margin-bottom: 20px;
-	font-size: 21px;
-	font-weight: 800;
-}
-/* 아래 payment-option 요소는 JSP에 추가해야 보입니다. */
-section>.contaier .payment-option {
-	display: block;
+section .contaier form[name="pform"] {
 	position: relative;
-	margin-bottom: 12px;
-	padding: 15px 14px 15px 58px;
-	min-height: 76px;
-	border: 1px solid #c3d1e5;
-	border-radius: 12px;
-	background: #fff;
-	cursor: pointer;
 }
 
-section>.contaier .payment-option:hover {
-	border-color: #2b67b3;
-	background: #f8fbff;
-}
-
-section>.contaier .payment-option input[type='radio'] {
-	position: absolute;
-	top: 25px;
-	left: 15px;
-	width: 19px;
-	height: 19px;
-	accent-color: #1554a0;
-}
-
-section>.contaier .payment-option .payment-icon {
-	display: inline-block;
-	vertical-align: middle;
-	position: relative;
-	width: 38px;
-	height: 27px;
-	margin-right: 10px;
-	border: 2px solid #163a74;
-	border-radius: 5px;
-	background: linear-gradient(145deg, #f4f9ff, #c5d9f2);
-}
-/* CSS로 직접 그린 신용카드 그림: 별도 이미지 파일 불필요 */
-section>.contaier .payment-option .payment-icon:before {
+section .contaier form[name="pform"]:after {
 	content: '';
-	position: absolute;
-	top: 6px;
-	left: 0;
-	width: 100%;
-	height: 6px;
-	background: #163a74;
-}
-
-section>.contaier .payment-option .payment-icon:after {
-	content: '';
-	position: absolute;
-	bottom: 4px;
-	left: 5px;
-	width: 12px;
-	height: 3px;
-	border-radius: 2px;
-	background: #7696be;
-}
-
-section>.contaier .payment-option .payment-label {
-	display: inline-block;
-	vertical-align: middle;
-	font-size: 15px;
-	font-weight: 700;
-}
-
-section>.contaier .payment-option .payment-desc {
 	display: block;
-	margin: 6px 0 0 49px;
-	font-size: 12px;
-	color: #61738e;
+	clear: both;
 }
 
-section>.contaier .payment-option .payment-icon.bank {
-	border-radius: 2px;
-	background: #fff;
-}
-
-section>.contaier .payment-option .payment-icon.bank:before {
-	top: 4px;
-	height: 3px;
-}
-
-section>.contaier .payment-option .payment-icon.bank:after {
-	width: 26px;
-	height: 3px;
-	left: 4px;
-	bottom: 4px;
-}
-
-section>.contaier .payment-option .payment-icon.mobile {
-	width: 24px;
-	height: 32px;
-	margin-left: 7px;
-	margin-right: 17px;
-	border-radius: 5px;
-	background: #fff;
-}
-
-section>.contaier .payment-option .payment-icon.mobile:before {
-	width: 8px;
-	height: 2px;
-	top: 3px;
-	left: 6px;
-}
-
-section>.contaier .payment-option .payment-icon.mobile:after {
-	width: 5px;
-	height: 5px;
-	bottom: 2px;
-	left: 8px;
-	border-radius: 50%;
-}
-
-section>.contaier .room_info {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0;
-	padding-bottom: 24px;
-	border-bottom: 1px solid #dfe7f2;
-}
-
-section>.contaier .room_img1 {
-	width: 42%;
-	padding-right: 20px;
-}
-
-section>.contaier .room_img1 img {
-	display: block;
-	width: 100%;
-	height: 220px;
-	object-fit: cover;
-	border-radius: 13px;
-}
-
-section>.contaier .info_name_wrap {
-	width: 17%;
-}
-
-section>.contaier .info_wrap {
-	width: 41%;
-	min-width: 0;
-}
-
-section>.contaier .info_name_wrap p, section>.contaier .info_wrap p {
-	margin: 0;
-	min-height: 54px;
-	padding: 12px 3px;
-	border-bottom: 1px solid #e7edf5;
-	font-size: 13px;
-	line-height: 1.65;
-	overflow-wrap: anywhere;
-}
-
-section>.contaier .info_name_wrap p {
-	font-weight: 700;
-	color: #425879;
-}
-
-section>.contaier .info_wrap p {
-	font-weight: 600;
-	color: #13264a;
-}
-
-section>.contaier .pay_wrap {
-	margin-top: 24px;
-	padding: 21px 24px;
-	border: 1px solid #cbdcf0;
-	border-radius: 14px;
-	overflow: hidden;
-}
-
-section>.contaier .pay_wrap h6 {
-	margin: 0 0 20px;
-	font-size: 21px;
-	font-weight: 800;
-}
-
-section>.contaier .pay_wrap p {
-	margin: 0;
-}
-
-section>.contaier .pay_wrap .info_name {
+section .contaier form[name="pform"]>.left {
 	float: left;
-	clear: both;
-	width: 55%;
-	padding: 12px 0;
-	font-size: 14px;
+	width: 40%;
 }
 
-section>.contaier .pay_wrap .info {
+section .contaier form[name="pform"]>.right {
 	float: right;
-	width: 45%;
-	padding: 12px 0;
-	text-align: right;
-	font-size: 16px;
-	font-weight: 700;
+	width: 58%;
 }
 
-section>.contaier .pay_wrap .info_name:nth-last-of-type(2), section>.contaier .pay_wrap .info:last-child
-	{
-	margin-top: 12px;
-	padding: 15px 8px;
-	background: #e8f1ff;
-	font-size: 19px;
-	color: #0e326b;
+/* 공통 패널 */
+section .contaier .reserved, section .contaier .pay_btn_wrap, section .contaier .room_info,
+	section .contaier .pay_wrap, section .contaier .agreement_wrap {
+	background: #fff;
+	border: 1px solid #d9e5f8;
+	border-radius: 13px;
+	box-shadow: 0 5px 17px rgba(25, 64, 123, .06);
 }
 
-section>.contaier .pay_wrap:after {
+section .contaier .reserved {
+	padding: 28px 26px;
+}
+
+section .contaier .reserved:before {
+	content: '예약자 정보';
+	display: block;
+	margin-bottom: 22px;
+	padding-left: 13px;
+	border-left: 5px solid #0b4e9b;
+	font-size: 21px;
+	font-weight: bold;
+}
+
+section .contaier .nameWrap, section .contaier .phoneWrap {
+	margin-bottom: 18px;
+}
+
+section .contaier .phoneWrap {
+	margin-bottom: 0;
+}
+
+section .contaier .reserved label {
+	display: block;
+	margin-bottom: 9px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+section .contaier .reserved input {
+	display: block;
+	width: 100%;
+	height: 46px;
+	padding: 0 13px;
+	border: 1px solid #bfcee4;
+	border-radius: 7px;
+	background: #fff;
+	color: #102653;
+	font-size: 14px;
+	font-family: inherit;
+}
+
+section .contaier .reserved input:focus {
+	border-color: #1258ac;
+	outline: 1px solid #1258ac;
+}
+
+/* 결제 수단 */
+section .contaier .pay_btn_wrap {
+	margin-top: 18px;
+	padding: 26px;
+}
+
+section .contaier .pay_btn_wrap:before {
+	content: '결제 수단 선택';
+	display: block;
+	padding-left: 13px;
+	margin-bottom: 21px;
+	border-left: 5px solid #0b4e9b;
+	font-size: 21px;
+	font-weight: bold;
+}
+
+section .contaier .pay_btn_wrap ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+section .contaier .pay_btn_wrap ul:after {
 	content: '';
 	display: block;
 	clear: both;
 }
 
-section>.contaier .agreement_wrap {
-	margin-top: 20px;
-	padding: 19px 21px;
-	border: 1px solid #d2e0f2;
-	border-radius: 13px;
-	background: #fafcff;
+section .contaier .pay_btn {
+	float: left;
+	width: 48%;
+	margin-right: 4%;
 }
 
-section>.contaier .agreement_wrap input {
-	width: 18px;
-	height: 18px;
-	vertical-align: middle;
-	accent-color: #164b91;
+section .contaier .pay_btn:last-child {
+	margin-right: 0;
 }
 
-section>.contaier .agreement_wrap label {
-	margin-left: 7px;
-	font-size: 15px;
-	font-weight: 700;
-	vertical-align: middle;
+section .contaier .pay_btn button {
+	width: 100%;
+	height: 84px;
+	border: 1px solid #b9cbe6;
+	border-radius: 9px;
+	background: #fff;
+	color: #133569;
+	font-family: inherit;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
 }
 
-section>.contaier .agreement_wrap:after {
-	content: '예약 및 결제 진행 전 이용약관과 취소·환불 규정을 확인해주세요.';
+section .contaier .pay_btn button:before {
+	content: '\260E';
 	display: block;
-	margin: 10px 0 0 29px;
-	font-size: 12px;
-	color: #64758e;
+	margin-bottom: 7px;
+	color: #0b4e9b;
+	font-size: 25px;
+	font-weight: normal;
 }
 
-section>.contaier .submit_btn_wrap {
-	margin-top: 20px;
+section .contaier #pay_btn_1 button:before {
+	content: '\25AD';
+	font-size: 31px;
+	line-height: 25px;
 }
 
-section>.contaier .submit_btn_wrap button {
+section .contaier .pay_btn.selected button {
+	border: 2px solid #1156ac;
+	background: #e8f1ff;
+	color: #092f70;
+	box-shadow: 0 0 0 1px rgba(17, 86, 172, .12);
+}
+
+/* 객실 요약 */
+section .contaier .room_info {
+	padding: 20px;
+}
+
+section .contaier .room_info:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+section .contaier .room_img1 {
+	float: left;
+	width: 37%;
+	height: 205px;
+	overflow: hidden;
+	border-radius: 9px;
+}
+
+section .contaier .room_img1 img {
 	display: block;
 	width: 100%;
-	min-height: 61px;
-	border: 0;
-	border-radius: 12px;
-	background: linear-gradient(180deg, #2d578a, #092c62);
-	color: #fff;
-	font-size: 21px;
-	font-weight: 800;
+	height: 100%;
+	object-fit: cover;
+}
+
+section .contaier .info_name_wrap {
+	float: left;
+	width: 19%;
+	margin-left: 3%;
+}
+
+section .contaier .info_wrap {
+	float: right;
+	width: 40%;
+}
+
+section .contaier .room_info p {
+	min-height: 43px;
+	margin: 0;
+	padding: 9px 5px;
+	border-bottom: 1px solid #e0e9f6;
+	font-size: 13px;
+	line-height: 1.55;
+	overflow-wrap: break-word;
+}
+
+section .contaier .room_info p:last-child {
+	border-bottom: 0;
+}
+
+section .contaier .room_info .info_name {
+	font-weight: bold;
+	color: #163b75;
+	background: #eff5ff;
+}
+
+section .contaier .room_info .info {
+	color: #243651;
+}
+
+/* 결제 금액 */
+section .contaier .pay_wrap {
+	margin-top: 16px;
+	padding: 22px 24px;
+}
+
+section .contaier .pay_wrap:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+section .contaier .pay_wrap h6 {
+	margin: 0 0 18px;
+	padding-left: 12px;
+	border-left: 5px solid #0b4e9b;
+	font-size: 20px;
+}
+
+section .contaier .pay_wrap p {
+	float: left;
+	width: 50%;
+	margin: 0;
+	padding: 14px 12px;
+	font-size: 14px;
+	border-bottom: 1px solid #e0e9f6;
+}
+
+section .contaier .pay_wrap p.info {
+	text-align: right;
+	font-weight: bold;
+}
+
+section .contaier .pay_wrap p:nth-last-child(-n+2) {
+	border-bottom: 0;
+	background: #e9f2ff;
+	color: #073d86;
+	font-size: 17px;
+	font-weight: bold;
+}
+
+section .contaier .pay_wrap p:nth-last-child(2) {
+	border-radius: 8px 0 0 8px;
+}
+
+section .contaier .pay_wrap p:last-child {
+	border-radius: 0 8px 8px 0;
+}
+
+/* 이용 안내 및 동의 */
+section .contaier .agreement_wrap {
+	margin-top: 16px;
+	padding: 17px 24px 20px;
+}
+
+section .contaier .agreement_info h6 {
+	margin: 14px 0 5px;
+	font-size: 14px;
+	color: #123e7d;
+}
+
+section .contaier .agreement_info p {
+	margin: 0;
+	padding-bottom: 12px;
+	border-bottom: 1px solid #e5ecf7;
+	color: #45556d;
+	font-size: 12px;
+	line-height: 1.7;
+}
+
+section .contaier .check_btn_wrap {
+	margin-top: 17px;
+	padding: 14px 15px;
+	border-radius: 8px;
+	background: #e7f0ff;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+section .contaier .check_btn_wrap input {
+	width: 17px;
+	height: 17px;
+	margin: 0 8px 0 0;
+	vertical-align: middle;
+	accent-color: #1155a4;
+}
+
+section .contaier .check_btn_wrap label {
+	vertical-align: middle;
 	cursor: pointer;
-	box-shadow: 0 6px 14px rgba(18, 55, 105, .17);
 }
 
-section>.contaier .submit_btn_wrap button:hover {
-	background: #103f80;
+section .contaier .submit_btn_wrap {
+	margin-top: 16px;
 }
 
-section>.contaier .hidden_wrap {
+section .contaier .submit_btn_wrap button {
+	width: 100%;
+	height: 61px;
+	border: 0;
+	border-radius: 10px;
+	background: #104c98;
+	color: #fff;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: inherit;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(13, 60, 132, .18);
+}
+
+section .contaier .submit_btn_wrap button:hover {
+	background: #07366e;
+}
+
+section .contaier .hidden_wrap {
 	display: none;
 }
 
-@media screen and (max-width: 980px) {
-	section>.contaier>form {
-		display: block;
-	}
-	section>.contaier>form>.left, section>.contaier>form>.right {
+/* 모달: 평소에는 숨김, noShow 제거 시 전체 화면 중앙에 표시 */
+#pay_modal_back.noShow {
+	display: none !important;
+}
+
+#pay_modal_back {
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+	background: rgba(9, 28, 56, .66);
+	text-align: center;
+	overflow: auto;
+}
+
+#pay_modal_back:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+#pay_modal {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	width: 400px;
+	max-width: 90%;
+	min-height: 260px;
+	padding: 85px 30px 30px;
+	border: 1px solid #d8e5f6;
+	border-radius: 16px;
+	background: #fff;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, .24);
+	font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+	color: #0c2c61;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+}
+
+#pay_modal:before {
+	content: '\25AD';
+	position: absolute;
+	top: 22px;
+	left: 50%;
+	width: 64px;
+	height: 52px;
+	margin-left: -32px;
+	border-radius: 13px;
+	background: #e7f0ff;
+	color: #1458aa;
+	font-size: 43px;
+	line-height: 47px;
+	font-weight: normal;
+}
+
+#pay_modal p {
+	margin: 13px 0 25px;
+	color: #334968;
+	font-size: 16px;
+	font-weight: normal;
+}
+
+#pay_modal button {
+	font-family: inherit;
+	cursor: pointer;
+}
+
+#pay_modal button:first-child {
+	position: absolute;
+	top: 12px;
+	right: 15px;
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: #234570;
+	font-size: 22px;
+}
+
+#pay_modal button:last-child {
+	display: block;
+	width: 100%;
+	height: 51px;
+	margin-top: 12px;
+	border: 0;
+	border-radius: 8px;
+	background: #0d4e9e;
+	color: #fff;
+	font-size: 17px;
+	font-weight: bold;
+}
+
+#pay_modal button:last-child:hover {
+	background: #083773;
+}
+
+@media screen and (max-width: 850px) {
+	section .contaier form[name="pform"]>.left, section .contaier form[name="pform"]>.right
+		{
+		float: none;
 		width: 100%;
-		margin-bottom: 20px;
+	}
+	section .contaier form[name="pform"]>.right {
+		margin-top: 18px;
 	}
 }
 
-@media screen and (max-width: 620px) {
-	section>.contaier {
-		padding: 0 12px;
-		margin: 18px auto;
+@media screen and (max-width: 480px) {
+	section .contaier .reserved, section .contaier .pay_btn_wrap, section .contaier .room_info,
+		section .contaier .pay_wrap, section .contaier .agreement_wrap {
+		padding: 16px;
 	}
-	section>.contaier>form>.left, section>.contaier>form>.right {
-		padding: 18px;
-		border-radius: 14px;
-	}
-	section>.contaier .room_img1 {
+	section .contaier .room_img1 {
+		float: none;
 		width: 100%;
-		padding-right: 0;
-		margin-bottom: 15px;
+		height: 180px;
+		margin-bottom: 12px;
 	}
-	section>.contaier .room_img1 img {
-		height: 200px;
-	}
-	section>.contaier .info_name_wrap {
+	section .contaier .info_name_wrap {
 		width: 30%;
+		margin-left: 0;
 	}
-	section>.contaier .info_wrap {
+	section .contaier .info_wrap {
 		width: 70%;
 	}
-	section>.contaier .submit_btn_wrap button {
-		font-size: 17px;
+	section .contaier .pay_btn button {
+		font-size: 14px;
 	}
 }

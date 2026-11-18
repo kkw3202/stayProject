@@ -1,6 +1,7 @@
 package control.booking;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -67,6 +68,12 @@ public class paymentProcCon extends HttpServlet {
 		brdto.setBook_number(book_number);
 		brdto.setDate_of_stay(date_of_stay);
 		brdto.setTotal_price(total_price);
+		
+		DecimalFormat de = new DecimalFormat("#,##0");
+		
+		brdto.setPrt_total_price(de.format(total_price));
+		brdto.setPrt_room_price(de.format(brdto.getRoom_price()));
+		
 		request.setAttribute("brdto", brdto);
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=booking/bookingResult.jsp");
 		rd.forward(request, response);

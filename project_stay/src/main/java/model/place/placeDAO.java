@@ -1,6 +1,7 @@
 package model.place;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import model.place.Room.RoomDAO;
 
 public class placeDAO {
 	// 검색결과에 필요한 기본적인 결과를 가져오는 메소드
-	public ArrayList<search_accDTO> do_searching(String city_name, String acc_type, String acc_name, String book_checkin_date, String book_checkout_date) throws ParseException {
+	public ArrayList<search_accDTO> do_searching(String city_name, String acc_type, String acc_name, String book_checkin_date, String book_checkout_date, String orderBy) throws ParseException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -27,6 +28,7 @@ public class placeDAO {
 		if(book_checkin_date != null && book_checkout_date != null) {
 			dates = dhdao.getAllDay(book_checkin_date, book_checkout_date);
 		}
+		DecimalFormat de = new DecimalFormat("#,##0");
 		
 		try {
 			con = Util.getConnection();
@@ -39,11 +41,12 @@ public class placeDAO {
 			if(acc_type != null && !acc_type.isEmpty()) cnt_notNull++;
 			if(acc_name != null && !acc_name.isEmpty()) cnt_notNull++;
 			
-			String sql = "select a.acc_img, a.acc_type, a.acc_name, c.city_name, r.avg_ratings, orsq.acc_code, orsq.min_price, r.cnt_reviews, orsq.max_room_capacity, orsq.min_room_capacity "
+			String sql = "select a.acc_img, a.acc_type, a.acc_name, c.city_name, r.avg_ratings, orsq.acc_code, orsq.min_price, r.cnt_reviews, orsq.max_room_capacity, orsq.min_room_capacity, a.acc_facility, b.counted "
 					+ "from Accommodation a "
 					+ "inner join City c on c.city_code = a.city_code "
-					+ "left join (select acc_code, avg(rev_rating) avg_ratings, count(*) as cnt_reviews from reviews group by acc_code) r on r.acc_code = a.acc_code ";
-
+					+ "left join (select acc_code, avg(rev_rating) avg_ratings, count(*) as cnt_reviews from reviews group by acc_code) r on r.acc_code = a.acc_code "
+					+ "LEFT JOIN (SELECT COUNT(*) AS counted, a.acc_code AS acc_code FROM booking b INNER JOIN room r ON r.room_code = b.room_code INNER JOIN accommodation a ON r.acc_code = a.acc_code GROUP BY acc_code) b ON b.acc_code = a.acc_code ";
+					
 				sql += "inner join "
 						+ "(select acc_code, min(room_price) min_price, max(room_capacity) max_room_capacity ,min(room_capacity) min_room_capacity " 
 						+ "from room r " 
@@ -55,7 +58,7 @@ public class placeDAO {
 					cnt_dayQM += 2;
 				}
 				sql += "group by acc_code) AS orsq ON orsq.acc_code = a.acc_code ";
-			System.out.println(sql);
+
 			if(cnt_notNull != 0) {
 				sql += "where ";
 				if(city_name != null && !city_name.isEmpty()) {
@@ -73,6 +76,9 @@ public class placeDAO {
 				}
 			}
 			
+			sql += orderBy.equals("most") ? "order by b.counted desc " :
+					orderBy.equals("LPrice") ? "order by min_price " :
+						orderBy.equals("HRating") ? "order by r.avg_ratings desc " : "";
 			
 			pstmt = con.prepareStatement(sql);
 			if(book_checkin_date != null && book_checkout_date != null) {
@@ -100,10 +106,13 @@ public class placeDAO {
 				acdto.setCity_name(rs.getString(4));
 				acdto.setAvg_rating((rs.getDouble(5)));;
 				acdto.setAcc_code(rs.getInt(6));
-				acdto.setRoom_price(rs.getInt(7));
+				acdto.setPrt_room_price(de.format(rs.getInt(7)));
 				acdto.setCnt_reviews(rs.getInt(8));
 				acdto.setMax_room_capacity(rs.getInt(9));
 				acdto.setMin_room_capacity(rs.getInt(10));
+				acdto.setAcc_facility(rs.getString(11));
+				acdto.setCounted(rs.getInt(12));
+				
 				result.add(acdto);
 			}
 			

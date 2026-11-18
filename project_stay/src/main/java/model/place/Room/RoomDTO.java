@@ -7,6 +7,7 @@ public class RoomDTO {
 	private int acc_code;
 	private String room_name;
 	private int room_price;
+	private String prt_room_price;
 	private int room_count;
 	private int room_capacity;
 	private String room_info;
@@ -95,6 +96,12 @@ public class RoomDTO {
 	}
 	public void setRoom_img4(String room_img4) {
 		this.room_img4 = room_img4;
+	}
+	public String getPrt_room_price() {
+		return prt_room_price;
+	}
+	public void setPrt_room_price(String prt_room_price) {
+		this.prt_room_price = prt_room_price;
 	}
 	
 	

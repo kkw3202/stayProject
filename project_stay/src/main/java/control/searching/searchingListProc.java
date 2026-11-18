@@ -45,6 +45,9 @@ public class searchingListProc extends HttpServlet {
 		String acc_name = request.getParameter("acc_name"); // 일부만 검색해도 받아와야함!
 		String book_checkin_date=null;
 		String book_checkout_date=null;
+		String orderBy = request.getParameter("orderBy");
+		
+		if (orderBy == null) orderBy = "most";
 		
 		HttpSession session = request.getSession(false);
 		
@@ -61,18 +64,8 @@ public class searchingListProc extends HttpServlet {
 			}
 		}
 		
-		/*
-		 * session.setAttribute("city_name", city_name);
-		 * session.setAttribute("acc_type", acc_type); 
-		 * session.setAttribute("acc_name",acc_name);
-		 * session.setAttribute("book_checkin_date", book_checkin_date);
-		 * session.setAttribute("book_checkout_date", book_checkout_date);
-		 */
-		
-		// 세션 대신 hidden으로 넘겨서 header에서 받자!
-		
 		try {
-			sa_arr = pdao.do_searching(city_name, acc_type, acc_name, book_checkin_date, book_checkout_date);
+			sa_arr = pdao.do_searching(city_name, acc_type, acc_name, book_checkin_date, book_checkout_date, orderBy);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -83,8 +76,6 @@ public class searchingListProc extends HttpServlet {
 				WishListDAO wdao = new WishListDAO();
 				ArrayList<Integer> wishes = wdao.getWishList(user_email);
 				ArrayList<Integer> send_wishes = new ArrayList<Integer>();
-				
-			
 
 				for(int i = 0; i<wishes.size(); i++) {
 					for(search_accDTO sa_a_code : sa_arr) {
@@ -96,6 +87,8 @@ public class searchingListProc extends HttpServlet {
 				}
 				
 				request.setAttribute("wishes", send_wishes);
+				System.out.println("1번째 : "+send_wishes.get(0));
+				System.out.println("길이 : "+send_wishes.size());
 			}
 		}
 
@@ -105,6 +98,7 @@ public class searchingListProc extends HttpServlet {
 		request.setAttribute("acc_type", acc_type);
 		request.setAttribute("book_checkin_date", book_checkin_date);
 		request.setAttribute("book_checkout_date", book_checkout_date);
+		request.setAttribute("orderBy", orderBy);
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=searching/searchList.jsp");
 		rd.forward(request, response);
 		

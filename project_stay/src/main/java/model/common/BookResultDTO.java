@@ -10,8 +10,10 @@ public class BookResultDTO {
 	private String room_name;
 	
 	private int room_price;
+	private String prt_room_price;
 	private int date_of_stay; // 몇박인지 구해서 담음
 	private int total_price; // 총 금액 구해서 담음
+	private String prt_total_price; // 총 금액 구해서 담음
 
 
 	public String getBook_name() {
@@ -84,6 +86,22 @@ public class BookResultDTO {
 
 	public void setTotal_price(int total_price) {
 		this.total_price = total_price;
+	}
+
+	public String getPrt_total_price() {
+		return prt_total_price;
+	}
+
+	public void setPrt_total_price(String prt_total_price) {
+		this.prt_total_price = prt_total_price;
+	}
+
+	public String getPrt_room_price() {
+		return prt_room_price;
+	}
+
+	public void setPrt_room_price(String prt_room_price) {
+		this.prt_room_price = prt_room_price;
 	}
 	
 	

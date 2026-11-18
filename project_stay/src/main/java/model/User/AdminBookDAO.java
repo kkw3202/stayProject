@@ -1,4 +1,3 @@
-
 package model.User;
 
 import java.sql.*;
@@ -9,26 +8,26 @@ import DBPKG.Util;
 
 public class AdminBookDAO {
 
-    // ì‹¤ì œ DB í…Œì´ë¸”ëª…ì— ë§ê²Œ ìˆ˜ì •
+    // ½ÇÁ¦ DB Å×ÀÌºí¸í¿¡ ¸Â°Ô ¼öÁ¤
     private static final String TABLE_NAME = "booking";
 
     /*
-     * ì˜ˆì•½ ìƒíƒœê°’
-     * 1 : ì˜ˆì•½ì·¨ì†Œ
-     * 2 : ì˜ˆì•½ë§Œë£Œ
-     * 3 : ì˜ˆì•½ì¤‘ (ê¸°ë³¸ê°’)
+     * ¿¹¾à »óÅÂ°ª
+     * 1 : ¿¹¾àÃë¼Ò
+     * 2 : ¿¹¾à¿Ï·á
+     * 3 : ¿¹¾àÁß (±âº»°ª)
      *
-     * [ì„ì‹œ ì •ì±… - ì¶”í›„ íšŒì˜ ê²°ê³¼ì— ë”°ë¼ ë³€ê²½]
-     * 4 : ê´€ë¦¬ì ì†Œí”„íŠ¸ ì‚­ì œ
+     * [ÀÓ½Ã Á¤Ã¥ - ÃßÈÄ È¸ÀÇ °á°ú¿¡ µû¶ó º¯°æ]
+     * 4 : °ü¸®ÀÚ ¼ÒÇÁÆ® »èÁ¦
      *
-     * ì‹¤ì œ DELETEë¬¸ì€ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ.
+     * ½ÇÁ¦ DELETE¹®Àº »ç¿ëÇÏÁö ¾ÊÀ½.
      */
     public static final int STATUS_CANCEL = 1;
     public static final int STATUS_EXPIRED = 2;
     public static final int STATUS_RESERVED = 3;
     public static final int STATUS_ADMIN_DELETED = 4;
 
-    // ì˜ˆì•½ ì •ë³´ë¥¼ ë‹´ëŠ” DTO
+    // ¿¹¾à Á¤º¸¸¦ ´ã´Â DTO
     public static class Book {
 
         private int bookCode;
@@ -93,7 +92,7 @@ public class AdminBookDAO {
         }
     }
 
-    // ResultSetì˜ í•œ í–‰ì„ Book ê°ì²´ë¡œ ë³€í™˜
+    // ResultSetÀÇ ÇÑ ÇàÀ» Book °´Ã¼·Î º¯È¯
     private Book mapBook(ResultSet rs) throws SQLException {
 
         Book b = new Book();
@@ -121,7 +120,7 @@ public class AdminBookDAO {
         return b;
     }
 
-    // ê²€ìƒ‰í•  ì»¬ëŸ¼ì„ ì•ˆì „í•˜ê²Œ ì„ íƒ
+    // °Ë»öÇÒ ÄÃ·³À» ¾ÈÀüÇÏ°Ô ¼±ÅÃ
     private String searchColumn(String type) {
 
         if ("name".equals(type)) {
@@ -135,15 +134,15 @@ public class AdminBookDAO {
         return "book_name";
     }
 
-    // ê²€ìƒ‰ ì¡°ê±´ ìƒì„±
+    // °Ë»ö Á¶°Ç »ı¼º
     private String searchWhere(String type, String keyword,
                                Integer status) {
 
         StringBuilder where =
                 new StringBuilder(" WHERE 1=1 ");
 
-        // ê´€ë¦¬ì ì†Œí”„íŠ¸ ì‚­ì œëœ ì˜ˆì•½ì€ ê¸°ë³¸ ëª©ë¡ì—ì„œ ì œì™¸
-        // [ì„ì‹œ ì •ì±…: ìƒíƒœê°’ 4]
+        // °ü¸®ÀÚ ¼ÒÇÁÆ® »èÁ¦µÈ ¿¹¾àÀº ±âº» ¸ñ·Ï¿¡¼­ Á¦¿Ü
+        // [ÀÓ½Ã Á¤Ã¥: »óÅÂ°ª 4]
         if (status == null) {
             where.append(" AND book_chk_status <> 4 ");
         } else {
@@ -159,7 +158,7 @@ public class AdminBookDAO {
         return where.toString();
     }
 
-    // ê²€ìƒ‰ ì¡°ê±´ì˜ ? ê°’ ì„¤ì •
+    // °Ë»ö Á¶°ÇÀÇ ? °ª ¼³Á¤
     private void bindSearch(PreparedStatement pstmt,
                             String keyword, Integer status)
                             throws SQLException {
@@ -175,7 +174,7 @@ public class AdminBookDAO {
         }
     }
 
-    // ì „ì²´ ì˜ˆì•½ ê±´ìˆ˜ ë° ê²€ìƒ‰ ê²°ê³¼ ê±´ìˆ˜
+    // ÀüÃ¼ ¿¹¾à °Ç¼ö ¹× °Ë»ö °á°ú °Ç¼ö
     public int count(String type, String keyword, Integer status) {
 
         String sql = "SELECT COUNT(*) FROM " + TABLE_NAME
@@ -199,9 +198,9 @@ public class AdminBookDAO {
         return 0;
     }
 
-    // ì˜ˆì•½ ëª©ë¡ ì¡°íšŒ ë° í˜ì´ì§•
+    // ¿¹¾à ¸ñ·Ï Á¶È¸ ¹× ÆäÀÌÂ¡
     public List<Book> list(String type, String keyword,
-                           Integer status, int page, int pageSize) {
+                            Integer status, int page, int pageSize) {
 
         List<Book> result = new ArrayList<>();
 
@@ -245,7 +244,7 @@ public class AdminBookDAO {
         return result;
     }
 
-    // ì˜ˆì•½ ìƒì„¸ ì¡°íšŒ
+    // ¿¹¾à »ó¼¼ Á¶È¸
     public Book find(int bookCode) {
 
         String sql = "SELECT * FROM " + TABLE_NAME
@@ -271,12 +270,12 @@ public class AdminBookDAO {
     }
 
     /*
-     * ì˜ˆì•½ ì •ë³´ ìˆ˜ì •
+     * ¿¹¾à Á¤º¸ ¼öÁ¤
      *
-     * ì˜ˆì•½ìëª…, ì²´í¬ì¸Â·ì²´í¬ì•„ì›ƒ ë‚ ì§œë¥¼ ìˆ˜ì •í•œë‹¤.
-     * ì˜ˆì•½ë²ˆí˜¸, íšŒì›ì½”ë“œ, ë¹„íšŒì›ì½”ë“œëŠ” ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
+     * ¿¹¾àÀÚ¸í, Ã¼Å©ÀÎ¡¤Ã¼Å©¾Æ¿ô ³¯Â¥¸¦ ¼öÁ¤ÇÑ´Ù.
+     * ¿¹¾à¹øÈ£, È¸¿øÄÚµå, ºñÈ¸¿øÄÚµå´Â º¯°æÇÏÁö ¾Ê´Â´Ù.
      *
-     * ì†Œí”„íŠ¸ ì‚­ì œëœ ì˜ˆì•½ì€ ìˆ˜ì • ë¶ˆê°€.
+     * ¼ÒÇÁÆ® »èÁ¦µÈ ¿¹¾àÀº ¼öÁ¤ ºÒ°¡.
      */
     public boolean update(int bookCode, String bookName,
                           Date checkinDate, Date checkoutDate) {
@@ -312,15 +311,15 @@ public class AdminBookDAO {
     }
 
     /*
-     * ê´€ë¦¬ì ì˜ˆì•½ ì†Œí”„íŠ¸ ì‚­ì œ
+     * °ü¸®ÀÚ ¿¹¾à ¼ÒÇÁÆ® »èÁ¦
      *
-     * [ì„ì‹œ ì •ì±… - ì¶”í›„ íšŒì˜ ê²°ê³¼ì— ë”°ë¼ ë³€ê²½]
+     * [ÀÓ½Ã Á¤Ã¥ - ÃßÈÄ È¸ÀÇ °á°ú¿¡ µû¶ó º¯°æ]
      * book_chk_status = 4
      *
-     * ì‹¤ì œ ë°ì´í„°ë¥¼ ì‚­ì œí•˜ì§€ ì•Šê³  ìƒíƒœê°’ë§Œ ë³€ê²½í•œë‹¤.
-     * book_cancel_dateëŠ” ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
+     * ½ÇÁ¦ µ¥ÀÌÅÍ¸¦ »èÁ¦ÇÏÁö ¾Ê°í »óÅÂ°ª¸¸ º¯°æÇÑ´Ù.
+     * book_cancel_date´Â º¯°æÇÏÁö ¾Ê´Â´Ù.
      *
-     * 4ë²ˆ ìƒíƒœì˜ ì˜ˆì•½ì€ ì¤‘ë³µ ì‚­ì œ ë¶ˆê°€.
+     * 4¹ø »óÅÂÀÇ ¿¹¾àÀº Áßº¹ »èÁ¦ ºÒ°¡.
      */
     public boolean softDeleteBook(int bookCode) {
 
@@ -343,7 +342,7 @@ public class AdminBookDAO {
         return false;
     }
 
-    // ì˜ˆì•½ ìƒíƒœë³„ ê±´ìˆ˜
+    // ¿¹¾à »óÅÂº° °Ç¼ö
     public int countByStatus(int status) {
 
         String sql = "SELECT COUNT(*) FROM " + TABLE_NAME
