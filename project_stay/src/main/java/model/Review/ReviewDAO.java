@@ -631,4 +631,39 @@ public class ReviewDAO {
 		return canWrite;
 	}
 	
+	// 작성안된 리뷰개수 세기 
+	public int countUnwrittenTotalReview(String user_email) {
+		int totalCount = 0;
+		try {
+			con = Util.getConnection();
+			// 쿼리문
+			String sql = "SELECT COUNT(*) "
+					   + "FROM booking b "
+					   + "INNER JOIN User u ON b.user_code = u.user_code "
+					   + "INNER JOIN Room rm ON b.room_code = rm.room_code "
+					   + "LEFT JOIN Reviews r ON b.user_code = r.user_code AND rm.acc_code = r.acc_code AND r.rev_chk_del = 0 "
+					   + "WHERE u.user_email = ? "
+					   + "AND r.rev_code IS NULL "
+					   + "AND b.book_chk_status != 1 "
+					   + "AND b.book_checkout_date <= CURDATE()";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_email);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				totalCount = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return totalCount;
+	}
+	
 }

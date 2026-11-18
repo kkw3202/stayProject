@@ -375,3 +375,67 @@
 		border-radius: 0 0 14px 14px;
 	}
 }
+
+/* 대시보드 현황판 (4칸 카드형 필터 버튼) */
+.myBookingList .dashboard {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 12px;
+	margin: 0 0 24px;
+}
+
+.myBookingList .dashboard .dash_btn {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 16px 12px;
+	border: 1px solid #d5e2f6;
+	border-radius: 14px;
+	background: #f7faff;
+	color: #2c4366;
+	font-family: inherit;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.myBookingList .dashboard .dash_btn:hover {
+	background: #ebf3ff;
+	border-color: #93b5e6;
+	transform: translateY(-2px);
+}
+
+.myBookingList .dashboard .dash_label {
+	font-size: 13px;
+	font-weight: 600;
+	color: #5b7294;
+}
+
+.myBookingList .dashboard .dash_num {
+	font-size: 22px;
+	font-weight: 800;
+	color: #103b74;
+	line-height: 1.1;
+}
+
+/* 선택(활성화)된 대시보드 버튼 */
+.myBookingList .dashboard .dash_btn.active {
+	background: #174b8c;
+	border-color: #174b8c;
+	box-shadow: 0 4px 12px rgba(23, 75, 140, 0.22);
+}
+
+.myBookingList .dashboard .dash_btn.active .dash_label {
+	color: #cfe2ff;
+}
+
+.myBookingList .dashboard .dash_btn.active .dash_num {
+	color: #ffffff;
+}
+
+@media screen and (max-width: 640px) {
+	.myBookingList .dashboard {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

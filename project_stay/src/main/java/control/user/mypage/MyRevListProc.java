@@ -72,12 +72,17 @@ public class MyRevListProc extends HttpServlet {
 		ArrayList<ReviewDTO> rlist;
 		rlist = rdao.getMyreviewBoard(startRow, pageSize, user_name);
 		
+		// 아직 작성안된 리뷰 배열 
 		ArrayList<ReviewDTO> notList;
 		notList = rdao.getUnwrittenMyReviewList(user_email);
+		
+		// 아직 작성안된 리뷰 총 개수 세는 함수
+		int notList_cnt = rdao.countUnwrittenTotalReview(user_email);
 		
 		// JSP에 넘길 자료 포장하기
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("notList", notList);
+		request.setAttribute("notList_cnt", notList_cnt);
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("count", count);

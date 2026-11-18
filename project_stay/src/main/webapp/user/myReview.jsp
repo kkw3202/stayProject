@@ -5,7 +5,8 @@
 <link rel="stylesheet" href="style/mypageReview.css"/>
 
 <div class="myReviewWrap">
-	<h3>내 리뷰 보기</h3>
+	<h3>내 리뷰 보기 <span class="reviewCount">(총 리뷰 : ${count }개)</span></h3> 
+	
 	<%-- 작성한 리뷰가 없는 경우 --%>
 	<c:if test="${empty rlist }">
 		<div class="no_review">
@@ -19,6 +20,7 @@
 			<%-- 아래 글자 클릭시, 리뷰 작성하지 않는 리스트 펼침 --%>
 			<p class="notList_title" onclick="toggleUnwrittenList(this)">
 				<span>아직 작성하지 않은 리뷰가 있습니다.</span>
+				<span class="unwritten_reviewCount">(총 ${notList_cnt }개)</span>
 				<span class="toggle_arrow">▼</span>
 			</p>
 			<%-- 처음에는 숨겨져 있는 부분(작성하지 않은 리뷰 리스트) --%>

@@ -15,6 +15,9 @@
 }
 
 .myReviewWrap h3 {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
 	margin: 0 0 28px;
 	padding: 0 0 0 16px;
 	border-left: 5px solid #1656a2;
@@ -22,6 +25,12 @@
 	line-height: 1.35;
 	font-weight: 700;
 	color: #0d2859;
+}
+
+.myReviewWrap h3 .reviewCount {
+	font-size: 14px;
+	font-weight: 500;
+	color: #7c899b;
 }
 
 /* 내 예약확인과 통일된 좌우 2단 리뷰 카드 */
@@ -298,8 +307,8 @@
 
 .myReviewWrap .notList_title {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
+	gap: 6px;
 	margin: 0;
 	padding: 15px 20px;
 	font-size: 15px;
@@ -309,6 +318,18 @@
 	cursor: pointer;
 	user-select: none;
 	transition: background-color 0.2s;
+}
+
+.myReviewWrap .notList_title .unwritten_reviewCount {
+	font-size: 13px;
+	font-weight: 600;
+	color: #1656a2;
+}
+
+.myReviewWrap .notList_title .toggle_arrow {
+	margin-left: auto;
+	font-size: 12px;
+	color: #1656a2;
 }
 
 .myReviewWrap .notList_title:hover {

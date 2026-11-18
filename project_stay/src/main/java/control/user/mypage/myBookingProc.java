@@ -54,9 +54,16 @@ public class myBookingProc extends HttpServlet {
 		// 세션으로 회원 아이디 및 mbdao 인스턴스
 		HttpSession session = request.getSession();
 		String user_email = (String)session.getAttribute("user_email");
+		
+		// 세션 만료 시 로그인 페이지 이동
+		if (user_email == null) {
+			response.sendRedirect("loginProc.do");
+			return;
+		}
+		
 		MyBookingDAO mbdao = new MyBookingDAO();
 		
-		// 핸들러 페이징pdao / pdto 인스턴스 
+		// 핸들러 페이징 pdao / pdto 인스턴스 
 		pagingHandlerDAO pdao = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
 		
@@ -66,12 +73,26 @@ public class myBookingProc extends HttpServlet {
 		// 한 화면에 페이징 하고 싶은 개수 [1][2][3]
 		int pageBlock = 3;
 		
-		// pageNum 정보 가져오기 (처음에는 null값)
+		// pageNum 및 status 정보 가져오기
 		String pageNum = request.getParameter("pageNum");
+		String status = request.getParameter("status");
+		if (status == null || status.trim().equals("")) {
+			status = "all";
+		}
 		
-		// 예약 총 개수 변수 
+		// 대시보드 상단 현황판용 개수 (필터와 상관없이 항상 전체 기준으로 유지)
+		int totalAllCount = mbdao.countAllMyBooking(user_email);
+		int countCancelBooking = mbdao.countCancelBooking(user_email);
+		int countOverBooking = mbdao.countOverBooking(user_email);
+		int countReservedBooking = mbdao.countReservedBooking(user_email);
+		
+		// 현재 선택된 탭 기준 페이징 count 계산
 		int count = 0;
-		count = mbdao.countAllMyBooking(user_email);
+		if ("all".equals(status)) {
+			count = totalAllCount;
+		} else {
+			count = mbdao.countBookingByStatus(user_email, Integer.parseInt(status));
+		}
 		
 		// 페이징 부분
 		pdto = pdao.getPaging(pageNum, count, pageSize, pageBlock);
@@ -82,9 +103,15 @@ public class myBookingProc extends HttpServlet {
 		int startPage = pdto.getStartPage();
 		int endPage = pdto.getEndPage();
 		
-		// 배열선언
-		ArrayList<MyBookingDTO> mblist = mbdao.getMyBookingList(startRow, pageSize, user_email);
-		DateHandlerDAO dhdao = new DateHandlerDAO(); // 
+		// 상태별 목록 분기 조회
+		ArrayList<MyBookingDTO> mblist;
+		if ("all".equals(status)) {
+			mblist = mbdao.getMyBookingList(startRow, pageSize, user_email);
+		} else {
+			mblist = mbdao.getMyBookingListByStatus(startRow, pageSize, user_email, Integer.parseInt(status));
+		}
+		
+		DateHandlerDAO dhdao = new DateHandlerDAO();
 		
 		// 숫자 DecimalFormat 선언
 		DecimalFormat df = new DecimalFormat("#,###");
@@ -106,7 +133,6 @@ public class myBookingProc extends HttpServlet {
 					if (date_of_stay < 0) date_of_stay = 0;
 					
 					dto.setDate_of_stay(date_of_stay);
-					
 					dto.setTotal_price(date_of_stay * dto.getRoom_price());
 				}
 			}
@@ -114,6 +140,8 @@ public class myBookingProc extends HttpServlet {
 		
 		// 포장단계
 		request.setAttribute("mblist", mblist);
+		request.setAttribute("status", status);
+		request.setAttribute("totalAllCount", totalAllCount);
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("count", count);
@@ -122,6 +150,9 @@ public class myBookingProc extends HttpServlet {
 		request.setAttribute("pageBlock", pageBlock);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
+		request.setAttribute("countCancelBooking", countCancelBooking);
+		request.setAttribute("countOverBooking", countOverBooking);
+		request.setAttribute("countReservedBooking", countReservedBooking);
 		
 		// mypage 안쪽에 넣을 jsp 이름 포장
 		request.setAttribute("mypageSection", "myBooking");
@@ -129,7 +160,5 @@ public class myBookingProc extends HttpServlet {
 		// rd로 넘기기
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/mypage.jsp");
 		rd.forward(request, response);
-		
 	}
-
 }
