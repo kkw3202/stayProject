@@ -5,8 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="style/mypageWish.css"/>
 
-<div class="boardWrap">
-	<h3>내 찜 목록 <span class="wishCount">(총 : ${count }개)</span></h3>
+<div class="boardWrap" >
+	<h3>내 찜 목록 <span class="wishCount">(총 : ${count }개)</span></h3>  
 	
 	<c:choose>
 		<%-- 찜 리스트가 없는 경우 --%>
