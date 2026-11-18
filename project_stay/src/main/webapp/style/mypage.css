@@ -300,6 +300,7 @@
 	margin: 0;
 	border: 1px solid #d7e4fa;
 	border-radius: 12px;
+	border-collapse: separate; /* 이 줄을 추가해 주세요 */
 	border-spacing: 0;
 	overflow: hidden;
 	table-layout: fixed;

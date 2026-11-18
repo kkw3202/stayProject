@@ -72,12 +72,19 @@ public class accReviewListProc extends HttpServlet {
 		// 로그인 한 사용자가 숙소에 대해 작성 가능한 상태인지 확인 
 		boolean canWrite = rdao.canWriteReview(user_email, acc_code);
 		
+		
+		
 		ArrayList<ReviewDTO> rlist = rdao.getReviewAccBoard(startRow, pageSize, acc_code);
 		
+		// 로그인 한 사용자가 이 숙소에 이미 작성한 내 리뷰 조회 (있으면 최상단 전용 박스에 노출)
+		ReviewDTO myReview = rdao.getMyAccReview(user_email, acc_code);
+				
 		// 세팅하기
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("canWrite", canWrite); // notList 처리를 위한 boolean 값
 		request.setAttribute("acc_code", acc_code); // 리뷰 작성 페이지로 갈 수 있도록 넘김
+		request.setAttribute("myReview", myReview);
+
 		
 		// 세팅하기
 		request.setAttribute("rlist", rlist);

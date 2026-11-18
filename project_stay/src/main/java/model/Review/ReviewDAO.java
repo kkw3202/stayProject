@@ -666,4 +666,50 @@ public class ReviewDAO {
 		return totalCount;
 	}
 	
+	// 현재 숙소에서 로그인한 회원이 작성한 리뷰 1건 조회 
+	public ReviewDTO getMyAccReview(String user_email, int acc_code) {
+		if (user_email == null || user_email.isEmpty()) {
+			return null;
+		}
+		ReviewDTO rdto = null;
+		try {
+			con = Util.getConnection();
+			String sql = "select r.rev_code, a.acc_code, u.user_code, r.rev_rating, r.rev_content, "
+					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name "
+					+ "from reviews r "
+					+ "inner join user u on r.user_code = u.user_code "
+					+ "inner join accommodation a on r.acc_code = a.acc_code "
+					+ "where r.rev_chk_del = 0 and a.acc_code = ? and u.user_email = ? "
+					+ "order by r.rev_code desc limit 1";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, acc_code);
+			pstmt.setString(2, user_email);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				rdto = new ReviewDTO();
+				rdto.setRev_code(rs.getInt(1));
+				rdto.setAcc_code(rs.getInt(2));
+				rdto.setUser_code(rs.getInt(3));
+				rdto.setRev_rating(rs.getInt(4));
+				rdto.setRev_content(rs.getString(5));
+				rdto.setRev_created_datetime(rs.getString(6));
+				rdto.setRev_chk_del(rs.getInt(7));
+				rdto.setRev_like(rs.getInt(8));
+				rdto.setUser_name(rs.getString(9));
+				rdto.setUser_email(rs.getString(10));
+				rdto.setAcc_name(rs.getString(11));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (con != null) con.close();
+			} catch (Exception e) { e.printStackTrace(); }
+		}
+		return rdto;
+	}
+	
 }
