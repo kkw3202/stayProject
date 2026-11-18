@@ -6,7 +6,7 @@ import DBPKG.Util;
 
 
 public class GuestDAO {
-	// »õ·Î »ı±æ ºñÈ¸¿ø ¹øÈ£ ±¸ÇÏ´Â ¸Ş¼Òµå
+	// ê°€ì¥ ìµœê·¼ì— ë“±ë¡ëœ íšŒì›ì˜ ë²ˆí˜¸ êµ¬í•˜ëŠ” ë©”ì„œë“œ
 	public int get_LastNum() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -43,7 +43,7 @@ public class GuestDAO {
 		return result;
 	}
 	
-	// »õ·Î¿î ºñÈ¸¿ø Á¤º¸ Ãß°¡ÇÏ´Â ¸Ş¼Òµå
+	// ìƒˆë¡œìš´ ë¹„íšŒì›ì„ ì •ë³´ ì¶”ê°€í•˜ëŠ” ë©”ì„œë“œ
 	public boolean set_newGuset(String book_name, String phone) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

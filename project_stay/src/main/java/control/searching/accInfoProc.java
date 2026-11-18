@@ -64,7 +64,7 @@ public class accInfoProc extends HttpServlet {
 		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");
 		
 
-		// ½ºÆ®·¹½º¶«¿¡ µµ¹«Áö ´ë°¡¸®°¡ ¾È±¼·¯°¡¼­ ÀÏ´Ü aiÇÑÅ× Â¥´Ş¶ó ÇÑ°Å. ³ªÁß¿¡ ÀĞ¾îº¸°í ¼öÁ¤ÇØ¾ßÇÔ
+		// í”„ë¡ íŠ¸ì—ì„œ ë‚ ì§œë¥¼ ì•ˆê°€ì ¸ì˜¤ê±°ë‚˜ ì•ˆë„˜ì–´ì˜¤ëŠ” ê²½ìš°ë¥¼ ëŒ€ë¹„í•´ aiê°€ ë‚ ì§œë¥¼ ì„ì‹œë¡œ ë„˜ê¹€. ë‚˜ì¤‘ì— ì½ì–´ë³¼ë•Œ ìˆ˜ì •í•´ì•¼í•¨
 		
 	    Calendar cal1 = Calendar.getInstance();
 	    Calendar cal2 = Calendar.getInstance();
@@ -77,7 +77,7 @@ public class accInfoProc extends HttpServlet {
 	    
 	    int diffDays = day2 - day1;
 	    request.setAttribute("diffDays", diffDays);
-		// ¿©±îÁö ================================================================
+		// ìˆ™ë°•ì¼ìˆ˜ ================================================================
 	    
 		AccomodationDAO adao = new AccomodationDAO();
 		placeDTO pdto = new placeDTO();

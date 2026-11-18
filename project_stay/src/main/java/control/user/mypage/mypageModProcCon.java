@@ -23,14 +23,14 @@ public class mypageModProcCon extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		System.out.println("--------------------------");
-		// ¾ÆÀÌµğ °¡Á®¿À±â
+		// ì•„ì´ë”” ê°€ì ¸ì˜¤ê¸°
 		HttpSession session = request.getSession();
 		String user_email = (String)session.getAttribute("user_email");
 		
-		// ´Ù¸¥ Á¤º¸µé °¡Á®¿À±â
+		// ë‹¤ë¥¸ íŒŒë¼ë¯¸í„° ê°€ì ¸ì˜¤ê¸°
 		String user_name = request.getParameter("user_name");
 		String user_phone = request.getParameter("user_phone");
 		int user_gender = Integer.parseInt(request.getParameter("user_gender"));
@@ -38,11 +38,11 @@ public class mypageModProcCon extends HttpServlet {
 		String new_password = request.getParameter("new_password");
 		String passkey = request.getParameter("passkey");
 		
-		// udao ÀÎ½ºÅÏ½º ¹× ¾÷µ¥ÀÌÆ® ÇÏ±â
+		// udao ì¸ìŠ¤í„´ìŠ¤ ë° ì—…ë°ì´íŠ¸ í•˜ê¸°
 		UserDAO udao = new UserDAO();
 		udao.updateUserMod(user_name, user_phone, user_gender, user_birth, new_password, passkey, user_email);
 		
-		// ¹Ù·Î µ¹·Áº¸³»±â
+		// ë°”ë¡œ í˜ì´ì§€ì´ë™
 		response.sendRedirect("mypageInfoProc.do");
 	}
 }

@@ -21,16 +21,16 @@ public class myWishDeleteCon extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
-		// Á¤º¸°¡Á®¿À±â
+		// íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 		int wish_code = Integer.parseInt(request.getParameter("wish_code"));
 		
-		// wdao ÀÎ½ºÅÏ½º ¹× »èÁ¦ÇÏ±â (¼ÒÇÁÆ®»èÁ¦ ¾Æ´Ô)
+		// wdao ì¸ìŠ¤í„´ìŠ¤ ë° ì‚­ì œí•˜ê¸° (ì—…ë°ì´íŠ¸ê°€ ì•„ë‹Œ)
 		WishListDAO wdao = new WishListDAO();
 		wdao.deleteMywish(wish_code);
 		
-		// ÆäÀÌÁö ³Ñ±â±â (³» Âò ¸ñ·Ï ±×¸®´Â proc)
+		// í˜ì´ì§€ ë„˜ê¸°ê¸° (ìœ„ì‹œ ë¦¬ìŠ¤íŠ¸ ê´€ë¦¬í•˜ëŠ” proc)
 		response.sendRedirect("myWishProc.do");
 	}
 }

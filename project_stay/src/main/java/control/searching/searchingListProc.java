@@ -42,7 +42,7 @@ public class searchingListProc extends HttpServlet {
 		String[] selectedDays = request.getParameterValues("selectedDays");
 		String city_name = request.getParameter("city_name");
 		String acc_type = request.getParameter("acc_type");
-		String acc_name = request.getParameter("acc_name"); // ÀÏºÎ¸¸ °Ë»öÇØµµ ¹Ş¾Æ¿Í¾ßÇÔ!
+		String acc_name = request.getParameter("acc_name"); // ì¼ë¶€ë§Œ ê²€ìƒ‰í•´ë„ ë°›ì•„ì™€ì§!
 		String book_checkin_date=null;
 		String book_checkout_date=null;
 		String orderBy = request.getParameter("orderBy");
@@ -87,8 +87,6 @@ public class searchingListProc extends HttpServlet {
 				}
 				
 				request.setAttribute("wishes", send_wishes);
-				System.out.println("1¹øÂ° : "+send_wishes.get(0));
-				System.out.println("±æÀÌ : "+send_wishes.size());
 			}
 		}
 

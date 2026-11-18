@@ -11,9 +11,9 @@ import model.Handler.dateHandler.DateHandlerDAO;
 
 public class RoomDAO {
 
-	// ¹æ(°´½Ç) ÇÏ³ª°¡ Æ¯Á¤ ³¯Â¥¿¡ ¸î°³ ¿¹¾à °¡´ÉÇÑÁö ±¸ÇÏ´Â ¸Ş¼Òµå
-	// ¹æÀ» ¿¹¾àÇÒ ¼ö ÀÖ´Ù¸é ¿¹¾à °¡´ÉÇÑ °ªÀ» ¹İÈ¯.
-	// ¿¹¾à ÇÒ ¼ö ¾ø´Ù¸é-1 ¹İÈ¯.
+	// ë°©(ê°ì‹¤) í•˜ë‚˜ì— íŠ¹ì • ë‚ ì§œì— ëª‡ê°œ ì˜ˆì•½ ë˜ì–´ìˆëŠ”ì§€ ê³„ì‚°í•˜ëŠ” ë©”ì„œë“œ
+	// ì˜ˆì•½ ê°€ëŠ¥í•œ ë°©ì´ ìˆë‹¤ë©´ ì˜ˆì•½ ê°€ëŠ¥í•œ ë°©ì˜ ê°œìˆ˜ ë°˜í™˜.
+	// ì˜ˆì•½ í•  ë°©ì´ ì—†ë‹¤ë©´ -1 ë°˜í™˜.
 	public int count_booking_oneRoom(String book_checkin_date, String book_checkout_date, int room_code)
 			throws ParseException {
 
@@ -30,7 +30,7 @@ public class RoomDAO {
 			con = Util.getConnection();
 			int search_room_count = 0;
 
-			// °´½Ç Æ¯Á¤
+			// ë£¸ íŠ¹ì„±
 			String sql = "select room_count " + "from room " + "where room_code=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, room_code);
@@ -49,11 +49,11 @@ public class RoomDAO {
 			sql = "select count(*) from booking where(";
 
 			for (int i = 0; i < dates.size(); i++) {
-				sql += "(book_checkin_date <= '"+dates.get(i)+"' and book_checkout_date > '"+dates.get(i)+"')"; // 1, 2 => °Ë»öÇÒ ³¯Â¥
+				sql += "(book_checkin_date <= '"+dates.get(i)+"' and book_checkout_date > '"+dates.get(i)+"')"; // 1, 2 => ê²€ìƒ‰í•œ ë‚ ì§œ
 				if (i + 1 != dates.size()) sql += "or ";
 				else sql += " ";
 			}
-			sql += ")and room_code="+room_code; // 3 => ³»°¡ °Ë»öÇÒ ¹æ
+			sql += ")and room_code="+room_code; // 3 => í•´ë‹¹ ê²€ìƒ‰í•œ ë£¸
 			pstmt = con.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -86,8 +86,8 @@ public class RoomDAO {
 		return result;
 	}
 
-	// Æ¯Á¤ ³¯Â¥¿¡ ¿¹¸Å °¡´ÉÇÑ °´½Ç Áß, ÃÖÀú°¡ÀÎ °´½ÇÀ» Ã£°í, 
-	// ÇØ´ç ¹æÀÇ room_code, room_price ¿Í ÇØ´ç °´½ÇÀ» °¡Áø ¼÷¼ÒÀÎ acc_code¸¦ Ã£¾Æ ´ã´Â ¸Ş¼Òµå
+	// íŠ¹ì • ë‚ ì§œì— ë§ëŠ” ê°ì‹¤ì„ ì°¾ì€ ë’¤, ì¡°ê±´ì— ë§ëŠ”ë°©ì„ ì°¾ì•„, 
+	// í•´ë‹¹ ë°©ì˜ room_code, room_price ì™€ í•´ë‹¹ ë°©ì˜ ì†Œì† ë˜ì–´ìˆëŠ” acc_codeë¥¼ ì°¾ì•„ ì¶œë ¥í•˜ëŠ” ë©”ì„œë“œ
 	public ArrayList<RoomDTO> get_booking_date_room(String book_checkin_date, String book_checkout_date)
 			throws ParseException {
 
@@ -103,7 +103,7 @@ public class RoomDAO {
 		try {
 			con = Util.getConnection();
 
-			// °´½Ç Æ¯Á¤
+			// ë£¸ íŠ¹ì„±
 			String sql = "select room_code ,acc_code, room_price" 
 						+ "from room r " 
 						+ "where ";	
@@ -147,8 +147,8 @@ public class RoomDAO {
 		return result;
 	}
 	
-	// 1108 Ãß°¡ºĞ
-		// Æ¯Á¤ ³¯Â¥¿¡ ¿¹¾à °¡´ÉÇÑ ¼÷¼ÒÀÇ ¸ğµç ¹æ, ±× Á¤º¸¸¦ ´ã´Â ¸Ş¼Òµå
+	// 1108 ì¶”ê°€ë¨
+		// íŠ¹ì • ë‚ ì§œì— ë§ëŠ” ê°ì‹¤ì„ ë³´ì—¬ì¤„ ìˆ˜ ìˆì„ ë•Œ, ë°© ì •ë³´ë¥¼ ì£¼ëŠ” ë©”ì„œë“œ
 			public ArrayList<RoomDTO> getAllRoom_acc(String book_checkin_date, String book_checkout_date, int acc_code) {
 				Connection con = null;
 				PreparedStatement pstmt = null;
@@ -164,7 +164,7 @@ public class RoomDAO {
 
 					rs = pstmt.executeQuery();
 					
-					RoomDTO img = new RoomDTO(); // ºó ¹æ ¾øÀ» ¶§ ´ëºñ¿ë º¯¼ö
+					RoomDTO img = new RoomDTO(); // ë°©ì´ ì—†ì„ ë•Œ ì¸ë„¤ì¼ ì´ë¯¸ì§€ ë³´ì—¬ì¤„ ìš©ë„
 					
 					int roomCnt=0;
 					while(rs.next()) {
@@ -191,7 +191,7 @@ public class RoomDAO {
 							img.setRoom_img4(rs.getString(13));
 						}
 					}
-					// ºó ¹æÀÌ ¾ø¾î¼­ ¹è¿­¿¡ ¾È´ã±â¸é Ã¹ ¹æ ¹è¿­ Ãß°¡ÇØ¼­ ¸ÅÀÎ ÀÌ¹ÌÁö¸¸ ¶ç¿ì´Â ¿ëµµ
+					// ë°© ì—†ì„ìˆ˜ìˆì–´ì„œ ë°°ì—´ì´ ì•ˆëœë‹¤ë©´ ì²« ì¤„ ë°°ì—´ ì¶”ê°€í•´ì„œ ëŒ€í‘œ ì´ë¯¸ì§€ë¡œ ì“¸ ìš©ë„
 					if(result.size()==0) {
 						result.add(img);
 					}

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import model.User.UserDAO;
 import model.User.UserDTO;
 
-// ³» Á¤º¸ ±×¸®´Â °÷ (mypage Ã³À½¿¡ ÁøÀÔ½Ã / ³» Á¤º¸ ¹öÆ° ´©¸£¸é ½ÇÇà)
+// ë‚´ ì •ë³´ ê´€ë¦¬í•˜ëŠ” í¼ (mypage ì²˜ìŒìœ¼ë¡œ ë“¤ì–´ì˜¬ì‹œ / ë‚´ ì •ë³´ ë²„íŠ¼ ëˆŒë €ì„ì‹œ ì‹¤í–‰)
 @WebServlet("/mypageInfoProc.do")
 public class mypageInfoProc extends HttpServlet {
 
@@ -38,15 +38,15 @@ public class mypageInfoProc extends HttpServlet {
 			udto = udao.getUserInfo(loginEmail);
 		}
 		
-		// ÈŞ´ëÀüÈ­ 010-0000-0000 Ã³¸®ÇÏ±â
+		// í•¸ë“œí°ë²ˆí˜¸ 010-0000-0000 ì²˜ë¦¬í•˜ê¸°
 		String phone = udto.getUser_phone();
 		if(phone != null && phone.length() == 11) {
 			phone = phone.substring(0,3) + "-" + phone.substring(3,7) + "-" + phone.substring(7,11);
 		}
-		// Æ÷ÀåÇÏ±â
+		// ì„¸íŒ…í•˜ê¸°
 		request.setAttribute("udto", udto);
 		request.setAttribute("phone_number", phone);
-		// º¸³»±â
+		// í¬ì›Œë”©
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/mypage.jsp");
 		rd.forward(request, response);
 	

@@ -16,7 +16,7 @@ public class IndexDAO {
 		try {
 			con = Util.getConnection();
 
-			String sql = "select avg(r.rev_rating) as avg_rev_rating, count(r.rev_rating), a.acc_name, a.acc_img, r.acc_code, c.city_name  "
+			String sql = "select avg(r.rev_rating) as avg_rev_rating, count(r.rev_rating), a.acc_name, a.acc_img, r.acc_code, c.city_name, a.acc_code  "
 					+ "from accommodation a "
 					+ "inner join reviews r on r.acc_code = a.acc_code "
 					+ "inner join city c on c.city_code = a.city_code "
@@ -33,6 +33,8 @@ public class IndexDAO {
 				idto.setAcc_img(rs.getString(4));
 				idto.setAcc_code(rs.getInt(5));
 				idto.setCity_name(rs.getString(6));
+				idto.setLinked_acc_code(rs.getString(7));
+				idto.setAcc_code(rs.getInt(7));
 				result.add(idto);
 			}
 			

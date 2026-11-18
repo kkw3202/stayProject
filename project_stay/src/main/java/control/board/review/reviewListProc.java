@@ -28,29 +28,29 @@ public class reviewListProc extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// ÇÚµé·¯ ÀÎ½ºÅÏ½º ¹× httpSession¼±¾ğÇÏ¿© user_email °¡Á®¿À±â
+		// í•¸ë“¤ëŸ¬ ì¸ìŠ¤í„´ìŠ¤ ë° httpSessionì„í•˜ì—¬ user_email ê°€ì ¸ì˜¤ê¸°
 		pagingHandlerDAO pado = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
 		HttpSession session = request.getSession();
 		String user_email= (String)session.getAttribute("user_email");
 		ReviewDAO rdao = new ReviewDAO();
 		
-		// ÇÑ È­¸é¿¡ º¸¿©Áú ÇàÀÇ °³¼ö (10°³)
+		// í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê¸€ì˜ ê°œìˆ˜ (10ê°œ)
 		pdto.setPageSize(10);
 		int pageSize = pdto.getPageSize();
-		// ÇÑ È­¸é¿¡ ÆäÀÌÂ¡ ÇÏ°í ½ÍÀº °³¼ö [1][2][3][4][5]
+		// í•œ í™”ë©´ì— í˜ì´ì§• í•  ë¸”ë¡ ê°œìˆ˜ [1][2][3][4][5]
 		int pageBlock=5;
 		
-		// pageNum Á¤º¸ °¡Á®¿À±â (ÃÖÃÊ: null / ÀÌÈÄ¿¡´Â ÆäÀÌÂ¡ ¹øÈ£º°·Î °¡Á®¿À±â)
+		// pageNum íŒŒë¼ë¯¸í„° ë°›ì•„ì˜¤ê¸° (ì²˜ìŒ: null / ì´í›„ë¶€í„°ëŠ” í˜ì´ì§• ë²ˆí˜¸í´ë¦­í•´ì„œ ë°›ì•„ì˜´)
 		String pageNum = request.getParameter("pageNum");
 		
-		// ¼÷¼ÒÄÚµå Ä«Á®¿À±â
+		// ìˆ™ì†Œì½”ë“œ ì¹´í…Œê³ ë¦¬ìš©
 		String searchType = request.getParameter("searchType");
 		int acc_code = 0; 
-		// ¸®ºä °³¼ö º¯¼ö ¼³Á¤
+		// ì „ì²´ ë ˆì½”ë“œ ê°œìˆ˜ ë³€ìˆ˜
 		int count = 0;
 		
 		String user_name = rdao.getUser_name(user_email);
@@ -61,15 +61,15 @@ public class reviewListProc extends HttpServlet {
 		// int user_code = Integer.parseInt(request.getParameter("searchType"));
 		// System.out.println("user_code"+user_code);
 		
-		// count °³¼ö ¼³Á¤
-		if(searchType==null || searchType.equals("none")|| searchType.equals("0")) {  // ÄŞº¸¹Ú½º¿¡¼­ ¼±ÅÃÀÌ ¾ÈµÈ °æ¿ì
-			count = rdao.countTotalReview();  // ÀüÃ¼ ¸®ºä°³¼ö 
-		}else { // ÄŞº¸¹Ú½º¿¡¼­ ¼÷¼Ò ÇÏ³ª ¼±ÅÃÇÑ °æ¿ì
+		// count ê°’ êµ¬í•˜ê¸°
+		if(searchType==null || searchType.equals("none")|| searchType.equals("0")) {  // ì½¤ë³´ë°•ìŠ¤ì—ì„œ ì„ íƒì´ ì•ˆëœ ê²½ìš°
+			count = rdao.countTotalReview();  // ì „ì²´ ë¦¬ë·°ê°œìˆ˜ 
+		}else { // ì½¤ë³´ë°•ìŠ¤ì—ì„œ ìˆ™ì†Œ í•˜ë‚˜ ì„ íƒí•œ ê²½ìš°
 			acc_code = Integer.parseInt(searchType);
-			count = rdao.countAccReview(acc_code);  // ÇØ´ç ¼÷¼ÒÀÇ ¸®ºä°³¼ö
+			count = rdao.countAccReview(acc_code);  // í•´ë‹¹ ìˆ™ì†Œì˜ ë¦¬ë·°ê°œìˆ˜
 		}
 		
-		// ÆäÀÌÂ¡ ºÎºĞ
+		// í˜ì´ì§• ë¶€ë¶„
 		pdto = pado.getPaging(pageNum, count, pageSize, pageBlock);
 		
 		int currentPage = pdto.getCurrentPage();
@@ -80,17 +80,17 @@ public class reviewListProc extends HttpServlet {
 		int endPage = pdto.getEndPage();
 		
 		ArrayList<ReviewDTO> rlist;
-		// ³» ¸®ºä¸¸ ¼±ÅÃÇÑ °æ¿ì
+		// ì „ ë¦¬ë·°ë¥¼ ë³´ì—¬ì£¼ëŠ” ê²½ìš°
 		if(searchType==null || searchType.equals("none")|| searchType.equals("0")) {
 			rlist = rdao.getReviewAllBoard(startRow, pageSize);
-		}else { // ÀüÃ¼ ¸ñ·Ï 
+		}else { // ì „ì²´ ë¦¬ë·° ì•„ë‹˜ 
 			rlist = rdao.getReviewAccBoard(startRow, pageSize, acc_code);
 		}
 		
-		// ÄŞº¸¹Ú½º¿¡¼­ Æ¯Á¤ ¼÷¼Ò ¼±ÅÃ½Ã AccommodationDTO¿¡¼­ ÇØ´ç¼÷¼Ò ¸ñ·Ï °¡Á®¿À±â
+		// ì½¤ë³´ë°•ìŠ¤ë¡œì„œ íŠ¹ì • ìˆ™ì†Œ ì„ íƒì‹œ AccommodationDTOì—ì„œ í•´ë‹¹ìˆ™ì†Œì˜ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 		ArrayList<AccommodationDTO> alist = rdao.getAccList();
 		
-		// JSP¿¡ ³Ñ±æ ÀÚ·áµé
+		// JSPë¡œ ë„˜ê¸¸ ìë£Œë“¤
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("alist", alist);
 		
@@ -102,14 +102,14 @@ public class reviewListProc extends HttpServlet {
 		request.setAttribute("pageBlock", pageBlock);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
-		// searchType¿¡ acc_code ¼ıÀÚÇüÅÂ·Î ³Ñ°ÜÁÖ±â
+		// searchë¥¼ acc_code ì •ìˆ˜í˜•íƒœë¡œ ë„˜ê²¨ì£¼ê¸°
 		request.setAttribute("searchType", acc_code);
 		System.out.println(searchType);
 		
 		// System.out.println("acc_code: " + acc_code);
 		// System.out.println("count: " + count);
 		
-		// ³Ñ±â±â
+		// ë„˜ê¸°ê¸°
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/review/reviewList.jsp");
 		rd.forward(request, response);
 	}

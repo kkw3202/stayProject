@@ -29,37 +29,37 @@ public class MyRevListProc extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// ÆäÀÌÂ¡ ÇÚµé·¯ ¹× ÀÚ·á°¡Á®¿À±â
+		// í˜ì´ì§• í•¸ë“¤ëŸ¬ ë° ìë£Œê°€ì ¸ì˜¤ê¸°
 		HttpSession session = request.getSession();
 		String user_email = (String)session.getAttribute("user_email");
 		pagingHandlerDAO pdao = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
 		
-		// rdao °¡Á®¿À±â
+		// rdao ìƒì„±í•˜ê¸°
 		ReviewDAO rdao = new ReviewDAO();
 		
-		// ÇÑ È­¸é¿¡ º¸¿©Áú ÇàÀÇ °³¼ö (3°³)
+		// í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê¸€ì˜ ê°œìˆ˜ (3ê°œ)
 		pdto.setPageSize(3);
 		int pageSize = pdto.getPageSize();
-		// ÇÑ È­¸é¿¡ ÆäÀÌÂ¡ ÇÏ°í ½ÍÀº °³¼ö [1][2][3][4][5]
+		// í•œ í™”ë©´ì— í˜ì´ì§• í•  ë¸”ë¡ ê°œìˆ˜ [1][2][3][4][5]
 		int pageBlock=5;
 		
-		// pageNum Á¤º¸ °¡Á®¿À±â (ÃÖÃÊ : null / ÀÌÈÄ¿¡´Â ÆäÀÌÂ¡ ¹øÈ£º°·Î °¡Á®¿À±â)
+		// pageNum íŒŒë¼ë¯¸í„° ë°›ì•„ì˜¤ê¸° (ì²˜ìŒ : null / ì´í›„ë¶€í„°ëŠ” í˜ì´ì§• ë²ˆí˜¸í´ë¦­ìœ¼ë¡œ ë°›ì•„ì˜´)
 		String pageNum = request.getParameter("pageNum");
 		
-		// ¸®ºä °³¼ö º¯¼ö ¼³Á¤
+		// ì „ì²´ ê¸€ì˜ ê°œìˆ˜ ì €ì¥
 		int count = 0;
 		
 		String user_name = rdao.getUser_name(user_email);
 		
-		// count °³¼ö ¼³Á¤
-		count = rdao.getMyreviewCount(user_name); // ÀÏ´Ü ÀüÃ¼ ¸®ºä °³¼ö
+		// count ê°’ êµ¬í•˜ê¸°
+		count = rdao.getMyreviewCount(user_name); // í•˜ë‹¨ ì „ì²´ ê¸€ ê°œìˆ˜
 		
 		// --------------------------------------------
-		// ÆäÀÌÂ¡ ºÎºĞ
+		// í˜ì´ì§• ë¶€ë¶„
 		pdto = pdao.getPaging(pageNum, count, pageSize, pageBlock);
 		int currentPage = pdto.getCurrentPage();
 		int startRow = pdto.getStartRow();
@@ -68,18 +68,18 @@ public class MyRevListProc extends HttpServlet {
 		int startPage = pdto.getStartPage();
 		int endPage = pdto.getEndPage();
 		
-		// ¹è¿­
+		// ë°°ì—´
 		ArrayList<ReviewDTO> rlist;
 		rlist = rdao.getMyreviewBoard(startRow, pageSize, user_name);
 		
-		// ¾ÆÁ÷ ÀÛ¼º¾ÈµÈ ¸®ºä ¹è¿­ 
+		// ë¦¬ë·° ì‘ì„±ì•ˆëœ ëª©ë¡ ë°°ì—´ 
 		ArrayList<ReviewDTO> notList;
 		notList = rdao.getUnwrittenMyReviewList(user_email);
 		
-		// ¾ÆÁ÷ ÀÛ¼º¾ÈµÈ ¸®ºä ÃÑ °³¼ö ¼¼´Â ÇÔ¼ö
+		// ë¦¬ë·° ì‘ì„±ì•ˆëœ ëª©ë¡ ì´ ê°¯ìˆ˜ êµ¬í•˜ëŠ” í•¨ìˆ˜
 		int notList_cnt = rdao.countUnwrittenTotalReview(user_email);
 		
-		// JSP¿¡ ³Ñ±æ ÀÚ·á Æ÷ÀåÇÏ±â
+		// JSPë¡œ ë„˜ê¸¸ ìë£Œ ì„¸íŒ…í•˜ê¸°
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("notList", notList);
 		request.setAttribute("notList_cnt", notList_cnt);
@@ -92,10 +92,10 @@ public class MyRevListProc extends HttpServlet {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		
-		// mypage ¾ÈÂÊ¿¡ ³ÖÀ» jsp ÀÌ¸§ Æ÷Àå
+		// mypage ì•ˆì—ì„œ í•„ìš”í•œ jsp ì´ë¦„ ì§€ì •
 		request.setAttribute("mypageSection", "myReview");
 		
-		// ³Ñ±â±â
+		// ë„˜ê¸°ê¸°
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/mypage.jsp");
 		rd.forward(request, response);
 		

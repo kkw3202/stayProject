@@ -8,11 +8,11 @@ import java.sql.ResultSet;
 import DBPKG.Util;
 
 public class User_change {
-	// À¯Àú ÀÌ¸ŞÀÏ (¾ÆÀÌµğ)¸¦ À¯ÀúÄÚµå·Î º¯°æÇÏ´Â ¸Ş¼Òµå
+	// íšŒì› ì´ë©”ì¼(ì•„ì´ë””)ë¡œ ìœ ì €ì½”ë“œë¥¼ ë°˜í™˜í•˜ëŠ” ë©”ì„œë“œ
 	public int email_to_code(String user_email) {
 		
 		if(user_email == null && user_email.isEmpty()) {
-			System.out.println("¼¼¼Ç ¾øÀ½! ÀÌ ¸Ş½ÃÁö¸¦ º¸½Å´Ù¸é ·Î±×ÀÎ ÇØ¾ß ÀÛµ¿ÇÏ´Â ±â´É¿¡ ¿¹¿ÜÃ³¸®¸¦ ÇÏÁö ¾ÊÀ¸½Å°Ì´Ï´Ù.");
+			System.out.println("ì—ëŸ¬ ë°œìƒ! ì´ ë©”ì„¸ì§€ê°€ ë³´ì¸ë‹¤ë©´ ë¡œê·¸ì¸ì„ í•´ì•¼ ì‘ë™í•˜ëŠ” ê¸°ëŠ¥ì— ì •ìƒì‘ë™ì‹œí‚¤ì§€ ì•Šì€ ìƒíƒœì…ë‹ˆë‹¤.");
 			return -1;
 		}
 		
@@ -26,7 +26,7 @@ public class User_change {
 		try {
 			con = Util.getConnection();
 			
-			// Á¶ÀÎÇÏ°í Ã£¾Æ¾ßÇÔ!
+			// ì •í™•í•˜ê³  ì°¾ì•„ì•¼í•¨!
 			String sql = "select user_code from user where user_email=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_email);
