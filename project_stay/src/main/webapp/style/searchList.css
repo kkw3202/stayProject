@@ -418,7 +418,8 @@ section>.contaier:has(>.search_filter) p, section>.contaier:has(>.search_filter)
 }
 
 /* 마우스 올렸을 때(:hover): 채워진 하트로 변경 */
-.contaier .wish_btn button:hover::before {
+.contaier .wish_btn button:hover::before,
+.contaier .wish_btn button.wished::before {
 	content: '♥';
 	color: red;
 }

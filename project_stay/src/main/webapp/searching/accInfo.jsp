@@ -95,7 +95,7 @@
 							
 							<div class="additionalInfo_room">
 								<h6>편의시설</h6>
-								<span class="info_title">숙박 </span><span>| ${room_amenity }</span>
+								<span class="info_title">편의시설 </span><span>| ${rdto.room_amenity }</span>
 	
 								<h6>취소 및 환불 규정</h6>
 								<span class="info_title">무료 취소</span><span>| 체크인 기준 3일 전 18:00까지: 100% 환불</span>
@@ -114,13 +114,17 @@
 	
 	<script type="text/javascript" defer="defer">
 		let modal_roomInfo = document.querySelectorAll(".modal_roomInfo");
+		let modal_background = document.querySelectorAll(".modal_background");
 		function show_modal(num){
-
+			let show_back = modal_background[num];
+			show_back.classList.add("is-open");
 			let show_room = modal_roomInfo[num];
 			show_room.classList.remove("noShow");
 		}
 		
 		function add_noShow(num){
+			let show_back = modal_background[num];
+			show_back.classList.remove("is-open");
 			let show_room = modal_roomInfo[num];
 			show_room.classList.add("noShow");
 		}

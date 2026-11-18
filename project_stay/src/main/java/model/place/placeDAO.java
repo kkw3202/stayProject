@@ -58,7 +58,7 @@ public class placeDAO {
 					cnt_dayQM += 2;
 				}
 				sql += "group by acc_code) AS orsq ON orsq.acc_code = a.acc_code ";
-			System.out.println(sql);
+
 			if(cnt_notNull != 0) {
 				sql += "where ";
 				if(city_name != null && !city_name.isEmpty()) {

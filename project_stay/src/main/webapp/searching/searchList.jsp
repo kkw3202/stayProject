@@ -4,10 +4,9 @@
 <link rel="stylesheet" href="style/searchList.css"/>
 <!-- 히든 -->
 <div>
-	<input type="hidden">
 	<c:if test="${not empty wishes}">
-		<c:forEach items="${wishes }" var="wishe">
-			<p>${wishe }</p>
+		<c:forEach items="${wishes }" var="wish">
+			<input type="hidden" value="${wish }" class="wishList">
 		</c:forEach>
 	</c:if>
 </div>
@@ -79,7 +78,7 @@
 							<li class="avg_rating">${sa_arr.avg_rating } <span>(${sa_arr.cnt_reviews }명)</span></li>
 							
 							<li class="wish_btn">
-								<!-- wishList 색칠할지 검사받고 칠하기 -->
+								<input type="hidden" value="${sa_arr.acc_code}" class="num_cnt">
 								<button type="button" onclick="${empty sessionScope.user_email ? 'pleasJoin();' : 'location.href=\'wishListAddcon.do?acc_code=' += sa_arr.acc_code += '\''}"></button> <!-- 찜 추가 버튼 -->
 							</li>
 								<li class="acc_facility">
@@ -105,9 +104,24 @@
 	</div>
 </section>
 <script type="text/javascript" defer="defer">
+	let wishList = document.querySelectorAll(".wishList");
+	let num_cnts = document.querySelectorAll(".wish_btn .num_cnt");
+	let wish_btns = document.querySelectorAll(".wish_btn button");
+
+	num_cnts.forEach((item, index) => {
+		wishList.forEach((is_equle) =>{
+			if(item.value == is_equle.value){
+				wish_btns[index].classList.add("wished");
+				
+				return;
+			}
+		});
+	});
+
+
+
 	let search_cnt = document.getElementById("search_cnt");
 	let search_cnt_prt = document.getElementById("search_cnt_prt");
-	
 	search_cnt_prt.innerText = search_cnt.value + "개";
 	
 	function pleasJoin(){
