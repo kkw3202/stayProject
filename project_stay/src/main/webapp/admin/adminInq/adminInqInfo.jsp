@@ -6,6 +6,7 @@
 <link rel="stylesheet"
       href="${pageContext.request.contextPath}/style/adminInq.css">
 <script type="text/javascript" src="js/none_header_bottom.js" defer></script>
+
 <div class="admin-inq-wrap">
 
     <!-- 1. 페이지 제목 -->
@@ -50,9 +51,12 @@
                     <td><c:out value="${inq.inqTitle}" /></td>
                 </tr>
 
+                <!-- ★ 수정 : 회원코드 대신 회원명 표시 -->
                 <tr>
-                    <th>작성 회원코드</th>
-                    <td><c:out value="${inq.userCode}" /></td>
+                    <th>작성 회원명</th>
+                    <td>
+                        <c:out value="${inq.userName}" default="-" />
+                    </td>
                 </tr>
 
                 <tr>
@@ -69,8 +73,9 @@
                     <td><c:out value="${inq.inqRef}" /></td>
                 </tr>
 
+                <!-- ★ 수정 : 삭제상태 → 삭제여부 -->
                 <tr>
-                    <th>삭제상태</th>
+                    <th>삭제여부</th>
                     <td>
                         <c:choose>
                             <c:when test="${inq.deleted == 0}">
@@ -87,12 +92,11 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <th>문의 내용</th>
-                    <td class="inq-content">
-                        <c:out value="${inq.inqContent}" />
-                    </td>
-                </tr>
+                <!-- ★ 수정 : JSP 들여쓰기 공백 제거 -->
+				<tr>
+				    <th>문의 내용</th>
+				    <td class="inq-content"><c:out value="${inq.inqContent}" /></td>
+				</tr>
             </tbody>
         </table>
 
@@ -130,12 +134,11 @@
                             </td>
                         </tr>
 
-                        <tr>
-                            <th>답변 내용</th>
-                            <td class="inq-content">
-                                <c:out value="${reply.inqContent}" />
-                            </td>
-                        </tr>
+                        <!-- ★ 수정 : JSP 들여쓰기 공백 제거 -->
+						<tr>
+						    <th>답변 내용</th>
+						    <td class="inq-content"><c:out value="${reply.inqContent}" /></td>
+						</tr>
                     </tbody>
                 </table>
 

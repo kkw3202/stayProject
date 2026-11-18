@@ -375,8 +375,9 @@
 }
 
 /* 12. 문의 및 답변 내용 */
-.inq-content {
-    min-height: 100px;
+.admin-inq-wrap .inq-info-table td.inq-content {
+    text-align: left;
+    vertical-align: top;
     line-height: 1.8;
     white-space: pre-wrap;
     overflow-wrap: anywhere;

@@ -52,7 +52,16 @@ public class AdminBookListProc extends HttpServlet {
         }
 
         keyword = keyword.trim();
-
+        // 회원/비회원 구분
+        String memberType = request.getParameter("memberType");
+	     // null : 전체, 1 : 회원, 0 : 비회원
+	     Integer isMember = null;
+	     if ("1".equals(memberType)) {
+	         isMember = 1;
+	     } else if ("0".equals(memberType)) {
+	         isMember = 0;
+	     }
+	     
         // 3. 예약 상태 필터
         // null : 관리자 소프트 삭제(4)를 제외한 전체
         // 1 : 예약취소
@@ -97,27 +106,29 @@ public class AdminBookListProc extends HttpServlet {
         AdminBookDAO dao = new AdminBookDAO();
 
         int total = dao.count(
-            searchType, keyword, status
-        );
+                searchType, keyword, status, isMember
+            );
 
-        // 전체 페이지 수
-        int pages = Math.max(
-            1,
-            (int) Math.ceil((double) total / PAGE_SIZE)
-        );
+            // 전체 페이지 수
+            int pages = Math.max(
+                1,
+                (int) Math.ceil((double) total / PAGE_SIZE)
+            );
 
-        // 요청한 페이지가 마지막 페이지보다 크면 보정
-        if (page > pages) {
-            page = pages;
-        }
+            // 요청한 페이지가 마지막 페이지보다 크면 보정
+            if (page > pages) {
+                page = pages;
+            }
 
-        List<Book> books = dao.list(
-            searchType,
-            keyword,
-            status,
-            page,
-            PAGE_SIZE
-        );
+            // ★ 수정 : isMember 추가
+            List<Book> books = dao.list(
+                searchType,
+                keyword,
+                status,
+                isMember,
+                page,
+                PAGE_SIZE
+            );
 
         // 6. 예약 상태별 건수
         int reservedCount = dao.countByStatus(
@@ -137,6 +148,7 @@ public class AdminBookListProc extends HttpServlet {
         );
 
         // 7. JSP에 전달할 데이터 저장
+        request.setAttribute("memberType", memberType);
         request.setAttribute("books", books);
         request.setAttribute("total", total);
         request.setAttribute("pages", pages);

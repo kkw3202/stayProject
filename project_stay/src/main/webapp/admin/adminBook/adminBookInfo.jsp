@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="style/adminBook.css">
+<link rel="stylesheet"
+      href="${pageContext.request.contextPath}/style/adminBook.css">
 <script type="text/javascript" src="js/none_header_bottom.js" defer></script>
 <div class="admin-book-container">
 
@@ -12,21 +14,32 @@
     <div class="admin-book-info">
 
         <table class="admin-book-info-table">
+
             <tr>
                 <th>예약코드</th>
                 <td>${book.bookCode}</td>
+
                 <th>예약번호</th>
-                <td><c:out value="${book.bookNumber}"/></td>
+                <td>
+                    <c:out value="${book.bookNumber}"/>
+                </td>
             </tr>
 
             <tr>
                 <th>예약자명</th>
-                <td><c:out value="${book.bookName}"/></td>
+                <td>
+                    <c:out value="${book.bookName}"/>
+                </td>
+
                 <th>회원구분</th>
                 <td>
                     <c:choose>
-                        <c:when test="${book.isMember eq 1}">회원</c:when>
-                        <c:otherwise>비회원</c:otherwise>
+                        <c:when test="${book.isMember eq 1}">
+                            회원
+                        </c:when>
+                        <c:otherwise>
+                            비회원
+                        </c:otherwise>
                     </c:choose>
                 </td>
             </tr>
@@ -35,34 +48,64 @@
                 <th>회원코드</th>
                 <td>
                     <c:choose>
-                        <c:when test="${not empty book.userCode}">${book.userCode}</c:when>
+                        <c:when test="${not empty book.userCode}">
+                            <c:out value="${book.userCode}"/>
+                        </c:when>
                         <c:otherwise>-</c:otherwise>
                     </c:choose>
                 </td>
+
                 <th>비회원코드</th>
                 <td>
                     <c:choose>
-                        <c:when test="${not empty book.guestCode}">${book.guestCode}</c:when>
+                        <c:when test="${not empty book.guestCode}">
+                            <c:out value="${book.guestCode}"/>
+                        </c:when>
                         <c:otherwise>-</c:otherwise>
                     </c:choose>
                 </td>
             </tr>
 
+            <%-- 숙소명 및 주소 --%>
             <tr>
-                <th>객실코드</th>
-                <td>${book.roomCode}</td>
+                <th>숙소명</th>
+                <td>
+                    <c:out value="${book.accName}" default="-"/>
+                </td>
+
+                <th>숙소주소</th>
+                <td>
+                    <c:out value="${book.accAddress}" default="-"/>
+                </td>
+            </tr>
+
+            <%-- 객실명 및 예약금액 --%>
+            <tr>
+                <th>객실명</th>
+                <td>
+                    <c:out value="${book.roomName}" default="-"/>
+                </td>
+
+                <th>예약금액</th>
+                <td>
+                    <fmt:formatNumber
+                        value="${book.bookPrice}"
+                        pattern="#,##0"/>원
+                </td>
+            </tr>
+
+            <tr>
                 <th>예약일</th>
                 <td>${book.bookDate}</td>
-            </tr>
 
-            <tr>
                 <th>입실일</th>
                 <td>${book.checkinDate}</td>
-                <th>퇴실일</th>
-                <td>${book.checkoutDate}</td>
             </tr>
 
             <tr>
+                <th>퇴실일</th>
+                <td>${book.checkoutDate}</td>
+
                 <th>예약취소일</th>
                 <td>
                     <c:choose>
@@ -72,26 +115,45 @@
                         <c:otherwise>-</c:otherwise>
                     </c:choose>
                 </td>
+            </tr>
 
+            <tr>
                 <th>예약상태</th>
-                <td>
+                <td colspan="3">
                     <c:choose>
+
                         <c:when test="${book.status eq 1}">
-                            <span class="book-status canceled">예약취소</span>
+                            <span class="book-status canceled">
+                                예약취소
+                            </span>
                         </c:when>
+
                         <c:when test="${book.status eq 2}">
-                            <span class="book-status expired">예약만료</span>
+                            <span class="book-status expired">
+                                예약만료
+                            </span>
                         </c:when>
+
                         <c:when test="${book.status eq 3}">
-                            <span class="book-status reserved">예약중</span>
+                            <span class="book-status reserved">
+                                예약중
+                            </span>
                         </c:when>
+
                         <c:when test="${book.status eq 4}">
-                            <span class="book-status deleted">삭제처리</span>
+                            <span class="book-status deleted">
+                                삭제처리
+                            </span>
                         </c:when>
-                        <c:otherwise>상태확인</c:otherwise>
+
+                        <c:otherwise>
+                            상태확인
+                        </c:otherwise>
+
                     </c:choose>
                 </td>
             </tr>
+
         </table>
 
     </div>
@@ -105,8 +167,7 @@
         </a>
 
         <%--
-            [임시 정책 - 추후 회의 결과에 따라 변경]
-
+            [임시 정책]
             book_chk_status = 4 : 관리자 소프트 삭제
 
             삭제된 예약은 상세 조회만 허용한다.
@@ -114,7 +175,13 @@
         --%>
         <c:if test="${book.status ne 4}">
 
-            <%-- 예약 수정 화면 이동 --%>
+            <%--
+                ★ 수정 : 예약 수정 버튼의 confirm 제거
+
+                예약 수정 버튼은 수정 화면으로만 이동한다.
+                실제 수정 여부는 수정 화면의
+                '수정 완료' 버튼에서 confirm으로 확인한다.
+            --%>
             <a href="${pageContext.request.contextPath}/AdminBookInfoModProc.do?book_code=${book.bookCode}"
                class="admin-book-btn edit-btn">
                 예약 수정
@@ -125,12 +192,19 @@
                   method="post"
                   onsubmit="return confirm('해당 예약을 삭제 처리하시겠습니까?');">
 
-                <input type="hidden" name="book_code" value="${book.bookCode}">
-                <input type="hidden" name="csrfToken" value="${deleteCsrfToken}">
+                <input type="hidden"
+                       name="book_code"
+                       value="${book.bookCode}">
 
-                <button type="submit" class="admin-book-btn delete-btn">
+                <input type="hidden"
+                       name="csrfToken"
+                       value="${deleteCsrfToken}">
+
+                <button type="submit"
+                        class="admin-book-btn delete-btn">
                     예약 삭제
                 </button>
+
             </form>
 
         </c:if>

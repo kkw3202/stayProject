@@ -92,7 +92,7 @@ public class AdminRoomInsertProc extends HttpServlet {
 
         // 8. 객실 등록 JSP로 이동
         RequestDispatcher rd = request.getRequestDispatcher(
-                "/index.jsp?section=admin/adminRoom/adminRoomInsertForm.jsp"
+                "/index.jsp?section=admin/adminAcc/adminRoomInsertForm.jsp"
         );
 
         rd.forward(request, response);
