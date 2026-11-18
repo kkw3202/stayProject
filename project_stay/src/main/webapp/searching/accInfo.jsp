@@ -28,12 +28,13 @@
 			<div class="right">
 				<button type="button" onclick="${empty sessionScope.user_email ? 'pleasJoin();' : 'location.href=\'wishListAddcon.do?acc_code=' += pdto.acc_code += '\''}" ></button> <!-- 찜 추가 버튼 -->
 				<c:set var="low" value="999999999999"/>
-				<c:forEach items="${rdto_arr }" var="rdto">
+				<c:forEach items="${rdto_arr }" var="rdto" varStatus="stat">
 					<c:if test="${rdto.room_price<low}">
 						<c:set var="low" value="${rdto.room_price }"/>
+						<c:set var="lowIndex" value="${stat.count-1 }"/>
 					</c:if>
 				</c:forEach>
-				<p class="low_price"><span class="per_oneday">1박</span>${low }원</p>
+				<p class="low_price"><span class="per_oneday">1박</span>${rdto_arr[lowIndex].prt_room_price }원</p>
 			</div>
 		</div>
 		<div class="room_list">
@@ -51,7 +52,7 @@
 								<p>입실 : ${pdto.acc_checkinTime }, 퇴실 : ${pdto.acc_checkoutTime }</p>
 							</div>
 							<div class="right">
-								<p>${diffDays * rdto.room_price }원</p>
+								<p>${rdto.prt_room_price }원</p>
 								<button type="submit">객실 예약하기</button>
 							</div>
 						</div>
@@ -94,7 +95,7 @@
 							
 							<div class="additionalInfo_room">
 								<h6>편의시설</h6>
-								<span class="info_title">숙박 </span><span>| ${room_amenity }</span>
+								<span class="info_title">편의시설 </span><span>| ${rdto.room_amenity }</span>
 	
 								<h6>취소 및 환불 규정</h6>
 								<span class="info_title">무료 취소</span><span>| 체크인 기준 3일 전 18:00까지: 100% 환불</span>
@@ -113,13 +114,17 @@
 	
 	<script type="text/javascript" defer="defer">
 		let modal_roomInfo = document.querySelectorAll(".modal_roomInfo");
+		let modal_background = document.querySelectorAll(".modal_background");
 		function show_modal(num){
-
+			let show_back = modal_background[num];
+			show_back.classList.add("is-open");
 			let show_room = modal_roomInfo[num];
 			show_room.classList.remove("noShow");
 		}
 		
 		function add_noShow(num){
+			let show_back = modal_background[num];
+			show_back.classList.remove("is-open");
 			let show_room = modal_roomInfo[num];
 			show_room.classList.add("noShow");
 		}

@@ -220,10 +220,12 @@
 	                    </div>
 	                    <!-- 오른쪽 : 리뷰 제목 + 리뷰 상세내용 -->
 	                    <div class="rev_right">
-	                        <p class="rev_title">${indto.rev_content}</p>
-	                        <p class="rev_content">
-	                            체크인하고 커튼을 걷는 순간 탁 트인 여수 바다가 한눈에 들어와서 정말 감동이었습니다. 침구류도 5성급 못지않게 폭신하고 청결해서 꿀잠 잤어요. 밤에는 파도 소리 들으며 테라스에서 맥주 한잔했는데 올해 최고의 여행이었습니다!
-	                        </p>
+	                        <p class="rev_title">${indto.city_name}</p>
+	                        <p class="rev_content">${indto.rev_content}</p>
+	                        <div class="rev_right_bottom">
+		                        <p class="user_name">${indto.user_name}</p>
+		                        <p class="date">${indto.rev_created_datetime}</p>
+		                    </div>
 	                    </div>
 	                </a>
 	            </div>

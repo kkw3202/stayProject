@@ -53,7 +53,7 @@ public class index_sectionProc extends HttpServlet {
 		
 		request.setAttribute("indto_arr", indto_arr);
 		request.setAttribute("is_index", is_index);
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=section.jsp");
 		rd.forward(request, response);
 	}

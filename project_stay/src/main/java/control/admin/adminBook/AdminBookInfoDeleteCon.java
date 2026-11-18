@@ -17,8 +17,8 @@ public class AdminBookInfoDeleteCon extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // ì˜ˆì•½ ì‚­ì œëŠ” POST ë°©ì‹ìœ¼ë¡œë§Œ í—ˆìš©
-        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "POST ë°©ì‹ìœ¼ë¡œ ìš”ì²­í•´ ì£¼ì„¸ìš”.");
+        // ¿¹¾à »èÁ¦´Â POST ¹æ½ÄÀ¸·Î¸¸ Çã¿ë
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "POST ¹æ½ÄÀ¸·Î ¿äÃ»ÇØ ÁÖ¼¼¿ä.");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,25 +29,25 @@ public class AdminBookInfoDeleteCon extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        // 1. ê´€ë¦¬ì ë¡œê·¸ì¸ ë° ê¶Œí•œ í™•ì¸
+        // 1. °ü¸®ÀÚ ·Î±×ÀÎ ¹× ±ÇÇÑ È®ÀÎ
         HttpSession session = request.getSession(false);
 
         if (session == null || !"admin@naver.com".equals(session.getAttribute("user_email"))) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "ê´€ë¦¬ìë§Œ ì ‘ê·¼í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤." );
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "°ü¸®ÀÚ¸¸ Á¢±ÙÇÒ ¼ö ÀÖ½À´Ï´Ù." );
             return;
         }
 
-        // 2. CSRF í† í° í™•ì¸
-        // ì˜ˆì•½ ìƒì„¸ í™”ë©´ì—ì„œ ë°œê¸‰í•œ í† í°ê³¼ ì œì¶œëœ í† í° ë¹„êµ
+        // 2. CSRF ÅäÅ« È®ÀÎ
+        // ¿¹¾à »ó¼¼ È­¸é¿¡¼­ ¹ß±ŞÇÑ ÅäÅ«°ú Á¦ÃâµÈ ÅäÅ« ºñ±³
         String sessionToken = (String) session.getAttribute("adminBookDeleteCsrfToken");
         String requestToken = request.getParameter("csrfToken");
 
         if (sessionToken == null || !sessionToken.equals(requestToken)) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "ì˜ëª»ëœ ì‚­ì œ ìš”ì²­ì…ë‹ˆë‹¤." );
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Àß¸øµÈ »èÁ¦ ¿äÃ»ÀÔ´Ï´Ù." );
             return;
         }
 
-        // 3. ì‚­ì œí•  ì˜ˆì•½ì˜ ê¸°ë³¸í‚¤(book_code) ê°€ì ¸ì˜¤ê¸°
+        // 3. »èÁ¦ÇÒ ¿¹¾àÀÇ ±âº»Å°(book_code) °¡Á®¿À±â
         int bookCode;
 
         try {
@@ -58,37 +58,37 @@ public class AdminBookInfoDeleteCon extends HttpServlet {
             }
 
         } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ì˜¬ë°”ë¥´ì§€ ì•Šì€ ì˜ˆì•½ ì½”ë“œì…ë‹ˆë‹¤." );
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "¿Ã¹Ù¸£Áö ¾ÊÀº ¿¹¾à ÄÚµåÀÔ´Ï´Ù." );
             return;
         }
 
-        // 4. DAOë¥¼ ì´ìš©í•˜ì—¬ ì˜ˆì•½ ì†Œí”„íŠ¸ ì‚­ì œ
+        // 4. DAO¸¦ ÀÌ¿ëÇÏ¿© ¿¹¾à ¼ÒÇÁÆ® »èÁ¦
         AdminBookDAO dao = new AdminBookDAO();
 
         /*
-         * [ì„ì‹œ ì •ì±… - ì¶”í›„ íšŒì˜ ê²°ê³¼ì— ë”°ë¼ ë³€ê²½]
+         * [ÀÓ½Ã Á¤Ã¥ - ÃßÈÄ È¸ÀÇ °á°ú¿¡ µû¶ó º¯°æ]
          *
-         * book_chk_status = 4 : ê´€ë¦¬ì ì†Œí”„íŠ¸ ì‚­ì œ
+         * book_chk_status = 4 : °ü¸®ÀÚ ¼ÒÇÁÆ® »èÁ¦
          *
-         * ì‹¤ì œ DELETEë¬¸ì€ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
-         * ì˜ˆì•½ ì •ë³´ëŠ” DBì— ê·¸ëŒ€ë¡œ ìœ ì§€í•œë‹¤.
+         * ½ÇÁ¦ DELETE¹®Àº ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+         * ¿¹¾à Á¤º¸´Â DB¿¡ ±×´ë·Î À¯ÁöÇÑ´Ù.
          *
-         * book_cancel_dateëŠ” ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
-         * ì´ë¯¸ ìƒíƒœê°’ì´ 4ì¸ ì˜ˆì•½ì€ ì¤‘ë³µ ì‚­ì œí•˜ì§€ ì•ŠëŠ”ë‹¤.
+         * book_cancel_date´Â º¯°æÇÏÁö ¾Ê´Â´Ù.
+         * ÀÌ¹Ì »óÅÂ°ªÀÌ 4ÀÎ ¿¹¾àÀº Áßº¹ »èÁ¦ÇÏÁö ¾Ê´Â´Ù.
          */
         boolean result = dao.softDeleteBook(bookCode);
 
-        // 5. ì‚­ì œ ìš”ì²­ì— ì‚¬ìš©í•œ CSRF í† í° íê¸°
+        // 5. »èÁ¦ ¿äÃ»¿¡ »ç¿ëÇÑ CSRF ÅäÅ« ´İ±â
         session.removeAttribute("adminBookDeleteCsrfToken");
 
-        // 6. ì‚­ì œ ê²°ê³¼ ë©”ì‹œì§€ ì €ì¥
+        // 6. »èÁ¦ °á°ú ¸Ş½ÃÁö ÀúÀå
         if (result) {
-            session.setAttribute("bookMsg", "ì˜ˆì•½ì´ ì‚­ì œ ì²˜ë¦¬ë˜ì—ˆìŠµë‹ˆë‹¤.");
+            session.setAttribute("bookMsg", "¿¹¾àÀÌ »èÁ¦ Ã³¸®µÇ¾ú½À´Ï´Ù.");
         } else {
-            session.setAttribute("bookMsg", "ì˜ˆì•½ ì‚­ì œì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
+            session.setAttribute("bookMsg", "¿¹¾à »èÁ¦¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
         }
 
-        // 7. ì˜ˆì•½ ëª©ë¡ í˜ì´ì§€ë¡œ ì´ë™
+        // 7. ¿¹¾à ¸ñ·Ï ÆäÀÌÁö·Î ÀÌµ¿
         response.sendRedirect(request.getContextPath() + "/AdminBookListProc.do");
     }
 }

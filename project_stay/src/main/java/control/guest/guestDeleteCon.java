@@ -7,35 +7,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class guestDeleteCon
- */
-@WebServlet("/guestDeleteCon")
-public class guestDeleteCon extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public guestDeleteCon() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import model.Booking.BookingDAO;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
+@WebServlet("/guestDeleteCon.do")
+public class guestDeleteCon extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		reqPro(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		reqPro(request, response);
+	}
+	
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
+		BookingDAO bdao = new BookingDAO();
+		
+		String book_number = request.getParameter("book_number");
+		
+		bdao.delete_book(book_number);
+		
+		response.sendRedirect("index.jsp");
+		
 	}
 
 }

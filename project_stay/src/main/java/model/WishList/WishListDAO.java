@@ -10,12 +10,12 @@ import model.Handler.User_change;
 
 
 public class WishListDAO {
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
 	
 	// 유저 한명의 찜목록을 전부 가져오는 메소드
 	public ArrayList<Integer> getWishList(String user_email){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
 		User_change uc = new User_change();
 		int user_code = uc.email_to_code(user_email);
@@ -26,6 +26,8 @@ public class WishListDAO {
 			String sql = "select acc_code from wishList where user_code=? order by acc_code asc";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, user_code);
+			
+			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
 				result.add(rs.getInt("acc_code"));
@@ -47,7 +49,12 @@ public class WishListDAO {
 	// mypage에 그릴 내 찜 목록 메소드
 	public ArrayList<WishListDTO> myWishList(String user_email, int startRow, int pageSize){
 		ArrayList<WishListDTO> wlist = new ArrayList<WishListDTO>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null; 
 		try {
+			
 			con = Util.getConnection();
 			// sql문
 			String sql = "select w.wish_code, w.user_code, w.acc_code, u.user_email, a.acc_name, a.acc_type, "
@@ -94,8 +101,13 @@ public class WishListDAO {
 	
 	// mypage에 그릴 내 찜 목록 전체 개수 세는 메소드
 	public int countMyWishlist(String user_email) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null; 
 		int count = 0;
 		try {
+			
 			con = Util.getConnection();
 			// sql문
 			String sql = "select count(*) from wishlist w inner join user u "
@@ -123,7 +135,12 @@ public class WishListDAO {
 	
 	// 내 찜 목록 삭제하기 (소프트 삭제 아님)
 	public void deleteMywish(int wish_code) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
 		try {
+
 			con = Util.getConnection();
 			// sql문
 			String sql = "delete from wishlist where wish_code = ?";

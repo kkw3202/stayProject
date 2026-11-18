@@ -32,7 +32,7 @@
 				</c:when>
 				
 				<c:otherwise>
-					<a href="index.jsp?section=showbook.jsp">비회원 예약조회</a>
+					<a href="index.jsp?section=guest/guestLogin.jsp">비회원 예약조회</a>
 					<a href="index.jsp?section=user/joinForm.jsp">회원가입</a>
 					<a href="index.jsp?section=user/loginForm.jsp">로그인</a>
 					<a href="inquiryListProc.do">1:1 문의</a>
