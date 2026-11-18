@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import model.User.UserDAO;
 import model.User.UserDTO;
 
-// ³» Á¤º¸ ¼öÁ¤ÇÏ´Â Æû ±×¸®±â
+// ë‚´ ì •ë³´ ìˆ˜ì •í•˜ëŠ” í¼ ê·¸ë¦¬ê¸°
 @WebServlet("/mypageModProc.do")
 public class mypageModProc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,14 +27,14 @@ public class mypageModProc extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// ì„¸ì…˜ê°’ ê°€ì ¸ì˜¤ê¸°
 		HttpSession session = request.getSession();
 		String user_email = (String)session.getAttribute("user_email");
 		
-		// udao / udto ÀÎ½ºÅÏ½º
+		// udao / udto ì¸ìŠ¤í„´ìŠ¤
 		UserDAO udao = new UserDAO();
 		UserDTO udto = new UserDTO();
 		
@@ -42,13 +42,13 @@ public class mypageModProc extends HttpServlet {
 			udto = udao.getUserInfo(user_email);
 		}
 		
-		// Æ÷ÀåÇÏ±â
+		// ì„¸íŒ…í•˜ê¸°
 		request.setAttribute("udto", udto);
 		
-		// mypage ¾ÈÂÊ¿¡ ³ÖÀ» jsp ÀÌ¸§ Æ÷Àå
+		// mypage ì•ˆì—ì„œ í•„ìš”í•œ jsp ì´ë¦„ ì§€ì •
 		request.setAttribute("mypageSection", "mypageMod");
 		
-		// Àü´ŞÇÏ±â
+		// í¬ì›Œë”©í•˜ê¸°
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/mypage.jsp");
 		rd.forward(request, response);
 	}

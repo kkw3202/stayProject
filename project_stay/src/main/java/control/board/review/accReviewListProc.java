@@ -31,35 +31,35 @@ public class accReviewListProc extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
 		System.out.println("-----------------------------------------------------");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// ì„¸ì…˜ê°’ ê°€ì ¸ì˜¤ê¸°
 		HttpSession session = request.getSession();
 		String user_email = (String)session.getAttribute("user_email");
 		pagingHandlerDAO pado = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
 		ReviewDAO rdao = new ReviewDAO();
 		
-		// ¿¹¾àÁ¤º¸°¡Á®¿À±â
+		// ì˜ˆì•½ ê´€ë ¨ DAO
 		BookingDAO bdao = new BookingDAO();
 		
-		// ÇÑ È­¸é¿¡ º¸¿©Áú ÇàÀÇ °³¼ö (5°³)
+		// í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê¸€ì˜ ê°œìˆ˜ (5ê°œ)
 		pdto.setPageSize(5);
 		int pageSize = pdto.getPageSize();
-		// ÇÑ È­¸é¿¡ ÆäÀÌÂ¡ ÇÏ°í ½ÍÀº °³¼ö [1][2][3][4][5]
+		// í•œ í™”ë©´ì— í˜ì´ì§• í•  ë¸”ë¡ ê°œìˆ˜ [1][2][3][4][5]
 		int pageBlock=5;
 		
-		// pageNum Á¤º¸ °¡Á®¿À±â (ÃÖÃÊ: null / ÀÌÈÄ¿¡´Â ÆäÀÌÂ¡ ¹øÈ£º°·Î °¡Á®¿À±â)
+		// pageNum íŒŒë¼ë¯¸í„° ë°›ì•„ì˜¤ê¸° (ì²˜ìŒ: null / ì´í›„ë¶€í„°ëŠ” í˜ì´ì§• ë²ˆí˜¸ í´ë¦­í•´ì„œ ë°›ì•„ì˜´)
 		String pageNum = request.getParameter("pageNum");
 		int acc_code = Integer.parseInt(request.getParameter("acc_code"));
-		// ¸®ºä °³¼ö º¯¼ö ¼³Á¤
+		// ì „ì²´ ë ˆì½”ë“œ ê°œìˆ˜ ë³€ìˆ˜
 		int count = 0;
-		count = rdao.countAccReview(acc_code);  // ÇØ´ç ¼÷¼ÒÀÇ ¸®ºä°³¼ö
+		count = rdao.countAccReview(acc_code);  // í•´ë‹¹ ìˆ™ì†Œì˜ ë¦¬ë·°ê°œìˆ˜
 		
-		// ÆäÀÌÂ¡ ºÎºĞ
+		// í˜ì´ì§• ë¶€ë¶„
 		pdto = pado.getPaging(pageNum, count, pageSize, pageBlock);
 		
 		int currentPage = pdto.getCurrentPage();
@@ -69,17 +69,17 @@ public class accReviewListProc extends HttpServlet {
 		int startPage = pdto.getStartPage();
 		int endPage = pdto.getEndPage();
 		
-		// ÇöÀç º¸°í ÀÖ´Â ¼÷¼Ò¿¡ ¸®ºä ÀÛ¼º °¡´ÉÇÑ »ç¶÷ÀÎÁö È®ÀÎ 
+		// ë¡œê·¸ì¸ í•œ ì‚¬ìš©ìê°€ ìˆ™ì†Œì— ëŒ€í•´ ì‘ì„± ê°€ëŠ¥í•œ ìƒíƒœì¸ì§€ í™•ì¸ 
 		boolean canWrite = rdao.canWriteReview(user_email, acc_code);
 		
 		ArrayList<ReviewDTO> rlist = rdao.getReviewAccBoard(startRow, pageSize, acc_code);
 		
-		// Æ÷ÀåÇÏ±â
+		// ì„¸íŒ…í•˜ê¸°
 		request.setAttribute("rlist", rlist);
-		request.setAttribute("canWrite", canWrite); // notList ´ë½Å boolean Àü´Ş
-		request.setAttribute("acc_code", acc_code); // ÀÎ¶óÀÎ ÀÛ¼º Æû¿¡¼­ ¾µ ¼ö ÀÖµµ·Ï Àü´Ş
+		request.setAttribute("canWrite", canWrite); // notList ì²˜ë¦¬ë¥¼ ìœ„í•œ boolean ê°’
+		request.setAttribute("acc_code", acc_code); // ë¦¬ë·° ì‘ì„± í˜ì´ì§€ë¡œ ê°ˆ ìˆ˜ ìˆë„ë¡ ë„˜ê¹€
 		
-		// Æ÷ÀåÇÏ±â
+		// ì„¸íŒ…í•˜ê¸°
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);
@@ -89,11 +89,11 @@ public class accReviewListProc extends HttpServlet {
 		request.setAttribute("pageBlock", pageBlock);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
-		request.setAttribute("revCount", count);  // ¸®ºä ¼ıÀÚµµ ³Ñ±è
+		request.setAttribute("revCount", count);  // ì „ì²´ ë ˆì½”ë“œ ìˆ˜ ë„˜ê¹€
 		
 		System.out.println("-----------------------------------------------------");
 		
-		// Á¤º¸º¸³»±â
+		// í¬ì›Œë”©í•˜ê¸°
 		RequestDispatcher rd = request.getRequestDispatcher("/board/review/accReviewList.jsp");
 		rd.include(request, response);
 		

@@ -14,12 +14,12 @@ public class InquiryDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	// 1. 1:1 °Ô½ÃÆÇ ÀüÃ¼¸®½ºÆ®¿¡ Á¤º¸ ³Ö´Â ¸Ş¼Òµå
+	// 1. 1:1 ê²Œì‹œíŒ ì „ì²´ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
 	public ArrayList<InquiryDTO> getInquiryAllBoard(int startRow, int pageSize){
 		ArrayList<InquiryDTO> i = new ArrayList<>();
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
 					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del, u.user_email "
 					+ "from Inquiry i "
@@ -45,7 +45,7 @@ public class InquiryDAO {
 				idto.setInq_chk_del(rs.getInt(9));
 				idto.setUser_email(rs.getString(10));
 				
-				// ArrayList¿¡ µ¥ÀÌÅÍ Ãß°¡
+				// ArrayListì— ë°ì´í„° ì¶”ê°€
 				i.add(idto);
 			}
 		}catch(Exception e) {
@@ -60,12 +60,12 @@ public class InquiryDAO {
 		return i;
 	}
 	
-	// 2. 1:1°Ô½ÃÆÇ ÀüÃ¼ °³¼ö¸¦ ¸®ÅÏÇÏ´Â ¸Ş¼Òµå
+	// 2. 1:1ê²Œì‹œíŒ ì „ì²´ ê°¯ìˆ˜ë¥¼ êµ¬í•˜ëŠ” ë©”ì„œë“œ
 	public int getInquiryAllCount() {
 		int count = 0;
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select count(*) from Inquiry where inq_chk_del=0 ";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -85,12 +85,12 @@ public class InquiryDAO {
 		return count;
 	}
 	
-	// 3. 1:1°Ô½ÃÆÇ Á¦¸ñ ´­·¶À»¶§, ÇØ´ç °Ô½Ã±Û ºÒ·¯¿À´Â ¸Ş¼Òµå
+	// 3. 1:1ê²Œì‹œíŒ ìƒì„¸ í˜ì´ì§€, í•´ë‹¹ ê²Œì‹œê¸€ ë¶ˆëŸ¬ì˜¤ëŠ” ë©”ì„œë“œ
 	public InquiryDTO getInquiryOneBoard(int inq_code) {
 		InquiryDTO idto = new InquiryDTO();
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
 					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del, i.user_code "
 					+ "from Inquiry i "
@@ -98,7 +98,7 @@ public class InquiryDAO {
 					+ "on i.user_code = u.user_code "
 					+ "where inq_code=?";
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔÇÏ±â
+			// ?ì— ê°’ì„¸íŒ…í•˜ê¸°
 			pstmt.setInt(1, inq_code);
 			rs = pstmt.executeQuery();
 			
@@ -127,14 +127,14 @@ public class InquiryDAO {
 		return idto;
 	}
 	
-	// 4. 1:1°Ô½ÃÆÇ¿¡¼­ °Ë»ö Å°¿öµå·Î Ãâ·ÂÇÏ´Â ¸Ş¼Òµå
+	// 4. 1:1ê²Œì‹œíŒì—ì„œ ê²€ìƒ‰ í‚¤ì›Œë“œë¡œ ê²€ìƒ‰í•˜ëŠ” ë©”ì„œë“œ
 	public ArrayList<InquiryDTO> getInquirySearchBoard(int startRow, int pageSize, String searchType, String keyWord){
 		ArrayList<InquiryDTO> i = new ArrayList<>();
 		try {
 			con = Util.getConnection();
-			// searchTypeÀÌ user_nameÀÌ¸é u.user_nameÀ¸·Î, ³ª¸ÓÁö´Â i.ÄÃ·³¸íÀ¸·Î ÁöÁ¤
+			// searchTypeì´ user_nameì´ë©´ u.user_nameìœ¼ë¡œ, ì•„ë‹ˆë©´ i.ì¹¼ëŸ¼ëª…ìœ¼ë¡œ ì„¤ì •
 			String sType = searchType.equals("user_name") ? "u." + searchType : "i." + searchType;
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
 					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del, u.user_email "
 					+ "from Inquiry i "
@@ -161,7 +161,7 @@ public class InquiryDAO {
 				idto.setInq_chk_del(rs.getInt(9));
 				idto.setUser_email(rs.getString(10));
 				
-				// ArrayList¿¡ µ¥ÀÌÅÍ Ãß°¡
+				// ArrayListì— ë°ì´í„° ì¶”ê°€
 				i.add(idto);
 			}
 		}catch(Exception e) {
@@ -176,14 +176,14 @@ public class InquiryDAO {
 		return i;
 	}
 		
-	// 5. 1:1°Ô½ÃÆÇ¿¡¼­ °Ë»ö Å°¿öµå·Î Ãâ·ÂÇÒ¶§, ÃÑ °³¼ö ±¸ÇÏ´Â ¸Ş¼Òµå
+	// 5. 1:1ê²Œì‹œíŒì—ì„œ ê²€ìƒ‰ í‚¤ì›Œë“œë¡œ ê²€ìƒ‰í•  ë•Œ, ì´ ê°¯ìˆ˜ êµ¬í•˜ëŠ” ë©”ì„œë“œ
 	public int getInquirySearchCount(String searchType, String keyWord) {
 		int count = 0;
 		try {
 			con = Util.getConnection();
-			// searchTypeÀÌ user_nameÀÌ¸é u.user_nameÀ¸·Î, ³ª¸ÓÁö´Â i.ÄÃ·³¸íÀ¸·Î ÁöÁ¤
+			// searchTypeì´ user_nameì´ë©´ u.user_nameìœ¼ë¡œ, ì•„ë‹ˆë©´ i.ì¹¼ëŸ¼ëª…ìœ¼ë¡œ ì„¤ì •
 			String sType = searchType.equals("user_name") ? "u." + searchType : "i." + searchType;
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select count(*) "
 					+ "from Inquiry i "
 					+ "inner join User u "
@@ -208,13 +208,13 @@ public class InquiryDAO {
 		return count;
 	}
 	
-	// 6. 1:1°Ô½ÃÆÇ¿¡¼­, user_code °¡Á®¿À´Â ÇÔ¼ö
+	// 6. 1:1ê²Œì‹œíŒì—ì„œ, user_code ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 	public int getInquiryUserCode(String user_email) {
 		int user_code=0;
 		try {
 			con = Util.getConnection();
-			// user_code °Ë»öÇÏ´Â ¹æ¹ı
-			// UserDTO ÀÎ½ºÅÏ½ºÈ­
+			// user_code ê²€ìƒ‰í•˜ëŠ” êµ¬ë¬¸
+			// UserDTO ì¸ìŠ¤í„´ìŠ¤í™”
 			UserDTO udto = new UserDTO();
 			String sql = "select user_code from User where user_email= ?";
 			pstmt = con.prepareStatement(sql);
@@ -237,37 +237,37 @@ public class InquiryDAO {
 		return user_code;
 	}
 	
-	// 7. 1:1°Ô½ÃÆÇ¿¡¼­ ±Û¾²±â 
+	// 7. 1:1ê²Œì‹œíŒì—ì„œ ê¸€ì“°ê¸° 
 	public void insertInquiryBoard(InquiryDTO idto, int user_code) {
-		// ref, re_step : ÃÊ±â°ª ÁöÁ¤
+		// ref, re_step : ì´ˆê¸°ê°’ ì„¤ì •
 		int inq_ref=0;
 		int inq_re_step=0;
 		try {
 			con = Util.getConnection();
-			// refÀÇ ÃÖ´ë°ªÀ» °Ë»öÇØ¼­ +1À» ÇÏ´Â select¹® ÇÊ¿ä
+			// refì˜ ìµœëŒ€ê°’ì„ ê²€ìƒ‰í•´ì„œ +1ì„ í•˜ëŠ” selectë¬¸ì´ í•„ìš”
 			String sql = "select max(inq_ref) from Inquiry";
-			// ½ÇÇà°´Ã¼ »ı¼º
+			// ì‹¤í–‰ê°ì²´ ìƒì„±
 			pstmt = con.prepareStatement(sql);
-			// ½ÇÇà
+			// ì‹¤í–‰
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				// Ã£Àº°Ô 7ÀÌ¸é +1 À» ÇØ¼­ ref ´Â 8ÀÌ µÈ´Ù.
+				// ì°¾ì€ê°’ì´ 7ì´ë©´ +1 ì„ í•´ì„œ ref ê°’ 8ì´ ëœë‹¤.
 				inq_ref=rs.getInt(1)+1;
 			}
 			
 			
-			// ÀÎ¼­Æ® ÇÏ´Â Äõ¸®¹® ½ÃÀÛ
+			// ì¸ì„œíŠ¸ í•˜ëŠ” ì¿¼ë¦¬ë¬¸ ì‘ì„±
 			String sql02 = "INSERT INTO Inquiry VALUES  (null, ?, now(), ?, ?, ?, ?, 0, 0) ";
-			// ½ÇÇà°´Ã¼ »ı¼º
+			// ì‹¤í–‰ê°ì²´ ìƒì„±
 			pstmt = con.prepareStatement(sql02);
-			// ?¿¡ ´ëÀÔ
+			// ?ì— ë§¤í•‘
 			pstmt.setString(1, idto.getInq_title());
 			pstmt.setInt(2, user_code);
 			pstmt.setString(3, idto.getInq_content());
 			pstmt.setInt(4, inq_ref);
 			pstmt.setInt(5, inq_re_step);
 			
-			// ½ÇÇàÄõ¸®
+			// ë°ì´í„°ë² ì´ìŠ¤ ì‹¤í–‰
 			pstmt.executeUpdate();
 			
 		}catch(Exception e) {
@@ -281,12 +281,12 @@ public class InquiryDAO {
 		}
 	}
 	
-	// 8. ³»°¡¾´ ±Û °Ô½Ã±Û¸¸ º¸±â
+	// 8. ë‚´ê¸€ë§Œ ê²Œì‹œê¸€ë§Œ ì¶œë ¥
 	public ArrayList<InquiryDTO> getInquiryMylistBoard(int startRow, int pageSize, String user_name){
 		ArrayList<InquiryDTO> i = new ArrayList<>();
 		try {
 			con = Util.getConnection();
-			// Äõ¸®¹®
+			// ì¿¼ë¦¬ë¬¸
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
 					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del "
 					+ "from Inquiry i "
@@ -313,7 +313,7 @@ public class InquiryDAO {
 				idto.setInq_content(rs.getString(8));
 				idto.setInq_chk_del(rs.getInt(9));
 				
-				// ArrayList¿¡ µ¥ÀÌÅÍ Ãß°¡
+				// ArrayListì— ë°ì´í„° ì¶”ê°€
 				i.add(idto);
 			}
 		}catch(Exception e) {
@@ -328,13 +328,13 @@ public class InquiryDAO {
 		return i;
 	}
 	
-	// 9. user_name °¡Á®¿À´Â ¸Ş¼Òµå
+	// 9. user_name ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
 	public String getInquiryUserName(String user_email) {
 		String user_name="";
 		try {
 			con = Util.getConnection();
-			// user_code °Ë»öÇÏ´Â ¹æ¹ı
-			// UserDTO ÀÎ½ºÅÏ½ºÈ­
+			// user_code ê²€ìƒ‰í•˜ëŠ” êµ¬ë¬¸
+			// UserDTO ì¸ìŠ¤í„´ìŠ¤í™”
 			UserDTO udto = new UserDTO();
 			String sql = "select user_name from User where user_email= ?";
 			pstmt = con.prepareStatement(sql);
@@ -356,13 +356,13 @@ public class InquiryDAO {
 		return user_name;
 	}	
 	
-	// 10. ÇØ´ç±ÛÀÇ ÀÛ¼ºÀÚ ÀÌ¸ŞÀÏ °¡Á®¿À´Â ÇÔ¼ö
+	// 10. ì‘ì„±ì ì´ë©”ì¼ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 	public String getInquiryWriterEmail(int inq_code) {
 		String writerEmail = "";
 		try {
 			con = Util.getConnection();
-			// user_code °Ë»öÇÏ´Â ¹æ¹ı
-			// UserDTO ÀÎ½ºÅÏ½ºÈ­
+			// user_code ê²€ìƒ‰í•˜ëŠ” êµ¬ë¬¸
+			// UserDTO ì¸ìŠ¤í„´ìŠ¤í™”
 			UserDTO udto = new UserDTO();
 			String sql = "select user_email, inq_code from User u inner join Inquiry i "
 					+ "on i.user_code = u.user_code "
@@ -387,20 +387,20 @@ public class InquiryDAO {
 		return writerEmail;
 	}
 	
-	// 11. ÀÛ¼ºÇÑ ±Û, ¼öÁ¤ÇÏ´Â ÇÔ¼ö
+	// 11. ì‘ì„±ê¸€ ìˆ˜ì •, ì—…ë°ì´íŠ¸í•˜ëŠ” í•¨ìˆ˜
 	public void updateInquiry(int inq_code, String inq_title, String inq_content) {
 		try {
-			// DB¿¬°á
+			// DBì—°ë™
 			con = Util.getConnection();
-			// Á¶È¸¼ö Áõ°¡ÇÏ´Â Äõ¸®¹® ÀÛ¼º ¾÷µ¥ÀÌÆ®
+			// ì¡°íšŒëœ ë°ì´í„° ìˆ˜ì •í•˜ëŠ” ì¿¼ë¦¬ë¬¸ ì‘ì„± ì—…ë°ì´íŠ¸
 			String sql = "update Inquiry set inq_title=?, inq_content=? where inq_code=?";
-			// ½ÇÇàÇÒ Äõ¸® °´Ã¼ ¼±¾ğ
+			// ì¿¼ë¦¬ë¬¸ ì‹¤í–‰ ê°ì²´ ìƒì„±
 			pstmt = con.prepareStatement(sql);
-			// ? ´ëÀÔ
+			// ? ê°’ì£¼ê¸°
 			pstmt.setString(1, inq_title);
 			pstmt.setString(2, inq_content);
 			pstmt.setInt(3, inq_code);
-			// Äõ¸® ½ÇÇà
+			// ì¿¼ë¦¬ ì‹¤í–‰
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -413,18 +413,18 @@ public class InquiryDAO {
 		}
 	}
 	
-	// 12. 1:1¹®ÀÇ±Û »èÁ¦ÇÏ±â (¼ÒÇÁÆ®»èÁ¦)
+	// 12. 1:1ë¬¸ì˜ê¸€ ì‚­ì œí•˜ê¸° (ì—…ë°ì´íŠ¸ë°©ì‹)
 	public void deleteBoard(int inq_code) {
 		try {
-			// DB¿¬°á
+			// DBì—°ë™
 			con = Util.getConnection();
-			// µ¥ÀÌÅÍ¸¦ Áö¿ìÁö ¾Ê°í, chkDelÀ» 1·Î ¾÷µ¥ÀÌÆ®
+			// ë°ì´í„°ë¥¼ ì§€ìš°ì§€ ì•Šê³ , chkDelì„ 1ë¡œ ì—…ë°ì´íŠ¸
 			String sql = "update Inquiry set inq_chk_del=1 where inq_code=?";
-			// Äõ¸® ¼±¾ğ
+			// ì¿¼ë¦¬ ì‹¤í–‰
 			pstmt = con.prepareStatement(sql);
-			// ? ¿¡ ³Ö±â
+			// ? ê°’ ì£¼ê¸°
 			pstmt.setInt(1, inq_code);
-			// Äõ¸® ½ÇÇà
+			// ì¿¼ë¦¬ ì‹¤í–‰
 			pstmt.executeUpdate();
 			
 		}catch(Exception e) {
@@ -438,38 +438,38 @@ public class InquiryDAO {
 		}
 	}
 	
-	// 13. °ü¸®ÀÚ ´äº¯´Ş±â ¸Ş¼Òµå
+	// 13. ê´€ë¦¬ì ë‹µë³€ë‹¬ê¸° ë©”ì„œë“œ
 	public void rewriteInquiry(InquiryDTO idto, int inq_code) {
 			
-		// ¿ø±Û ref ²¨³»±â
+		// ì›ë³¸ ref ê°€ì ¸ì˜¤ê¸°
 		int inq_ref = idto.getInq_ref();
-		// 1:1 ¹®ÀÇ ÀÌ¹Ç·Î ´äº¯ÀÇ re_stepÀº ¹«Á¶°Ç 1·Î °íÁ¤ÇÑ´Ù.
+		// 1:1 ë¬¸ì˜ ì´ë¯€ë¡œ ë‹µë³€ì˜ re_stepì€ ê¸°ë³¸ì ìœ¼ë¡œ 1ë¡œ ì„¸íŒ…í•œë‹¤.
 		int inq_re_step = 1;
-		// ÄÜ¼Ö¿¡¼­ ¿ø±ÛÀÇ ¹øÈ£¸¦ È®ÀÎÇÏ´Â ÄÚµå
+		// ë§¤ê°œë³€ìˆ˜ë¡œ ë„˜ì–´ì˜¨ ë²ˆí˜¸ë¥¼ í™•ì¸í•˜ëŠ” ì½”ë“œ
 		System.out.println("inq_ref -> DB :" + inq_ref);
 		System.out.println("inq_re_step -> DB :" + inq_re_step);
 		
 		try {
 			con = Util.getConnection();
-			// ´äº¯»óÅÂµµ 1(´äº¯¿Ï·á) Ã³¸® (³¡¿¡¼­ µÎ¹øÂ°, chk_status = 1)
+			// ë‹µë³€ìƒíƒœë„ 1(ë‹µë³€ì™„ë£Œ) ì²˜ë¦¬ (ì§ˆë¬¸ê¸€ ë‘ë²ˆì§¸, chk_status = 1)
 			String sql = "insert into Inquiry values (null, ?, now(), ?, ?, ?, ?, 1, 0)";
-			// ½ÇÇà°´Ã¼ ¸¸µé±â
+			// ì‹¤í–‰ê°ì²´ ìƒì„±
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ì— ë§¤í•‘
 			pstmt.setString(1, idto.getInq_title());
 			pstmt.setInt(2, idto.getUser_code());
 			pstmt.setString(3, idto.getInq_content());
 			pstmt.setInt(4, inq_ref);
 			pstmt.setInt(5, inq_re_step);
-			// Äõ¸®½ÇÇà
+			// ë°ì´í„°ë² ì´ìŠ¤
 			pstmt.executeUpdate();
 			
 			pstmt.close();
 			
-			// ¿ø±ÛÀÇ »óÅÂµµ ´äº¯¿Ï·á·Î Ã³¸®
+			// ì›ë˜ì˜ ì§ˆë¬¸ê¸€ë„ ë‹µë³€ì™„ë£Œë¡œ ì²˜ë¦¬
 			String sql02 = "update Inquiry set inq_chk_status = 1 where inq_code = ?";
 			pstmt = con.prepareStatement(sql02);
-			// ?¿¡ ´ëÀÔ
+			// ?ì— ë§¤í•‘
 			pstmt.setInt(1, inq_code);
 			pstmt.executeUpdate();
 			

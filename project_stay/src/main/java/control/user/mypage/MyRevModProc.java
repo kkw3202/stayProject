@@ -23,23 +23,23 @@ public class MyRevModProc extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 		int rev_code = Integer.parseInt(request.getParameter("rev_code"));
 		
-		// rdao ÀÎ½ºÅÏ½º ¹× ÇØ´ç ±Û¸¸ °¡Á®¿À´Â ÇÔ¼ö ½ÇÇà
+		// rdao ì¸ìŠ¤í„´ìŠ¤ ë° í•´ë‹¹ ë¦¬ë·°ê¸€ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜ í˜¸ì¶œ
 		ReviewDAO rdao = new ReviewDAO();
 		ReviewDTO rdto = rdao.getReviewOneBoard(rev_code);
 		
-		// Á¤º¸µé Æ÷ÀåÇÏ±â
+		// ë°ì´í„°ì…‹ ì„¸íŒ…í•˜ê¸°
 		request.setAttribute("rdto", rdto);
 		
-		// mypage ¾ÈÂÊ¿¡ ³ÖÀ» jsp ÀÌ¸§ Æ÷Àå
+		// mypage ì•ˆì—ì„œ í•„ìš”í•œ jsp ì´ë¦„ ì§€ì •
 		request.setAttribute("mypageSection", "myReviewMod");
 		
-		// ÆäÀÌÁö ³Ñ±â±â
+		// í˜ì´ì§€ë¡œ ë„˜ê¸°ê¸°
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/mypage.jsp");
 		rd.forward(request, response);
 	}

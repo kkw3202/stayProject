@@ -16,7 +16,7 @@ public class search_accDTO {
 	private int counted;
 	
 	private String acc_facility;
-	// 추후 필터링 항목도 추가로 담아야함! => 첫 검색에서 가져올 건 다 가져와서 기존 검색 건드릴 필요 없음
+	
 	public String getAcc_img() {
 		return acc_img;
 	}

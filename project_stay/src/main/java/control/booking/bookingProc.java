@@ -44,7 +44,7 @@ public class bookingProc extends HttpServlet {
 		
 		if(session != null) {
 			String user_email = (String) session.getAttribute("user_email");
-			// user_email�� �ڵ� �ҷ����� �ڵ鷯 �ҷ�����
+			// user_email을 세션에서 자동으로 불러오기 처리
 		}
 		request.setAttribute("room_code", room_code);
 		request.setAttribute("acc_checkinTime", acc_checkinTime);

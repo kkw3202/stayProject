@@ -1,23 +1,23 @@
 package model.Review;
 
 public class ReviewDTO {
-	private int rev_code;  // ¸®ºäÄÚµå
-	private int acc_code;  // ¼÷¼ÒÄÚµå
-	private int user_code;  // È¸¿øÄÚµå
-	private int rev_rating;  // ÆòÁ¡
-	private String rev_content;  // ¸®ºä³»¿ë
-	private String rev_created_datetime;  // ÀÛ¼ºÀÏÀÚ/½Ã°£
-	private int rev_chk_del;  // ¸®ºäÃ¼Å©Å°
-	private int rev_like;  // ÁÁ¾Æ¿ä (ÇØ´ç ¸®ºä±ÛÀ» º¸°í, ´Ù¸¥»ç¶÷µéÀÌ ÃßÃµÀ» ´©¸£¸é Áõ°¡)
+	private int rev_code;  // ë¦¬ë·°ì½”ë“œ
+	private int acc_code;  // ìˆ™ì†Œì½”ë“œ
+	private int user_code;  // íšŒì›ì½”ë“œ
+	private int rev_rating;  // í‰ì 
+	private String rev_content;  // ë¦¬ë·°ë‚´ìš©
+	private String rev_created_datetime;  // ì‘ì„±ë‚ ì§œ/ì‹œê°„
+	private int rev_chk_del;  // ì‚­ì œì²´í¬í‚¤
+	private int rev_like;  // ì¢‹ì•„ìš” (í•´ë‹¹ ë¦¬ë·°ì–´ ì¶”ì²œ, ë‹¤ë¥¸ì‚¬ëŒë“¤ì´ ì¶”ì²œí•´ì¤€ íšŸìˆ˜ìš©)
 	
-	private String user_name;  // È¸¿ø¸í
-	private String acc_name;  // ¼÷¼Ò¸í
-	private String acc_img;  // ¼÷¼ÒÀü°æÀÌ¹ÌÁö
-	private String acc_type; // ¼÷¼Ò Å¸ÀÔ
-	private String user_email;  // È¸¿ø ÀÌ¸ŞÀÏ
+	private String user_name;  // íšŒì›ì´ë¦„
+	private String acc_name;  // ìˆ™ì†Œëª…
+	private String acc_img;  // ìˆ™ì†Œì¸ë„¤ì¼ì´ë¯¸ì§€
+	private String acc_type; // ìˆ™ì†Œ íƒ€ì…
+	private String user_email;  // íšŒì› ì´ë©”ì¼
 	
-	private String book_checkin_date; // ¿¹¾à ÀÔ½Ç³¯Â¥
-	private String book_checkout_date; // ¿¹¾à Åğ½Ç³¯Â¥ º¯¼ö (Åğ½Ç³¯Â¥ºÎÅÍ ¸®ºä ÀÛ¼º°¡´É)
+	private String book_checkin_date; // ì˜ˆì•½ ì²´í¬ì¸ë‚ ì§œ
+	private String book_checkout_date; // ì˜ˆì•½ ì²´í¬ì•„ì›ƒë‚ ì§œ (ì²´í¬ì•„ì›ƒë‚ ì§œê°€ ì§€ë‚˜ì•¼ ì‘ì„±ê°€ëŠ¥)
 	
 	public String getBook_checkin_date() {
 		return book_checkin_date;

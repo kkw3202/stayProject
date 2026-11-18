@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <section>
 	<c:set var="df_Checkin" value="${defaultCheckinDate }"/>
 	<c:set var="df_Checkout" value="${defaultCheckoutDate }"/>
@@ -206,7 +205,7 @@
 	        <c:forEach items="${indto_arr}" var="indto">
 	            <!-- 첫번째 카드 -->
 	            <div class="rev_card">
-	                <a href="">
+	                <a href="accInfoProc.do?acc_code=${indto.acc_code }&book_checkin_date=${defaultCheckinDate }&book_checkout_date=${defaultCheckoutDate }">
 	                    <!-- 왼쪽 : 사진 + 숙소명 + 평점/리뷰수 -->
 	                    <div class="rev_left">
 	                        <div class="rev_imgbox">

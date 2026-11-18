@@ -59,9 +59,9 @@ public class guestInfoProc extends HttpServlet {
 		BookingDAO bdao = new BookingDAO();
 		BookResultDTO brdto = bdao.get_one_BookResult(book_number, guest_phone);
 		
-		// ±æÀÌ°¡ 0ÀÌ¸é ´Ù½Ã È®ÀÎ¹Ş±â. ÀÖ´Ù¸é ¶ç¿öÁÖ±â.
+		// ë°ì´í„°ê°€ 0ì´ë©´ ë‹¤ì‹œ í™•ì¸ë°›ê¸°. ìˆë‹¤ë©´ ë³´ì—¬ì£¼ê¸°.
 		if(brdto.getBook_number()==null) {
-			String msg = "¿¹¾à¹øÈ£³ª ÀüÈ­¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä.";
+			String msg = "ì˜ˆì•½ë²ˆí˜¸ì™€ ì „í™”ë²ˆí˜¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.";
 			
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("utf-8");

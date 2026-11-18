@@ -24,33 +24,33 @@ public class inquiryRewriteProcCon extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 		int inq_code = Integer.parseInt(request.getParameter("inq_code"));
 		int inq_ref = Integer.parseInt(request.getParameter("inq_ref"));  
-		String re_inq_title = request.getParameter("re_inq_title");  // °ü¸®ÀÚ°¡ ´äº¯ÇÑ ±Û Á¦¸ñ(È÷µçÀ¸·Î ¹ŞÀº°ª)
-		String inq_content = request.getParameter("inq_content");  // °ü¸®ÀÚ°¡ ´äº¯ÇÑ ³»¿ë
+		String re_inq_title = request.getParameter("re_inq_title");  // ê´€ë¦¬ìê°€ ë‹µë³€ì„ ë‹¬ ì œëª©(ë‹µê¸€ìš© ì œëª©)
+		String inq_content = request.getParameter("inq_content");  // ê´€ë¦¬ìê°€ ë‹µë³€í•  ë‚´ìš©
 		
-		// idao ÀÎ½ºÅÏ½º
+		// idao ì¸ìŠ¤í„´ìŠ¤
 		InquiryDAO idao = new InquiryDAO();
 		InquiryDTO idto = new InquiryDTO();
 		
-		// °Ô½ÃÆÇ¿¡ ÀÛ¼ºÀÚ´Â °ü¸®ÀÚ Ç¥½Ã
-		// ½ÇÁ¦ ÀÛ¼ºÀÚ´Â ¿ø·¡ ÀÛ¼ºÀÚ À¯ÀúÄÚµå·Î µî·Ï
+		// ê²Œì‹œíŒì— ì‘ì„±ìëŠ” ê´€ë¦¬ìë¡œ í‘œì‹œ
+		// ê´€ë¦¬ì ì‘ì„±ìëŠ” ê´€ë¦¬ì ì‘ì„±ê¸€ íšŒì›ì½”ë“œì¸ ê°’
 		int user_code = Integer.parseInt(request.getParameter("user_code")); 
 		
-		// idto¿¡ Á¤º¸ Ã¤¿ì±â
+		// idtoì— ì •ë³´ ì±„ìš°ê¸°
 		idto.setInq_title(re_inq_title);
 		idto.setInq_content(inq_content);
 		idto.setInq_ref(inq_ref);
 		idto.setUser_code(user_code);
 
-		// ´äº¯´Ş±â ¸Ş¼Òµå ½ÇÇà
+		// ë‹µë³€ë‹¬ê¸° ë©”ì„œë“œ ì‹¤í–‰
 		idao.rewriteInquiry(idto, inq_code);
 		
-		// º¸³»±â
+		// ë¦¬ë‹¤ì´ë ‰íŠ¸
 		RequestDispatcher rd = request.getRequestDispatcher("inquiryListProc.do");
 		rd.forward(request, response);
 	}

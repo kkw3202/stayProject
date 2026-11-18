@@ -27,21 +27,21 @@ public class reviewWriteProc extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// ì„¸ì…˜ê°’ ê°€ì ¸ì˜¤ê¸°
 		HttpSession session = request.getSession();
 		String user_email= (String)session.getAttribute("user_email");
 		ReviewDAO rdao = new ReviewDAO();
 		
-		// ¼÷¼ÒÄÚµå Ä«Á®¿À±â
+		// ìˆ™ì†Œì½”ë“œ ì¹´í…Œê³ ë¦¬ìš©
 		int acc_code = 0; 
 		String acc_name = "";
 		acc_code = Integer.parseInt(request.getParameter("acc_code"));
 		acc_name = rdao.getAccName(acc_code); 
 		//String acc_img = request.getParameter("acc_img");
-		// È¸¿ø¸í °¡Á®¿À±â (È÷µçÀ¸·Î Á¤º¸ÀúÀåÇÒ ¿¹Á¤)
+		// íšŒì›ì˜ ì´ë¦„ ê°€ì ¸ì˜¤ê¸° (ë¦¬ë·° ì‘ì„±í¼ì— ì¶œë ¥ìš©)
 		String user_name = rdao.getUser_name(user_email);
 		
 		
@@ -53,7 +53,7 @@ public class reviewWriteProc extends HttpServlet {
 		System.out.println("acc_code"+acc_code);
 		System.out.println("acc_name"+acc_name);
 		
-		// ³Ñ±â±â
+		// í¬ì›Œë”©
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/review/reviewWriteForm.jsp");
 		rd.forward(request, response);
 	}

@@ -49,13 +49,13 @@ public class myBookingProc extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
-		// ¼¼¼ÇÀ¸·Î È¸¿ø ¾ÆÀÌµğ ¹× mbdao ÀÎ½ºÅÏ½º
+		// ì„¸ì…˜ì—ì„œ íšŒì› ì•„ì´ë”” ì–»ê³  mbdao ì¸ìŠ¤í„´ìŠ¤
 		HttpSession session = request.getSession();
 		String user_email = (String)session.getAttribute("user_email");
 		
-		// ¼¼¼Ç ¸¸·á ½Ã ·Î±×ÀÎ ÆäÀÌÁö ÀÌµ¿
+		// ì„¸ì…˜ ë§Œë£Œ ì‹œ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™
 		if (user_email == null) {
 			response.sendRedirect("loginProc.do");
 			return;
@@ -63,30 +63,30 @@ public class myBookingProc extends HttpServlet {
 		
 		MyBookingDAO mbdao = new MyBookingDAO();
 		
-		// ÇÚµé·¯ ÆäÀÌÂ¡ pdao / pdto ÀÎ½ºÅÏ½º 
+		// í•¸ë“¤ëŸ¬ í˜ì´ì§• pdao / pdto ì¸ìŠ¤í„´ìŠ¤ 
 		pagingHandlerDAO pdao = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
 		
-		// ÇÑ È­¸é¿¡ º¸¿©Áú ÇàÀÇ °³¼ö (3°³)
+		// í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê¸€ì˜ ê°œìˆ˜ (3ê°œ)
 		pdto.setPageSize(3);
 		int pageSize = pdto.getPageSize();
-		// ÇÑ È­¸é¿¡ ÆäÀÌÂ¡ ÇÏ°í ½ÍÀº °³¼ö [1][2][3]
+		// í•œ í™”ë©´ì— í˜ì´ì§• í•  ë¸”ë¡ ê°œìˆ˜ [1][2][3]
 		int pageBlock = 3;
 		
-		// pageNum ¹× status Á¤º¸ °¡Á®¿À±â
+		// pageNum ê³¼ status íŒŒë¼ë¯¸í„° ë°›ì•„ì˜¤ê¸°
 		String pageNum = request.getParameter("pageNum");
 		String status = request.getParameter("status");
 		if (status == null || status.trim().equals("")) {
 			status = "all";
 		}
 		
-		// ´ë½Ãº¸µå »ó´Ü ÇöÈ²ÆÇ¿ë °³¼ö (ÇÊÅÍ¿Í »ó°ü¾øÀÌ Ç×»ó ÀüÃ¼ ±âÁØÀ¸·Î À¯Áö)
+		// íƒ­ë³„ë¡œ ì´ ì˜ˆì•½ ê±´ìˆ˜ (íƒ­ì— ìƒê´€ì—†ì´ í•­ìƒ ì „ì²´ ì¹´ìš´íŠ¸ë¥¼ ìœ ì§€)
 		int totalAllCount = mbdao.countAllMyBooking(user_email);
 		int countCancelBooking = mbdao.countCancelBooking(user_email);
 		int countOverBooking = mbdao.countOverBooking(user_email);
 		int countReservedBooking = mbdao.countReservedBooking(user_email);
 		
-		// ÇöÀç ¼±ÅÃµÈ ÅÇ ±âÁØ ÆäÀÌÂ¡ count °è»ê
+		// í˜„ì¬ ì„ íƒëœ íƒ­ ë²ˆí˜¸ì— ë§ëŠ” í˜ì´ì§• count êµ¬í•˜ê¸°
 		int count = 0;
 		if ("all".equals(status)) {
 			count = totalAllCount;
@@ -94,7 +94,7 @@ public class myBookingProc extends HttpServlet {
 			count = mbdao.countBookingByStatus(user_email, Integer.parseInt(status));
 		}
 		
-		// ÆäÀÌÂ¡ ºÎºĞ
+		// í˜ì´ì§• ë¶€ë¶„
 		pdto = pdao.getPaging(pageNum, count, pageSize, pageBlock);
 		int currentPage = pdto.getCurrentPage();
 		int startRow = pdto.getStartRow();
@@ -103,7 +103,7 @@ public class myBookingProc extends HttpServlet {
 		int startPage = pdto.getStartPage();
 		int endPage = pdto.getEndPage();
 		
-		// »óÅÂº° ¸ñ·Ï ºĞ±â Á¶È¸
+		// ìƒíƒœë³„ ì˜ˆì•½ ëª©ë¡ ì¡°íšŒ
 		ArrayList<MyBookingDTO> mblist;
 		if ("all".equals(status)) {
 			mblist = mbdao.getMyBookingList(startRow, pageSize, user_email);
@@ -113,13 +113,13 @@ public class myBookingProc extends HttpServlet {
 		
 		DateHandlerDAO dhdao = new DateHandlerDAO();
 		
-		// ¼ıÀÚ DecimalFormat ¼±¾ğ
+		// ìˆ«ì DecimalFormat ì„¤ì •
 		DecimalFormat df = new DecimalFormat("#,###");
-		// ³¯Â¥ SimpleDateFormat ¼±¾ğ
+		// ë‚ ì§œ SimpleDateFormat ì„¤ì •
 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMM");
-		SimpleDateFormat sf02 = new SimpleDateFormat("yyyy³âMM¿ù");
+		SimpleDateFormat sf02 = new SimpleDateFormat("yyyyë…„MMì›”");
 		
-		// ¿¹¾à ¸ñ·Ï °¢°¢¿¡ ´ëÇØ ÀÔ½Ç±â°£(¼÷¹ÚÀÏ¼ö) ¹× ÃÑ ±İ¾× °è»ê
+		// ì˜ˆì•½ ëª©ë¡ ë¦¬ìŠ¤íŠ¸ë¥¼ ëŒë©´ì„œ ìˆ™ë°•ê¸°ê°„(ìˆ™ë°•ì¼ìˆ˜) ë° ì´ ê¸ˆì•¡ ê³„ì‚°
 		if (mblist != null) {
 			for (MyBookingDTO dto : mblist) {
 				String inDate = dto.getBook_checkin_date();
@@ -138,7 +138,7 @@ public class myBookingProc extends HttpServlet {
 			}
 		}
 		
-		// Æ÷Àå´Ü°è
+		// ì„¸íŒ…ë‹¨ê³„
 		request.setAttribute("mblist", mblist);
 		request.setAttribute("status", status);
 		request.setAttribute("totalAllCount", totalAllCount);
@@ -154,10 +154,10 @@ public class myBookingProc extends HttpServlet {
 		request.setAttribute("countOverBooking", countOverBooking);
 		request.setAttribute("countReservedBooking", countReservedBooking);
 		
-		// mypage ¾ÈÂÊ¿¡ ³ÖÀ» jsp ÀÌ¸§ Æ÷Àå
+		// mypage ì•ˆì—ì„œ í•„ìš”í•œ jsp ì´ë¦„ ì§€ì •
 		request.setAttribute("mypageSection", "myBooking");
 		
-		// rd·Î ³Ñ±â±â
+		// rdë¡œ ë„˜ê¸°ê¸°
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/mypage.jsp");
 		rd.forward(request, response);
 	}

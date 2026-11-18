@@ -39,10 +39,10 @@ public class wishListAddcon extends HttpServlet {
 			response.sendRedirect("myWishProc.do");
 			
 		}else {
-			// ¿À·ù ¾È»ı±â°Ô º¸Çè..
+			// ì„¸ì…˜ ì—†ì„ë•Œ ì²˜ë¦¬..
 			PrintWriter out = response.getWriter();
 			out.print("<script type=\"text/javascript\" defer=\"defer\">");
-			out.print("alert('·Î±×ÀÎ ÈÄ ÀÌ¿ë °¡´ÉÇÕ´Ï´Ù');");
+			out.print("alert('ë¡œê·¸ì¸ í›„ ì´ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤');");
 			out.print("</script>");
 		}
 		

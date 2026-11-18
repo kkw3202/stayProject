@@ -20,9 +20,9 @@ public class reviewDeleteCon extends HttpServlet {
 	}
 
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
-		// Á¤º¸°¡Á®¿À±â
+		// íŒŒë¼ë¯¸í„° ê°’ ê°€ì ¸ì˜¤ê¸°
 		int rev_code = Integer.parseInt(request.getParameter("rev_code"));
 		String tmp = request.getParameter("acc_code");
 		int acc_code=0;
@@ -32,10 +32,10 @@ public class reviewDeleteCon extends HttpServlet {
 			acc_code = Integer.parseInt(tmp);
 		}
 		
-		// rdao ÀÎ½ºÅÏ½º ¹× »èÁ¦Ã³¸®ÇÏ±â ½ÇÇà (¼ÒÇÁÆ®»èÁ¦)
+		// rdao ì¸ìŠ¤í„´ìŠ¤ í›„ ì‚­ì œì²˜ë¦¬í•˜ê¸° ìœ„í•´ì„œ (ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ)
 		ReviewDAO rdao = new ReviewDAO();
 		rdao.deleteReview(rev_code);
-		// ¼ÒÇÁÆ®»èÁ¦ÈÄ, ¿ø·¡ º¸°í ÀÖ´ø ¼÷¼Ò »ó¼¼ÆäÀÌÁö ¸®ºä ¿µ¿ªÀ¸·Î ¹Ù·Î ÀÌµ¿
+		// ì‚­ì œí›„, ìˆ™ì†Œ ìƒì„¸ì— ìˆëŠ” ë¦¬ë·° ì„¹ì…˜ìœ¼ë¡œ ë°”ë¡œ ì´ë™
 		String book_checkin_date = request.getParameter("book_checkin_date");
 		String book_checkout_date = request.getParameter("book_checkout_date");
 

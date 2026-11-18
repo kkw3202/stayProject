@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Inquiry.InquiryDAO;
 import model.Inquiry.InquiryDTO;
 
-// 1:1°Ô½ÃÆÇ ±Û ³»¿ë ¼öÁ¤ÇÏ´Â Æû ±×¸®±â
+// 1:1ê²Œì‹œíŒ ê¸€ ìˆ˜ì •ì„ ì²˜ë¦¬í•˜ëŠ” ì„œë¸”ë¦¿
 @WebServlet("/inquiryUpdateProc.do")
 public class inquiryUpdateProc extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,18 +23,18 @@ public class inquiryUpdateProc extends HttpServlet {
 		reqPro(request, response);
 	}
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// 1:1°Ô½ÃÆÇ¿¡¼­ ±ÛÀÇ ¹øÈ£ inq_code °¡Á®¿À±â
+		// 1:1ê²Œì‹œíŒì—ì„œ ê¸€ ë²ˆí˜¸ inq_code íŒŒë¼ë¯¸í„°ë¡œ ê°€ì ¸ì˜¤ê¸°
 		int inq_code = Integer.parseInt(request.getParameter("inq_code"));
 		
-		// idao / idto ÀÎ½ºÅÏ½º
+		// idao / idto ì¸ìŠ¤í„´ìŠ¤
 		InquiryDAO idao = new InquiryDAO();
 		InquiryDTO idto = idao.getInquiryOneBoard(inq_code);
 		
 		request.setAttribute("idto", idto);
-		// inquiryInfo.jsp À¸·Î º¸³»±â
+		// inquiryUpdateForm.jsp ìª½ìœ¼ë¡œ í¬ì›Œë“œ
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=board/inquiry/inquiryUpdateForm.jsp");
 		rd.forward(request, response);
 	}

@@ -24,19 +24,19 @@ public class inquiryDeleteCon extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// inq_code Á¤º¸¸¸ °¡Á®¿À±â
+		// inq_code íŒŒë¼ë¯¸í„°ë¡œ ë°›ì•„ì˜¤ê¸°
 		int inq_code = Integer.parseInt(request.getParameter("inq_code"));
 		
-		// idao ÀÎ½ºÅÏ½º 
+		// idao ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
 		InquiryDAO idao = new InquiryDAO();
 		
-		// ¼ÒÇÁÆ®»èÁ¦ ½ÇÇàÇÏ±â
+		// ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ ì‚­ì œí•˜ê¸°
 		idao.deleteBoard(inq_code);
 		
-		// º¸³»±â
+		// ë¦¬ë‹¤ì´ë ‰íŠ¸ (í¬ì›Œë“œ)
 		RequestDispatcher rd = request.getRequestDispatcher("inquiryListProc.do");
 		rd.forward(request, response);
 	}

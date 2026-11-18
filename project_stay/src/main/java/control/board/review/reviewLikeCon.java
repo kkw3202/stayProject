@@ -21,10 +21,10 @@ public class reviewLikeCon extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÀÎÄÚµù
+		// ì¸ì½”ë”©
 		request.setCharacterEncoding("utf-8");
 		
-		// Á¤º¸°¡Á®¿À±â
+		// íŒŒë¼ë¯¸í„° ê°’ ê°€ì ¸ì˜¤ê¸°
 		int rev_code = Integer.parseInt(request.getParameter("rev_code"));
 		String tmp= request.getParameter("acc_code");
 		int acc_code=0;
@@ -35,10 +35,10 @@ public class reviewLikeCon extends HttpServlet {
 		}
 		
 		System.out.println("rev_code"+rev_code);
-		// rdao ÀÎ½ºÅÏ½º ¹× ½ÇÇà
+		// rdao ì¸ìŠ¤í„´ìŠ¤ í›„ ì‹¤í–‰
 		ReviewDAO rdao = new ReviewDAO();
 		rdao.updateReviewLike(rev_code);
-		// ¾÷µ¥ÀÌÆ® ÈÄ º¹±Í (Ã¼Å©ÀÎ/Ã¼Å©¾Æ¿ô ³¯Â¥ ¹Ş±â + ¾øÀ¸¸é ¿À´Ã~³»ÀÏ ±âº»°ª)
+		// ì—…ë°ì´íŠ¸ í›„ ë¦¬ë‹¤ì´ë ‰íŠ¸ (ì²´í¬ì¸/ì²´í¬ì•„ì›ƒ ë‚ ì§œ ë°›ê¸° + ë‚ ì§œê°€ ì—†ì„ ê²½ìš° ê¸°ë³¸ê°’)
 		String book_checkin_date = request.getParameter("book_checkin_date");
 		String book_checkout_date = request.getParameter("book_checkout_date");
 
