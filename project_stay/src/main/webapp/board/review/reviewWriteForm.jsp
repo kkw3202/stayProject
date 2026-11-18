@@ -7,29 +7,21 @@
 	<form action = "reviewWriteProcCon.do" method="post" name="rform">
 		<%-- 회원명 숨겨서 보내기 --%>
 		<input type="hidden" value="${user_name }" name="user_name"/>
+		<input type ="hidden" value="${acc_code }" name="acc_code"/>
 		<table>
+			<%-- 왼쪽에는 숙소 이미지 --%>
+			<%-- <tbody class="img_box">
+				<tr>
+					<td>
+						<img src="${acc_img }" alt="${acc_name }"/>
+					</td>
+				</tr>
+			</tbody> --%>
+		
 			<%-- 숙소명 --%>
 			<tr>
 				<th class="label">숙소명</th>
-				<td class="data">
-					<c:choose>
-						<%-- acc_name이 null인 경우(전체숙소에서 타고 들어온경우) => 목록에서 선택방식  --%>
-						<c:when test="${empty acc_name }">
-							<%-- 오타가능성도 있어서, 드롭다운식으로 진행 --%>
-							<select name= "acc_code" class="acc_choice">
-								<option value="0">숙소명</option>
-								<c:forEach var="acc" items="${alist }">
-									<option value="${acc.acc_code }">${acc.acc_name }</option>
-								</c:forEach>
-							</select>
-						</c:when>
-						<%-- acc_name이 null이 아닌 경우(해당숙소의 리뷰게시판인경우) => 해당 숙소명 그대로 표기 --%>
-						<c:otherwise>
-							<input type="text" name="acc_name" value="${acc_name }"readonly/>
-							<input type="hidden" name="acc_code" value="${acc_code}"/>
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td class="data">${acc_name }</td>
 			</tr>	
 			<tr>
 				<th class="label">평점<br/>(5점 만점)</th>

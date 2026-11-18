@@ -496,6 +496,174 @@ public class ReviewDAO {
 		return acc_name;
 	}
 	
+	// 리뷰작성하는 메소드
+	public void insertMyReview(ReviewDTO rdto) {
+		
+		try {
+			con = Util.getConnection();
+			String sql = "insert into reviews values(null,?,?,?,?,now(),0,0)";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, rdto.getAcc_code());
+			pstmt.setInt(2, rdto.getUser_code());
+			pstmt.setInt(3, rdto.getRev_rating());
+			pstmt.setString(4, rdto.getRev_content());
+			
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}
 	
+	// 퇴실날짜 확인하는 메소드
+	public String getBook_checkout_date(String book_number) {
+		String book_checkout_date = "";
+		try {
+			con = Util.getConnection();
+			String sql = "select book_checkout_date from booking where book_number=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, book_number);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				book_checkout_date = rs.getString(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return book_checkout_date;
+	}
+	
+	// 내 예약 리스트 중에서, 아직 리뷰 달리지 않은 리뷰들 그리는 메소드
+	public ArrayList<ReviewDTO> getUnwrittenMyReviewList(String user_email){
+		ArrayList<ReviewDTO> r = new ArrayList<ReviewDTO>();
+		try {
+			con = Util.getConnection();
+			
+			String sql = "SELECT b.book_number, a.acc_code, a.acc_type, a.acc_img, b.book_checkin_date, b.book_checkout_date, a.acc_name "
+				   + "FROM booking b "
+				   + "INNER JOIN User u ON b.user_code = u.user_code "
+				   + "INNER JOIN Room rm ON b.room_code = rm.room_code "
+				   + "INNER JOIN Accommodation a ON rm.acc_code = a.acc_code "
+				   + "LEFT JOIN Reviews r ON b.user_code = r.user_code AND a.acc_code = r.acc_code AND r.rev_chk_del = 0 "
+				   + "WHERE u.user_email = ? "
+				   + "AND r.rev_code IS NULL "
+				   + "AND b.book_chk_status != 1 "
+				   + "AND b.book_checkout_date <= CURDATE() "
+				   + "ORDER BY b.book_checkout_date DESC";
+				
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_email);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ReviewDTO rdto = new ReviewDTO();
+				rdto.setAcc_code(rs.getInt("acc_code"));
+				rdto.setAcc_name(rs.getString("acc_name"));
+				rdto.setAcc_type(rs.getString("acc_type"));
+				rdto.setAcc_img(rs.getString("acc_img"));
+				rdto.setBook_checkin_date(rs.getString("book_checkin_date"));
+				rdto.setBook_checkout_date(rs.getString("book_checkout_date"));
+				
+				r.add(rdto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return r;
+	}
+	
+	// 해당 숙소에 대하여, 리뷰 작성 자격(예약완료 + 퇴실일 경과 + 미작성)이 있는지 확인하는 메소드
+	public boolean canWriteReview(String user_email, int acc_code) {
+		boolean canWrite = false;
+		if (user_email == null || user_email.isEmpty()) {
+			return false;
+		}
+		
+		try {
+			con = Util.getConnection();
+			String sql = "SELECT COUNT(*) "
+					   + "FROM booking b "
+					   + "INNER JOIN User u ON b.user_code = u.user_code "
+					   + "INNER JOIN Room rm ON b.room_code = rm.room_code "
+					   + "LEFT JOIN Reviews r ON b.user_code = r.user_code AND rm.acc_code = r.acc_code AND r.rev_chk_del = 0 "
+					   + "WHERE u.user_email = ? "
+					   + "AND rm.acc_code = ? "
+					   + "AND b.book_chk_status != 1 "
+					   + "AND b.book_checkout_date <= CURDATE() "
+					   + "AND r.rev_code IS NULL";
+					   
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_email);
+			pstmt.setInt(2, acc_code);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next() && rs.getInt(1) > 0) {
+				canWrite = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (con != null) con.close();
+			} catch (Exception e) { e.printStackTrace(); }
+		}
+		return canWrite;
+	}
+	
+	// 작성안된 리뷰개수 세기 
+	public int countUnwrittenTotalReview(String user_email) {
+		int totalCount = 0;
+		try {
+			con = Util.getConnection();
+			// 쿼리문
+			String sql = "SELECT COUNT(*) "
+					   + "FROM booking b "
+					   + "INNER JOIN User u ON b.user_code = u.user_code "
+					   + "INNER JOIN Room rm ON b.room_code = rm.room_code "
+					   + "LEFT JOIN Reviews r ON b.user_code = r.user_code AND rm.acc_code = r.acc_code AND r.rev_chk_del = 0 "
+					   + "WHERE u.user_email = ? "
+					   + "AND r.rev_code IS NULL "
+					   + "AND b.book_chk_status != 1 "
+					   + "AND b.book_checkout_date <= CURDATE()";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_email);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				totalCount = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return totalCount;
+	}
 	
 }

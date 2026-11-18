@@ -35,9 +35,21 @@ public class reviewDeleteCon extends HttpServlet {
 		// rdao 인스턴스 및 삭제처리하기 실행 (소프트삭제)
 		ReviewDAO rdao = new ReviewDAO();
 		rdao.deleteReview(rev_code);
-		System.out.println("acc_code" + acc_code);
-		
-		// 소프트삭제후, 바로 이동 (원래 선택햇던 숙소로 돌아가기)
-		response.sendRedirect("reviewListProc.do?searchType="+acc_code);
+		// 소프트삭제후, 원래 보고 있던 숙소 상세페이지 리뷰 영역으로 바로 이동
+		String book_checkin_date = request.getParameter("book_checkin_date");
+		String book_checkout_date = request.getParameter("book_checkout_date");
+
+		if (book_checkin_date == null || book_checkin_date.isEmpty()) {
+			java.text.SimpleDateFormat sd = new java.text.SimpleDateFormat("yyyyMMdd");
+			java.util.Calendar cal = java.util.Calendar.getInstance();
+			book_checkin_date = sd.format(cal.getTime());
+			cal.add(java.util.Calendar.DAY_OF_MONTH, 1);
+			book_checkout_date = sd.format(cal.getTime());
+		}
+
+		response.sendRedirect("accInfoProc.do?acc_code=" + acc_code
+				+ "&book_checkin_date=" + book_checkin_date
+				+ "&book_checkout_date=" + book_checkout_date
+				+ "#accReviewSection");
 	}
 }

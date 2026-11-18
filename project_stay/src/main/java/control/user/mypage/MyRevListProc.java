@@ -15,6 +15,8 @@ import model.Handler.pagingHandler.pagingHandlerDAO;
 import model.Handler.pagingHandler.pagingHandlerDTO;
 import model.Review.ReviewDAO;
 import model.Review.ReviewDTO;
+import model.User.MyBookingDAO;
+import model.User.MyBookingDTO;
 
 @WebServlet("/MyRevListProc.do")
 public class MyRevListProc extends HttpServlet {
@@ -39,8 +41,8 @@ public class MyRevListProc extends HttpServlet {
 		// rdao 가져오기
 		ReviewDAO rdao = new ReviewDAO();
 		
-		// 한 화면에 보여질 행의 개수 (7개)
-		pdto.setPageSize(7);
+		// 한 화면에 보여질 행의 개수 (3개)
+		pdto.setPageSize(3);
 		int pageSize = pdto.getPageSize();
 		// 한 화면에 페이징 하고 싶은 개수 [1][2][3][4][5]
 		int pageBlock=5;
@@ -70,8 +72,17 @@ public class MyRevListProc extends HttpServlet {
 		ArrayList<ReviewDTO> rlist;
 		rlist = rdao.getMyreviewBoard(startRow, pageSize, user_name);
 		
+		// 아직 작성안된 리뷰 배열 
+		ArrayList<ReviewDTO> notList;
+		notList = rdao.getUnwrittenMyReviewList(user_email);
+		
+		// 아직 작성안된 리뷰 총 개수 세는 함수
+		int notList_cnt = rdao.countUnwrittenTotalReview(user_email);
+		
 		// JSP에 넘길 자료 포장하기
 		request.setAttribute("rlist", rlist);
+		request.setAttribute("notList", notList);
+		request.setAttribute("notList_cnt", notList_cnt);
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("count", count);

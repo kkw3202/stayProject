@@ -17,7 +17,7 @@
 			<tr>
 				<th class="label">글내용</th>
 				<td class="data">
-					<textarea name="inq_content"></textarea>
+					<textarea name="inq_content" class="inq_content" placeholder="문의 내용을 입력해 주세요."></textarea>
 				</td>
 			</tr>
 			<tr>

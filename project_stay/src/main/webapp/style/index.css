@@ -481,7 +481,7 @@ span.hot{
 }
 
 .rev_content {
-	font-size: 13px;
+	font-size: 16px;
 	line-height: 1.9;
 	color: #617087;
 	margin: 0;
@@ -653,4 +653,48 @@ footer>p:last-child {
 		padding: 35px 20px
 	}
 	
+}
+/* 오른쪽 영역 전체를 세로 정렬로 변경하여 내용 밑에 작성자/날짜가 오도록 설정 */
+.rev_right {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* 리뷰 내용과 하단 정보(작성자/날짜) 사이의 간격 확보 및 밀어내기 */
+.rev_right_bottom {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto; /* 내용이 짧아도 작성자/날짜가 항상 하단에 붙게 하려면 주석 해제, 일반 흐름은 margin으로 조절 */
+    padding-top: 12px;
+}
+
+/* 작성자 스타일 */
+.rev_right_bottom .user_name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #334e68;
+    margin: 0;
+}
+
+/* 날짜 스타일 */
+.rev_right_bottom .date {
+    font-size: 12px;
+    color: #8792a0;
+    margin: 0;
+}
+
+/* 모바일 화면 대응 (600px 이하) */
+@media (max-width: 600px) {
+    .rev_right_bottom {
+        gap: 8px;
+        padding-top: 8px;
+    }
+    .rev_right_bottom .user_name {
+        font-size: 12px;
+    }
+    .rev_right_bottom .date {
+        font-size: 11px;
+    }
 }

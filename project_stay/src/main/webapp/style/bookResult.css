@@ -1,0 +1,299 @@
+@charset "utf-8";
+
+/* Payment completion page - legacy CSS */
+.bookresult_page, .bookresult_page * {
+	box-sizing: border-box;
+}
+
+.bookresult_page {
+	min-height: 680px;
+	padding: 48px 16px 75px;
+	background: #f3f7ff;
+	color: #102c62;
+	font-family: "Malgun Gothic", "맑은 고딕", Arial, sans-serif;
+}
+
+.bookresult_page .container {
+	width: 1080px;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+.bookresult_page .complete_header {
+	text-align: center;
+	margin: 0 0 34px;
+}
+
+.bookresult_page .complete_icon {
+	display: inline-block;
+	width: 78px;
+	height: 78px;
+	line-height: 70px;
+	border: 7px solid #d8e7ff;
+	border-radius: 50%;
+	background: #eaf3ff;
+	color: #1255a9;
+	font-size: 49px;
+	font-weight: bold;
+}
+
+.bookresult_page .complete_header h2 {
+	margin: 13px 0 6px;
+	font-size: 38px;
+	color: #0a2a67;
+}
+
+.bookresult_page .complete_header p {
+	margin: 0;
+	font-size: 17px;
+	color: #435879;
+}
+
+.bookresult_page .bookresult_card {
+	overflow: hidden;
+	padding: 32px 28px;
+	border: 1px solid #d4e2fa;
+	border-radius: 17px;
+	background: #fff;
+	box-shadow: 0 12px 26px rgba(17, 61, 127, .09);
+}
+
+.bookresult_page .about_book_wrap {
+	float: left;
+	width: 54%;
+	padding-right: 26px;
+	border-right: 1px solid #d8e5f9;
+}
+
+.bookresult_page .about_price_wrap {
+	float: right;
+	width: 43%;
+}
+
+.bookresult_page .about_book_wrap:before {
+	content: "예약 정보";
+	display: block;
+	margin: 0 0 20px;
+	padding-left: 13px;
+	border-left: 6px solid #0e4ca3;
+	font-size: 23px;
+	font-weight: bold;
+	line-height: 30px;
+}
+
+.bookresult_page .about_price_wrap:before {
+	content: "결제 정보";
+	display: block;
+	margin: 0 0 20px;
+	padding-left: 13px;
+	border-left: 6px solid #0e4ca3;
+	font-size: 23px;
+	font-weight: bold;
+	line-height: 30px;
+}
+
+.bookresult_page .about_book_infoName_wrap {
+	float: left;
+	width: 41%;
+}
+
+.bookresult_page .about_book_info_wrap {
+	float: left;
+	width: 59%;
+}
+
+.bookresult_page .about_price_infoName_wrap {
+	float: left;
+	width: 51%;
+}
+
+.bookresult_page .about_price_info_wrap {
+	float: left;
+	width: 49%;
+}
+
+.bookresult_page .about_book_wrap:after, .bookresult_page .about_price_wrap:after,
+	.bookresult_page .bookresult_card:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.bookresult_page .about_book_infoName, .bookresult_page .about_book_info,
+	.bookresult_page .about_price_infoName, .bookresult_page .about_price_info
+	{
+	height: 49px;
+	line-height: 48px;
+	margin: 0;
+	padding: 0 12px;
+	border-bottom: 1px solid #dbe6f9;
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.bookresult_page .about_book_infoName_wrap p:first-child,
+	.bookresult_page .about_book_info_wrap p:first-child, .bookresult_page .about_price_infoName_wrap p:first-child,
+	.bookresult_page .about_price_info_wrap p:first-child {
+	border-top: 1px solid #dbe6f9;
+}
+
+.bookresult_page .about_book_infoName, .bookresult_page .about_price_infoName
+	{
+	background: #eaf2ff;
+	font-weight: bold;
+	color: #0e357a;
+}
+
+.bookresult_page .about_book_info, .bookresult_page .about_price_info {
+	background: #fff;
+	color: #24354c;
+}
+
+.bookresult_page .about_price_info {
+	text-align: right;
+}
+
+.bookresult_page .about_price_infoName_wrap p:last-child,
+	.bookresult_page .about_price_info_wrap p:last-child {
+	height: 65px;
+	line-height: 64px;
+	background: #dceaff;
+	color: #0b347c;
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.bookresult_page .about_price_info_wrap p:last-child {
+	font-size: 23px;
+}
+
+.bookresult_page .complete_actions {
+	margin: 30px auto 0;
+	text-align: center;
+}
+
+.bookresult_page .complete_actions a {
+	display: inline-block;
+	width: 215px;
+	max-width: 44%;
+	height: 49px;
+	line-height: 47px;
+	margin: 0 7px 10px;
+	border: 1px solid #124590;
+	border-radius: 9px;
+	background: #fff;
+	color: #124590;
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.bookresult_page .complete_actions a.primary {
+	background: #0c3f91;
+	color: #fff;
+}
+
+.bookresult_page .complete_actions a:hover {
+	background: #e8f1ff;
+}
+
+.bookresult_page .complete_actions a.primary:hover {
+	background: #092f70;
+}
+
+@media screen and (max-width: 800px) {
+	.bookresult_page .about_book_wrap, .bookresult_page .about_price_wrap {
+		float: none;
+		width: 100%;
+		padding-right: 0;
+		border-right: 0;
+	}
+	.bookresult_page .about_price_wrap {
+		margin-top: 28px;
+	}
+	.bookresult_page .bookresult_card {
+		padding: 24px 18px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.bookresult_page {
+		padding: 28px 10px 48px;
+	}
+	.bookresult_page .complete_header h2 {
+		font-size: 29px;
+	}
+	.bookresult_page .complete_header p {
+		font-size: 13px;
+	}
+	.bookresult_page .about_book_infoName, .bookresult_page .about_book_info,
+		.bookresult_page .about_price_infoName, .bookresult_page .about_price_info
+		{
+		padding: 0 7px;
+		font-size: 12px;
+	}
+	.bookresult_page .about_price_info_wrap p:last-child {
+		font-size: 18px;
+	}
+	.bookresult_page .complete_actions a {
+		width: 100%;
+		max-width: 100%;
+		margin: 0 0 10px;
+	}
+}
+
+/* 예약 취소 버튼 영역 추가 스타일 */
+.bookresult_page .cancle_btn_wrap {
+    margin-top: 30px;
+    padding: 24px 28px;
+    border: 1px solid #d4e2fa;
+    border-radius: 17px;
+    background: #fff;
+    box-shadow: 0 12px 26px rgba(17, 61, 127, .09);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.bookresult_page .cancle_btn_wrap p {
+    margin: 0;
+    font-size: 14px;
+    color: #435879;
+    font-weight: bold;
+}
+
+.bookresult_page .cancle_btn_wrap button {
+    flex-shrink: 0;
+    padding: 0 24px;
+    height: 45px;
+    border: 1px solid #d9534f;
+    border-radius: 9px;
+    background: #fff;
+    color: #d9534f;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bookresult_page .cancle_btn_wrap button:hover {
+    background: #d9534f;
+    color: #fff;
+}
+
+/* 반응형 처리 (모바일 화면 대응) */
+@media screen and (max-width: 800px) {
+    .bookresult_page .cancle_btn_wrap {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .bookresult_page .cancle_btn_wrap button {
+        width: 100%;
+    }
+}

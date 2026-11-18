@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<section>
+<link rel="styleSheet" href="style/bookResult.css">
+<section class="bookresult_page">
 	<c:set var="brdto" value="${brdto }"/>
 	<div class="container">
 		<div class="bookresult_card">
@@ -30,9 +31,9 @@
 					<p class="about_price_infoName book_checkin_date">총 결제 금액</p>
 				</div>
 				<div class="about_price_info_wrap">
-					<p class="about_price_info book_number">${brdto.room_price }</p>
+					<p class="about_price_info book_number">${brdto.prt_room_price }</p>
 					<p class="about_price_info book_name">${brdto.date_of_stay }</p>
-					<p class="about_price_info book_checkin_date">${brdto.total_price }</p>
+					<p class="about_price_info book_checkin_date">${brdto.prt_total_price }</p>
 				</div>
 			</div>
 		</div>

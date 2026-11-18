@@ -14,6 +14,9 @@ public class IndexDTO {
 	private String rev_content; 
 	private int count_rev_rating; // count 구한값으로 가져오기!
 	
+	private String user_name;
+	private String rev_created_datetime;
+	
 	
 	public int getAcc_code() {
 		return acc_code;
@@ -74,6 +77,18 @@ public class IndexDTO {
 	}
 	public void setCount_rev_rating(int count_rev_rating) {
 		this.count_rev_rating = count_rev_rating;
+	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getRev_created_datetime() {
+		return rev_created_datetime;
+	}
+	public void setRev_created_datetime(String rev_created_datetime) {
+		this.rev_created_datetime = rev_created_datetime;
 	}
 	
 	

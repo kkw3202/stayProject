@@ -42,9 +42,23 @@ public class reviewUpdateProcCon extends HttpServlet {
 		ReviewDAO rdao = new ReviewDAO();
 		rdao.updateReview(rev_code, rev_rating, rev_content);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("reviewListProc.do");
-		rd.forward(request, response);
-		
+		// 수정 후 원래 보고 있던 숙소 상세페이지 리뷰 위치(#accReviewSection)로 복귀
+		int acc_code = Integer.parseInt(request.getParameter("acc_code"));
+		String book_checkin_date = request.getParameter("book_checkin_date");
+		String book_checkout_date = request.getParameter("book_checkout_date");
+
+		if (book_checkin_date == null || book_checkin_date.isEmpty()) {
+			java.text.SimpleDateFormat sd = new java.text.SimpleDateFormat("yyyyMMdd");
+			java.util.Calendar cal = java.util.Calendar.getInstance();
+			book_checkin_date = sd.format(cal.getTime());
+			cal.add(java.util.Calendar.DAY_OF_MONTH, 1);
+			book_checkout_date = sd.format(cal.getTime());
+		}
+
+		response.sendRedirect("accInfoProc.do?acc_code=" + acc_code
+				+ "&book_checkin_date=" + book_checkin_date
+				+ "&book_checkout_date=" + book_checkout_date
+				+ "#accReviewSection");
 	}
 	
 }

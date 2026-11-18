@@ -257,7 +257,7 @@ public class InquiryDAO {
 			
 			
 			// 인서트 하는 쿼리문 시작
-			String sql02 = "INSERT INTO Inquiry VALUES  (null, ?, current_date(), ?, ?, ?, ?, 0, 0) ";
+			String sql02 = "INSERT INTO Inquiry VALUES  (null, ?, now(), ?, ?, ?, ?, 0, 0) ";
 			// 실행객체 생성
 			pstmt = con.prepareStatement(sql02);
 			// ?에 대입
@@ -452,7 +452,7 @@ public class InquiryDAO {
 		try {
 			con = Util.getConnection();
 			// 답변상태도 1(답변완료) 처리 (끝에서 두번째, chk_status = 1)
-			String sql = "insert into Inquiry values (null, ?, current_date(), ?, ?, ?, ?, 1, 0)";
+			String sql = "insert into Inquiry values (null, ?, now(), ?, ?, ?, ?, 1, 0)";
 			// 실행객체 만들기
 			pstmt = con.prepareStatement(sql);
 			// ?에 대입
