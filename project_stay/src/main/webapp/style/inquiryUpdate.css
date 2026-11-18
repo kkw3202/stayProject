@@ -1,0 +1,207 @@
+@charset "utf-8";
+
+.boardwrap {
+	box-sizing: border-box;
+	width: min(100% - 32px, 1040px);
+	margin: 100px auto 80px;
+	padding: 35px 38px 38px;
+	background: #fff;
+	border: 1px solid #e0e9f4;
+	border-top: 5px solid #15559c;
+	border-radius: 16px;
+	box-shadow: 0 12px 30px rgba(20, 56, 100, .10);
+	color: #102b53;
+	font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+}
+
+.boardwrap, .boardwrap * {
+	box-sizing: border-box;
+}
+
+.boardwrap h3 {
+	margin: 0 0 24px;
+	padding: 5px 0 24px 52px;
+	border-bottom: 1px solid #dbe5f0;
+	color: #102b53;
+	font-size: 24px;
+	font-weight: 800;
+	line-height: 1.5;
+	position: relative;
+}
+
+.boardwrap h3::before {
+	content: '✎';
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: grid;
+	place-items: center;
+	width: 42px;
+	height: 42px;
+	border-radius: 11px;
+	background: #e0eefb;
+	color: #15559c;
+	font-size: 25px;
+}
+
+.boardwrap h3::after {
+	content: '작성하신 문의 내용을 수정할 수 있습니다.';
+	display: block;
+	margin-top: 3px;
+	color: #6d7c91;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.boardwrap .inquiryUpdateTable {
+	width: 100% !important;
+	border-collapse: separate !important;
+	border-spacing: 0 !important;
+	border: 1px solid #dfe7f0 !important;
+	border-radius: 10px;
+	overflow: hidden;
+	table-layout: fixed;
+	background: white;
+}
+
+.boardwrap .inquiryUpdateTable th,
+.boardwrap .inquiryUpdateTable td {
+	padding: 16px !important;
+	border: 0 !important;
+	border-bottom: 1px solid #e3eaf2 !important;
+	vertical-align: middle;
+	height: auto !important;
+	font-size: 14px;
+}
+
+.boardwrap .inquiryUpdateTable th {
+	width: 22%;
+	min-width: 115px;
+	background: #f0f5fb;
+	color: #102b53;
+	text-align: left;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.boardwrap .inquiryUpdateTable th::before {
+	content: '';
+	display: inline-block;
+	width: 4px;
+	height: 17px;
+	margin-right: 10px;
+	vertical-align: -3px;
+	background: #1761b1;
+	border-radius: 5px;
+}
+
+.boardwrap .inquiryUpdateTable td.data {
+	color: #253957;
+}
+
+/* 답변상태 배지 (목록 페이지와 동일 스타일) */
+.boardwrap .status {
+	display: inline-block;
+	padding: 5px 12px;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.boardwrap .status.wait {
+	background: #fff4e8;
+	color: #a45b14;
+}
+
+.boardwrap .status.done {
+	background: #e9f3ff;
+	color: #14569c;
+}
+
+.boardwrap .inquiryUpdateTable .inq_title,
+.boardwrap .inquiryUpdateTable .inq_content {
+	display: block;
+	width: 100% !important;
+	max-width: none !important;
+	min-width: 0;
+	padding: 12px 14px;
+	border: 1px solid #c7d5e6 !important;
+	border-radius: 7px;
+	background: #fff;
+	color: #172e51;
+	font: inherit;
+	font-size: 14px;
+	outline: none;
+	transition: border-color .2s, box-shadow .2s;
+}
+
+.boardwrap .inquiryUpdateTable .inq_title {
+	height: 44px !important;
+}
+
+.boardwrap .inquiryUpdateTable .inq_content {
+	height: 180px !important;
+	min-height: 180px;
+	line-height: 1.7;
+	resize: vertical;
+}
+
+.boardwrap .inquiryUpdateTable .inq_title:focus,
+.boardwrap .inquiryUpdateTable .inq_content:focus {
+	border-color: #1761b1 !important;
+	box-shadow: 0 0 0 3px rgba(23, 97, 177, .11);
+}
+
+.boardwrap .inquiryUpdateTable tr:last-child td {
+	padding: 25px 16px 4px !important;
+	border: 0 !important;
+	text-align: center;
+	background: #fff;
+}
+
+.boardwrap .inquiryUpdateTable .btn {
+	display: inline-block;
+	width: 155px !important;
+	height: 44px !important;
+	margin: 0 5px 5px;
+	padding: 0 15px !important;
+	border: 1px solid #164b8c !important;
+	border-radius: 8px;
+	background: linear-gradient(180deg, #1c62ad, #103d79);
+	color: white !important;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.boardwrap .inquiryUpdateTable .btn:last-child {
+	background: white;
+	color: #123c77 !important;
+}
+
+.boardwrap .inquiryUpdateTable .btn:hover {
+	filter: brightness(1.08);
+}
+
+@media (max-width: 650px) {
+	.boardwrap {
+		width: calc(100% - 20px);
+		margin: 20px auto;
+		padding: 22px 14px;
+	}
+	.boardwrap h3 {
+		font-size: 19px;
+	}
+	.boardwrap .inquiryUpdateTable th {
+		width: 100px;
+		min-width: 0;
+		font-size: 13px;
+	}
+	.boardwrap .inquiryUpdateTable th,
+	.boardwrap .inquiryUpdateTable td {
+		padding: 10px !important;
+	}
+	.boardwrap .inquiryUpdateTable .btn {
+		width: 125px !important;
+	}
+}

@@ -12,6 +12,8 @@ public class MyBookingDTO {
 	private String book_date;  // 예매결제일
 	private String book_cancel_date;  // 예매취소일
 	private int book_chk_status;  // 예약상태체크(0:예약완료 / 1: 예약취소)
+	private int date_of_stay; // 몇박인지 구해서 담음
+	private int total_price; // 총 금액 구해서 담음
 
 	// 객실관련
 	private String room_name;  // 객실명
@@ -36,6 +38,25 @@ public class MyBookingDTO {
 	
 	// 리뷰 작성 가능한지 유무 체크 변수 (퇴실예정체크아웃날짜) 보다 더 뒤에만 리뷰 작성가능
 	private int can_review;  // 리뷰 작성 가능 변수
+
+	
+	
+	
+	public int getDate_of_stay() {
+		return date_of_stay;
+	}
+
+	public void setDate_of_stay(int date_of_stay) {
+		this.date_of_stay = date_of_stay;
+	}
+
+	public int getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(int total_price) {
+		this.total_price = total_price;
+	}
 
 	public int getBook_code() {
 		return book_code;

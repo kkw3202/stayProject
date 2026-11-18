@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Booking.BookingDAO;
 import model.Handler.pagingHandler.pagingHandlerDAO;
 import model.Handler.pagingHandler.pagingHandlerDTO;
 import model.Review.ReviewDAO;
 import model.Review.ReviewDTO;
+import model.User.MyBookingDAO;
+import model.User.MyBookingDTO;
 
 
 @WebServlet("/accReviewListProc.do")
@@ -40,8 +43,11 @@ public class accReviewListProc extends HttpServlet {
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
 		ReviewDAO rdao = new ReviewDAO();
 		
-		// 한 화면에 보여질 행의 개수 (10개)
-		pdto.setPageSize(10);
+		// 예약정보가져오기
+		BookingDAO bdao = new BookingDAO();
+		
+		// 한 화면에 보여질 행의 개수 (5개)
+		pdto.setPageSize(5);
 		int pageSize = pdto.getPageSize();
 		// 한 화면에 페이징 하고 싶은 개수 [1][2][3][4][5]
 		int pageBlock=5;
@@ -63,8 +69,15 @@ public class accReviewListProc extends HttpServlet {
 		int startPage = pdto.getStartPage();
 		int endPage = pdto.getEndPage();
 		
-		ArrayList<ReviewDTO> rlist;
-		rlist = rdao.getReviewAccBoard(startRow, pageSize, acc_code);
+		// 현재 보고 있는 숙소에 리뷰 작성 가능한 사람인지 확인 
+		boolean canWrite = rdao.canWriteReview(user_email, acc_code);
+		
+		ArrayList<ReviewDTO> rlist = rdao.getReviewAccBoard(startRow, pageSize, acc_code);
+		
+		// 포장하기
+		request.setAttribute("rlist", rlist);
+		request.setAttribute("canWrite", canWrite); // notList 대신 boolean 전달
+		request.setAttribute("acc_code", acc_code); // 인라인 작성 폼에서 쓸 수 있도록 전달
 		
 		// 포장하기
 		request.setAttribute("rlist", rlist);

@@ -1,0 +1,376 @@
+@charset "utf-8";
+
+/* 머물:多 - 숙소 상세페이지 하단 리뷰 영역 CSS (2행 슬림 카드형) */
+.accReviewList, .accReviewList * {
+	box-sizing: border-box;
+}
+
+.accReviewList {
+	width: 100%;
+	margin-top: 32px;
+	padding-top: 28px;
+	border-top: 1px solid #e1ebf9;
+	color: #10254e;
+	font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+}
+
+/* 제목 + 리뷰작성 버튼 나란히 배치 */
+.accReviewList .review_header {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin: 0 0 18px;
+}
+
+.accReviewList .review_header h3 {
+	margin: 0;
+	padding-left: 12px;
+	border-left: 4px solid #1656a2;
+	font-size: 20px;
+	line-height: 1.2;
+	font-weight: 700;
+	color: #0d2859;
+}
+
+.accReviewList .writeBox {
+	margin: 0;
+}
+
+.accReviewList .write_btn {
+	height: 32px;
+	padding: 0 14px;
+	border: 1px solid #174b8c;
+	border-radius: 8px;
+	background: #174b8c;
+	color: #ffffff;
+	font-size: 13px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.accReviewList .write_btn:hover {
+	background: #0b3265;
+}
+
+/* 인라인 리뷰 작성 폼 */
+.accReviewList #inlineReviewFormBox {
+	margin: 0 0 20px !important;
+	padding: 18px 20px !important;
+	border: 1px solid #c7daf5 !important;
+	border-radius: 12px !important;
+	background: #f4f8ff !important;
+}
+
+.accReviewList .inline_write_table {
+	border-collapse: separate;
+	border-spacing: 0 8px;
+}
+
+.accReviewList .inline_write_table th.label {
+	width: 84px !important;
+	padding: 7px 10px;
+	border-radius: 8px;
+	background: #e3eeff;
+	color: #17498a;
+	font-size: 13px;
+	font-weight: 700;
+	text-align: center;
+}
+
+.accReviewList .inline_write_table td.data {
+	padding-left: 12px;
+}
+
+.accReviewList .inline_write_table select {
+	height: 34px;
+	padding: 0 10px;
+	border: 1px solid #bfd3ef;
+	border-radius: 8px;
+	background: #ffffff;
+	color: #f5a400;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.accReviewList .inline_write_table textarea.rev_content {
+	padding: 10px 12px;
+	border: 1px solid #bfd3ef;
+	border-radius: 8px;
+	background: #ffffff;
+	font-family: inherit;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #253957;
+	resize: vertical;
+}
+
+/* 리뷰가 없을 때 */
+.accReviewList .no_review {
+	display: block;
+	padding: 40px 20px;
+	border: 1px solid #dce7f7;
+	border-radius: 12px;
+	background: #f8fbff;
+	text-align: center;
+	font-size: 14px;
+	color: #506687;
+}
+
+/* -----------------------------------------------------------
+   2행 구조(홀수 tr: 작성자·날짜·별점·버튼 / 짝수 tr: 리뷰내용) 카드화
+   ----------------------------------------------------------- */
+.accReviewList .review_table,
+.accReviewList .review_table tbody {
+	display: block;
+	width: 100%;
+}
+
+/* 1행 (홀수 번째 tr): 상단 메타 정보 줄 */
+.accReviewList .review_table tr:nth-child(odd) {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-top: 12px;
+	padding: 13px 18px 8px;
+	border: 1px solid #d9e5f7;
+	border-bottom: none;
+	border-radius: 12px 12px 0 0;
+	background: #ffffff;
+}
+
+.accReviewList .review_table tr:first-child {
+	margin-top: 0;
+}
+
+.accReviewList .review_table tr:nth-child(odd) td {
+	display: inline-flex;
+	align-items: center;
+	padding: 0;
+	border: 0;
+	white-space: nowrap;
+}
+
+/* 1열: 작성자 */
+.accReviewList .review_table tr:nth-child(odd) td:nth-child(1) {
+	font-size: 14px;
+	font-weight: 700;
+	color: #0d2859;
+}
+
+/* 2열: 작성시간 */
+.accReviewList .review_table tr:nth-child(odd) td:nth-child(2) {
+	font-size: 12px;
+	color: #7a8fa8;
+}
+
+/* 3열: 별점 */
+.accReviewList .review_table tr:nth-child(odd) td:nth-child(3) .star {
+	color: #f5a400;
+	font-size: 15px;
+	letter-spacing: 1px;
+}
+
+/* 4열: 좋아요 + 수정/삭제 버튼 (오른쪽 끝으로 밀착) */
+.accReviewList .review_table tr:nth-child(odd) td:nth-child(4) {
+	margin-left: auto;
+	gap: 6px;
+}
+
+/* 2행 (짝수 번째 tr): 하단 리뷰 본문 줄 */
+.accReviewList .review_table tr:nth-child(even) {
+	display: block;
+	width: 100%;
+	padding: 4px 18px 14px;
+	border: 1px solid #d9e5f7;
+	border-top: none;
+	border-radius: 0 0 12px 12px;
+	background: #ffffff;
+	box-shadow: 0 3px 10px rgba(22, 59, 112, 0.04);
+}
+
+.accReviewList .review_table tr:nth-child(even) td.data {
+	display: block;
+	width: 100%;
+	padding: 12px 16px;
+	border-radius: 8px;
+	background: #f5f9ff;
+	font-size: 14px;
+	line-height: 1.55;
+	color: #253957;
+	word-break: break-word;
+}
+
+/* 실제 리뷰 텍스트 영역에만 줄바꿈 허용 (JSP 들여쓰기 공백 무시) */
+.accReviewList [id^="revView_"] {
+	white-space: pre-line;
+}
+
+/* 좋아요 알약 버튼 & 배지 공통 스타일 */
+.accReviewList .like_pill_btn,
+.accReviewList .like_pill_badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 32px;
+	padding: 0 14px;
+	border: 1px solid #cce0ff;
+	border-radius: 999px;
+	background: #f0f6ff;
+	color: #174b8c;
+	font-family: inherit;
+	font-size: 13px;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+/* 클릭 가능한 추천 버튼 전용 호버 효과 */
+.accReviewList .like_pill_btn {
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.accReviewList .like_pill_btn:hover {
+	background: #e1eeff;
+	border-color: #8cb6f5;
+	transform: translateY(-1px);
+}
+
+.accReviewList .like_badge {
+	font-size: 14px;
+	line-height: 1;
+}
+
+.accReviewList .like_count {
+	color: #0b469c;
+	font-weight: 800;
+}
+
+/* 버튼 스타일 */
+.accReviewList .btns {
+	height: 28px;
+	margin-left: 4px;
+	padding: 0 10px;
+	border: 1px solid #b4c8e4;
+	border-radius: 6px;
+	background: #ffffff;
+	color: #174b8c;
+	font-size: 12px;
+	font-weight: 700;
+	cursor: pointer;
+	white-space: nowrap;
+	transition: all 0.2s;
+}
+
+.accReviewList .btns:hover {
+	background: #edf4ff;
+	border-color: #174b8c;
+}
+
+.accReviewList input[value="등록하기"].btns {
+	background: #174b8c;
+	border-color: #174b8c;
+	color: #ffffff;
+}
+
+.accReviewList input[value="등록하기"].btns:hover {
+	background: #0b3265;
+}
+
+/* 페이징 영역 */
+.accReviewList .paging {
+	margin-top: 22px;
+	text-align: center;
+}
+
+.accReviewList .paging input[type="button"] {
+	min-width: 34px;
+	height: 34px;
+	margin: 0 3px;
+	padding: 0 10px;
+	border: 1px solid #d6e2f3;
+	border-radius: 50%;
+	background: #ffffff;
+	color: #194277;
+	font-size: 13px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.accReviewList .paging input[type="button"]:hover {
+	background: #e8f1ff;
+}
+
+.accReviewList .paging input.currentPage_btn {
+	background: #174b8c;
+	border-color: #174b8c;
+	color: #ffffff;
+}
+
+/* 모바일 화면 대응 */
+@media screen and (max-width: 650px) {
+	.accReviewList .review_table tr:nth-child(odd) {
+		flex-wrap: wrap;
+		gap: 6px 10px;
+	}
+	.accReviewList .review_table tr:nth-child(odd) td:nth-child(4) {
+		width: 100%;
+		margin-left: 0;
+		justify-content: flex-end;
+	}
+}
+
+/* 인라인 리뷰 수정 폼 스타일 */
+.accReviewList .inline_edit_box {
+	width: 100%;
+}
+
+.accReviewList .inline_edit_box .edit_top_row {
+	margin-bottom: 8px;
+}
+
+.accReviewList .inline_edit_box select {
+	height: 32px;
+	padding: 0 10px;
+	border: 1px solid #bfd3ef;
+	border-radius: 6px;
+	background: #ffffff;
+	color: #f5a400;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.accReviewList .inline_edit_box textarea {
+	width: 100%;
+	padding: 10px 12px;
+	border: 1px solid #bfd3ef;
+	border-radius: 8px;
+	background: #ffffff;
+	font-family: inherit;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #253957;
+	resize: vertical;
+}
+
+.accReviewList .inline_edit_box textarea:focus {
+	outline: none;
+	border-color: #1656a2;
+}
+
+.accReviewList .inline_edit_box .edit_btn_row {
+	display: flex;
+	justify-content: flex-end;
+	gap: 6px;
+	margin-top: 8px;
+}
+
+.accReviewList .inline_edit_box .save_btn {
+	background: #174b8c;
+	border-color: #174b8c;
+	color: #ffffff;
+}
+
+.accReviewList .inline_edit_box .save_btn:hover {
+	background: #0b3265;
+}
