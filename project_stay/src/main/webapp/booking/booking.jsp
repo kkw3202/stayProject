@@ -12,7 +12,7 @@
 						<input type="text" name="book_name" id="book_name">
 					</div>
 					<div class="phoneWrap">
-						<label for="phone">예약자 번호</label>
+						<label for="phone">예약자 전화번호</label>
 						<input type="text" name="phone" id="phone" placeholder="010xxxxxxxx, -없이 입력">
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 					</div>
 					<div class="info_wrap">
 						<p class="info">${room_name }</p>
-						<p class="info">${book_checkin_date } ${acc_checkinTime } ~<br/>${book_checkout_date } ${acc_checkoutTime }</p>
+						<p class="info">${prt_book_checkin_date } ${acc_checkinTime } ~<br/>${prt_book_checkout_date } ${acc_checkoutTime }</p>
 						<p class="info">${room_capacity }인실</p>
 						<p class="info">${room_infos }</p>
 					</div>

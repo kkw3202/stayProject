@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Inquiry.InquiryDAO;
 import model.Inquiry.InquiryDTO;
@@ -26,6 +27,15 @@ public class inquiryRewriteProc extends HttpServlet {
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 인코딩
 		request.setCharacterEncoding("utf-8");
+		
+		HttpSession session = request.getSession(false);
+		String user_email = (String)session.getAttribute("user_email");
+		
+		// 세션 만료 시 로그인 페이지로 이동
+		if (user_email == null) {
+			response.sendRedirect("loginProc.do");
+			return;
+		}
 		
 		// 상세보기에서 inq_code 파라미터로 받아오기
 		int inq_code = Integer.parseInt(request.getParameter("inq_code"));

@@ -34,8 +34,14 @@ public class inquiryInfoProc extends HttpServlet {
 
 		// 객체 생성
 		InquiryDAO idao = new InquiryDAO();
-		HttpSession session = request.getSession();
-		String user_email = (String) session.getAttribute("user_email");
+		HttpSession session = request.getSession(false);
+		String user_email = (String)session.getAttribute("user_email");
+		
+		// 세션 만료 시 로그인 페이지로 이동
+		if (user_email == null) {
+			response.sendRedirect("loginProc.do");
+			return;
+		}
 		
 		int inq_code = Integer.parseInt(request.getParameter("inq_code"));
 		// idao에서 작성자 찾아오는 메서드

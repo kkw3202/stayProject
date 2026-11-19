@@ -23,7 +23,7 @@ public class WishListDAO {
 		ArrayList<Integer> result = new  ArrayList<Integer>();
 		try {
 			con = Util.getConnection();
-			String sql = "select acc_code from wishList where user_code=? order by acc_code asc";
+			String sql = "select acc_code from wishlist where user_code=? order by acc_code asc";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, user_code);
 			

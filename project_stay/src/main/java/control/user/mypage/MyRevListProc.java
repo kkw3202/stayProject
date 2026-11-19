@@ -33,10 +33,15 @@ public class MyRevListProc extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		// 페이징 핸들러 및 자료가져오기
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String user_email = (String)session.getAttribute("user_email");
 		pagingHandlerDAO pdao = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
+		
+		if (user_email == null) {
+			response.sendRedirect("loginProc.do");
+			return;
+		}
 		
 		// rdao 생성하기
 		ReviewDAO rdao = new ReviewDAO();
@@ -75,13 +80,39 @@ public class MyRevListProc extends HttpServlet {
 		// 리뷰 작성안된 목록 배열 
 		ArrayList<ReviewDTO> notList;
 		notList = rdao.getUnwrittenMyReviewList(user_email);
+		ArrayList<ReviewDTO> send_notList = new ArrayList<ReviewDTO>(); // jsp로 보낼 notList
+		
+		// not리스트에서 중복된 acc_code 삭제하기
+		ArrayList<Integer> code_chk = new ArrayList<Integer>(); // 이미 한번 나온 acc_code 담을 리스트
+		int notList_cnt = 0;
+		for (int i=0; i<notList.size();i++) {
+			int currentCode = notList.get(i).getAcc_code(); // 지금 비교할 acc_code값
+			boolean is_in = true; // currentCode가 send_notList에 들어갈지 체크하는 체크키
+			if(!code_chk.isEmpty()) {
+				for(int j : code_chk) {
+					if(currentCode == j) {
+						is_in = false;
+						break;
+					}
+				}
+			}
+			
+			if(is_in == true) {
+				send_notList.add(notList.get(i));
+				code_chk.add(currentCode);
+				notList_cnt++;
+			}
+			else is_in = true;
+		}
 		
 		// 리뷰 작성안된 목록 총 갯수 구하는 함수
-		int notList_cnt = rdao.countUnwrittenTotalReview(user_email);
+		//int notList_cnt = 0;
+		//if(!send_notList.isEmpty())  notList_cnt = send_notList.size();
+
 		
 		// JSP로 넘길 자료 세팅하기
 		request.setAttribute("rlist", rlist);
-		request.setAttribute("notList", notList);
+		request.setAttribute("notList", send_notList);
 		request.setAttribute("notList_cnt", notList_cnt);
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);

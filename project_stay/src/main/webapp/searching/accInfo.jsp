@@ -3,6 +3,7 @@
 <!-- 1108 추가분 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="style/acc_info.css">
+<link rel="stylesheet" href="style/acc_info_modal_legacy.css">
 <section>
 	<div class="contaier">
 		<c:set var="pdto" value="${pdto }"/>
@@ -26,7 +27,7 @@
 				<p class="avg_rating">${pdto.avg_rating }</p>
 			</div>
 			<div class="right">
-				<button type="button" onclick="${empty sessionScope.user_email ? 'pleasJoin();' : 'location.href=\'wishListAddcon.do?acc_code=' += pdto.acc_code += '\''}" ></button> <!-- 찜 추가 버튼 -->
+				<button type="button" onclick="${empty sessionScope.user_email ? 'pleasJoin();' : 'location.href=\'wishListAddcon.do?acc_code=' += pdto.acc_code += '\''}"  class="wish_btn"></button> <!-- 찜 추가 버튼 -->
 				<c:set var="low" value="999999999999"/>
 				<c:forEach items="${rdto_arr }" var="rdto" varStatus="stat">
 					<c:if test="${rdto.room_price<low}">
@@ -34,7 +35,7 @@
 						<c:set var="lowIndex" value="${stat.count-1 }"/>
 					</c:if>
 				</c:forEach>
-				<p class="low_price"><span class="per_oneday">1박</span>${rdto_arr[lowIndex].prt_room_price }원</p>
+				<p class="low_price"><span class="per_oneday">하루 머물 가격</span>${rdto_arr[lowIndex].one_day_prt_room_price}원</p>
 			</div>
 		</div>
 		<div class="room_list">
@@ -52,6 +53,7 @@
 								<p>입실 : ${pdto.acc_checkinTime }, 퇴실 : ${pdto.acc_checkoutTime }</p>
 							</div>
 							<div class="right">
+								<span class="per_oneday">${diffDays }박 ${diffDays+1 }일</span>
 								<p>${rdto.prt_room_price }원</p>
 								<button type="submit">객실 예약하기</button>
 							</div>
@@ -79,16 +81,20 @@
 							<div class="room_name">
 								<h5>${rdto.room_name }</h5>
 							</div>
-							<div class="room_images">
-								<c:forEach begin="1" end="4" var="i">
-									<c:set var="imgKey" value="room_img${i}"/>
-									<img alt="객실 이미지" src="${rdto[imgKey]}">
-								</c:forEach>
+							<div class="room_images_wrap">
+								<div class="big_room_images"><img alt="큰 이미지" src="${rdto.room_img1}"></div>
+								<div class="room_images">
+									<c:forEach begin="1" end="4" var="i">
+										<c:set var="imgKey" value="room_img${i}"/>
+										<img alt="객실 이미지" src="${rdto[imgKey]}" class="room_image">
+									</c:forEach>
+								</div>
 							</div>
 							<div class="about_room">
 								<h6>객실 정보</h6>
-								<span class="info_title">숙박 </span><span>| 체크인 ${book_checkin_date } - 체크아웃 ${book_checkout_date }</span>
-								<span class="info_title">숙박 인수 </span><span>| ${rdto.room_capacity }</span>
+								<span class="info_title">숙박 </span><span>| 체크인 ${prt_book_checkin_date }<br/>| 체크아웃 ${prt_book_checkout_date }</span>
+								<span class="info_title">숙박 인수 </span><span>| ${rdto.room_capacity }명</span>
+								<span class="info_title">하루 머무는 가격 </span><span>| ${rdto.prt_room_price }원</span>
 							</div>
 							
 							<br/>
@@ -113,9 +119,22 @@
 	</div>
 	
 	<script type="text/javascript" defer="defer">
+		let wish_btn = document.querySelector(".wish_btn");
+		if(${is_wish==true}) wish_btn.classList.add("wished");
+		
+		let room_image_arr = document.querySelectorAll(".room_image");
+		let big_room_images = document.querySelectorAll(".big_room_images img");
+		room_image_arr.forEach((item)=>{
+			item.addEventListener('mouseenter', ()=>{
+				big_room_images.forEach((item2)=>{
+					item2.src = item.src;
+				});
+			});
+		});
+	
 		let modal_roomInfo = document.querySelectorAll(".modal_roomInfo");
 		let modal_background = document.querySelectorAll(".modal_background");
-		function show_modal(num){
+		function show_modal(num){		
 			let show_back = modal_background[num];
 			show_back.classList.add("is-open");
 			let show_room = modal_roomInfo[num];
@@ -131,7 +150,8 @@
 		
 		function pleasJoin(){
 			alert("로그인 후 이용 가능합니다");
-			location.href="index.jsp?section=user/joinForm.jsp";
+			location.href="index.jsp?section=user/loginForm.jsp";
 		}
+
 	</script>
 </section>

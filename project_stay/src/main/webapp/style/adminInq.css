@@ -375,12 +375,12 @@
 }
 
 /* 12. 문의 및 답변 내용 */
-.admin-inq-wrap .inq-info-table td.inq-content {
-    text-align: left;
-    vertical-align: top;
-    line-height: 1.8;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
+.admin-inq-wrap .inq-info-table td.inq-content  {
+	text-align: left !important;
+	vertical-align: top;
+	line-height: 1.8;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
 }
 
 /* 13. 안내 메시지 */

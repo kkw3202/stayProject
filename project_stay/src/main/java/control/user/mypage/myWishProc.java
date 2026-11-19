@@ -32,8 +32,9 @@ public class myWishProc extends HttpServlet {
 		// 인코딩
 		request.setCharacterEncoding("utf-8");
 		
+		
 		// 핸들러 인스턴스 및 user_email 가져오기 + wdao 인스턴스
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String user_email = (String)session.getAttribute("user_email");
 		
 		// 세션 만료 시 처리

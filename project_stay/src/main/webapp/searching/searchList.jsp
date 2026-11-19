@@ -84,11 +84,9 @@
 							</li>
 								<li class="acc_facility">
 									<div>
-									<%-- <c:forTokens items="" delims=""> --%>
-										<span>부대시설</span><!-- 이 자리에 추후 forTokens 으로 받아온 부대시설 추가 -->	
-										<span>부대시설</span><!-- 이 자리에 추후 forTokens 으로 받아온 부대시설 추가 -->	
-										<span>부대시설</span><!-- 이 자리에 추후 forTokens 으로 받아온 부대시설 추가 -->	
-									<%-- </c:forTokens>	 --%>
+									<c:forTokens items="${sa_arr.acc_facility }" delims="/" var="facility">
+										<span>${facility }</span>
+									</c:forTokens>
 									</div>
 								</li>
 						</ul>

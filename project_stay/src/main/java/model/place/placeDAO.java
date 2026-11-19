@@ -42,8 +42,8 @@ public class placeDAO {
 			if(acc_name != null && !acc_name.isEmpty()) cnt_notNull++;
 			
 			String sql = "select a.acc_img, a.acc_type, a.acc_name, c.city_name, r.avg_ratings, orsq.acc_code, orsq.min_price, r.cnt_reviews, orsq.max_room_capacity, orsq.min_room_capacity, a.acc_facility, b.counted "
-					+ "from Accommodation a "
-					+ "inner join City c on c.city_code = a.city_code "
+					+ "from accommodation a "
+					+ "inner join city c on c.city_code = a.city_code "
 					+ "left join (select acc_code, avg(rev_rating) avg_ratings, count(*) as cnt_reviews from reviews group by acc_code) r on r.acc_code = a.acc_code "
 					+ "LEFT JOIN (SELECT COUNT(*) AS counted, a.acc_code AS acc_code FROM booking b INNER JOIN room r ON r.room_code = b.room_code INNER JOIN accommodation a ON r.acc_code = a.acc_code GROUP BY acc_code) b ON b.acc_code = a.acc_code ";
 					

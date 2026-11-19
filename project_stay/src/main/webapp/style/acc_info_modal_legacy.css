@@ -1,0 +1,360 @@
+@charset "utf-8";
+/* ============================================================
+   객실 상세정보 모달 전용
+   - 큰 이미지(.big_room_images)는 자리만 확보 (스크립트로 나중에 채움)
+   - 썸네일 4장 / 우측 정보 / 하단 편의시설·환불규정
+   - about_room: 높이 소폭 증가 + info_title 너비 유동적 (공백 제거)
+   SVG 경로는 style/acc_info.css 기준 ../image/ 입니다.
+   ============================================================ */
+section > .contaier .modal_background,
+section > .contaier .modal_background * { box-sizing: border-box; }
+
+section > .contaier .modal_background {
+  display: none;
+  position: fixed;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  z-index: 99999;
+  overflow-y: auto;
+  padding: 28px 16px;
+  background: rgba(17, 29, 51, .78);
+  text-align: center;
+}
+section > .contaier .modal_background.is-open { display: block; }
+
+section > .contaier .modal_roomInfo.noShow { display: none !important; }
+
+section > .contaier .modal_roomInfo {
+  display: block;
+  position: relative;
+  width: 860px;
+  max-width: 100%;
+  margin: 0 auto 28px;
+  padding: 70px 26px 22px;
+  background: #fff;
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .32);
+  text-align: left;
+  font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+  color: #102e61;
+  overflow: hidden;
+}
+
+/* 상단 파란 제목줄 */
+section > .contaier .modal_roomInfo:before {
+  content: '객실상세정보';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  line-height: 56px;
+  padding-left: 78px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  background: #0e448f;
+  border-radius: 14px 14px 0 0;
+  letter-spacing: -0.3px;
+}
+
+/* 상단 흰색 아이콘 */
+section > .contaier .modal_roomInfo:after {
+  content: '';
+  position: absolute;
+  left: 26px; top: 12px;
+  width: 32px; height: 32px;
+  background: url('../image/icon-bed.svg') center center no-repeat;
+  background-size: 32px 32px;
+  filter: brightness(0) invert(1);
+}
+
+/* 닫기 버튼 */
+section > .contaier .modal_roomInfo > button:first-child {
+  position: absolute;
+  right: 14px; top: 9px;
+  z-index: 2;
+  width: 38px; height: 38px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent url('../image/icon-close.svg') center no-repeat;
+  background-size: 24px 24px;
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+}
+section > .contaier .modal_roomInfo > button:first-child:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 이미지 영역 래퍼 */
+section > .contaier .modal_roomInfo .room_images_wrap {
+  float: left;
+  width: 53%;
+  margin: 0 0 30px;
+}
+
+/* 좌측 큰 이미지 자리 (스크립트로 채울 예정, 빈 상태로 높이만 확보) */
+section > .contaier .modal_roomInfo .big_room_images {
+  display: block;
+  width: 100%;
+  height: 210px;
+  margin: 0 0 8px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #edf3fa;
+}
+section > .contaier .modal_roomInfo .big_room_images img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  border: 0;
+  border-radius: 12px;
+}
+
+/* 좌측 썸네일 4장 */
+section > .contaier .modal_roomInfo .room_images {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  font-size: 0;
+}
+
+section > .contaier .modal_roomInfo .room_images img {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  height: 68px;
+  margin: 0;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #edf3fa;
+  cursor: pointer;
+  transition: border-color .2s ease;
+}
+
+section > .contaier .modal_roomInfo .room_images img:first-child {
+  border-color: none;
+}
+
+/* 우측 객실명 */
+section > .contaier .modal_roomInfo .room_name {
+  float: right;
+  width: 44%;
+  margin: 0 0 10px;
+}
+
+section > .contaier .modal_roomInfo .room_name h5 {
+  margin: 0;
+  padding-left: 40px;
+  min-height: 32px;
+  line-height: 32px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0d3676;
+  background: url('../image/icon-bed.svg') left center no-repeat;
+  background-size: 28px 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 우측 객실 상세 정보 - 높이 소폭 증가 + info_title 너비 유동적 */
+
+
+section > .contaier .modal_roomInfo .about_room h6 { display: none; }
+
+section > .contaier .modal_roomInfo .about_room {
+  float: right;
+  clear: right;
+  width: 44%;
+  margin: 0 0 12px;
+  border: 1px solid #d4e2f6;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+section > .contaier .modal_roomInfo .about_room span {
+  display: flex;
+  align-items: center;
+  float: left;
+  min-height: 60px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #d9e5f5;
+  font-size: 13px;
+  line-height: 1.45;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+section > .contaier .modal_roomInfo .about_room .info_title {
+  clear: left;
+  width: 45%;
+  padding-left: 38px;
+  font-weight: 700;
+  color: #123c7e;
+  background: #eaf2ff;
+  word-break: keep-all;
+}
+
+section > .contaier .modal_roomInfo .about_room .info_title + span {
+  width: 55%;
+  color: #17263f;
+  background: #fff;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+section > .contaier .modal_roomInfo .about_room span:nth-last-child(-n+2) {
+  border-bottom: 0;
+}
+
+/* 아이콘 */
+section > .contaier .modal_roomInfo .about_room .info_title:nth-of-type(1) {
+  background: #eaf2ff url('../image/icon-calendar.svg') 12px center no-repeat;
+  background-size: 17px 17px;
+}
+section > .contaier .modal_roomInfo .about_room .info_title:nth-of-type(3) {
+  background: #eaf2ff url('../image/icon-people.svg') 12px center no-repeat;
+  background-size: 17px 17px;
+}
+section > .contaier .modal_roomInfo .about_room .info_title:nth-of-type(5) {
+  background: #eaf2ff url('../image/icon-price.svg') 12px center no-repeat;
+  background-size: 17px 17px;
+}
+
+/* float 방해 방지 */
+section > .contaier .modal_roomInfo > br { display: none; }
+
+/* 하단 편의시설 / 취소 및 환불 규정 */
+section > .contaier .modal_roomInfo .additionalInfo_room {
+  clear: both;
+  position: relative;
+  margin-top: 20px;
+  padding: 0;
+  border: 1px solid #cbdcf7;
+  border-radius: 11px;
+  background: #fff;
+  overflow: hidden;
+  font-size: 0;
+}
+
+section > .contaier .modal_roomInfo .additionalInfo_room h6 {
+  display: inline-block;
+  width: 22%;
+  min-height: 48px;
+  margin: 0;
+  padding: 14px 10px 12px 40px;
+  vertical-align: top;
+  background: #e7f0ff;
+  color: #12428b;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+section > .contaier .modal_roomInfo .additionalInfo_room h6:first-child {
+  background: #e7f0ff url('../image/icon-amenity.svg') 12px 15px no-repeat;
+  background-size: 20px 20px;
+}
+
+section > .contaier .modal_roomInfo .additionalInfo_room h6:nth-of-type(2) {
+  display: block;
+  float: left;
+  clear: left;
+  min-height: 96px;
+  background: #e7f0ff url('../image/icon-refund.svg') 12px 15px no-repeat;
+  background-size: 20px 20px;
+}
+
+section > .contaier .modal_roomInfo .additionalInfo_room > span {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 12.5px;
+  line-height: 1.5;
+  padding: 13px 12px;
+  color: #263750;
+  border-bottom: 1px solid #d7e3f5;
+}
+
+section > .contaier .modal_roomInfo .additionalInfo_room > .info_title {
+  width: 17%;
+  font-weight: 700;
+  color: #12509c;
+}
+
+section > .contaier .modal_roomInfo .additionalInfo_room > .info_title + span {
+  width: 61%;
+}
+
+section > .contaier .modal_roomInfo .additionalInfo_room h6:nth-of-type(2) ~ span.info_title {
+  margin-left: 0;
+  width: 17%;
+}
+
+section > .contaier .modal_roomInfo .additionalInfo_room h6:nth-of-type(2) ~ span.info_title + span {
+  width: 61%;
+}
+
+section > .contaier .modal_roomInfo .additionalInfo_room h6:nth-of-type(2) ~ span.info_title:first-of-type {
+  color: #12804b;
+}
+
+/* 반응형 */
+@media screen and (max-width: 720px) {
+  section > .contaier .modal_roomInfo {
+    padding: 66px 14px 18px;
+  }
+
+  section > .contaier .modal_roomInfo .room_images_wrap,
+  section > .contaier .modal_roomInfo .room_name,
+  section > .contaier .modal_roomInfo .about_room {
+    float: none;
+    width: 100%;
+  }
+
+  section > .contaier .modal_roomInfo .big_room_images {
+    height: 180px;
+  }
+
+  section > .contaier .modal_roomInfo .room_images img {
+    height: 60px;
+  }
+
+  section > .contaier .modal_roomInfo .room_name {
+    margin: 14px 0 10px;
+  }
+
+  section > .contaier .modal_roomInfo .about_room {
+    grid-template-columns: max-content 1fr;
+  }
+
+  section > .contaier .modal_roomInfo .about_room span {
+    min-height: 50px;
+  }
+
+  section > .contaier .modal_roomInfo .additionalInfo_room h6 {
+    width: 100%;
+    min-height: 0;
+    display: block;
+  }
+
+  section > .contaier .modal_roomInfo .additionalInfo_room h6:nth-of-type(2) {
+    float: none;
+    width: 100%;
+    min-height: 0;
+  }
+
+  section > .contaier .modal_roomInfo .additionalInfo_room > .info_title,
+  section > .contaier .modal_roomInfo .additionalInfo_room h6:nth-of-type(2) ~ span.info_title {
+    width: 30%;
+  }
+
+  section > .contaier .modal_roomInfo .additionalInfo_room > .info_title + span,
+  section > .contaier .modal_roomInfo .additionalInfo_room h6:nth-of-type(2) ~ span.info_title + span {
+    width: 70%;
+  }
+}

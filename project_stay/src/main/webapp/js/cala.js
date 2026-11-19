@@ -127,8 +127,14 @@
 	
 	    if(currentDateVal == val0 || currentDateVal == val1) {
 	        selElement.classList.remove("selected");
-            if(currentDateVal == val0) saveSel1.innerHTML = "";
-            if(currentDateVal == val1) saveSel2.innerHTML = "";
+			if(saveSel.length==2){
+				if(currentDateVal == val0) saveSel1.innerHTML = "";
+            	if(currentDateVal == val1) saveSel2.innerHTML = "";
+			}else{
+				saveSel1.innerHTML = "";
+				saveSel2.innerHTML = "";
+			}
+            
         }else {
 	        if(saveSel.length >= 2){
 	            alert("취소 후 재선택");
@@ -136,7 +142,6 @@
 	            selElement.classList.add("selected");
 	            
 	            let inputHtml = "<input type='hidden' value='" + currentDateVal + "' name='selectedDays' class='saveSel'/>";
-	            
 	            if(saveSel1.innerHTML.trim() === "") {
 	                saveSel1.innerHTML = inputHtml;
 	            } else if(saveSel2.innerHTML.trim() === "") {

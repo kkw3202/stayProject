@@ -6,14 +6,78 @@
 
 <div class="accReviewList" id="accReviewSection">
 	<div class="review_header">
-		<h3>리뷰 (${revCount}건 )</h3>
-		<%-- 1. 현재 숙소 예약자 + 퇴실일 경과 + 미작성자인 경우에만 리뷰작성 버튼 노출 --%>
-		<c:if test="${canWrite}">
+	<h3>리뷰 (${revCount}건)</h3>
+	<c:choose>
+		<%-- 1. 현재 숙소 예약자 + 퇴실일 경과 + 미작성자인 경우 --%>
+		<c:when test="${canWrite}">
 			<div class="writeBox">
 				<input type="button" class="write_btn" value="리뷰작성" onclick="toggleInlineReviewForm()"/>
 			</div>
-		</c:if>
-	</div>
+		</c:when>
+		<%-- 2. 이미 이 숙소에 리뷰를 작성한 경우 안내 문구 노출 --%>
+		<c:when test="${not empty myReview}">
+			<span class="review_policy_note">※ 숙소당 1개의 리뷰만 작성할 수 있습니다. (수정·삭제 가능)</span>
+		</c:when>
+	</c:choose>
+</div>
+<%-- ★ 내가 작성한 리뷰 최상단 전용 박스 --%>
+	<c:if test="${not empty myReview}">
+		<div class="my_pinned_review">
+			<div class="pinned_header">
+				<div class="pinned_meta">
+					<span class="my_review_badge">내가 작성한 리뷰</span>
+					<strong class="pinned_writer">${myReview.user_name}</strong>
+					<span class="pinned_date">${myReview.rev_created_datetime}</span>
+					<span class="star">
+						<c:choose>
+							<c:when test="${myReview.rev_rating == 5}">★★★★★</c:when>
+							<c:when test="${myReview.rev_rating == 4}">★★★★☆</c:when>
+							<c:when test="${myReview.rev_rating == 3}">★★★☆☆</c:when>
+							<c:when test="${myReview.rev_rating == 2}">★★☆☆☆</c:when>
+							<c:otherwise>★☆☆☆☆</c:otherwise>
+						</c:choose>
+					</span>
+				</div>
+				<div class="pinned_actions">
+					<div class="like_pill_badge">
+						<span class="like_badge">👍</span>
+						<span class="like_text">좋아요</span>
+						<strong class="like_count">${myReview.rev_like}</strong>
+					</div>
+					<input type="button" class="btns" onclick="toggleMyPinnedEdit()" value="수정하기"/>
+					<input type="button" class="btns" onclick="deleteReview(${myReview.rev_code}, ${myReview.acc_code})" value="삭제하기"/>
+				</div>
+			</div>
+
+			<%-- 평소 보이는 내 리뷰 본문 --%>
+			<div id="myRevView" class="pinned_content">${myReview.rev_content}</div>
+
+			<%-- 수정하기 클릭 시 펼쳐지는 인라인 수정 폼 --%>
+			<div id="myRevEdit" class="inline_edit_box" style="display: none;">
+				<form action="reviewUpdateProcCon.do" method="post" onsubmit="return chkEditForm(this);">
+					<input type="hidden" name="rev_code" value="${myReview.rev_code}"/>
+					<input type="hidden" name="acc_code" value="${myReview.acc_code}"/>
+					<input type="hidden" name="book_checkin_date" value="${book_checkin_date}"/>
+					<input type="hidden" name="book_checkout_date" value="${book_checkout_date}"/>
+					
+					<div class="edit_top_row">
+						<select name="rev_rating">
+							<option value="5" ${myReview.rev_rating == 5 ? 'selected' : ''}>★★★★★ (5점)</option>
+							<option value="4" ${myReview.rev_rating == 4 ? 'selected' : ''}>★★★★☆ (4점)</option>
+							<option value="3" ${myReview.rev_rating == 3 ? 'selected' : ''}>★★★☆☆ (3점)</option>
+							<option value="2" ${myReview.rev_rating == 2 ? 'selected' : ''}>★★☆☆☆ (2점)</option>
+							<option value="1" ${myReview.rev_rating == 1 ? 'selected' : ''}>★☆☆☆☆ (1점)</option>
+						</select>
+					</div>
+					<textarea name="rev_content" rows="3">${myReview.rev_content}</textarea>
+					<div class="edit_btn_row">
+						<input type="submit" class="btns save_btn" value="수정완료"/>
+						<input type="button" class="btns" onclick="toggleMyPinnedEdit()" value="취소"/>
+					</div>
+				</form>
+			</div>
+		</div>
+	</c:if>
 	<%-- 페이지 이동 없이 바로 아래에 펼쳐지는 인라인 리뷰 작성 폼 (처음엔 숨김) --%>
 	<%-- 인라인 리뷰 작성 폼은 review_header 바깥(바로 아래)에 배치 --%>
 	<c:if test="${canWrite}">
@@ -245,6 +309,19 @@
 		}
 		if (confirm("리뷰를 등록하시겠습니까?")) {
 			f.submit();
+		}
+	}
+	
+	// 내 리뷰 토글 폼 
+	function toggleMyPinnedEdit() {
+		let viewBox = document.getElementById("myRevView");
+		let editBox = document.getElementById("myRevEdit");
+		if (editBox.style.display === "none") {
+			viewBox.style.display = "none";
+			editBox.style.display = "block";
+		} else {
+			viewBox.style.display = "block";
+			editBox.style.display = "none";
 		}
 	}
 

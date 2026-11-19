@@ -60,13 +60,11 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <th>문의 내용</th>
-                    <td class="inq-content">
-                        <c:out value="${inq.inqContent}" />
-                    </td>
-                </tr>
-            </tbody>
+				<tr>
+					<th>문의 내용</th>
+					<td class="inq-content"><c:out value="${inq.inqContent}" /></td>
+				</tr>
+			</tbody>
         </table>
 
     </div>

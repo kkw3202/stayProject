@@ -33,6 +33,8 @@
                 </div>
                 <button type="submit" class="primary-button">조회하기</button>
             </form>
+            <p class="contact_admin">예약번호를 잊어버리신 경우, 관리자에게 문의 바랍니다. (<span class="contact_admin tel">☎ 1899-0933</span>)</p>
+            
         </div>
     </div>
 </div>

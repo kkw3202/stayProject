@@ -30,7 +30,7 @@
                     <input type="password" id="loginPassword" name="password" placeholder="비밀번호를 입력하세요">
                 </div>
                 <div class="login-options">
-                    <label class="remember"><input type="checkbox" name="rememberEmail"> 이메일 기억하기</label>
+                    <!-- <label class="remember"><input type="checkbox" name="rememberEmail"> 이메일 기억하기</label> -->
                     <button type="button" class="link-button" onclick="findPassword()">비밀번호 찾기</button>
                 </div>
                 <button type="button" class="primary-button" onclick="chkLogin()">로그인</button>

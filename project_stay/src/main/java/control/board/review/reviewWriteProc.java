@@ -31,8 +31,15 @@ public class reviewWriteProc extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		// 세션값 가져오기
-		HttpSession session = request.getSession();
-		String user_email= (String)session.getAttribute("user_email");
+		HttpSession session = request.getSession(false);
+		String user_email = (String)session.getAttribute("user_email");
+		
+		// 세션 만료 시 로그인 페이지로 이동
+		if (user_email == null) {
+			response.sendRedirect("loginProc.do");
+			return;
+		}
+		
 		ReviewDAO rdao = new ReviewDAO();
 		
 		// 숙소코드 카테고리용

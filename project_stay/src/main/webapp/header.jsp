@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="fn" uri = "http://java.sun.com/jsp/jstl/functions" %> 
  <link rel="stylesheet" href="style/mumulda_calendar.css">
 	<header id="header">
 		<!-- 좌측 상단 -->
@@ -15,19 +16,23 @@
 
 			<c:choose>
 				
-				<c:when test="${not empty sessionScope.user_email and sessionScope.user_email != 'admin@naver.com'}">
+				<c:when test="${not empty sessionScope.user_email and sessionScope.user_email != 'admin@naver.com'}">		
 					<a href="mypageInfoProc.do">마이페이지</a>
-					<a href="logoutProc.do">로그아웃</a>
 					<a href="inquiryListProc.do">1:1 문의</a>	
+					<c:forTokens items="${sessionScope.user_email }" delims="@" varStatus="index" var="name">
+						<c:if test="${index.count == 1 }">
+							<span class="whoAreYou">${name } 님</span>
+						</c:if>
+					</c:forTokens>
+					<a href="logoutProc.do">로그아웃</a>
 				</c:when>
 				
 				<c:when test="${not empty sessionScope.user_email and sessionScope.user_email eq 'admin@naver.com'}">
-					
 					<a href="AdminCustomerListProc.do">회원관리</a>
 					<a href="AdminBookListProc.do">예약관리</a>
 					<a href="AdminAccListProc.do">숙소관리</a>
-					<a href="AdminInqListProc.do">1:1문의 관리</a>  <%-- 추후 jsp 파일 만들고 매핑하기 --%>
-					<span>[관리자]</span> <%-- 추후 css 붙이고 태그 바꾸기 --%>
+					<a href="AdminInqListProc.do">1:1문의 관리</a>
+					<span class="whoAreYou">관리자</span>
 					<a href="logoutProc.do">로그아웃</a>
 				</c:when>
 				
@@ -114,6 +119,8 @@
 		let day_show = document.getElementById("day_show");
 		let prt_book_checkin_date = formatDate("${book_checkin_date}");
 		let prt_book_checkout_date = formatDate("${book_checkout_date}");
+		// let hidden_saveSel = document.querySelectorAll(".hidden_saveSel .save_sel");
+		
 		
 		if(${book_checkin_date != null && is_index != true}) day_show.innerText = prt_book_checkin_date + " - " + prt_book_checkout_date;
 		
@@ -122,6 +129,19 @@
 	        let month = date.substring(4, 6);
 	        let day = date.substring(6, 8);
 	        return year + "." + month + "." + day;
+		}
+		
+		function prt_day() {
+			let save_sel_arr = document.querySelectorAll(".save_sel");
+			
+			let start_day = save_sel_arr[0];
+			let end_day = save_sel_arr[1];
+			
+			if(start_day > end_day) {
+				start_day = save_sel_arr[1];
+				end_day = save_sel_arr[0];
+			}
+			day_show.innerText = formatDate(start_day) + " - " + formatDate(end_day);
 		}
 	</script>
 	<script type="text/javascript">

@@ -52,7 +52,7 @@ public class myBookingProc extends HttpServlet {
 		// 인코딩
 		request.setCharacterEncoding("utf-8");
 		// 세션에서 회원 아이디 얻고 mbdao 인스턴스
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String user_email = (String)session.getAttribute("user_email");
 		
 		// 세션 만료 시 로그인 페이지로 이동
