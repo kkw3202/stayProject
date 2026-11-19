@@ -37,8 +37,14 @@ public class accReviewListProc extends HttpServlet {
 		System.out.println("-----------------------------------------------------");
 		
 		// 세션값 가져오기
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String user_email = (String)session.getAttribute("user_email");
+		
+		// 세션 만료 시 로그인 페이지로 이동
+		if (user_email == null) {
+			response.sendRedirect("loginProc.do");
+			return;
+		}
 		pagingHandlerDAO pado = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO();
 		ReviewDAO rdao = new ReviewDAO();
@@ -73,13 +79,12 @@ public class accReviewListProc extends HttpServlet {
 		boolean canWrite = rdao.canWriteReview(user_email, acc_code);
 		
 		ArrayList<ReviewDTO> rlist = rdao.getReviewAccBoard(startRow, pageSize, acc_code);
+		ReviewDTO myReview = rdao.getMyAccReview(user_email, acc_code);
 		
 		// 세팅하기
-		request.setAttribute("rlist", rlist);
+		request.setAttribute("myReview", myReview); 
 		request.setAttribute("canWrite", canWrite); // notList 처리를 위한 boolean 값
 		request.setAttribute("acc_code", acc_code); // 리뷰 작성 페이지로 갈 수 있도록 넘김
-		
-		// 세팅하기
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);

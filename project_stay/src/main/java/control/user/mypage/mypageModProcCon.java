@@ -27,7 +27,7 @@ public class mypageModProcCon extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		System.out.println("--------------------------");
 		// 아이디 가져오기
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String user_email = (String)session.getAttribute("user_email");
 		
 		// 다른 파라미터 가져오기

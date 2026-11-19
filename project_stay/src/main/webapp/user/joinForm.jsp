@@ -32,7 +32,7 @@
 					<tr>
 						<th>비밀번호 *</th>
 						<td><input type="password" name="password"
-							placeholder="영문과 숫자로 20자 이내"></td>
+							placeholder="영문 또는 숫자로 20자 이내"></td>
 					</tr>
 					<tr>
 						<th>보안질문 *</th>
@@ -104,6 +104,13 @@
 		}
 		if (f.phone.value.trim() == "") {
 			alert("전화번호를 입력하세요!");
+			f.phone.focus();
+			return;
+		}
+		// 회원 연락처가 11자리가 아닌 경우, 리턴
+		if(f.phone.value.length != 11){
+			alert("연락처 11자리를 정확히 입력해주세요. (예: 01012345678)");
+			f.phone.value = "";
 			f.phone.focus();
 			return;
 		}

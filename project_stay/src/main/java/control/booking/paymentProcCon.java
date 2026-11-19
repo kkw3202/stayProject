@@ -3,6 +3,7 @@ package control.booking;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -73,6 +74,13 @@ public class paymentProcCon extends HttpServlet {
 		
 		brdto.setPrt_total_price(de.format(total_price));
 		brdto.setPrt_room_price(de.format(brdto.getRoom_price()));
+		
+		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sd2 = new SimpleDateFormat("yyyy-MM-dd");
+		
+		brdto.setPrt_book_checkin_date(sd2.format(sd.parse(brdto.getBook_checkin_date())));
+		brdto.setPrt_book_checkout_date(sd2.format(sd.parse(brdto.getBook_checkout_date())));
+
 		
 		request.setAttribute("brdto", brdto);
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=booking/bookingResult.jsp");

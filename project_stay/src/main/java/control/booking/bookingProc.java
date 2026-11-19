@@ -2,6 +2,8 @@ package control.booking;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,13 +16,35 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/bookingProc.do")
 public class bookingProc extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		reqPro(request, response);
+		try {
+			reqPro(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		reqPro(request, response);
+		try {
+			reqPro(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
 		request.setCharacterEncoding("UTF-8");
 		
 		int room_code = Integer.parseInt(request.getParameter("room_code"));
@@ -46,9 +70,20 @@ public class bookingProc extends HttpServlet {
 			String user_email = (String) session.getAttribute("user_email");
 			// user_email을 세션에서 자동으로 불러오기 처리
 		}
+		
+		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sd2 = new SimpleDateFormat("yyyy-MM-dd");
+		
+		String prt_book_checkin_date = sd2.format(sd.parse(book_checkin_date));
+		String prt_book_checkout_date = sd2.format(sd.parse(book_checkout_date));
+		
 		request.setAttribute("room_code", room_code);
-		request.setAttribute("acc_checkinTime", acc_checkinTime);
-		request.setAttribute("acc_checkoutTime", acc_checkoutTime);
+		
+		String prt_acc_checkinTime = acc_checkinTime.substring(0,5);
+		String prt_acc_checkoutTime = acc_checkoutTime.substring(0,5);
+		
+		request.setAttribute("acc_checkinTime", prt_acc_checkinTime);
+		request.setAttribute("acc_checkoutTime", prt_acc_checkoutTime);
 		request.setAttribute("totalPrice", totalPrice);
 		request.setAttribute("acc_code", acc_code);
 		request.setAttribute("room_img1", room_img1);
@@ -58,6 +93,8 @@ public class bookingProc extends HttpServlet {
 		request.setAttribute("room_capacity", room_capacity);
 		request.setAttribute("room_info", room_info);
 		request.setAttribute("room_price", room_price);
+		request.setAttribute("prt_book_checkin_date", prt_book_checkin_date);
+		request.setAttribute("prt_book_checkout_date", prt_book_checkout_date);
 		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=booking/booking.jsp");

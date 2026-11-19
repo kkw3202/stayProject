@@ -9,10 +9,10 @@
 	<div class="mypage_container">
 		<div class="mypage_menu_wrap">
 			<%-- 각 버튼들 css위해, 클래스 부여 --%>
-			<a href="mypageInfoProc.do"}">회원정보</a>
-			<a href="myBookingProc.do"}">예약 확인</a>
-			<a href="myWishProc.do" }">찜목록</a>
-			<a href="MyRevListProc.do"}">내 리뷰 보기</a> 
+			<a href="mypageInfoProc.do">회원정보</a>
+			<a href="myBookingProc.do">예약 확인</a>
+			<a href="myWishProc.do">찜목록</a>
+			<a href="MyRevListProc.do">내 리뷰 보기</a> 
 		</div>
 		<%-- mypageSection 값 없이 마이페이지로 오면 나타남 --%>
 		<c:if test="${empty mypageSection}"> 
@@ -38,7 +38,6 @@
 								<th class="label">이름</th>
 								<td class="data">${udto.user_name }</td>
 							</tr>
-							<tr>
 							<tr>
 								<th class="label">전화번호</th>
 								<td class="data">${phone_number}</td>

@@ -25,7 +25,7 @@ public class mypageDeleteCon extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		// 세션값 가져오기
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String user_email = (String)session.getAttribute("user_email");
 		
 		// udao 인스턴스

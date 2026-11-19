@@ -1,267 +1,329 @@
-
 @charset "UTF-8";
 
-.customer-wrap {
-    max-width: 1100px;
-    margin: 38px auto 70px;
-    padding: 26px 32px;
-    color: #173b6a;
-    background: #fff;
-    border-radius: 16px;
-    font-family: inherit;
-    box-sizing: border-box;
+section.customer-wrap {
+	display: block !important;
+	width: calc(100% - 40px) !important;
+	max-width: 1180px !important;
+	min-width: 0 !important;
+	margin: 30px auto 60px !important;
+	padding: 32px 34px 40px !important;
+	color: #1e293b;
+	background: #fff;
+	border: 1px solid #dbe3ee;
+	border-radius: 12px;
+	box-shadow: 0 3px 12px rgba(30, 58, 95, 0.04);
+	font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+	box-sizing: border-box;
 }
 
-/* 회원관리 제목 스타일 */
-section.customer-wrap > h2 {
-    display: block;
-    width: 100%;
-    margin: 0 0 30px;
-    padding: 0 0 15px;
-
-    text-align: left;
-    border-bottom: 2px solid #2563eb;
-
-    color: #1e3a8a;
-    font-size: 26px;
-    font-weight: 700;
+.customer-wrap *, .customer-wrap *::before, .customer-wrap *::after {
+	box-sizing: border-box;
 }
 
-/* 회원 검색 */
+/* 회원관리 제목 스타일 (숙소관리와 동일 규격) */
+section.customer-wrap>h2 {
+	display: block;
+	width: 100%;
+	margin: 0 0 26px;
+	padding: 0 0 16px;
+	text-align: left;
+	border-bottom: 2px solid #2563eb;
+	color: #1e3a5f;
+	font-size: 25px;
+	font-weight: 700;
+}
+
+/* 회원 검색 영역 */
 .customer-search {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    padding: 16px;
-    background: #f5f8fd;
-    border: 1px solid #e0e9f7;
-    border-radius: 12px;
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	margin-bottom: 24px;
+	padding: 18px 20px;
+	background: #f8fafc;
+	border: 1px solid #dbe3ee;
+	border-radius: 10px;
 }
 
-.customer-search select,
-.customer-search input,
-.customer-edit input,
-.customer-edit select {
-    border: 1px solid #ccd9ed;
-    border-radius: 7px;
-    padding: 11px;
-    background: #fff;
-    font: inherit;
-    min-width: 0;
+.customer-search select, .customer-search input, .customer-edit input,
+	.customer-edit select {
+	height: 40px;
+	border: 1px solid #cbd5e1;
+	border-radius: 7px;
+	padding: 0 12px;
+	background: #fff;
+	color: #1e293b;
+	font: inherit;
+	font-size: 14px;
+	min-width: 0;
 }
 
 .customer-search input {
-    flex: 1;
+	flex: 1;
+}
+
+.customer-search select:focus, .customer-search input:focus,
+	.customer-edit input:focus, .customer-edit select:focus {
+	outline: none;
+	border-color: #2563eb;
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 /* 공통 버튼 */
-.customer-wrap button,
-.customer-btn {
-    display: inline-block;
-    border: 0;
-    border-radius: 7px;
-    background: #173f7e;
-    color: white;
-    padding: 10px 16px;
-    text-decoration: none;
-    font: inherit;
-    cursor: pointer;
+.customer-wrap button, .customer-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 40px;
+	border: 1px solid transparent;
+	border-radius: 7px;
+	background: #173f7e;
+	color: #fff;
+	padding: 0 18px;
+	text-decoration: none;
+	font: inherit;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	white-space: nowrap;
+	transition: background-color 0.2s, border-color 0.2s;
+}
+
+.customer-wrap button:hover {
+	background: #102e5e;
 }
 
 .customer-btn.secondary {
-    background: white;
-    color: #173f7e;
-    border: 1px solid #cbd8eb;
+	background: #fff;
+	color: #173f7e;
+	border-color: #cbd5e1;
 }
 
+.customer-btn.secondary:hover {
+	background: #f1f5f9;
+}
+
+/* 검색된 회원 수 (숙소관리의 "검색 결과 : 총 N건" 위치와 여백 통일) */
 .customer-count {
-    text-align: right;
-    font-size: 13px;
-    color: #5e718c;
+	margin: 0 0 14px;
+	padding: 0 4px;
+	text-align: left;
+	font-size: 14px;
+	font-weight: 600;
+	color: #475569;
 }
 
 .customer-scroll {
-    overflow-x: auto;
+	width: 100%;
+	overflow-x: auto;
 }
 
-/* 회원 목록 */
+/* 회원 목록 테이블 (숙소관리 테이블과 동일한 연파랑 헤더 + 파란 상단선) */
 .customer-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: center;
-    min-width: 760px;
-}
-
-.customer-table th,
-.customer-table td {
-    padding: 16px 9px;
-    border-bottom: 1px solid #e1e8f1;
-    font-size: 14px;
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+	min-width: 820px;
 }
 
 .customer-table th {
-    font-weight: 700;
+	padding: 14px 12px;
+	background: #eff6ff;
+	border-top: 2px solid #2563eb;
+	border-bottom: 1px solid #dbe3ee;
+	color: #1e3a5f;
+	font-size: 14px;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+.customer-table td {
+	padding: 15px 12px;
+	border-bottom: 1px solid #e2e8f0;
+	color: #334155;
+	font-size: 14px;
+	vertical-align: middle;
+}
+
+.customer-table tbody tr:hover {
+	background: #f8fbff;
 }
 
 .customer-actions {
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
 .customer-actions a {
-    margin: 0 5px;
-    color: #174c8e;
-    text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 30px;
+	margin: 0 3px;
+	padding: 0 10px;
+	border: 1px solid #bfdbfe;
+	border-radius: 6px;
+	background: #eff6ff;
+	color: #1d4ed8;
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+	transition: background-color 0.2s;
 }
 
-.customer-actions form,
-.customer-bottom form {
-    display: inline;
+.customer-actions a:hover {
+	background: #dbeafe;
+}
+
+.customer-actions form, .customer-bottom form {
+	display: inline;
 }
 
 .customer-wrap button.customer-danger {
-    background: #fff;
-    color: #b83b3b;
-    border: 1px solid #e7baba;
-    padding: 7px 12px;
+	min-height: 30px;
+	height: 30px;
+	margin-left: 3px;
+	padding: 0 10px;
+	background: #fff;
+	color: #dc2626;
+	border: 1px solid #fecaca;
+	font-size: 13px;
+}
+
+.customer-wrap button.customer-danger:hover {
+	background: #fef2f2;
+	border-color: #dc2626;
 }
 
 /* 회원 상태 */
 .customer-status {
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
+	display: inline-block;
+	padding: 5px 12px;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: 700;
 }
 
 .customer-status.active {
-    background: #eaf4ff;
-    color: #1258a1;
+	background: #eaf4ff;
+	color: #1258a1;
 }
 
 .customer-status.inactive {
-    background: #f5eded;
-    color: #9d4343;
+	background: #fee2e2;
+	color: #991b1b;
 }
 
 /* 페이지 번호 */
 .customer-pages {
-    display: flex;
-    justify-content: center;
-    gap: 7px;
-    margin-top: 24px;
-    flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	gap: 7px;
+	margin-top: 24px;
+	flex-wrap: wrap;
 }
 
 .customer-pages a {
-    border: 1px solid #d5e0ee;
-    border-radius: 5px;
-    padding: 5px 9px;
-    color: #173f7e;
-    text-decoration: none;
+	border: 1px solid #d5e0ee;
+	border-radius: 5px;
+	padding: 5px 9px;
+	color: #173f7e;
+	text-decoration: none;
 }
 
 .customer-pages a.selected {
-    background: #173f7e;
-    color: #fff;
+	background: #173f7e;
+	color: #fff;
 }
 
 /* =========================================
    ★ 수정 : 회원 상세정보 너비 통일
    회원정보 수정 화면과 동일한 650px
 ========================================= */
-
 .customer-detail {
-    width: 100%;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-    border-top: 2px solid #173f7e;
+	width: 100%;
+	max-width: 650px;
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing: border-box;
+	border-top: 2px solid #173f7e;
 }
 
 /* ★ 수정 : 상세정보 각 행 */
-.customer-detail > div {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #e3e9f2;
-    padding: 14px;
-    box-sizing: border-box;
+.customer-detail>div {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #e3e9f2;
+	padding: 14px;
+	box-sizing: border-box;
 }
 
 /* ★ 수정 : 항목명 */
 .customer-detail strong {
-    width: 160px;
-    flex-shrink: 0;
-    text-align: left;
+	width: 160px;
+	flex-shrink: 0;
+	text-align: left;
 }
 
 /* ★ 추가 : 항목값 */
 .customer-detail span {
-    flex: 1;
-    min-width: 0;
-    text-align: left;
-    overflow-wrap: anywhere;
+	flex: 1;
+	min-width: 0;
+	text-align: left;
+	overflow-wrap: anywhere;
 }
 
 /* ★ 추가 : 앞서 JSP에 적용한 클래스 지원 */
 .customer-detail.customer-detail-narrow {
-    max-width: 650px;
+	max-width: 650px;
 }
 
 /* 상세정보 하단 버튼 */
 .customer-bottom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    margin-top: 24px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+	margin-top: 24px;
 }
 
 /* =========================================
    회원정보 수정 화면
 ========================================= */
-
 .customer-edit {
-    width: 100%;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
+	width: 100%;
+	max-width: 650px;
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing: border-box;
 }
 
 .customer-edit label {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin: 15px 0;
-    font-weight: 600;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	margin: 15px 0;
+	font-weight: 600;
 }
 
 /* =========================================
    반응형
 ========================================= */
-
-@media (max-width: 650px) {
-
-    .customer-wrap {
-        padding: 16px;
-    }
-
-    .customer-search {
-        flex-wrap: wrap;
-    }
-
-    .customer-search input {
-        flex-basis: 100%;
-    }
-
-    .customer-detail strong {
-        width: 110px;
-    }
-
-    .customer-detail,
-    .customer-edit {
-        max-width: 100%;
-    }
+@media ( max-width : 650px) {
+	.customer-wrap {
+		padding: 16px;
+	}
+	.customer-search {
+		flex-wrap: wrap;
+	}
+	.customer-search input {
+		flex-basis: 100%;
+	}
+	.customer-detail strong {
+		width: 110px;
+	}
+	.customer-detail, .customer-edit {
+		max-width: 100%;
+	}
 }
 
 /* =========================================
@@ -270,45 +332,47 @@ section.customer-wrap > h2 {
 ========================================= */
 
 /* ★ 상세정보 너비를 수정 화면과 동일하게 설정 */
-section.customer-wrap > .customer-detail.customer-detail-narrow {
-    display: block;
-    width: 100%;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-    border-top: 1px solid #e3e9f2;
+section.customer-wrap>.customer-detail.customer-detail-narrow {
+	display: block;
+	width: 100%;
+	max-width: 650px;
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing: border-box;
+	border-top: 1px solid #e3e9f2;
 }
 
 /* ★ 상세정보 각 행 */
-section.customer-wrap > .customer-detail.customer-detail-narrow > div {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 14px;
-    box-sizing: border-box;
-    border-bottom: 1px solid #e3e9f2;
+section.customer-wrap>.customer-detail.customer-detail-narrow>div {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 14px;
+	box-sizing: border-box;
+	border-bottom: 1px solid #e3e9f2;
 }
 
 /* ★ 항목명 */
-section.customer-wrap > .customer-detail.customer-detail-narrow > div > strong {
-    flex: 0 0 145px;
-    width: 145px;
-    text-align: left;
+section.customer-wrap>.customer-detail.customer-detail-narrow>div>strong
+	{
+	flex: 0 0 145px;
+	width: 145px;
+	text-align: left;
 }
 
 /* ★ 항목값 */
-section.customer-wrap > .customer-detail.customer-detail-narrow > div > span {
-    flex: 1;
-    min-width: 0;
-    text-align: left;
-    overflow-wrap: anywhere;
+section.customer-wrap>.customer-detail.customer-detail-narrow>div>span {
+	flex: 1;
+	min-width: 0;
+	text-align: left;
+	overflow-wrap: anywhere;
 }
 
 /* ★ 모바일 대응 */
-@media (max-width: 650px) {
-    section.customer-wrap > .customer-detail.customer-detail-narrow > div > strong {
-        flex-basis: 110px;
-        width: 110px;
-    }
+@media ( max-width : 650px) {
+	section.customer-wrap>.customer-detail.customer-detail-narrow>div>strong
+		{
+		flex-basis: 110px;
+		width: 110px;
+	}
 }

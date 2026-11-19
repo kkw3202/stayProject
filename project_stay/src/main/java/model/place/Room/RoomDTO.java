@@ -16,6 +16,7 @@ public class RoomDTO {
 	private String room_img2;
 	private String room_img3;
 	private String room_img4;
+	private String one_day_prt_room_price;
 	
 	
 	public int getRoom_code() {
@@ -101,6 +102,12 @@ public class RoomDTO {
 	}
 	public void setPrt_room_price(String prt_room_price) {
 		this.prt_room_price = prt_room_price;
+	}
+	public String getOne_day_prt_room_price() {
+		return one_day_prt_room_price;
+	}
+	public void setOne_day_prt_room_price(String one_day_prt_room_price) {
+		this.one_day_prt_room_price = one_day_prt_room_price;
 	}
 	
 	

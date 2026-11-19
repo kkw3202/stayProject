@@ -3,6 +3,7 @@ package model.place.Room;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -154,6 +155,8 @@ public class RoomDAO {
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				
+				DecimalFormat de = new DecimalFormat("#,##0");
+				
 				ArrayList<RoomDTO> result = new ArrayList<RoomDTO>();
 				try {
 					con = Util.getConnection();
@@ -173,6 +176,7 @@ public class RoomDAO {
 							rdto.setRoom_code(rs.getInt(1));
 							rdto.setRoom_name(rs.getString(3));
 							rdto.setRoom_price(rs.getInt(4));
+							rdto.setPrt_room_price(de.format(rs.getInt(4)));
 							rdto.setRoom_capacity(rs.getInt(6));
 							rdto.setRoom_info(rs.getString(7));
 							rdto.setRoom_amenity(rs.getString(8));

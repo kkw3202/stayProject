@@ -28,22 +28,18 @@ public class inquiryWriteProcCon extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		HttpSession session = request.getSession(false);
-		
-//		String user_name = (String)session.getAttribute("user_name");
+
 		String user_email = (String)session.getAttribute("user_email");
-		
-//		System.out.println(user_name);
-		System.out.println(user_email);
 		
 		InquiryDAO idao = new InquiryDAO();
 		int user_code = idao.getInquiryUserCode(user_email);
-		System.out.println(user_code);
+		//System.out.println(user_code);
 		
 		if(user_email==null) {
 			response.setContentType("text/html: charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('�α����� �ʿ��մϴ�.')");
+			out.println("alert('로그인이 필요합니다.')");
 			out.println("location.href='index.jsp?section=user/loginForm.jsp'");
 			out.println("</script>");
 		}

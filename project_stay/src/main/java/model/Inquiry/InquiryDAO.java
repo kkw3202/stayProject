@@ -22,8 +22,8 @@ public class InquiryDAO {
 			// 쿼리문
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
 					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del, u.user_email "
-					+ "from Inquiry i "
-					+ "inner join User u "
+					+ "from inquiry i "
+					+ "inner join user u "
 					+ "on i.user_code = u.user_code "
 					+ "where inq_chk_del=0 "
 					+ "order by inq_ref desc limit ?,?";
@@ -66,7 +66,7 @@ public class InquiryDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "select count(*) from Inquiry where inq_chk_del=0 ";
+			String sql = "select count(*) from inquiry where inq_chk_del=0 ";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -93,8 +93,8 @@ public class InquiryDAO {
 			// 쿼리문
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
 					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del, i.user_code "
-					+ "from Inquiry i "
-					+ "inner join User u "
+					+ "from inquiry i "
+					+ "inner join user u "
 					+ "on i.user_code = u.user_code "
 					+ "where inq_code=?";
 			pstmt = con.prepareStatement(sql);
@@ -137,8 +137,8 @@ public class InquiryDAO {
 			// 쿼리문
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
 					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del, u.user_email "
-					+ "from Inquiry i "
-					+ "inner join User u "
+					+ "from inquiry i "
+					+ "inner join user u "
 					+ "on i.user_code = u.user_code "
 					+ "where inq_chk_del=0  "
 					+ "and " + sType + " LIKE '%" + keyWord + "%'"
@@ -185,8 +185,8 @@ public class InquiryDAO {
 			String sType = searchType.equals("user_name") ? "u." + searchType : "i." + searchType;
 			// 쿼리문
 			String sql = "select count(*) "
-					+ "from Inquiry i "
-					+ "inner join User u "
+					+ "from inquiry i "
+					+ "inner join user u "
 					+ "on i.user_code = u.user_code "
 					+ "where inq_chk_del=0  "
 					+ "and " + sType + " LIKE '%" + keyWord + "%'";
@@ -216,7 +216,7 @@ public class InquiryDAO {
 			// user_code 검색하는 구문
 			// UserDTO 인스턴스화
 			UserDTO udto = new UserDTO();
-			String sql = "select user_code from User where user_email= ?";
+			String sql = "select user_code from user where user_email= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_email);
 			rs = pstmt.executeQuery();
@@ -245,7 +245,7 @@ public class InquiryDAO {
 		try {
 			con = Util.getConnection();
 			// ref의 최대값을 검색해서 +1을 하는 select문이 필요
-			String sql = "select max(inq_ref) from Inquiry";
+			String sql = "select max(inq_ref) from inquiry";
 			// 실행객체 생성
 			pstmt = con.prepareStatement(sql);
 			// 실행
@@ -257,7 +257,7 @@ public class InquiryDAO {
 			
 			
 			// 인서트 하는 쿼리문 작성
-			String sql02 = "INSERT INTO Inquiry VALUES  (null, ?, now(), ?, ?, ?, ?, 0, 0) ";
+			String sql02 = "INSERT INTO inquiry VALUES  (null, ?, now(), ?, ?, ?, ?, 0, 0) ";
 			// 실행객체 생성
 			pstmt = con.prepareStatement(sql02);
 			// ?에 매핑
@@ -289,8 +289,8 @@ public class InquiryDAO {
 			// 쿼리문
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
 					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del "
-					+ "from Inquiry i "
-					+ "inner join User u "
+					+ "from inquiry i "
+					+ "inner join user u "
 					+ "on i.user_code = u.user_code "
 					+ "where inq_chk_del=0  "
 					+ "and user_name = ? "
@@ -336,7 +336,7 @@ public class InquiryDAO {
 			// user_code 검색하는 구문
 			// UserDTO 인스턴스화
 			UserDTO udto = new UserDTO();
-			String sql = "select user_name from User where user_email= ?";
+			String sql = "select user_name from user where user_email= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_email);
 			rs = pstmt.executeQuery();
@@ -364,7 +364,7 @@ public class InquiryDAO {
 			// user_code 검색하는 구문
 			// UserDTO 인스턴스화
 			UserDTO udto = new UserDTO();
-			String sql = "select user_email, inq_code from User u inner join Inquiry i "
+			String sql = "select user_email, inq_code from user u inner join inquiry i "
 					+ "on i.user_code = u.user_code "
 					+ "where i.inq_code= ?";
 			pstmt = con.prepareStatement(sql);
@@ -393,7 +393,7 @@ public class InquiryDAO {
 			// DB연동
 			con = Util.getConnection();
 			// 조회된 데이터 수정하는 쿼리문 작성 업데이트
-			String sql = "update Inquiry set inq_title=?, inq_content=? where inq_code=?";
+			String sql = "update inquiry set inq_title=?, inq_content=? where inq_code=?";
 			// 쿼리문 실행 객체 생성
 			pstmt = con.prepareStatement(sql);
 			// ? 값주기
@@ -419,7 +419,7 @@ public class InquiryDAO {
 			// DB연동
 			con = Util.getConnection();
 			// 데이터를 지우지 않고, chkDel을 1로 업데이트
-			String sql = "update Inquiry set inq_chk_del=1 where inq_code=?";
+			String sql = "update inquiry set inq_chk_del=1 where inq_code=?";
 			// 쿼리 실행
 			pstmt = con.prepareStatement(sql);
 			// ? 값 주기
@@ -452,7 +452,7 @@ public class InquiryDAO {
 		try {
 			con = Util.getConnection();
 			// 답변상태도 1(답변완료) 처리 (질문글 두번째, chk_status = 1)
-			String sql = "insert into Inquiry values (null, ?, now(), ?, ?, ?, ?, 1, 0)";
+			String sql = "insert into inquiry values (null, ?, now(), ?, ?, ?, ?, 1, 0)";
 			// 실행객체 생성
 			pstmt = con.prepareStatement(sql);
 			// ?에 매핑
@@ -467,7 +467,7 @@ public class InquiryDAO {
 			pstmt.close();
 			
 			// 원래의 질문글도 답변완료로 처리
-			String sql02 = "update Inquiry set inq_chk_status = 1 where inq_code = ?";
+			String sql02 = "update inquiry set inq_chk_status = 1 where inq_code = ?";
 			pstmt = con.prepareStatement(sql02);
 			// ?에 매핑
 			pstmt.setInt(1, inq_code);

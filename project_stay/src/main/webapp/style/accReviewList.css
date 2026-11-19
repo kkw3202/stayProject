@@ -374,3 +374,129 @@
 .accReviewList .inline_edit_box .save_btn:hover {
 	background: #0b3265;
 }
+
+/* 숨김 처리 공통 클래스 */
+.accReviewList .noShow {
+	display: none !important;
+}
+
+/* 인라인 작성 폼 레이아웃 */
+.accReviewList .inline_write_box {
+	margin: 0 0 20px;
+	padding: 18px 20px;
+	border: 1px solid #c7daf5;
+	border-radius: 12px;
+	background: #f4f8ff;
+}
+
+.accReviewList .inline_write_table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0 8px;
+}
+
+.accReviewList .inline_write_table th.label {
+	width: 90px;
+	padding: 7px 10px;
+	border-radius: 8px;
+	background: #e3eeff;
+	color: #17498a;
+	font-size: 13px;
+	font-weight: 700;
+	text-align: center;
+}
+
+.accReviewList .inline_write_table textarea.rev_content {
+	width: 100%;
+}
+
+.accReviewList .inline_write_btns {
+	padding-top: 8px;
+	text-align: right;
+}
+
+/* ===========================================================
+   최상단 '내가 작성한 리뷰' 강조 고정 박스
+   =========================================================== */
+.accReviewList .my_pinned_review {
+	margin: 0 0 22px;
+	padding: 16px 18px;
+	border: 1.5px solid #1656a2;
+	border-radius: 12px;
+	background: #f4f8ff;
+	box-shadow: 0 4px 12px rgba(22, 86, 162, 0.08);
+}
+
+.accReviewList .my_pinned_review .pinned_header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 8px 12px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #d5e2f6;
+}
+
+.accReviewList .my_pinned_review .pinned_meta {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px 10px;
+}
+
+.accReviewList .my_pinned_review .my_review_badge {
+	display: inline-block;
+	padding: 3px 10px;
+	border-radius: 999px;
+	background: #1656a2;
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.accReviewList .my_pinned_review .pinned_writer {
+	font-size: 14px;
+	font-weight: 700;
+	color: #0d2859;
+}
+
+.accReviewList .my_pinned_review .pinned_date {
+	font-size: 12px;
+	color: #6b7f9c;
+}
+
+.accReviewList .my_pinned_review .star {
+	color: #f5a400;
+	font-size: 15px;
+	letter-spacing: 1px;
+}
+
+.accReviewList .my_pinned_review .pinned_actions {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.accReviewList .my_pinned_review .pinned_content {
+	padding: 12px 16px;
+	border-radius: 8px;
+	background: #ffffff;
+	font-size: 14px;
+	line-height: 1.55;
+	color: #253957;
+	white-space: pre-line;
+	word-break: break-word;
+}
+
+@media screen and (max-width: 650px) {
+	.accReviewList .my_pinned_review .pinned_actions {
+		width: 100%;
+		justify-content: flex-end;
+	}
+}
+
+.accReviewList .review_policy_note {
+	font-size: 13px;
+	color: #6b7f9c;
+}

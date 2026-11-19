@@ -149,17 +149,6 @@
 			location.href="MyBookingDeleteCon.do?book_number=" + book_number;
 		}
 	}
-	
-	function pageBtn1(startPage,pageBlock){
-		location.href="myBookingProc.do?pageNum="+ (startPage-pageBlock);
-	}
-	function pageBtn2(i){
-		location.href="myBookingProc.do?pageNum="+ i;
-	}
-	function pageBtn3(startPage,pageBlock){
-		location.href="myBookingProc.do?pageNum="+ (startPage+pageBlock);
-	}
-	
 	// 대시보드 상태 필터 이동
 	function filterBooking(status) {
 		location.href = "myBookingProc.do?status=" + status;

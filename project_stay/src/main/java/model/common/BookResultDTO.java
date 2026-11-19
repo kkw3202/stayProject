@@ -5,6 +5,8 @@ public class BookResultDTO {
 	private String book_name;
 	private String book_checkin_date;
 	private String book_checkout_date;
+	private String prt_book_checkin_date;
+	private String prt_book_checkout_date;;
 	
 	private String acc_name;
 	private String room_name;
@@ -14,6 +16,8 @@ public class BookResultDTO {
 	private int date_of_stay;
 	private int total_price;
 	private String prt_total_price;
+	
+	
 
 
 	public String getBook_name() {
@@ -102,6 +106,22 @@ public class BookResultDTO {
 
 	public void setPrt_room_price(String prt_room_price) {
 		this.prt_room_price = prt_room_price;
+	}
+
+	public String getPrt_book_checkin_date() {
+		return prt_book_checkin_date;
+	}
+
+	public void setPrt_book_checkin_date(String prt_book_checkin_date) {
+		this.prt_book_checkin_date = prt_book_checkin_date;
+	}
+
+	public String getPrt_book_checkout_date() {
+		return prt_book_checkout_date;
+	}
+
+	public void setPrt_book_checkout_date(String prt_book_checkout_date) {
+		this.prt_book_checkout_date = prt_book_checkout_date;
 	}
 	
 	

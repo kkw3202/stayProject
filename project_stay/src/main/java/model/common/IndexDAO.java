@@ -55,9 +55,9 @@ public class IndexDAO {
 					result.get(i).setRev_content(rs.getString(1));
 					
 					String name = rs.getString(2);
-					String prt_name = name.substring(1);
-					String star ="";
-					for(int j =0;j<prt_name.length();j++) star += "*";
+					//String prt_name = name.substring(1);
+					String star ="**";
+					// for(int j =0;j<prt_name.length();j++) star += "*";
 					
 					result.get(i).setUser_name(name.substring(0,1) + star);
 					result.get(i).setRev_created_datetime(rs.getString(3));

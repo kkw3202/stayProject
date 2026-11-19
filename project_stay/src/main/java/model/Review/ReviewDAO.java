@@ -1,14 +1,11 @@
 package model.Review;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import DBPKG.Util;
 import model.Inquiry.InquiryDTO;
 import model.place.Accommodation.AccommodationDTO;
-
 public class ReviewDAO {
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -21,10 +18,10 @@ public class ReviewDAO {
 			con = Util.getConnection();
 			// 쿼리문
 			String sql = "select r.rev_code, a.acc_code, u.user_code, r.rev_rating, r.rev_content, "
-					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name from Reviews r "
-					+ "inner join User u "
+					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name from reviews r "
+					+ "inner join user u "
 					+ "on r.user_code = u.user_code "
-					+ "inner join Accommodation a "
+					+ "inner join accommodation a "
 					+ "on r.acc_code = a.acc_code "
 					+ "where rev_chk_del=0 "
 					+ "order by rev_code desc limit ?,?";
@@ -69,7 +66,7 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "select acc_name, acc_code from Accommodation order by acc_code asc";
+			String sql = "select acc_name, acc_code from accommodation order by acc_code asc";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -99,7 +96,7 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "select count(*) acc_code from Reviews where rev_chk_del=0";
+			String sql = "select count(*) acc_code from reviews where rev_chk_del=0";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -125,7 +122,7 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "select count(*), acc_code from Reviews where rev_chk_del=0 and acc_code= ?";
+			String sql = "select count(*), acc_code from reviews where rev_chk_del=0 and acc_code= ?";
 			pstmt = con.prepareStatement(sql);
 			// ?에 매핑
 			pstmt.setInt(1, acc_code);
@@ -155,10 +152,10 @@ public class ReviewDAO {
 			con = Util.getConnection();
 			// 쿼리문
 			String sql = "select r.rev_code, a.acc_code, u.user_code, r.rev_rating, r.rev_content, "
-					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name from Reviews r "
-					+ "inner join User u "
+					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name from reviews r "
+					+ "inner join user u "
 					+ "on r.user_code = u.user_code "
-					+ "inner join Accommodation a "
+					+ "inner join accommodation a "
 					+ "on r.acc_code = a.acc_code "
 					+ "where rev_chk_del=0 and a.acc_code=? "
 					+ "order by rev_code desc limit ?,?";
@@ -204,7 +201,7 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "update Reviews set rev_like = rev_like+1 where rev_code = ?";
+			String sql = "update reviews set rev_like = rev_like+1 where rev_code = ?";
 			pstmt = con.prepareStatement(sql);
 			// ?에 매핑
 			pstmt.setInt(1, rev_code);
@@ -225,7 +222,7 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "update Reviews set rev_chk_del = 1 where rev_code = ?";
+			String sql = "update reviews set rev_chk_del = 1 where rev_code = ?";
 			pstmt = con.prepareStatement(sql);
 			// ?에 매핑
 			pstmt.setInt(1, rev_code);
@@ -247,14 +244,13 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			
-			String sql = "select user_name from User u where user_email = ?";
+			String sql = "select user_name from user u where user_email = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_email);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				user_name = rs.getString(1);
 			}
-
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -272,7 +268,7 @@ public class ReviewDAO {
 		String acc_name = "";
 		try {
 			con = Util.getConnection();
-			String sql = "select acc_name from Accommodation where acc_code = ?";
+			String sql = "select acc_name from accommodation where acc_code = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, acc_code);
 			rs = pstmt.executeQuery();
@@ -295,7 +291,7 @@ public class ReviewDAO {
 	public void updateReview(int rev_code, int rev_rating, String rev_content) {
 		try {
 			con = Util.getConnection();
-			String sql = "update Reviews set rev_rating=?, rev_content=? where rev_code=?";
+			String sql = "update reviews set rev_rating=?, rev_content=? where rev_code=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, rev_rating);
 			pstmt.setString(2, rev_content);
@@ -320,10 +316,10 @@ public class ReviewDAO {
 			// 쿼리문
 			String sql = "select r.rev_code, a.acc_code, u.user_code, r.rev_rating, r.rev_content, "
 					+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name, a.acc_img, a.acc_type "
-					+ "from Reviews r "
-					+ "inner join User u "
+					+ "from reviews r "
+					+ "inner join user u "
 					+ "on r.user_code = u.user_code "
-					+ "inner join Accommodation a "
+					+ "inner join accommodation a "
 					+ "	on r.acc_code = a.acc_code "
 					+ "where rev_chk_del=0 and u.user_name = ? "
 					+ "order by rev_code desc limit ?,?";
@@ -370,7 +366,7 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "select count(*) from Reviews r inner join User u "
+			String sql = "select count(*) from reviews r inner join user u "
 					+ "on r.user_code = u.user_code where rev_chk_del=0 and user_name= ?";
 			pstmt = con.prepareStatement(sql);
 			// ?에 매핑
@@ -397,7 +393,7 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "select user_code from User where user_email =?";
+			String sql = "select user_code from user where user_email =?";
 			pstmt = con.prepareStatement(sql);
 			// ?에 매핑
 			pstmt.setString(1, user_email);
@@ -424,7 +420,7 @@ public class ReviewDAO {
 		try {
 			con = Util.getConnection();
 			// 쿼리문
-			String sql = "select a.acc_name, r.rev_rating, r.rev_content, r.rev_code from Reviews r inner join Accommodation a "
+			String sql = "select a.acc_name, r.rev_rating, r.rev_content, r.rev_code from reviews r inner join accommodation a "
 					+ "on r.acc_code = a.acc_code where r.rev_code=?";
 			pstmt = con.prepareStatement(sql);
 			// ?에 매핑
@@ -477,7 +473,7 @@ public class ReviewDAO {
 		String acc_name = "";
 		try {
 			con = Util.getConnection();
-			String sql = "select a.acc_name from Accommodation a inner join Reviews r on a.acc_cod = r.acc_code where acc_code = ?";
+			String sql = "select a.acc_name from accommodation a inner join reviews r on a.acc_cod = r.acc_code where acc_code = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, acc_code);
 			rs=pstmt.executeQuery();
@@ -553,10 +549,10 @@ public class ReviewDAO {
 			
 			String sql = "SELECT b.book_number, a.acc_code, a.acc_type, a.acc_img, b.book_checkin_date, b.book_checkout_date, a.acc_name "
 				   + "FROM booking b "
-				   + "INNER JOIN User u ON b.user_code = u.user_code "
-				   + "INNER JOIN Room rm ON b.room_code = rm.room_code "
-				   + "INNER JOIN Accommodation a ON rm.acc_code = a.acc_code "
-				   + "LEFT JOIN Reviews r ON b.user_code = r.user_code AND a.acc_code = r.acc_code AND r.rev_chk_del = 0 "
+				   + "INNER JOIN user u ON b.user_code = u.user_code "
+				   + "INNER JOIN room rm ON b.room_code = rm.room_code "
+				   + "INNER JOIN accommodation a ON rm.acc_code = a.acc_code "
+				   + "LEFT JOIN reviews r ON b.user_code = r.user_code AND a.acc_code = r.acc_code AND r.rev_chk_del = 0 "
 				   + "WHERE u.user_email = ? "
 				   + "AND r.rev_code IS NULL "
 				   + "AND b.book_chk_status != 1 "
@@ -602,9 +598,9 @@ public class ReviewDAO {
 			con = Util.getConnection();
 			String sql = "SELECT COUNT(*) "
 					   + "FROM booking b "
-					   + "INNER JOIN User u ON b.user_code = u.user_code "
-					   + "INNER JOIN Room rm ON b.room_code = rm.room_code "
-					   + "LEFT JOIN Reviews r ON b.user_code = r.user_code AND rm.acc_code = r.acc_code AND r.rev_chk_del = 0 "
+					   + "INNER JOIN user u ON b.user_code = u.user_code "
+					   + "INNER JOIN room rm ON b.room_code = rm.room_code "
+					   + "LEFT JOIN reviews r ON b.user_code = r.user_code AND rm.acc_code = r.acc_code AND r.rev_chk_del = 0 "
 					   + "WHERE u.user_email = ? "
 					   + "AND rm.acc_code = ? "
 					   + "AND b.book_chk_status != 1 "
@@ -639,9 +635,9 @@ public class ReviewDAO {
 			// 쿼리문
 			String sql = "SELECT COUNT(*) "
 					   + "FROM booking b "
-					   + "INNER JOIN User u ON b.user_code = u.user_code "
-					   + "INNER JOIN Room rm ON b.room_code = rm.room_code "
-					   + "LEFT JOIN Reviews r ON b.user_code = r.user_code AND rm.acc_code = r.acc_code AND r.rev_chk_del = 0 "
+					   + "INNER JOIN user u ON b.user_code = u.user_code "
+					   + "INNER JOIN room rm ON b.room_code = rm.room_code "
+					   + "LEFT JOIN reviews r ON b.user_code = r.user_code AND rm.acc_code = r.acc_code AND r.rev_chk_del = 0 "
 					   + "WHERE u.user_email = ? "
 					   + "AND r.rev_code IS NULL "
 					   + "AND b.book_chk_status != 1 "
@@ -665,5 +661,51 @@ public class ReviewDAO {
 		
 		return totalCount;
 	}
+	
+	// 현재 숙소에서 로그인한 회원이 작성한 리뷰 1건 조회 
+		public ReviewDTO getMyAccReview(String user_email, int acc_code) {
+			if (user_email == null || user_email.isEmpty()) {
+				return null;
+			}
+			ReviewDTO rdto = null;
+			try {
+				con = Util.getConnection();
+				String sql = "select r.rev_code, a.acc_code, u.user_code, r.rev_rating, r.rev_content, "
+						+ "r.rev_created_datetime, r.rev_chk_del, r.rev_like, u.user_name, u.user_email, a.acc_name "
+						+ "from reviews r "
+						+ "inner join user u on r.user_code = u.user_code "
+						+ "inner join accommodation a on r.acc_code = a.acc_code "
+						+ "where r.rev_chk_del = 0 and a.acc_code = ? and u.user_email = ? "
+						+ "order by r.rev_code desc limit 1";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, acc_code);
+				pstmt.setString(2, user_email);
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					rdto = new ReviewDTO();
+					rdto.setRev_code(rs.getInt(1));
+					rdto.setAcc_code(rs.getInt(2));
+					rdto.setUser_code(rs.getInt(3));
+					rdto.setRev_rating(rs.getInt(4));
+					rdto.setRev_content(rs.getString(5));
+					rdto.setRev_created_datetime(rs.getString(6));
+					rdto.setRev_chk_del(rs.getInt(7));
+					rdto.setRev_like(rs.getInt(8));
+					rdto.setUser_name(rs.getString(9));
+					rdto.setUser_email(rs.getString(10));
+					rdto.setAcc_name(rs.getString(11));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (rs != null) rs.close();
+					if (pstmt != null) pstmt.close();
+					if (con != null) con.close();
+				} catch (Exception e) { e.printStackTrace(); }
+			}
+			return rdto;
+		}
 	
 }

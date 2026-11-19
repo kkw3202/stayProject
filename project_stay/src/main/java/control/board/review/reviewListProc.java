@@ -31,6 +31,8 @@ public class reviewListProc extends HttpServlet {
 		// 인코딩
 		request.setCharacterEncoding("utf-8");
 		
+
+		
 		// 핸들러 인스턴스 및 httpSession을하여 user_email 가져오기
 		pagingHandlerDAO pado = new pagingHandlerDAO();
 		pagingHandlerDTO pdto = new pagingHandlerDTO();

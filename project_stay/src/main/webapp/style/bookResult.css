@@ -280,6 +280,16 @@
     transition: all 0.2s ease;
 }
 
+.notice{
+	color: gray;
+	margin-top: 25px;
+	margin-left: 10px;
+}
+
+.notice_wrap{
+	display: inline-block;
+}
+
 .bookresult_page .cancle_btn_wrap button:hover {
     background: #d9534f;
     color: #fff;

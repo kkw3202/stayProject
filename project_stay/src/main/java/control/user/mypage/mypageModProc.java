@@ -31,7 +31,7 @@ public class mypageModProc extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		// 세션값 가져오기
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String user_email = (String)session.getAttribute("user_email");
 		
 		// udao / udto 인스턴스
@@ -40,6 +40,11 @@ public class mypageModProc extends HttpServlet {
 		
 		if(session != null) {
 			udto = udao.getUserInfo(user_email);
+		}
+		
+		if (user_email == null) {
+			response.sendRedirect("loginProc.do");
+			return;
 		}
 		
 		// 세팅하기

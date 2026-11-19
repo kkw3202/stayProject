@@ -12,12 +12,12 @@ public class MyBookingDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	// È¸¿øÀÇ ¿¹¾à ¸®½ºÆ®¸¦ Á¶È¸ÇÏ´Â ¸Ş¼Òµå
+	// È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½Ş¼Òµï¿½
 	public ArrayList<MyBookingDTO> getMyBookingList(int startRow, int pageSize, String user_email){
 		ArrayList<MyBookingDTO> mblist = new ArrayList<>();
 		try {
 			con = Util.getConnection();
-			// sql¹®
+			// sqlï¿½ï¿½
 			String sql = "select b.book_code, b.book_number, b.book_name, b.user_code, b.room_code, "
 					+ "b.book_checkin_date, b.book_checkout_date, b.book_date, b.book_cancel_date, "
 					+ "b.book_chk_status, r.room_name, r.room_price, "
@@ -35,14 +35,14 @@ public class MyBookingDAO {
 					+ "order by b.book_code desc "
 					+ "limit ?,?";
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pstmt.setString(1, user_email);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, pageSize);
-			// rs ¼±¾ğ
+			// rs ï¿½ï¿½ï¿½ï¿½
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				// mbdto ¼±¾ğ
+				// mbdto ï¿½ï¿½ï¿½ï¿½
 				MyBookingDTO mbdto = new MyBookingDTO();
 				mbdto.setBook_code(rs.getInt(1));
 				mbdto.setBook_number(rs.getString(2));
@@ -67,7 +67,7 @@ public class MyBookingDAO {
 				mbdto.setRev_created_datetime(rs.getString(21));
 				mbdto.setRev_chk_del(rs.getInt(22));
 				
-				//¹è¿­¿¡ Ãß°¡
+				//ï¿½è¿­ï¿½ï¿½ ï¿½ß°ï¿½
 				mblist.add(mbdto);
 			}
 			
@@ -83,22 +83,22 @@ public class MyBookingDAO {
 		return mblist;
 	}
 	
-	// ³» ¿¹¾àÇÑ°Å ÃÑ °³¼ö ¼¼´Â ¸Ş¼Òµå
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼Òµï¿½
 	public int countAllMyBooking(String user_email) {
 		int count = 0;
 		try{
-			// db ¿¬°á
+			// db ï¿½ï¿½ï¿½ï¿½
 			con = Util.getConnection();
-			// sql¹®ÀÛ¼º
+			// sqlï¿½ï¿½ï¿½Û¼ï¿½
 			String sql = "select count(*) from booking b "
 					+ "inner join user u "
 					+ "on b.user_code = u.user_code "
 					+ "where u.user_email= ?";
-			// pstmt ¼±¾ğ
+			// pstmt ï¿½ï¿½ï¿½ï¿½
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pstmt.setString(1, user_email);
-			// rs ¼±¾ğ
+			// rs ï¿½ï¿½ï¿½ï¿½
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				count = rs.getInt(1);
@@ -115,20 +115,20 @@ public class MyBookingDAO {
 		return count;
 	}
 	
-	// ³» ¿¹¾à¹øÈ£ Á¶È¸
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ï¿½È¸
 	public String getBookNumber(String user_email) {
 		String book_number = "";
 		try{
-			// db ¿¬°á
+			// db ï¿½ï¿½ï¿½ï¿½
 			con = Util.getConnection();
-			// sql¹®ÀÛ¼º
+			// sqlï¿½ï¿½ï¿½Û¼ï¿½
 			String sql = "select b.book_number from user u inner join booking b on u.user_code = b.user_code "
 					+ "while u.user_email=?";
-			// pstmt ¼±¾ğ
+			// pstmt ï¿½ï¿½ï¿½ï¿½
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pstmt.setString(1, user_email);
-			// rs ¼±¾ğ
+			// rs ï¿½ï¿½ï¿½ï¿½
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				book_number = rs.getString(1);
@@ -145,18 +145,18 @@ public class MyBookingDAO {
 		return book_number;
 	}
 	
-	// ³» ¿¹¾àÇÑ°Å Ãë¼ÒÇÏ±â (¼ÒÇÁÆ®»èÁ¦Ã³¸®)
+	// ë‚´ ì˜ˆì•½í•œê±° ì·¨ì†Œí•˜ê¸° (ì†Œí”„íŠ¸ì‚­ì œì²˜ë¦¬)
 	public void deleteMyBooking(String book_number) {
 		try{
-			// db ¿¬°á
+			// db ì—°ê²°
 			con = Util.getConnection();
-			// sql¹®ÀÛ¼º
-			String sql = "update booking set book_chk_status = 1 where book_number=?";
-			// pstmt ¼±¾ğ
+			// sqlë¬¸ì‘ì„±
+			String sql = "update booking set book_chk_status = 1, book_cancel_date = current_date() where book_number=?";
+			// pstmt ì„ ì–¸
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ì— ëŒ€ì…
 			pstmt.setString(1, book_number);
-			// ¾÷µ¥ÀÌÆ® ½ÇÇà
+			// ì—…ë°ì´íŠ¸ ì‹¤í–‰
 			pstmt.executeUpdate();
 			
 		}catch(Exception e) {
@@ -169,22 +169,23 @@ public class MyBookingDAO {
 			}catch(Exception e) {e.printStackTrace();}
 		}
 	}
+
 	
-	// ³» ¿¹¾à Ãë¼ÒÇÑ°Å °³¼ö ±¸ÇÏ´Â ÇÔ¼ö
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	public int countCancelBooking(String user_email) {
 		int count = 0;
 		try{
-			// db ¿¬°á
+			// db ï¿½ï¿½ï¿½ï¿½
 			con = Util.getConnection();
-			// sql¹®ÀÛ¼º
+			// sqlï¿½ï¿½ï¿½Û¼ï¿½
 			String sql = "select count(*) from booking b "
 					+ "inner join user u "
 					+ "on b.user_code = u.user_code "
 					+ "where u.user_email=? and "
 					+ "b.book_chk_status=1";
-			// pstmt ¼±¾ğ
+			// pstmt ï¿½ï¿½ï¿½ï¿½
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pstmt.setString(1, user_email);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -203,21 +204,21 @@ public class MyBookingDAO {
 		return count;
 	}
 	
-	// ³» ¿¹¾à ¸¸·áµÈ °³¼ö ±¸ÇÏ´Â ÇÔ¼ö
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	public int countOverBooking(String user_email) {
 		int count = 0;
 		try{
-			// db ¿¬°á
+			// db ï¿½ï¿½ï¿½ï¿½
 			con = Util.getConnection();
-			// sql¹®ÀÛ¼º
+			// sqlï¿½ï¿½ï¿½Û¼ï¿½
 			String sql = "select count(*) from booking b "
 					+ "inner join user u "
 					+ "on b.user_code = u.user_code "
 					+ "where u.user_email=? and "
 					+ "b.book_chk_status=2";
-			// pstmt ¼±¾ğ
+			// pstmt ï¿½ï¿½ï¿½ï¿½
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pstmt.setString(1, user_email);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -236,21 +237,21 @@ public class MyBookingDAO {
 		return count;
 	}
 	
-	// ³» ¿¹¾à ¿¹¾àÁß °³¼ö ±¸ÇÏ´Â ÇÔ¼ö
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 	public int countReservedBooking(String user_email) {
 		int count = 0;
 		try{
-			// db ¿¬°á
+			// db ï¿½ï¿½ï¿½ï¿½
 			con = Util.getConnection();
-			// sql¹®ÀÛ¼º
+			// sqlï¿½ï¿½ï¿½Û¼ï¿½
 			String sql = "select count(*) from booking b "
 					+ "inner join user u "
 					+ "on b.user_code = u.user_code "
 					+ "where u.user_email=? and "
 					+ "b.book_chk_status=3";
-			// pstmt ¼±¾ğ
+			// pstmt ï¿½ï¿½ï¿½ï¿½
 			pstmt = con.prepareStatement(sql);
-			// ?¿¡ ´ëÀÔ
+			// ?ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pstmt.setString(1, user_email);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -269,13 +270,13 @@ public class MyBookingDAO {
 		return count;
 	}
 	
-	// »óÅÂº° ¿¹¾à °³¼ö ±¸ÇÏ´Â ÇÔ¼ö (status: 1=Ãë¼Ò, 2=¸¸·á, 3=¿¹¾àÁß)
+	// ï¿½ï¿½ï¿½Âºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ (status: 1=ï¿½ï¿½ï¿½, 2=ï¿½ï¿½ï¿½ï¿½, 3=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	public int countBookingByStatus(String user_email, int status) {
 		int count = 0;
 		try {
 			con = Util.getConnection();
 			String sql = "select count(*) from booking b "
-					+ "inner join User u on b.user_code = u.user_code "
+					+ "inner join user u on b.user_code = u.user_code "
 					+ "where u.user_email = ? and b.book_chk_status = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_email);
@@ -296,7 +297,7 @@ public class MyBookingDAO {
 		return count;
 	}
 
-	// »óÅÂº° ¿¹¾à ¸ñ·Ï ÆäÀÌÂ¡ Á¶È¸ ÇÔ¼ö (status: 1=Ãë¼Ò, 2=¸¸·á, 3=¿¹¾àÁß)
+	// ï¿½ï¿½ï¿½Âºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡ ï¿½ï¿½È¸ ï¿½Ô¼ï¿½ (status: 1=ï¿½ï¿½ï¿½, 2=ï¿½ï¿½ï¿½ï¿½, 3=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	public ArrayList<MyBookingDTO> getMyBookingListByStatus(int startRow, int pageSize, String user_email, int status) {
 		ArrayList<MyBookingDTO> mblist = new ArrayList<>();
 		try {

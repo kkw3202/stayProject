@@ -38,6 +38,12 @@ public class mypageInfoProc extends HttpServlet {
 			udto = udao.getUserInfo(loginEmail);
 		}
 		
+		// 세션 만료 시 로그인 페이지로 이동
+		if (loginEmail == null) {
+			response.sendRedirect("loginProc.do");
+			return;
+		}
+		
 		// 핸드폰번호 010-0000-0000 처리하기
 		String phone = udto.getUser_phone();
 		if(phone != null && phone.length() == 11) {
