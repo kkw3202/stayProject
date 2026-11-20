@@ -9,7 +9,7 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/none_header_bottom.js"
         defer></script>
-
+<section>
 <div class="admin-book-container">
 
     <h2>예약 관리</h2>
@@ -50,6 +50,7 @@
           method="get"
           class="admin-book-search">
 
+		<input type = "button" onclick="updateAllBookingStatus()" value="예약 상태 업데이트"/>
         <select name="status">
             <option value="" ${empty param.status ? 'selected' : ''}>전체 상태</option>
             <option value="3" ${param.status eq '3' ? 'selected' : ''}>예약중</option>
@@ -309,6 +310,7 @@
     </div>
 
 </div>
+</section>
 
 <%-- ★ 추가 : 전체 페이지 로딩 후 예약 결과 알림 표시 --%>
 <c:if test="${not empty bookMsg}">
@@ -325,3 +327,13 @@
         });
     </script>
 </c:if>
+
+<script type="text/javascript" defer="defer">
+//모든 회원 상태 업데이트 
+function updateAllBookingStatus(){
+	if(confirm("퇴실일이 지난 회원상태를 '기간만료'로 변경하시겠습니까?")){
+		alert("모든 회원상태를 업데이트 하였습니다");
+		location.href="AdminUserUpdateCon.do";
+	}
+}
+</script>

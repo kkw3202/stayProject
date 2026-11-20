@@ -3,6 +3,7 @@ package model.place.Accomodation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 
 import DBPKG.Util;
 import model.place.placeDTO;
@@ -16,6 +17,8 @@ public class AccomodationDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
+		DecimalFormat de2 = new DecimalFormat("#.00");
 		
 		try {
 			con = Util.getConnection();
@@ -42,6 +45,7 @@ public class AccomodationDAO {
 				pdto.setAcc_img(rs.getString(8));
 				pdto.setCity_name(rs.getString(9));
 				pdto.setAvg_rating(rs.getDouble(10));
+				pdto.setPrt_avg_rating(de2.format(rs.getDouble(10)));
 			}
 			
 		}catch(Exception e) {

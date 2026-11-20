@@ -80,25 +80,20 @@ public class inquiryListProc extends HttpServlet {
 		//}
 		
 		// 전체 게시글 수 구하기문
-		// 마이페이지 내글보기 버튼 클릭 시 (검색어가 입력안됐음)
-		if(searchType!=null && keyWord == null && searchType.equals("user_name")) {
-			// user_name 파라미터를 메서드에 전달하여, keyWord로 활용하기
-			keyWord = idao.getInquiryUserName(user_email);
-			count = idao.getInquirySearchCount(searchType, keyWord);
+		if("my_name".equals(searchType) && user_email != null) {
+			count = idao.getInquiryMylistCount(user_email);
 			System.out.println("count" + count);
-			System.out.println("1번 경우");
+			System.out.println("1번 경우 (내 글 보기)");
 		// 검색창에 검색어를 입력하고 검색버튼을 눌렀을 때
 		}else if(searchType != null && keyWord != null) {
-			// count에 전체 게시글 수 계산하기 (idao에서 메서드 호출)
 			count = idao.getInquirySearchCount(searchType, keyWord);
 			System.out.println("count" + count);
-			System.out.println("2번 경우");
+			System.out.println("2번 경우 (검색)");
 		// 처음에 접속하거나, 전체목록 버튼 클릭시
 		}else {
-			// count에 전체 게시글 수 계산하기 (idao에서 메서드 호출)
 			count = idao.getInquiryAllCount();
 			System.out.println("count" + count);
-			System.out.println("3번 경우");
+			System.out.println("3번 경우 (전체)");
 		}
 		
 		
@@ -114,15 +109,13 @@ public class inquiryListProc extends HttpServlet {
 		
 		
 		ArrayList<InquiryDTO> ilist;
-		// 마이페이지로 올 경우 / 검색어가 없을 경우(전체목록보기) / 검색어가 있는 경우 
-		if(searchType!=null && keyWord == null && searchType.equals("user_name")) {
-			ilist= idao.getInquiryMylistBoard(startRow, pageSize, user_name);
-		}else if(keyWord=="" || keyWord==null) {
+		if("my_name".equals(searchType) && user_email != null) {
+			ilist = idao.getInquiryMylistBoard(startRow, pageSize, user_email);
+		}else if(keyWord == null || keyWord.equals("")) {
 			ilist = idao.getInquiryAllBoard(startRow, pageSize);
 		}else {
 			ilist = idao.getInquirySearchBoard(startRow, pageSize, searchType, keyWord);
 		}
-		
 		// 최신글 10개씩 출력하기 위해 DAO 메서드를 이용해서 출력
 		number = count - startRow;  // 출력 번호
 		

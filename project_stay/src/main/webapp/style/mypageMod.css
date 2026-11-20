@@ -61,7 +61,7 @@
 .mypageInfoMod .modTable td.data {
 	padding: 13px 18px;
 	border: 0;
-	border-bottom: 1px solid #e6eef9;
+	border-bottom: 1px solid #cbd9ee;
 	vertical-align: middle;
 	font-size: 14px;
 }
@@ -252,6 +252,56 @@
 .mypageInfoMod .noShow {
 	display: none;
 }
+
+/* ===========================================================
+   보안 영역(인증 전: 일반 행과 동일 -> 인증 후: 라벨+데이터 강조)
+   =========================================================== */
+
+/* 1. 인증 전(기본 상태): 기존 비밀번호 칸은 일반 행과 동일하게 유지 */
+.mypageInfoMod .modTable tr.security_box th.label {
+	background: #edf4ff;
+	color: #193a70;
+}
+
+.mypageInfoMod .modTable tr.security_box td.data {
+	background: #ffffff;
+}
+
+/* 2. 인증 완료 후(step2가 열렸을 때): 보안 구역 왼쪽 라벨 4칸 강조 */
+.mypageInfoMod .modTable:has(tbody#step2:not(.noShow)) tr.security_box th.label,
+.mypageInfoMod .modTable tbody#step2 th.label {
+	background: #5c85c7;
+	color: #ffffff;
+	border-bottom-color: #7c9fd6;
+}
+
+/* 3. 인증 완료 후(step2가 열렸을 때): 보안 구역 오른쪽 데이터 4칸 강조 */
+.mypageInfoMod .modTable:has(tbody#step2:not(.noShow)) tr.security_box td.data,
+.mypageInfoMod .modTable tbody#step2 td.data {
+	background: #edf3fc;
+	border-bottom-color: #c5d7f2;
+}
+
+/* 4. 본인 인증하기 버튼 */
+.mypageInfoMod .currentPass_group input[type="button"].btn {
+	background-color: #1656a2;
+	border-color: #1656a2;
+	color: #ffffff;
+}
+
+.mypageInfoMod .currentPass_group input[type="button"].btn:hover {
+	background-color: #0d3a73;
+}
+
+/* 5. 인증 완료(disabled) 상태 고정 */
+.mypageInfoMod .currentPass_group input[type="button"].btn:disabled,
+.mypageInfoMod .currentPass_group input[type="button"].btn:disabled:hover {
+	background-color: #dbe6f6;
+	border-color: #b4c8e6;
+	color: #4a6894;
+	cursor: default;
+}
+
 
 /* 모바일 반응형 */
 @media screen and (max-width: 820px) {

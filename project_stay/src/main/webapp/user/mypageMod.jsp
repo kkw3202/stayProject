@@ -19,7 +19,7 @@
 					</td>
 				</tr>
 				<%-- (기존 비밀번호를 변경할때 입력하는 단계 = 1단계) --%>
-				<tr>
+				<tr class="security_box">
 					<th class="label"><span class="mod_label">기존 비밀번호</span></th>
 					<td class="data">
 						<div class="currentPass_group">
@@ -35,13 +35,13 @@
 				<tr>
 					<th class="label"><span class="mod_label">변경할 비밀번호</span></th>
 					<td class="data">
-						<input type="password" name="new_password" placeholder="영문과 숫자로 20자 이내로 입력해주세요"/>
+						<input type="password" name="new_password" placeholder="영문 또는 숫자로 20자 이내로 입력해주세요"/>
 					</td>
 				</tr>
 				<tr>
 					<th class="label"><span class="mod_label">변경할 비밀번호<br/>다시입력</span></th>
 					<td class="data">
-						<input type="password" name="new_password_chk" placeholder="영문과 숫자로 20자 이내로 입력해주세요"/>
+						<input type="password" name="new_password_chk" placeholder="영문 또는 숫자로 20자 이내로 입력해주세요"/>
 					</td>
 				</tr>
 				<tr>
@@ -131,6 +131,7 @@
 		// 버튼 비활성화
 		let btnPw = document.getElementById("btnPw");
 		btnPw.value="인증완료";
+		btnPw.disabled=true;
 		// noShow클래스 제거하여, 2단계 보이기
 		document.getElementById("step2").className = "";
 	}

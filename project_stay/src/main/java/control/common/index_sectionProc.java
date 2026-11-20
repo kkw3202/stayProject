@@ -30,6 +30,7 @@ public class index_sectionProc extends HttpServlet {
 		
 		boolean is_index = true;
 		
+		// 오늘 날짜 및 실시간 핫리뷰 용
 		Date today = new Date();
 		Calendar cal = Calendar.getInstance();
 		
@@ -53,6 +54,13 @@ public class index_sectionProc extends HttpServlet {
 		
 		request.setAttribute("indto_arr", indto_arr);
 		request.setAttribute("is_index", is_index);
+		
+		// 추천숙소 용
+		String recommend_codes = "1,2,3,4,5,6,7,8"; // 추천 숙소 숙소코드 입력
+		request.setAttribute("recommend_codes", recommend_codes);
+		
+		ArrayList<IndexDTO> rec_idto_arr = indao.getIndexRecommend(recommend_codes);
+		request.setAttribute("rec_idto_arr", rec_idto_arr);
 
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=section.jsp");
 		rd.forward(request, response);

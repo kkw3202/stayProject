@@ -22,13 +22,13 @@
 		<input type="submit" value="검색"/>
 		<%-- 전체보기 버튼: 검색어나 내가 쓴 글보기 필터가 없을 때 활성화 표시 --%>
 		<input type="button" value="전체보기" onclick="location.href='inquiryListProc.do'" 
-			class="btn_search ${empty keyWord and searchType ne 'user_name' ? 'active' : ''}"/>
+			class="btn_search ${empty keyWord and searchType ne 'my_name' ? 'active' : ''}"/>
 
 		<%-- 관리자가 아니면서 일반회원인 경우에만 글쓰기/내가 쓴 글보기 버튼 보임 --%>
 		<c:if test="${sessionScope.user_email ne 'admin@naver.com' && not empty sessionScope.user_email}">
 			<input type="button" class="btn-write" onclick="location.href='index.jsp?section=board/inquiry/inquiryWriteForm.jsp'" value="글쓰기"/>
-			<input type="button" class="btn_all ${searchType eq 'user_name' ? 'active' : ''}" 
-				onclick="location.href='inquiryListProc.do?searchType=user_name'" value="내가 쓴 글보기"/>
+			<input type="button" class="btn_all ${searchType eq 'my_name' ? 'active' : ''}" 
+				onclick="location.href='inquiryListProc.do?searchType=my_name'" value="내가 쓴 글보기"/>
 		</c:if>
 	</form>
 	
@@ -132,20 +132,35 @@
 <script>
 	function pageBtn1(startPage,pageBlock){
 		let f = document.listForm;
-		let tmp = f.searchType.value;
+		let tmp = "";
+		if ("${searchType}" === "my_name") {
+			tmp = "my_name";
+		} else {
+			tmp = f.searchType.value;
+		}
 		let num = f.keyWord.value;
 		location.href="inquiryListProc.do?pageNum="+ (startPage-pageBlock)+ "&searchType="+ tmp + "&keyWord="+num;
 	}
 	function pageBtn2(i){
 		let f = document.listForm;
-		let tmp = f.searchType.value;
+		let tmp = "";
+		if ("${searchType}" === "my_name") {
+			tmp = "my_name";
+		} else {
+			tmp = f.searchType.value;
+		}
 		let num = f.keyWord.value;
 		location.href="inquiryListProc.do?pageNum="+ i+ "&searchType="+ tmp + "&keyWord="+num;
 		
 	}
 	function pageBtn3(startPage,pageBlock){
 		let f = document.listForm;
-		let tmp = f.searchType.value;
+		let tmp = "";
+		if ("${searchType}" === "my_name") {
+			tmp = "my_name";
+		} else {
+			tmp = f.searchType.value;
+		}
 		let num = f.keyWord.value;
 		location.href="inquiryListProc.do?pageNum="+ (startPage+pageBlock)+ "&searchType="+ tmp + "&keyWord="+num;
 	}

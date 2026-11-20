@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="style/acc_info.css">
 <link rel="stylesheet" href="style/acc_info_modal_legacy.css">
+
 <section>
 	<div class="contaier">
 		<c:set var="pdto" value="${pdto }"/>
@@ -24,7 +25,7 @@
 				<p class="acc_type">${pdto.acc_type }</p>
 				<p class="acc_name">${pdto.acc_name }</p>
 				<p class="acc_address">${pdto.acc_address }</p>
-				<p class="avg_rating">${pdto.avg_rating }</p>
+				<p class="avg_rating">${pdto.prt_avg_rating }</p>
 			</div>
 			<div class="right">
 				<button type="button" onclick="${empty sessionScope.user_email ? 'pleasJoin();' : 'location.href=\'wishListAddcon.do?acc_code=' += pdto.acc_code += '\''}"  class="wish_btn"></button> <!-- 찜 추가 버튼 -->
@@ -122,19 +123,10 @@
 		let wish_btn = document.querySelector(".wish_btn");
 		if(${is_wish==true}) wish_btn.classList.add("wished");
 		
-		let room_image_arr = document.querySelectorAll(".room_image");
-		let big_room_images = document.querySelectorAll(".big_room_images img");
-		room_image_arr.forEach((item)=>{
-			item.addEventListener('mouseenter', ()=>{
-				big_room_images.forEach((item2)=>{
-					item2.src = item.src;
-				});
-			});
-		});
-	
 		let modal_roomInfo = document.querySelectorAll(".modal_roomInfo");
 		let modal_background = document.querySelectorAll(".modal_background");
-		function show_modal(num){		
+		function show_modal(num){	
+			modal_focusImgChange(num);
 			let show_back = modal_background[num];
 			show_back.classList.add("is-open");
 			let show_room = modal_roomInfo[num];
@@ -152,6 +144,19 @@
 			alert("로그인 후 이용 가능합니다");
 			location.href="index.jsp?section=user/loginForm.jsp";
 		}
+		
+		function modal_focusImgChange(num){
+			let room_image_arr = document.querySelectorAll(".room_image");
+			let big_room_images = document.querySelectorAll(".big_room_images img");
+			room_image_arr.forEach((item)=>{
+				item.addEventListener('mouseenter', ()=>{
+					big_room_images[num].src = item.src;
+				});
+			});
+		}
+		
+		
+	
 
 	</script>
 </section>

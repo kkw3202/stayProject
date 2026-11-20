@@ -26,7 +26,7 @@ public class InquiryDAO {
 					+ "inner join user u "
 					+ "on i.user_code = u.user_code "
 					+ "where inq_chk_del=0 "
-					+ "order by inq_ref desc limit ?,?";
+					+ "order by i.inq_ref desc, i.inq_re_step asc limit ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, pageSize);
@@ -142,7 +142,7 @@ public class InquiryDAO {
 					+ "on i.user_code = u.user_code "
 					+ "where inq_chk_del=0  "
 					+ "and " + sType + " LIKE '%" + keyWord + "%'"
-					+ "order by inq_ref desc limit ?,?";
+					+ "order by i.inq_ref desc, i.inq_re_step asc limit ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, pageSize);
@@ -282,21 +282,21 @@ public class InquiryDAO {
 	}
 	
 	// 8. 내글만 게시글만 출력
-	public ArrayList<InquiryDTO> getInquiryMylistBoard(int startRow, int pageSize, String user_name){
+	public ArrayList<InquiryDTO> getInquiryMylistBoard(int startRow, int pageSize, String user_email){
 		ArrayList<InquiryDTO> i = new ArrayList<>();
 		try {
 			con = Util.getConnection();
 			// 쿼리문
 			String sql = "select i.inq_code, i.inq_title, u.user_name, i.inq_created_datetime, "
-					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del "
+					+ "i.inq_chk_status, i.inq_ref, i.inq_re_step, i.inq_content, i.inq_chk_del, u.user_email "
 					+ "from inquiry i "
 					+ "inner join user u "
 					+ "on i.user_code = u.user_code "
-					+ "where inq_chk_del=0  "
-					+ "and user_name = ? "
-					+ "order by inq_ref desc limit ?,?";
+					+ "where i.inq_chk_del = 0 "
+					+ "and u.user_email = ? "
+					+ "order by i.inq_ref desc, i.inq_re_step asc limit ?,?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, user_name);
+			pstmt.setString(1, user_email);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, pageSize);
 			rs = pstmt.executeQuery();
@@ -312,6 +312,7 @@ public class InquiryDAO {
 				idto.setInq_re_step(rs.getInt(7));
 				idto.setInq_content(rs.getString(8));
 				idto.setInq_chk_del(rs.getInt(9));
+				idto.setUser_email(rs.getString(10));
 				
 				// ArrayList에 데이터 추가
 				i.add(idto);
@@ -326,6 +327,34 @@ public class InquiryDAO {
 			}catch(Exception e) {e.printStackTrace();}
 		}
 		return i;
+	}
+	
+	// 8-2. 내가 쓴 글 총 개수 구하는 메서드
+	public int getInquiryMylistCount(String user_email) {
+		int count = 0;
+		try {
+			con = Util.getConnection();
+			String sql = "select count(*) "
+					+ "from inquiry i "
+					+ "inner join user u "
+					+ "on i.user_code = u.user_code "
+					+ "where i.inq_chk_del = 0 and u.user_email = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(con!=null) con.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return count;
 	}
 	
 	// 9. user_name 가져오는 메서드

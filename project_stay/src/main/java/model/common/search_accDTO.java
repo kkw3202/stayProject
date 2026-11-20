@@ -6,6 +6,7 @@ public class search_accDTO {
 	private String acc_name;
 	private String city_name;
 	private double avg_rating;
+	private String prt_avg_rating;
 	private int acc_code;
 	private int room_price;
 	private String prt_room_price;
@@ -94,6 +95,12 @@ public class search_accDTO {
 	}
 	public void setPrt_room_price(String prt_room_price) {
 		this.prt_room_price = prt_room_price;
+	}
+	public String getPrt_avg_rating() {
+		return prt_avg_rating;
+	}
+	public void setPrt_avg_rating(String prt_avg_rating) {
+		this.prt_avg_rating = prt_avg_rating;
 	}
 	
 	
