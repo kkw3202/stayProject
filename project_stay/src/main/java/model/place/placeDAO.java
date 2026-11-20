@@ -29,6 +29,8 @@ public class placeDAO {
 			dates = dhdao.getAllDay(book_checkin_date, book_checkout_date);
 		}
 		DecimalFormat de = new DecimalFormat("#,##0");
+		DecimalFormat de2 = new DecimalFormat("#.00");
+		
 		
 		try {
 			con = Util.getConnection();
@@ -104,7 +106,8 @@ public class placeDAO {
 				acdto.setAcc_type(rs.getString(2));
 				acdto.setAcc_name(rs.getString(3));
 				acdto.setCity_name(rs.getString(4));
-				acdto.setAvg_rating((rs.getDouble(5)));;
+				String prt_avg_rating = de2.format(rs.getDouble(5));
+				acdto.setPrt_avg_rating(prt_avg_rating);
 				acdto.setAcc_code(rs.getInt(6));
 				acdto.setPrt_room_price(de.format(rs.getInt(7)));
 				acdto.setCnt_reviews(rs.getInt(8));

@@ -67,6 +67,10 @@ public class loginProc extends HttpServlet {
 			request.setAttribute("msg", "로그인 성공");
 			request.setAttribute("loginSuccess", true);
 			
+			// 회원 부킹 상태 업데이트
+			int user_code = udao.getUser_code(email);
+			udao.updateMyBookingStatus(user_code);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp?section=user/loginForm.jsp");
 			rd.forward(request, response);
 			

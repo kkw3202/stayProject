@@ -12,6 +12,7 @@ public class IndexDTO {
 	private String city_img;
 	
 	private double avg_rev_rating;
+	private String prt_avg_rev_rating;
 	private String rev_content; 
 	private int count_rev_rating;
 	
@@ -96,6 +97,12 @@ public class IndexDTO {
 	}
 	public void setRev_created_datetime(String rev_created_datetime) {
 		this.rev_created_datetime = rev_created_datetime;
+	}
+	public String getPrt_avg_rev_rating() {
+		return prt_avg_rev_rating;
+	}
+	public void setPrt_avg_rev_rating(String prt_avg_rev_rating) {
+		this.prt_avg_rev_rating = prt_avg_rev_rating;
 	}
 	
 	

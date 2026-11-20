@@ -8,150 +8,33 @@
     <div class="section_top">
         <p>추천 숙소</p>
         <div class="group recommend">
-            <!-- 추천숙소 첫번째 행 -->
             <div class="rec_row">
-            	<!-- 첫번째 카드 -->
-            	<div class="rec_card">
-            		<a href="accInfoProc.do?acc_code=1&book_checkin_date=${defaultCheckinDate }&book_checkout_date=${defaultCheckoutDate }">
-		                <!-- 이미지 박스-->
-		                <div class="imgbox">
-		                    <img src="image/hotel/1.jpg" alt="추천숙소1"/>
-		                    <!-- 이미지 안에 배지(평점) -->
-		                    <div class="badgeLike_box">
-		                        <span class="badge_like">★4.9</span>
-		                    </div>
-		                </div>
-		                <!-- 숙소구분(호텔/모텔/펜션) -->
-		                <p class="acc_cate">호텔</p>
-		                <p class="acc_name">서울 한강뷰 호텔</p>
-		                <p class="acc_city">서울</p>
-            		</a>
-            	</div>
-            	<!-- 두번째 카드 -->
-            	<div class="rec_card">
-            		<a href="accInfoProc.do?acc_code=2&book_checkin_date=${defaultCheckinDate }&book_checkout_date=${defaultCheckoutDate }">
-		                <!-- 이미지 박스-->
-		                <div class="imgbox">
-		                    <img src="image/hotel/2.jpg" alt="추천숙소2"/>
-		                    <!-- 이미지 안에 배지(평점) -->
-		                    <div class="badgeLike_box">
-		                        <span class="badge_like">★4.9</span>
-		                    </div>
-		                </div>
-		                <!-- 숙소구분(호텔/모텔/펜션) -->
-		                <p class="acc_cate">호텔</p>
-		                <p class="acc_name">서울 시티스테이 호텔</p>
-		                <p class="acc_city">서울</p>
-            		</a>
-            	</div>
-            	<!-- 세번째 카드 -->
-            	<div class="rec_card">
-            		<a href="accInfoProc.do?acc_code=3&book_checkin_date=${defaultCheckinDate }&book_checkout_date=${defaultCheckoutDate }">
-		                <!-- 이미지 박스-->
-		                <div class="imgbox">
-		                    <img src="image/motel/3.jpg" alt="추천숙소3"/>
-		                    <!-- 이미지 안에 배지(평점) -->
-		                    <div class="badgeLike_box">
-		                        <span class="badge_like">★4.8</span>
-		                    </div>
-		                </div>
-		                <!-- 숙소구분(호텔/모텔/펜션) -->
-		                <p class="acc_cate">모텔</p>
-		                <p class="acc_name">서울 달빛 모텔</p>
-		                <p class="acc_city">서울</p>
-            		</a>
-            	</div>
-            	<!-- 네번째 카드 -->
-            	<div class="rec_card">
-            		<a href="accInfoProc.do?acc_code=4&book_checkin_date=${defaultCheckinDate }&book_checkout_date=${defaultCheckoutDate }">
-		                <!-- 이미지 박스-->
-		                <div class="imgbox">
-		                    <img src="image/hotel/3.jpg" alt="추천숙소4"/>
-		                    <!-- 이미지 안에 배지(평점) -->
-		                    <div class="badgeLike_box">
-		                        <span class="badge_like">★4.8</span>
-		                    </div>
-		                </div>
-		                <!-- 숙소구분(호텔/모텔/펜션) -->
-		                <p class="acc_cate">호텔</p>
-		                <p class="acc_name">부산 오션브리즈 호텔</p>
-		                <p class="acc_city">부산</p>
-            		</a>
-            	</div>
+            	<c:set value="${recommend_codes }" var="accCode"/>
+            	<c:set value="${rec_idto_arr }" var="rec_idto_arr"/>
+            	<c:forTokens items="${accCode }" delims="," varStatus="index_num" var="current_code">
+            		<div class="rec_card">
+	            		<a href="accInfoProc.do?acc_code=${current_code }&book_checkin_date=${defaultCheckinDate }&book_checkout_date=${defaultCheckoutDate }">
+			                <!-- 이미지 박스-->
+			                <div class="imgbox">
+			                    <img src="${rec_idto_arr[index_num.count-1].acc_img }" alt="추천숙소${index_num.count-1}"/>
+			                    <!-- 이미지 안에 배지(평점) -->
+			                    <div class="badgeLike_box">
+			                        <span class="badge_like">${rec_idto_arr[index_num.count-1].prt_avg_rev_rating }</span>
+			                    </div>
+			                </div>
+			                <!-- 숙소구분(호텔/모텔/펜션) -->
+			                <p class="acc_cate">${rec_idto_arr[index_num.count-1].acc_type }</p> <!-- 타입 -->
+			                <p class="acc_name">${rec_idto_arr[index_num.count-1].acc_name }</p>
+			                <p class="acc_city">${rec_idto_arr[index_num.count-1].city_name }</p>
+	            		</a>
+	            	</div>
+	            	<c:if test="${index_num.count == 4 }">
+				        </div>
+				        <div class="rec_row">
+	            	</c:if>
+            	</c:forTokens>
             </div>
-            <!-- 추천숙소 두번째 행 -->
-            <div class="rec_row">
-            	<!-- 다섯번째 카드 -->
-            	<div class="rec_card">
-            		<a href="accInfoProc.do?acc_code=5&book_checkin_date=${defaultCheckinDate }&book_checkout_date=${defaultCheckoutDate }">
-		                <!-- 이미지 박스-->
-		                <div class="imgbox">
-		                    <img src="image/hotel/4.jpg" alt="추천숙소5"/>
-		                    <!-- 이미지 안에 배지(평점) -->
-		                    <div class="badgeLike_box">
-		                        <span class="badge_like">★4.7</span>
-		                    </div>
-		                </div>
-		                <!-- 숙소구분(호텔/모텔/펜션) -->
-		                <p class="acc_cate">호텔</p>
-		                <p class="acc_name">부산 마린스카이 호텔</p>
-		                <p class="acc_city">부산</p>
-            		</a>
-            	</div>
-            	<!-- 여섯번째 카드 -->
-            	<div class="rec_card">
-            		<a href="accInfoProc.do?acc_code=6&book_checkin_date=${defaultCheckinDate }&book_checkout_date=${defaultCheckoutDate }">
-		                <!-- 이미지 박스-->
-		                <div class="imgbox">
-		                    <img src="image/hotel/2.jpg" alt="추천숙소6"/>
-		                    <!-- 이미지 안에 배지(평점) -->
-		                    <div class="badgeLike_box">
-		                        <span class="badge_like">★4.6</span>
-		                    </div>
-		                </div>
-		                <!-- 숙소구분(호텔/모텔/펜션) -->
-		                <p class="acc_cate">모텔</p>
-		                <p class="acc_name">부산 블루나잇 모텔</p>
-		                <p class="acc_city">부산</p>
-            		</a>
-            	</div>
-            	<!-- 일곱번째 카드 -->
-            	<div class="rec_card">
-            		<a href="accInfoProc.do?acc_code=7&book_checkin_date=${defaultCheckinDate }&book_checkout_date=${defaultCheckoutDate }">
-		                <!-- 이미지 박스-->
-		                <div class="imgbox">
-		                    <img src="image/hotel/5.jpg" alt="추천숙소7"/>
-		                    <!-- 이미지 안에 배지(평점) -->
-		                    <div class="badgeLike_box">
-		                        <span class="badge_like">★4.5</span>
-		                    </div>
-		                </div>
-		                <!-- 숙소구분(호텔/모텔/펜션) -->
-		                <p class="acc_cate">호텔</p>
-		                <p class="acc_name">제주 오름가든 호텔</p>
-		                <p class="acc_city">제주도</p>
-            		</a>
-            	</div>
-            	<!-- 여덟번째 카드 -->
-            	<div class="rec_card">
-            		<a href="accInfoProc.do?acc_code=8&book_checkin_date=${defaultCheckinDate }&book_checkout_date=${defaultCheckoutDate }">
-		                <!-- 이미지 박스-->
-		                <div class="imgbox">
-		                    <img src="image/pension/1.jpg" alt="추천숙소8"/>
-		                    <!-- 이미지 안에 배지(평점) -->
-		                    <div class="badgeLike_box">
-		                        <span class="badge_like">★4.4</span>
-		                    </div>
-		                </div>
-		                <!-- 숙소구분(호텔/모텔/펜션) -->
-		                <p class="acc_cate">펜션</p>
-		                <p class="acc_name">제주 바람결 펜션</p>
-		                <p class="acc_city">제주도</p>
-            		</a>
-            	</div>
-            </div>
-        </div>
-    </div>
+    	</div>
 
     <!-- 섹션(중) : 이달의 여행지 -> 클릭하면 "지역숙소 검색" 페이지 이동 -->
     <div class="section_middle">

@@ -76,7 +76,7 @@
 							<li class="acc_type">${sa_arr.acc_type }</li>
 							<li class="acc_name">${sa_arr.acc_name }</li>
 							<li class="city_name">${sa_arr.city_name }</li>
-							<li class="avg_rating">${sa_arr.avg_rating } <span>(${sa_arr.cnt_reviews }명)</span></li>
+							<li class="avg_rating">${sa_arr.prt_avg_rating } <span>(${sa_arr.cnt_reviews }명)</span></li>
 							
 							<li class="wish_btn">
 								<input type="hidden" value="${sa_arr.acc_code}" class="num_cnt">

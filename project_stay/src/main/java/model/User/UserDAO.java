@@ -337,6 +337,91 @@ public class UserDAO {
 
 	        return false;
 	    }
-	
-	
+	 // 본인이 로그인 했을때, 본인의 예약관리 상태를 업데이트 하는 함수
+	    // 만료일이 현재날짜보다 이전인 경우에, 상태를 2(기간만료) 로 바꾸는 함수
+	    public void updateMyBookingStatus(int user_code) {
+	    	
+	    	try {
+	    		con = Util.getConnection();
+	    		// sql문 작성
+	    		String sql = "update booking set book_chk_status = 2 "
+	    				+ "where user_code = ? and "
+	    				+ "book_chk_status = 3 and "
+	    				+ "book_cancel_date is null and "
+	    				+ "date(book_checkout_date) <= curdate()";
+	    		// pstmt 선언
+	    		pstmt = con.prepareStatement(sql);
+	    		// ?에 대입
+	    		pstmt.setInt(1, user_code);
+	    		// 실행
+	    		pstmt.executeUpdate();
+	    	}catch(Exception e) {
+	    		e.printStackTrace();
+	    	}finally {
+	    		try {
+	    			if(rs!=null) rs.close();
+	    			if(pstmt!=null) pstmt.close();
+	    			if(con!=null) con.close();
+	    		}catch(Exception e) {e.printStackTrace();}
+	    		
+	    	}
+		    
+	    }
+	    
+	    // 관리자 페이지에서, 예약만료에 버튼으로 사용할 함수 (모든 회원 기간만료 2로 바꾸는 함수)
+		public void updateAllBookingStatus() {
+		    	
+	    	try {
+	    		con = Util.getConnection();
+	    		// sql문 작성
+	    		String sql = "update booking set book_chk_status = 2 "
+	    				+ "where book_chk_status = 3 and "
+	    				+ "book_cancel_date is null and "
+	    				+ "date(book_checkout_date) <= curdate()";
+	    		// pstmt 선언
+	    		pstmt = con.prepareStatement(sql);
+	    		
+	    		// 실행
+	    		pstmt.executeUpdate();
+	    	}catch(Exception e) {
+	    		e.printStackTrace();
+	    	}finally {
+	    		try {
+	    			if(rs!=null) rs.close();
+	    			if(pstmt!=null) pstmt.close();
+	    			if(con!=null) con.close();
+	    		}catch(Exception e) {e.printStackTrace();}
+	    		
+	    	}
+	    }
+		// 회원 번호 가져오는 함수
+		public int getUser_code(String email) {
+			int user_code = 0;
+			try {
+	    		con = Util.getConnection();
+	    		// sql문 작성
+	    		String sql = "select user_code from user where user_email = ?";
+	    		// pstmt 선언
+	    		pstmt = con.prepareStatement(sql);
+	    		// ?에 대입
+	    		pstmt.setString(1, email);
+	    		// rs 선언
+	    		rs = pstmt.executeQuery();
+	    		// 실행
+	    		if(rs.next()) {
+	    			user_code = rs.getInt("user_code");
+	    		}
+	    	}catch(Exception e) {
+	    		e.printStackTrace();
+	    	}finally {
+	    		try {
+	    			if(rs!=null) rs.close();
+	    			if(pstmt!=null) pstmt.close();
+	    			if(con!=null) con.close();
+	    		}catch(Exception e) {e.printStackTrace();}
+	    		
+	    	}
+			return user_code;
+		}
+
 }

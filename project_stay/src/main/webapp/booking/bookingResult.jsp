@@ -32,7 +32,7 @@
 				</div>
 				<div class="about_price_info_wrap">
 					<p class="about_price_info book_number">${brdto.prt_room_price }원</p>
-					<p class="about_price_info book_name">${brdto.date_of_stay-1 }박 ${brdto.date_of_stay }일</p>
+					<p class="about_price_info book_name">${brdto.date_of_stay }박 ${brdto.date_of_stay+1 }일</p>
 					<p class="about_price_info book_checkin_date">${brdto.prt_total_price }원</p>
 				</div>
 			</div>

@@ -30,6 +30,8 @@ public class placeDTO {
 	private String room_img4;
 	
 	private double avg_rating;
+	private String prt_avg_rating;
+	
 	
 	
 	public int getCity_code() {
@@ -187,6 +189,12 @@ public class placeDTO {
 	}
 	public void setPrt_room_price(String prt_room_price) {
 		this.prt_room_price = prt_room_price;
+	}
+	public String getPrt_avg_rating() {
+		return prt_avg_rating;
+	}
+	public void setPrt_avg_rating(String prt_avg_rating) {
+		this.prt_avg_rating = prt_avg_rating;
 	}
 	
 	
